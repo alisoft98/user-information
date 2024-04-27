@@ -1,15 +1,9 @@
 import {
-  CdkConnectedOverlay,
-  CdkOverlayOrigin,
-  Overlay,
-  OverlayModule
-} from "./chunk-DLC6NERN.js";
-import {
   FormGroupDirective,
   NgControl,
   NgForm,
   Validators
-} from "./chunk-PD4VFDGZ.js";
+} from "./chunk-XU74HTOH.js";
 import {
   MAT_FORM_FIELD,
   MatError,
@@ -20,15 +14,21 @@ import {
   MatLabel,
   MatPrefix,
   MatSuffix
-} from "./chunk-NHFXPVTJ.js";
+} from "./chunk-TESJDNBM.js";
+import {
+  CdkConnectedOverlay,
+  CdkOverlayOrigin,
+  Overlay,
+  OverlayModule
+} from "./chunk-UFQFJL2T.js";
+import "./chunk-MKUB73T2.js";
 import {
   CdkScrollableModule,
   ViewportRuler
-} from "./chunk-NBFXAGLO.js";
-import "./chunk-IVMNEA4M.js";
+} from "./chunk-KLN5YCV2.js";
 import {
   SelectionModel
-} from "./chunk-4UNM75KX.js";
+} from "./chunk-VKJYD3E7.js";
 import {
   animate,
   animateChild,
@@ -37,7 +37,7 @@ import {
   style,
   transition,
   trigger
-} from "./chunk-LULIPSNA.js";
+} from "./chunk-SBUIKC4I.js";
 import {
   A,
   ActiveDescendantKeyManager,
@@ -62,11 +62,11 @@ import {
   addAriaReferencedId,
   hasModifierKey,
   removeAriaReferencedId
-} from "./chunk-2GNZ3I6L.js";
+} from "./chunk-NKG7CJFY.js";
 import {
   CommonModule,
   NgClass
-} from "./chunk-NKA73UXM.js";
+} from "./chunk-HWJ4ENZA.js";
 import {
   Attribute,
   ChangeDetectionStrategy,
@@ -128,7 +128,7 @@ import {
   ɵɵtext,
   ɵɵtextInterpolate,
   ɵɵviewQuery
-} from "./chunk-JV32O5OZ.js";
+} from "./chunk-BAMEL5WE.js";
 import {
   defer,
   merge
@@ -144,7 +144,7 @@ import {
   take,
   takeUntil
 } from "./chunk-PQ7O3X3G.js";
-import "./chunk-PZQZAEDH.js";
+import "./chunk-X6JV76XL.js";
 
 // node_modules/@angular/material/fesm2022/select.mjs
 var _c0 = ["trigger"];
@@ -380,9 +380,10 @@ var _MatSelect = class _MatSelect {
   set errorState(value) {
     this._errorStateTracker.errorState = value;
   }
-  constructor(_viewportRuler, _changeDetectorRef, _unusedNgZone, defaultErrorStateMatcher, _elementRef, _dir, parentForm, parentFormGroup, _parentFormField, ngControl, tabIndex, scrollStrategyFactory, _liveAnnouncer, _defaultOptions) {
+  constructor(_viewportRuler, _changeDetectorRef, _ngZone, defaultErrorStateMatcher, _elementRef, _dir, parentForm, parentFormGroup, _parentFormField, ngControl, tabIndex, scrollStrategyFactory, _liveAnnouncer, _defaultOptions) {
     this._viewportRuler = _viewportRuler;
     this._changeDetectorRef = _changeDetectorRef;
+    this._ngZone = _ngZone;
     this._elementRef = _elementRef;
     this._dir = _dir;
     this._parentFormField = _parentFormField;
@@ -435,13 +436,12 @@ var _MatSelect = class _MatSelect {
     this.disableOptionCentering = this._defaultOptions?.disableOptionCentering ?? false;
     this.ariaLabel = "";
     this.panelWidth = this._defaultOptions && typeof this._defaultOptions.panelWidth !== "undefined" ? this._defaultOptions.panelWidth : "auto";
-    this._initialized = new Subject();
     this.optionSelectionChanges = defer(() => {
       const options = this.options;
       if (options) {
         return options.changes.pipe(startWith(options), switchMap(() => merge(...options.map((option) => option.onSelectionChange))));
       }
-      return this._initialized.pipe(switchMap(() => this.optionSelectionChanges));
+      return this._ngZone.onStable.pipe(take(1), switchMap(() => this.optionSelectionChanges));
     });
     this.openedChange = new EventEmitter();
     this._openedStream = this.openedChange.pipe(filter((o) => o), map(() => {
@@ -481,8 +481,6 @@ var _MatSelect = class _MatSelect {
     });
   }
   ngAfterContentInit() {
-    this._initialized.next();
-    this._initialized.complete();
     this._initKeyManager();
     this._selectionModel.changed.pipe(takeUntil(this._destroy)).subscribe((event) => {
       event.added.forEach((option) => option.select());

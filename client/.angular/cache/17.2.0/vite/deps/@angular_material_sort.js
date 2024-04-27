@@ -7,7 +7,7 @@ import {
   style,
   transition,
   trigger
-} from "./chunk-LULIPSNA.js";
+} from "./chunk-SBUIKC4I.js";
 import {
   AnimationCurves,
   AnimationDurations,
@@ -16,8 +16,8 @@ import {
   FocusMonitor,
   MatCommonModule,
   SPACE
-} from "./chunk-2GNZ3I6L.js";
-import "./chunk-NKA73UXM.js";
+} from "./chunk-NKG7CJFY.js";
+import "./chunk-HWJ4ENZA.js";
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -62,7 +62,7 @@ import {
   ɵɵresetView,
   ɵɵrestoreView,
   ɵɵtemplate
-} from "./chunk-JV32O5OZ.js";
+} from "./chunk-BAMEL5WE.js";
 import {
   merge
 } from "./chunk-SG3BCSKH.js";
@@ -71,7 +71,7 @@ import {
   ReplaySubject,
   Subject
 } from "./chunk-PQ7O3X3G.js";
-import "./chunk-PZQZAEDH.js";
+import "./chunk-X6JV76XL.js";
 
 // node_modules/@angular/material/fesm2022/sort.mjs
 var _c0 = ["mat-sort-header", ""];
@@ -460,9 +460,6 @@ var _MatSortHeader = class _MatSortHeader {
     this._focusMonitor.stopMonitoring(this._elementRef);
     this._sort.deregister(this);
     this._rerenderSubscription.unsubscribe();
-    if (this._sortButton) {
-      this._ariaDescriber?.removeDescription(this._sortButton, this._sortActionDescription);
-    }
   }
   /**
    * Sets the "hint" state such that the arrow will be semi-transparently displayed as a hint to the

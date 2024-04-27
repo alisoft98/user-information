@@ -2,17 +2,17 @@ import {
   CdkPortalOutlet,
   PortalModule,
   TemplatePortal
-} from "./chunk-IVMNEA4M.js";
+} from "./chunk-MKUB73T2.js";
 import {
   UniqueSelectionDispatcher
-} from "./chunk-4UNM75KX.js";
+} from "./chunk-VKJYD3E7.js";
 import {
   animate,
   state,
   style,
   transition,
   trigger
-} from "./chunk-LULIPSNA.js";
+} from "./chunk-SBUIKC4I.js";
 import {
   ENTER,
   FocusKeyManager,
@@ -20,10 +20,10 @@ import {
   MatCommonModule,
   SPACE,
   hasModifierKey
-} from "./chunk-2GNZ3I6L.js";
+} from "./chunk-NKG7CJFY.js";
 import {
   DOCUMENT
-} from "./chunk-NKA73UXM.js";
+} from "./chunk-HWJ4ENZA.js";
 import {
   ANIMATION_MODULE_TYPE,
   Attribute,
@@ -83,7 +83,7 @@ import {
   ɵɵstyleProp,
   ɵɵtemplate,
   ɵɵviewQuery
-} from "./chunk-JV32O5OZ.js";
+} from "./chunk-BAMEL5WE.js";
 import {
   merge
 } from "./chunk-SG3BCSKH.js";
@@ -92,11 +92,12 @@ import {
   EMPTY,
   Subject,
   Subscription,
+  distinctUntilChanged,
   filter,
   startWith,
   take
 } from "./chunk-PQ7O3X3G.js";
-import "./chunk-PZQZAEDH.js";
+import "./chunk-X6JV76XL.js";
 
 // node_modules/@angular/cdk/fesm2022/accordion.mjs
 var nextId$1 = 0;
@@ -456,9 +457,20 @@ var _MatExpansionPanel = class _MatExpansionPanel extends CdkAccordionItem {
     this.afterCollapse = new EventEmitter();
     this._inputChanges = new Subject();
     this._headerId = `mat-expansion-panel-header-${uniqueId++}`;
+    this._bodyAnimationDone = new Subject();
     this.accordion = accordion;
     this._document = _document;
-    this._animationsDisabled = _animationMode === "NoopAnimations";
+    this._bodyAnimationDone.pipe(distinctUntilChanged((x, y) => {
+      return x.fromState === y.fromState && x.toState === y.toState;
+    })).subscribe((event) => {
+      if (event.fromState !== "void") {
+        if (event.toState === "expanded") {
+          this.afterExpand.emit();
+        } else if (event.toState === "collapsed") {
+          this.afterCollapse.emit();
+        }
+      }
+    });
     if (defaultOptions) {
       this.hideToggle = defaultOptions.hideToggle;
     }
@@ -498,6 +510,7 @@ var _MatExpansionPanel = class _MatExpansionPanel extends CdkAccordionItem {
   }
   ngOnDestroy() {
     super.ngOnDestroy();
+    this._bodyAnimationDone.complete();
     this._inputChanges.complete();
   }
   /** Checks whether the expansion panel's content contains the currently-focused element. */
@@ -508,25 +521,6 @@ var _MatExpansionPanel = class _MatExpansionPanel extends CdkAccordionItem {
       return focusedElement === bodyElement || bodyElement.contains(focusedElement);
     }
     return false;
-  }
-  /** Called when the expansion animation has started. */
-  _animationStarted(event) {
-    if (!isInitialAnimation(event) && !this._animationsDisabled && this._body) {
-      this._body?.nativeElement.setAttribute("inert", "");
-    }
-  }
-  /** Called when the expansion animation has finished. */
-  _animationDone(event) {
-    if (!isInitialAnimation(event)) {
-      if (event.toState === "expanded") {
-        this.afterExpand.emit();
-      } else if (event.toState === "collapsed") {
-        this.afterCollapse.emit();
-      }
-      if (!this._animationsDisabled && this._body) {
-        this._body.nativeElement.removeAttribute("inert");
-      }
-    }
   }
 };
 _MatExpansionPanel.ɵfac = function MatExpansionPanel_Factory(t) {
@@ -557,7 +551,7 @@ _MatExpansionPanel.ɵcmp = ɵɵdefineComponent({
   hostVars: 6,
   hostBindings: function MatExpansionPanel_HostBindings(rf, ctx) {
     if (rf & 2) {
-      ɵɵclassProp("mat-expanded", ctx.expanded)("_mat-animation-noopable", ctx._animationsDisabled)("mat-expansion-panel-spacing", ctx._hasSpacing());
+      ɵɵclassProp("mat-expanded", ctx.expanded)("_mat-animation-noopable", ctx._animationMode === "NoopAnimations")("mat-expansion-panel-spacing", ctx._hasSpacing());
     }
   },
   inputs: {
@@ -591,10 +585,8 @@ _MatExpansionPanel.ɵcmp = ɵɵdefineComponent({
       ɵɵprojectionDef(_c1);
       ɵɵprojection(0);
       ɵɵelementStart(1, "div", 0, 1);
-      ɵɵlistener("@bodyExpansion.start", function MatExpansionPanel_Template_div_animation_bodyExpansion_start_1_listener($event) {
-        return ctx._animationStarted($event);
-      })("@bodyExpansion.done", function MatExpansionPanel_Template_div_animation_bodyExpansion_done_1_listener($event) {
-        return ctx._animationDone($event);
+      ɵɵlistener("@bodyExpansion.done", function MatExpansionPanel_Template_div_animation_bodyExpansion_done_1_listener($event) {
+        return ctx._bodyAnimationDone.next($event);
       });
       ɵɵelementStart(3, "div", 2);
       ɵɵprojection(4, 1);
@@ -644,12 +636,12 @@ var MatExpansionPanel = _MatExpansionPanel;
       host: {
         "class": "mat-expansion-panel",
         "[class.mat-expanded]": "expanded",
-        "[class._mat-animation-noopable]": "_animationsDisabled",
+        "[class._mat-animation-noopable]": '_animationMode === "NoopAnimations"',
         "[class.mat-expansion-panel-spacing]": "_hasSpacing()"
       },
       standalone: true,
       imports: [CdkPortalOutlet],
-      template: '<ng-content select="mat-expansion-panel-header"></ng-content>\n<div class="mat-expansion-panel-content"\n     role="region"\n     [@bodyExpansion]="_getExpandedState()"\n     (@bodyExpansion.start)="_animationStarted($event)"\n     (@bodyExpansion.done)="_animationDone($event)"\n     [attr.aria-labelledby]="_headerId"\n     [id]="id"\n     #body>\n  <div class="mat-expansion-panel-body">\n    <ng-content></ng-content>\n    <ng-template [cdkPortalOutlet]="_portal"></ng-template>\n  </div>\n  <ng-content select="mat-action-row"></ng-content>\n</div>\n',
+      template: '<ng-content select="mat-expansion-panel-header"></ng-content>\n<div class="mat-expansion-panel-content"\n     role="region"\n     [@bodyExpansion]="_getExpandedState()"\n     (@bodyExpansion.done)="_bodyAnimationDone.next($event)"\n     [attr.aria-labelledby]="_headerId"\n     [id]="id"\n     #body>\n  <div class="mat-expansion-panel-body">\n    <ng-content></ng-content>\n    <ng-template [cdkPortalOutlet]="_portal"></ng-template>\n  </div>\n  <ng-content select="mat-action-row"></ng-content>\n</div>\n',
       styles: ['.mat-expansion-panel{box-sizing:content-box;display:block;margin:0;overflow:hidden;transition:margin 225ms cubic-bezier(0.4, 0, 0.2, 1),box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);position:relative;background:var(--mat-expansion-container-background-color);color:var(--mat-expansion-container-text-color);border-radius:var(--mat-expansion-container-shape)}.mat-expansion-panel:not([class*=mat-elevation-z]){box-shadow:0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12)}.mat-accordion .mat-expansion-panel:not(.mat-expanded),.mat-accordion .mat-expansion-panel:not(.mat-expansion-panel-spacing){border-radius:0}.mat-accordion .mat-expansion-panel:first-of-type{border-top-right-radius:var(--mat-expansion-container-shape);border-top-left-radius:var(--mat-expansion-container-shape)}.mat-accordion .mat-expansion-panel:last-of-type{border-bottom-right-radius:var(--mat-expansion-container-shape);border-bottom-left-radius:var(--mat-expansion-container-shape)}.cdk-high-contrast-active .mat-expansion-panel{outline:solid 1px}.mat-expansion-panel.ng-animate-disabled,.ng-animate-disabled .mat-expansion-panel,.mat-expansion-panel._mat-animation-noopable{transition:none}.mat-expansion-panel-content{display:flex;flex-direction:column;overflow:visible;font-family:var(--mat-expansion-container-text-font);font-size:var(--mat-expansion-container-text-size);font-weight:var(--mat-expansion-container-text-weight);line-height:var(--mat-expansion-container-text-line-height);letter-spacing:var(--mat-expansion-container-text-tracking)}.mat-expansion-panel-content[style*="visibility: hidden"] *{visibility:hidden !important}.mat-expansion-panel-body{padding:0 24px 16px}.mat-expansion-panel-spacing{margin:16px 0}.mat-accordion>.mat-expansion-panel-spacing:first-child,.mat-accordion>*:first-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing{margin-top:0}.mat-accordion>.mat-expansion-panel-spacing:last-child,.mat-accordion>*:last-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing{margin-bottom:0}.mat-action-row{border-top-style:solid;border-top-width:1px;display:flex;flex-direction:row;justify-content:flex-end;padding:16px 8px 16px 24px;border-top-color:var(--mat-expansion-actions-divider-color)}.mat-action-row .mat-button-base,.mat-action-row .mat-mdc-button-base{margin-left:8px}[dir=rtl] .mat-action-row .mat-button-base,[dir=rtl] .mat-action-row .mat-mdc-button-base{margin-left:0;margin-right:8px}']
     }]
   }], () => [{
@@ -716,9 +708,6 @@ var MatExpansionPanel = _MatExpansionPanel;
     }]
   });
 })();
-function isInitialAnimation(event) {
-  return event.fromState === "void";
-}
 var _MatExpansionPanelActionRow = class _MatExpansionPanelActionRow {
 };
 _MatExpansionPanelActionRow.ɵfac = function MatExpansionPanelActionRow_Factory(t) {

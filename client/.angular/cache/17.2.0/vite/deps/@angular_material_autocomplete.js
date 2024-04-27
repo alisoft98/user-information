@@ -1,23 +1,23 @@
 import {
-  Overlay,
-  OverlayConfig,
-  OverlayModule
-} from "./chunk-DLC6NERN.js";
-import {
   NG_VALUE_ACCESSOR
-} from "./chunk-PD4VFDGZ.js";
+} from "./chunk-XU74HTOH.js";
 import {
   MAT_FORM_FIELD,
   MatFormField
-} from "./chunk-NHFXPVTJ.js";
+} from "./chunk-TESJDNBM.js";
+import {
+  Overlay,
+  OverlayConfig,
+  OverlayModule
+} from "./chunk-UFQFJL2T.js";
+import {
+  TemplatePortal
+} from "./chunk-MKUB73T2.js";
 import {
   CdkScrollableModule,
   ViewportRuler
-} from "./chunk-NBFXAGLO.js";
-import {
-  TemplatePortal
-} from "./chunk-IVMNEA4M.js";
-import "./chunk-4UNM75KX.js";
+} from "./chunk-KLN5YCV2.js";
+import "./chunk-VKJYD3E7.js";
 import {
   animate,
   group,
@@ -25,7 +25,7 @@ import {
   style,
   transition,
   trigger
-} from "./chunk-LULIPSNA.js";
+} from "./chunk-SBUIKC4I.js";
 import {
   ActiveDescendantKeyManager,
   DOWN_ARROW,
@@ -49,12 +49,12 @@ import {
   coerceStringArray,
   hasModifierKey,
   removeAriaReferencedId
-} from "./chunk-2GNZ3I6L.js";
+} from "./chunk-NKG7CJFY.js";
 import {
   CommonModule,
   DOCUMENT,
   NgClass
-} from "./chunk-NKA73UXM.js";
+} from "./chunk-HWJ4ENZA.js";
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -105,7 +105,7 @@ import {
   ɵɵrestoreView,
   ɵɵtemplate,
   ɵɵviewQuery
-} from "./chunk-JV32O5OZ.js";
+} from "./chunk-BAMEL5WE.js";
 import {
   defer,
   fromEvent,
@@ -124,7 +124,7 @@ import {
   take,
   tap
 } from "./chunk-PQ7O3X3G.js";
-import "./chunk-PZQZAEDH.js";
+import "./chunk-X6JV76XL.js";
 
 // node_modules/@angular/material/fesm2022/autocomplete.mjs
 var _c0 = ["panel"];
@@ -385,7 +385,7 @@ _MatAutocomplete.ɵcmp = ɵɵdefineComponent({
     }
   },
   dependencies: [NgClass],
-  styles: ["div.mat-mdc-autocomplete-panel{width:100%;max-height:256px;visibility:hidden;transform-origin:center top;overflow:auto;padding:8px 0;box-sizing:border-box;position:static;border-radius:var(--mat-autocomplete-container-shape);box-shadow:var(--mat-autocomplete-container-elevation-shadow);background-color:var(--mat-autocomplete-background-color)}.cdk-high-contrast-active div.mat-mdc-autocomplete-panel{outline:solid 1px}.cdk-overlay-pane:not(.mat-mdc-autocomplete-panel-above) div.mat-mdc-autocomplete-panel{border-top-left-radius:0;border-top-right-radius:0}.mat-mdc-autocomplete-panel-above div.mat-mdc-autocomplete-panel{border-bottom-left-radius:0;border-bottom-right-radius:0;transform-origin:center bottom}div.mat-mdc-autocomplete-panel.mat-mdc-autocomplete-visible{visibility:visible}div.mat-mdc-autocomplete-panel.mat-mdc-autocomplete-hidden{visibility:hidden;pointer-events:none}mat-autocomplete{display:none}"],
+  styles: ["div.mat-mdc-autocomplete-panel{width:100%;max-height:256px;visibility:hidden;transform-origin:center top;overflow:auto;padding:8px 0;box-sizing:border-box;position:static;border-radius:var(--mat-autocomplete-container-shape);box-shadow:var(--mat-autocomplete-container-elevation-shadow);background-color:var(--mat-autocomplete-background-color)}.cdk-high-contrast-active div.mat-mdc-autocomplete-panel{outline:solid 1px}.cdk-overlay-pane:not(.mat-mdc-autocomplete-panel-above) div.mat-mdc-autocomplete-panel{border-top-left-radius:0;border-top-right-radius:0}.mat-mdc-autocomplete-panel-above div.mat-mdc-autocomplete-panel{border-bottom-left-radius:0;border-bottom-right-radius:0;transform-origin:center bottom}div.mat-mdc-autocomplete-panel.mat-mdc-autocomplete-visible{visibility:visible}div.mat-mdc-autocomplete-panel.mat-mdc-autocomplete-hidden{visibility:hidden}mat-autocomplete{display:none}"],
   encapsulation: 2,
   data: {
     animation: [panelAnimation]
@@ -426,7 +426,7 @@ var MatAutocomplete = _MatAutocomplete;
   </div>
 </ng-template>
 `,
-      styles: ["div.mat-mdc-autocomplete-panel{width:100%;max-height:256px;visibility:hidden;transform-origin:center top;overflow:auto;padding:8px 0;box-sizing:border-box;position:static;border-radius:var(--mat-autocomplete-container-shape);box-shadow:var(--mat-autocomplete-container-elevation-shadow);background-color:var(--mat-autocomplete-background-color)}.cdk-high-contrast-active div.mat-mdc-autocomplete-panel{outline:solid 1px}.cdk-overlay-pane:not(.mat-mdc-autocomplete-panel-above) div.mat-mdc-autocomplete-panel{border-top-left-radius:0;border-top-right-radius:0}.mat-mdc-autocomplete-panel-above div.mat-mdc-autocomplete-panel{border-bottom-left-radius:0;border-bottom-right-radius:0;transform-origin:center bottom}div.mat-mdc-autocomplete-panel.mat-mdc-autocomplete-visible{visibility:visible}div.mat-mdc-autocomplete-panel.mat-mdc-autocomplete-hidden{visibility:hidden;pointer-events:none}mat-autocomplete{display:none}"]
+      styles: ["div.mat-mdc-autocomplete-panel{width:100%;max-height:256px;visibility:hidden;transform-origin:center top;overflow:auto;padding:8px 0;box-sizing:border-box;position:static;border-radius:var(--mat-autocomplete-container-shape);box-shadow:var(--mat-autocomplete-container-elevation-shadow);background-color:var(--mat-autocomplete-background-color)}.cdk-high-contrast-active div.mat-mdc-autocomplete-panel{outline:solid 1px}.cdk-overlay-pane:not(.mat-mdc-autocomplete-panel-above) div.mat-mdc-autocomplete-panel{border-top-left-radius:0;border-top-right-radius:0}.mat-mdc-autocomplete-panel-above div.mat-mdc-autocomplete-panel{border-bottom-left-radius:0;border-bottom-right-radius:0;transform-origin:center bottom}div.mat-mdc-autocomplete-panel.mat-mdc-autocomplete-visible{visibility:visible}div.mat-mdc-autocomplete-panel.mat-mdc-autocomplete-hidden{visibility:hidden}mat-autocomplete{display:none}"]
     }]
   }], () => [{
     type: ChangeDetectorRef
@@ -656,7 +656,12 @@ var _MatAutocompleteTrigger = class _MatAutocompleteTrigger {
   }
   /** Opens the autocomplete suggestion panel. */
   openPanel() {
-    this._openPanelInternal();
+    this._attachOverlay();
+    this._floatLabel();
+    if (this._trackedModal) {
+      const panelId = this.autocomplete.id;
+      addAriaReferencedId(this._trackedModal, "aria-owns", panelId);
+    }
   }
   /** Closes the autocomplete suggestion panel. */
   closePanel() {
@@ -745,7 +750,6 @@ var _MatAutocompleteTrigger = class _MatAutocompleteTrigger {
     if (keyCode === ESCAPE && !hasModifier) {
       event.preventDefault();
     }
-    this._valueOnLastKeydown = this._element.nativeElement.value;
     if (this.activeOption && keyCode === ENTER && this.panelOpen && !hasModifier) {
       this.activeOption._selectViaInteraction();
       this._resetActiveItem();
@@ -756,13 +760,13 @@ var _MatAutocompleteTrigger = class _MatAutocompleteTrigger {
       if (keyCode === TAB || isArrowKey && !hasModifier && this.panelOpen) {
         this.autocomplete._keyManager.onKeydown(event);
       } else if (isArrowKey && this._canOpen()) {
-        this._openPanelInternal(this._valueOnLastKeydown);
+        this.openPanel();
       }
       if (isArrowKey || this.autocomplete._keyManager.activeItem !== prevActiveItem) {
         this._scrollToOption(this.autocomplete._keyManager.activeItemIndex || 0);
         if (this.autocomplete.autoSelectActiveOption && this.activeOption) {
           if (!this._pendingAutoselectedOption) {
-            this._valueBeforeAutoSelection = this._valueOnLastKeydown;
+            this._valueBeforeAutoSelection = this._element.nativeElement.value;
           }
           this._pendingAutoselectedOption = this.activeOption;
           this._assignOptionValue(this.activeOption.value);
@@ -787,16 +791,14 @@ var _MatAutocompleteTrigger = class _MatAutocompleteTrigger {
       } else if (this.panelOpen && !this.autocomplete.requireSelection) {
         const selectedOption = this.autocomplete.options?.find((option) => option.selected);
         if (selectedOption) {
-          const display = this._getDisplayValue(selectedOption.value);
+          const display = this.autocomplete.displayWith?.(selectedOption) ?? selectedOption.value;
           if (value !== display) {
             selectedOption.deselect(false);
           }
         }
       }
       if (this._canOpen() && this._document.activeElement === event.target) {
-        const valueOnAttach = this._valueOnLastKeydown ?? this._element.nativeElement.value;
-        this._valueOnLastKeydown = null;
-        this._openPanelInternal(valueOnAttach);
+        this.openPanel();
       }
     }
   }
@@ -805,13 +807,13 @@ var _MatAutocompleteTrigger = class _MatAutocompleteTrigger {
       this._canOpenOnNextFocus = true;
     } else if (this._canOpen()) {
       this._previousValue = this._element.nativeElement.value;
-      this._attachOverlay(this._previousValue);
+      this._attachOverlay();
       this._floatLabel(true);
     }
   }
   _handleClick() {
     if (this._canOpen() && !this.panelOpen) {
-      this._openPanelInternal();
+      this.openPanel();
     }
   }
   /**
@@ -892,13 +894,8 @@ var _MatAutocompleteTrigger = class _MatAutocompleteTrigger {
       this._overlayRef = null;
     }
   }
-  /** Given a value, returns the string that should be shown within the input. */
-  _getDisplayValue(value) {
-    const autocomplete = this.autocomplete;
-    return autocomplete && autocomplete.displayWith ? autocomplete.displayWith(value) : value;
-  }
   _assignOptionValue(value) {
-    const toDisplay = this._getDisplayValue(value);
+    const toDisplay = this.autocomplete && this.autocomplete.displayWith ? this.autocomplete.displayWith(value) : value;
     if (value == null) {
       this._clearPreviousSelectedOption(null, false);
     }
@@ -947,15 +944,7 @@ var _MatAutocompleteTrigger = class _MatAutocompleteTrigger {
       }
     });
   }
-  _openPanelInternal(valueOnAttach = this._element.nativeElement.value) {
-    this._attachOverlay(valueOnAttach);
-    this._floatLabel();
-    if (this._trackedModal) {
-      const panelId = this.autocomplete.id;
-      addAriaReferencedId(this._trackedModal, "aria-owns", panelId);
-    }
-  }
-  _attachOverlay(valueOnAttach) {
+  _attachOverlay() {
     if (!this.autocomplete && (typeof ngDevMode === "undefined" || ngDevMode)) {
       throw getMatAutocompleteMissingPanelError();
     }
@@ -981,8 +970,7 @@ var _MatAutocompleteTrigger = class _MatAutocompleteTrigger {
     }
     if (overlayRef && !overlayRef.hasAttached()) {
       overlayRef.attach(this._portal);
-      this._valueOnAttach = valueOnAttach;
-      this._valueOnLastKeydown = null;
+      this._valueOnAttach = this._element.nativeElement.value;
       this._closingActionsSubscription = this._subscribeToClosingActions();
     }
     const wasOpen = this.panelOpen;
