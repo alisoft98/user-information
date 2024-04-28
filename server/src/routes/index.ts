@@ -1,6 +1,6 @@
 import  express from 'express';
-import ResponseError from '../modules/error/response_error';
 import publicRoute from './public';
+import ResponseError from '../modules/error/response_error';
 
 const router = express.Router();
 
@@ -11,7 +11,6 @@ router.get('/', function (req, res, next) {
                     <h3>Find Api docs Here :</h3>
                     <h3><a>/v1/api-docs</a></h3>`)
   })
-  
 
 /* Forbidden Page. */
 router.get('/v1', function (req, res, next ) {

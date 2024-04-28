@@ -1,7 +1,7 @@
-import { NextFunction, Request, Response } from 'express'
-import ResponseError from '../modules/error/response_error'
-import { isObject } from 'lodash'
-import multer from 'multer'
+import multer from 'multer';
+import { isObject } from 'lodash';
+import { NextFunction, Request, Response } from 'express';
+import ResponseError from '../modules/error/response_error';
 
 function generateErrorResponseError(e: Error, code: Number) {
   return isObject(e.message) ? e.message : { code, message: e.message }

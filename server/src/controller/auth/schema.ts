@@ -14,7 +14,7 @@ const register = yup.object().shape({
 
 const login = yup.object()
     .shape({
-        userName: yup.string().required('username is required'),
+        username: yup.string().required('username is required'),
         password: yup.string().required('password is required'),
     }).required();
 

@@ -14,7 +14,6 @@ export class AuthService {
   constructor(private httpClient: HttpClient) {
   }
 
-
   signIn(userData: User): Observable<User> {
     return this.httpClient.post<User>(`${this.apiEndPoint}/auth/sign-in`, userData)
   }

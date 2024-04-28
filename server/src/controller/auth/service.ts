@@ -1,13 +1,14 @@
-import ResponseError from "../../modules/error/response_error";
+
+import { Request } from 'express';
+import schemaAuth from "./schema";
 import { getUserByPassword } from "../../bin/db";
 import useValidation from "../../helper/use_validation";
-import schemaAuth from "./schema";
-
+import ResponseError from "../../modules/error/response_error";
 
 class AuthService {
-    public static async signIn(formData: any) {
+    public static async signIn(req: Request, formData: any) {
         const checkValidation = useValidation(schemaAuth.login, formData);
-        const userData = await getUserByPassword(checkValidation.userName, checkValidation.password);
+        const userData = await getUserByPassword(checkValidation.username, checkValidation.password);
         if (!userData) {
             throw new ResponseError.BadRequest('incorrect email or passwrod');
         }
