@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { User, Users } from '../../models/user';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MatCardModule } from '@angular/material/card';
-import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { AuthService } from '../../services/auth.service';
-import { CookieOptions, CookieService } from 'ngx-cookie-service';
+import { MatInputModule } from '@angular/material/input';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -24,15 +23,18 @@ import { ToastrService } from 'ngx-toastr';
     MatFormFieldModule],
   styleUrl: './login.component.scss'
 })
-export class LoginComponent implements OnInit {
-
+export class LoginComponent {
+  title: string = "Angular";
+  labelUserName: string = "UserName";
+  labelPassword: string = "password";
   matcher = new ErrorStateMatcher();
   form!: FormGroup;
 
+
   constructor(
     private router: Router,
-    private service: AuthService,
-    private toastr: ToastrService,
+    public service: AuthService,
+    public toastr: ToastrService,
     private cookieService: CookieService) {
 
   }
@@ -48,9 +50,9 @@ export class LoginComponent implements OnInit {
     this.createForm();
   }
 
-  onSubmit(userData: User) {
-    if (userData) {
-      this.service.signIn(userData).subscribe((res: any) => {
+  onSubmit() {
+    if (this.form.value) {
+      this.service.signIn(this.form.value).subscribe((res: any) => {
         const dataCookie = res.data
         if (res.code == 200) {
           this.cookieService.set('authorized', dataCookie)
@@ -58,9 +60,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/user-info'])
           console.log(res);
         } else {
-          this.toastr.success('incorrect email or password!');
-
-          
+          this.toastr.success('incorrect email or password!')
         }
       })
     }
