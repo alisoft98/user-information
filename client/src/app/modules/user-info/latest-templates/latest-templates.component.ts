@@ -18,29 +18,38 @@ export class LatestTemplatesComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort | any;
 
   latestTemplates: any;
-  displayedColumns: string[] = ['id', 'name', 'templateType', 'creationDate', 'updateDate', 'status', 'details'];
+  displayedColumns: string[] = [
+    'id',
+    'name',
+    'templateType',
+    'creationDate',
+    'updateDate',
+    'status',
+    'details',
+  ];
   dataSource: any;
   columnsToDisplay = ['name', 'weight', 'symbol', 'position'];
   expandedElement: any | null;
 
   constructor(
     private http: HttpClient,
-    protected dialog: MatDialog,
-    ) {}
-  
+    protected dialog: MatDialog
+  ) {}
+
   ngOnInit(): void {
-    this.http.get("http://localhost:8080/v1/latestTemplates?userId=36834").subscribe((res: any) => {
-      if(res.data) {
-        this.latestTemplates = res.data;
-        this.dataSource = new MatTableDataSource(this.latestTemplates);
-        this.dataSource.sort = this.sort;
-      }
-    })
+    this.http
+      .get('http://localhost:8080/v1/latestTemplates?userId=36834')
+      .subscribe((res: any) => {
+        if (res.data) {
+          this.latestTemplates = res.data;
+          this.dataSource = new MatTableDataSource(this.latestTemplates);
+          this.dataSource.sort = this.sort;
+        }
+      });
   }
 
   /** Announce the change in sort state for assistive technology. */
-  announceSortChange(sortState: Sort) {
-  }
+  announceSortChange(sortState: Sort) {}
 
   getFormattedDate(date: string) {
     return moment(date).format('YYYY-MM-DD h:mm:ss a');
@@ -50,19 +59,15 @@ export class LatestTemplatesComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.disableClose = true;
-    dialogConfig.width = "50%";
+    dialogConfig.width = '50%';
     dialogConfig.hasBackdrop = true;
     dialogConfig.data = row;
     dialogConfig.panelClass = 'custom-dialog-container';
-    this.dialog.open(LatestTemplatesDetailsComponent, dialogConfig).afterClosed().subscribe(data => {
-      // this.service.showDeliveryMessage.next(false)
-    });
+    this.dialog
+      .open(LatestTemplatesDetailsComponent, dialogConfig)
+      .afterClosed()
+      .subscribe(data => {
+        // this.service.showDeliveryMessage.next(false)
+      });
   }
-
-
-
-
-
-
-
 }

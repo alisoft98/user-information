@@ -14,34 +14,34 @@ import { UserRole } from '../../../shared/models/userInfo';
   standalone: true,
   imports: [MatTableModule, MatSortModule],
 })
-
 export class UserRolesComponent implements OnInit {
-
   userRoles!: UserRole[];
   dataSource: any;
-  displayedColumns: string[] =
-    ['roleName', 'branchName', 'schoolName', 'assignmentDate', 'updateDate'];
+  displayedColumns: string[] = [
+    'roleName',
+    'branchName',
+    'schoolName',
+    'assignmentDate',
+    'updateDate',
+  ];
 
   @ViewChild(MatSort) sort: MatSort | any;
   @Input() userId: number | undefined;
 
-  constructor(private userService: UserInfoService) { }
+  constructor(private userService: UserInfoService) {}
 
   ngOnInit(): void {
     this.userService.userRoles.subscribe(data => {
-      if(data){
+      if (data) {
         this.userRoles = data;
         this.dataSource = new MatTableDataSource(this.userRoles);
         this.dataSource.sort = this.sort;
       }
-    })
+    });
   }
 
-  announceSortChange(sortState: Sort) {
-  }
+  announceSortChange(sortState: Sort) {}
   getFormattedDate(date: string) {
     return moment(date).format('YYYY-MM-DD h:mm:ss a');
   }
 }
-
-

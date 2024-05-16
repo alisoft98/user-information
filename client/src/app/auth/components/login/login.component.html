@@ -1,34 +1,50 @@
 <mat-card>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="container">
-        <div class="beed_icon">
-            <img img-testing="logo" src="../../../../assets/images/icons/beed.png" width="200px" alt="">
-            <h2 data-testing="login-text" class="login-text">login</h2>
-        </div>
-        <mat-form-field data-testing="username"  appearance="outline">
-            <mat-label>{{labelUserName}}</mat-label>
-            <input type="userName" matInput [errorStateMatcher]="matcher" formControlName="username" placeholder="UserName">
-            @if (userName?.hasError('userName') && !userName?.hasError('required')) {
-            <mat-error>Please enter a valid userName address</mat-error>
-            }
-            @if (userName?.hasError('required')) {
-            <mat-error>UserName is <strong>required</strong></mat-error>
-            }
-        </mat-form-field>
-        <mat-form-field appearance="outline" class="mt-2">
-            <mat-label>{{labelPassword}}</mat-label>
-            <input type="Password" matInput [errorStateMatcher]="matcher" formControlName="password"
-                placeholder="Password">
-            @if (password?.hasError('password') && !password?.hasError('required')) {
-            <mat-error>Please enter a valid password address</mat-error>
-            }
-            @if (password?.hasError('required')) {
-            <mat-error>password is <strong>required</strong></mat-error>
-            }
-        </mat-form-field>
-        <button data-testid="login-button" mat-raised-button color="primary" type="submit" [disabled]="!form.valid">
-            Login
-        </button>
-        
-    </form>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="container">
+    <div class="beed_icon">
+      <img
+        img-testing="logo"
+        src="../../../../assets/images/icons/beed.png"
+        width="200px"
+        alt="" />
+      <h2 data-testing="login-text" class="login-text">login</h2>
+    </div>
+    <mat-form-field data-testing="username" appearance="outline">
+      <mat-label>{{ labelUserName }}</mat-label>
+      <input
+        type="userName"
+        matInput
+        [errorStateMatcher]="matcher"
+        formControlName="username"
+        placeholder="UserName" />
+      @if (userName?.hasError('userName') && !userName?.hasError('required')) {
+        <mat-error>Please enter a valid userName address</mat-error>
+      }
+      @if (userName?.hasError('required')) {
+        <mat-error>UserName is <strong>required</strong></mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="mt-2">
+      <mat-label>{{ labelPassword }}</mat-label>
+      <input
+        type="Password"
+        matInput
+        [errorStateMatcher]="matcher"
+        formControlName="password"
+        placeholder="Password" />
+      @if (password?.hasError('password') && !password?.hasError('required')) {
+        <mat-error>Please enter a valid password address</mat-error>
+      }
+      @if (password?.hasError('required')) {
+        <mat-error>password is <strong>required</strong></mat-error>
+      }
+    </mat-form-field>
+    <button
+      data-testid="login-button"
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="!form.valid">
+      Login
+    </button>
+  </form>
 </mat-card>
-

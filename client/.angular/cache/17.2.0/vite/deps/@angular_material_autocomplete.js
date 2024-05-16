@@ -1,23 +1,16 @@
 import {
   MAT_FORM_FIELD,
   MatFormField
-} from "./chunk-TESJDNBM.js";
+} from "./chunk-2X3KUE5C.js";
 import {
   NG_VALUE_ACCESSOR
-} from "./chunk-XU74HTOH.js";
+} from "./chunk-44O7A66R.js";
 import {
   Overlay,
   OverlayConfig,
-  OverlayModule
-} from "./chunk-UFQFJL2T.js";
-import {
+  OverlayModule,
   TemplatePortal
-} from "./chunk-MKUB73T2.js";
-import {
-  CdkScrollableModule,
-  ViewportRuler
-} from "./chunk-KLN5YCV2.js";
-import "./chunk-VKJYD3E7.js";
+} from "./chunk-D5636FH6.js";
 import {
   animate,
   group,
@@ -25,13 +18,12 @@ import {
   style,
   transition,
   trigger
-} from "./chunk-SBUIKC4I.js";
+} from "./chunk-FPIYKXFY.js";
 import {
-  ActiveDescendantKeyManager,
-  DOWN_ARROW,
-  Directionality,
-  ENTER,
-  ESCAPE,
+  CdkScrollableModule,
+  ViewportRuler
+} from "./chunk-XMACMNAD.js";
+import {
   MAT_OPTGROUP,
   MAT_OPTION_PARENT_COMPONENT,
   MatCommonModule,
@@ -39,22 +31,29 @@ import {
   MatOption,
   MatOptionModule,
   MatOptionSelectionChange,
+  _countGroupLabelsBeforeOption,
+  _getOptionScrollPosition
+} from "./chunk-DKRMIBKS.js";
+import {
+  ActiveDescendantKeyManager,
+  DOWN_ARROW,
+  Directionality,
+  ENTER,
+  ESCAPE,
   Platform,
   TAB,
   UP_ARROW,
-  _countGroupLabelsBeforeOption,
   _getEventTarget,
-  _getOptionScrollPosition,
   addAriaReferencedId,
   coerceStringArray,
   hasModifierKey,
   removeAriaReferencedId
-} from "./chunk-NKG7CJFY.js";
+} from "./chunk-775PIYIU.js";
 import {
   CommonModule,
   DOCUMENT,
   NgClass
-} from "./chunk-HWJ4ENZA.js";
+} from "./chunk-ED6ESSXY.js";
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -105,13 +104,13 @@ import {
   ɵɵrestoreView,
   ɵɵtemplate,
   ɵɵviewQuery
-} from "./chunk-BAMEL5WE.js";
+} from "./chunk-UGF5OYXD.js";
+import "./chunk-UKEHM6V6.js";
 import {
   defer,
   fromEvent,
   merge
-} from "./chunk-SG3BCSKH.js";
-import "./chunk-SAVXX6OM.js";
+} from "./chunk-V2DXGMIT.js";
 import {
   Subject,
   Subscription,
@@ -123,8 +122,7 @@ import {
   switchMap,
   take,
   tap
-} from "./chunk-PQ7O3X3G.js";
-import "./chunk-X6JV76XL.js";
+} from "./chunk-ZDOIMVJD.js";
 
 // node_modules/@angular/material/fesm2022/autocomplete.mjs
 var _c0 = ["panel"];

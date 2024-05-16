@@ -1,6 +1,12 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, OnInit, inject } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,9 +16,15 @@ import { MyErrorStateMatcher } from '../../shared/input-validation/input-validat
 import { UserInfo } from '../../shared/models/userInfo';
 import { UserInfoService } from '../../shared/services/user-info.service';
 import moment from 'moment';
+
 import { UserRolesComponent } from './user-roles/user-roles.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { LatestTemplatesComponent } from './latest-templates/latest-templates.component';
+import { ButtonComponent } from '../../shared/button/button.component';
+import { ChipComponent } from '../../shared/chip/chip.component';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { CanCopyToClipboardDirective } from '../../shared/directives/can-copy-to-clipboard/can-copy-to-clipboard.directive';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-user-info',
@@ -29,58 +41,79 @@ import { LatestTemplatesComponent } from './latest-templates/latest-templates.co
     ReactiveFormsModule,
     UserRolesComponent,
     MatExpansionModule,
-    LatestTemplatesComponent
-
+    LatestTemplatesComponent,
+    ButtonComponent,
+    ChipComponent,
+    NgFor,
+    CanCopyToClipboardDirective,
+    AsyncPipe,
+    NgIf,
+    RouterLink
   ],
   animations: [
     trigger('fadeIn', [
       transition(':enter', [
-        style({ transform: 'translateY(-20%)' }),
-        animate('900ms ease', style({ transform: 'translateY(0)' })),
+        style({
+          transform: 'translateY(-20%)',
+        }),
+        animate(
+          '900ms ease',
+          style({
+            transform: 'translateY(0)',
+          })
+        ),
       ]),
     ]),
-  ]
+  ],
 })
 export class UserInfoComponent implements OnInit {
   value = 'Clear me';
-  form!: FormGroup
+  form!: FormGroup;
   matcher = new MyErrorStateMatcher();
-  userInfo!: UserInfo
+  userInfo!: UserInfo;
   stateOfElement: any;
   isShowUserRoleTable = false;
   isShowLastThemDC = false;
   panelOpenState = false;
+  loading = true;
+
+
+  tags = ['Angular', 'Angular CDK', 'Angular Forms'];
 
   titleInfo = [
-    'LMS ID', 'External ID', 'Name', 'Surname',
-    'Middle_name', 'Gender', 'Birthday', 'Address',
-    'Activation_date', 'Activated', 'Email'
-  ]
-
+    'LMS ID',
+    'External ID',
+    'Name',
+    'Surname',
+    'Middle_name',
+    'Gender',
+    'Birthday',
+    'Address',
+    'Activation_date',
+    'Activated',
+    'Email',
+  ];
 
   createForm() {
     this.form = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email])
-    })
+      email: new FormControl('', [Validators.required, Validators.email]),
+    });
   }
-  constructor(public userInfoService: UserInfoService) {
-  }
+  constructor(public userInfoService: UserInfoService) { }
 
   ngOnInit(): void {
     this.createForm();
-
   }
 
   onSubmit(email: string) {
     if (email) {
       this.userInfoService.getDataByEmail(email).subscribe((res: any) => {
-        this.stateOfElement = true
+        this.stateOfElement = true;
         this.userInfo = res.data[0];
         if (this.userInfo) {
           this.userInfoService.getUserRoles(this.userInfo.id);
         }
-
-      })
+      });
     }
   }
 
@@ -93,7 +126,10 @@ export class UserInfoComponent implements OnInit {
   }
 
   clearValue() {
-    window.location.reload()
+    window.location.reload();
   }
 
+  onRemove(e: ChipComponent<string>) {
+    alert(`Removed Chip: ${e.value}`);
+  }
 }

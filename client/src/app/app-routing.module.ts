@@ -3,29 +3,54 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/components/login/login.component';
 import { authGuard } from './auth/guards/auth.guard';
+import { CustomTabComponent } from './shared/custom-tab/custom-tab.component';
 
 const routes: Routes = [
   {
-    path:'login',
-    component:LoginComponent
+    path: 'login',
+    component: LoginComponent,
   },
   {
-    path: '', component: AppComponent,
+    path: '',
+    component: AppComponent,
     children: [
       {
-        path: 'support',
-        loadChildren: () => import('./modules/modules.module')
-          .then(d => d.ModulesModule),
-          canActivate:[authGuard]
+        component: CustomTabComponent,
+
+        path: 'demo/:entityId',
+        data: {
+          title: 'Demo',
+          description: 'Some component'
+        },
       },
-      { path: '', redirectTo: 'support', pathMatch: 'full' },
-      { path: '**', redirectTo: 'support' },
-    ]
-  }
+      {
+        path: ':userId',
+        loadComponent: () => import('./modules/user-profile/user-profile.component')
+          .then(c => c.UserProfileComponent)
+      }
+      // {
+      //   path: 'support',
+      //   loadChildren: () =>
+      //     import('./modules/modules.module').then(d => d.ModulesModule),
+      //   canActivate: [authGuard],
+      // },
+      // {
+      //   path: '',
+      //   redirectTo: 'support',
+      //   pathMatch: 'full',
+      // },
+      // {
+      //   path: '**',
+      //   redirectTo: 'support',
+      // },
+    ],
+  },
+
+
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }

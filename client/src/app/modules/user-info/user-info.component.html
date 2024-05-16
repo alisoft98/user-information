@@ -1,7 +1,6 @@
 <div class="container">
   <div class="logo mt-4">
-    <img src="../../../../assets/images/icons/beed.png" width="100" alt="">
-
+    <img src="../../../../assets/images/icons/beed.png" width="100" alt="" />
   </div>
   <!-- INPUT_SEARCH -->
   <div class="search_input">
@@ -9,72 +8,72 @@
       <h3 class="pt-3">Please enter a user email</h3>
       <mat-form-field appearance="outline" class="search" style="-webkit-text-fill-color: white">
         <mat-label>Email</mat-label>
-        <input type="email" matInput formControlName="email" [errorStateMatcher]="matcher">
+        <input type="email" matInput formControlName="email" [errorStateMatcher]="matcher" />
         @if (email?.hasError('email') && !email?.hasError('required')) {
         <mat-error>Please enter a valid email address</mat-error>
         }
+
         @if (email?.hasError('required')) {
         <mat-error>Email is <strong>required</strong></mat-error>
         }
-        @if(email?.value) {
-        <button matSuffix mat-icon-button  type="button" (click)="clearValue()">
+        @if (email?.value) {
+        <button matSuffix mat-icon-button type="button" (click)="clearValue()">
           <mat-icon class="text-blue-600">close</mat-icon>
         </button>
         }
         <button matSuffix mat-icon-button class="btn_search" type="submit">
           <mat-icon class="text-blue-600">search</mat-icon>
         </button>
-
-
       </mat-form-field>
     </form>
     @if (userInfo) {
-
     <div [@fadeIn] class="btn_show-role">
-      <button mat-flat-button color="primary" (click)="isShowUserRoleTable =true">User Roles</button>
-
-      <button mat-flat-button color="primary" (click)="isShowLastThemDC = true"
-        [hidden]="!userInfoService.isEducator.value">Last Edited Documents</button>
+      <button dfButton [loading]="loading" [hidden]="!userInfoService.isEducator.value"
+        (click)="isShowUserRoleTable = true">
+        User Roles
+      </button>
+      <button dfButton [loading]="loading" [hidden]="!userInfoService.isEducator.value"
+        (click)="isShowLastThemDC = true">
+        Last Edited Documents
+      </button>
     </div>
-
     }
   </div>
 
-  @if(userInfo){
+  @if (userInfo) {
   <div class="register_right m-4" [@fadeIn]>
     <!-- USER_DETAIL -->
     <div class="m-3">
       <span>LMS ID:</span>
-      <span>{{userInfo.id}}</span>
+      <span>{{ userInfo.id }}</span>
     </div>
-    <div class="m-3 ">
+    <div class="m-3">
       <span>External ID:</span>
-      <span>{{userInfo.external_id}}</span>
+      <span>{{ userInfo.external_id }}</span>
     </div>
     <div class="m-3">
       <span>Name:</span>
-      <span>{{userInfo.name}}</span>
+      <span>{{ userInfo.name }}</span>
     </div>
     <div class="m-3">
       <span>Surname:</span>
-      <span>{{userInfo.surname}}</span>
+      <span>{{ userInfo.surname }}</span>
     </div>
     <div class="m-3">
       <span>Middle_name:</span>
-      <span>{{userInfo.middle_name}}</span>
+      <span>{{ userInfo.middle_name }}</span>
     </div>
     <div class="m-3">
       <span>Gender:</span>
-      <span>{{userInfo.gender}}</span>
+      <span>{{ userInfo.gender }}</span>
     </div>
     <div class="m-3">
       <span>Birthday:</span>
       <span>{{ getFormattedDate(userInfo.birthday) }}</span>
-
     </div>
     <div class="m-3">
       <span>Address:</span>
-      <span>{{userInfo.address}}</span>
+      <span>{{ userInfo.address }}</span>
     </div>
     <div class="m-3">
       <span>Activation_date:</span>
@@ -82,33 +81,30 @@
     </div>
     <div class="m-3">
       <span>Activated:</span>
-      @if(userInfo.activated === 0){
+      @if (userInfo.activated === 0) {
       <span>false</span>
-      }@else if(userInfo.activated === 1){
+      } @else if (userInfo.activated === 1) {
       <span>true</span>
       }
     </div>
-    <div class="m-3 ">
+    <div class="m-3">
       <span>Email:</span>
-      <span>{{userInfo.email}}</span>
+      <span>{{ userInfo.email }}</span>
     </div>
-
   </div>
   }
 </div>
 
 <!-- Show UserGridRole Table -->
-@if(isShowUserRoleTable){
+@if (isShowUserRoleTable) {
 <div class="table_info">
   <mat-accordion class="example-headers-align">
     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
       <mat-expansion-panel-header>
-        <mat-panel-title>
-          User Roles
-        </mat-panel-title>
+        <mat-panel-title> User Roles </mat-panel-title>
         <mat-panel-description>
-          @if(userInfo){
-          <span>Email : {{userInfo.email}}</span>
+          @if (userInfo) {
+          <span>Email : {{ userInfo.email }}</span>
           }
         </mat-panel-description>
       </mat-expansion-panel-header>
@@ -121,7 +117,7 @@
 }
 
 <!-- Show LastTemplateDC Table -->
-@if(isShowLastThemDC){
+@if (isShowLastThemDC) {
 <div class="table_info">
   <app-latest-templates />
 </div>

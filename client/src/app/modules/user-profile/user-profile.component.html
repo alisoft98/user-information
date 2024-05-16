@@ -1,0 +1,6 @@
+<main>
+    @if (profile$ | async; as profile) {
+    <h1>{{profile.name}}</h1>
+    <app-custom-tab [data]="profile" />
+    }
+</main>

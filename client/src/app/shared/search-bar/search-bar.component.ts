@@ -1,4 +1,10 @@
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+} from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -13,34 +19,36 @@ import { Observable, startWith, map } from 'rxjs';
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
   styleUrl: './search-bar.component.scss',
-  
+
   animations: [
     trigger('showHide', [
-      state('show', style({
-        width: '300px',
-      })),
-      state('hide', style({
-        width: '0px',
-      })),
-      transition('show => hide', [
-        animate('0.2s')
-      ]),
-      transition('hide => show', [
-        animate('0.2s')
-      ])
-    ])
+      state(
+        'show',
+        style({
+          width: '300px',
+        })
+      ),
+      state(
+        'hide',
+        style({
+          width: '0px',
+        })
+      ),
+      transition('show => hide', [animate('0.2s')]),
+      transition('hide => show', [animate('0.2s')]),
+    ]),
   ],
 })
 export class SearchBarComponent {
-
   show: boolean;
   searchControl: FormControl;
   options: string[];
   filteredOptions!: Observable<string[]>;
-  @ViewChild('searchbar') searchbar!: ElementRef;
+  @ViewChild('searchbar')
+  searchbar!: ElementRef;
   searchText = '';
   toggleSearch: boolean = false;
-  
+
   ngOnInit() {
     this.filteredOptions = this.searchControl.valueChanges.pipe(
       startWith(''),
@@ -56,7 +64,9 @@ export class SearchBarComponent {
 
   _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+    return this.options.filter(
+      option => option.toLowerCase().indexOf(filterValue) === 0
+    );
   }
 
   isOpen() {
@@ -74,5 +84,4 @@ export class SearchBarComponent {
   clear() {
     this.searchControl.setValue('');
   }
-
 }

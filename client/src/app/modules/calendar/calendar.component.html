@@ -1,0 +1,64 @@
+<div>
+    <div>
+      {{ displayMonth }}
+    </div>
+    <div>
+      <input type="button" (click)="setCurrentMonth()" value="today" />
+      <input type="button" (click)="decreaseMonth()" value="-" />
+      <input type="button" (click)="increaseMonth()" value="+" />
+    </div>
+  </div>
+  <div cdkDropListGroup>
+  <table class="calendar-table">
+    <thead>
+      <tr>
+        @for (weekDay of weekDayNames; track $index) {
+          <th>{{ weekDay }}</th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of calendar | chunk: 7; let i = index">
+        <td
+          class="calendar-day"
+          [ngClass]="{ 'past-date': c.isPastDate, today: c.isToday }"
+          *ngFor="let c of row; let j = index"
+          (click)="getValueOfRow(row, c)"
+          cdkDropList
+          [cdkDropListData]="c.dataList"
+          (cdkDropListDropped)="drop($event)"
+          (cdkDragEnded)="dragEnded()"
+        >
+          <div
+            class="calendar-day-header"
+            [ngClass]="{ 'blue-date': c.isToday }"
+          
+          >
+            <strong>{{ c.date.getDate() }} </strong>
+  
+            <strong
+              *ngIf="c.isToday || (i == 0 && j == 0) || c.date.getDate() == 1"
+            >
+              {{ monthNames[c.date.getMonth()] }}
+            </strong>
+            @if (c.dataList[0]?.title) {
+              <div class="content-schedule" cdkDrag>
+                <p>
+                  <strong>{{ c.dataList[0]?.title }}</strong>
+                </p>
+                <p>
+                  <strong>{{ c.dataList[0]?.describe }}</strong>
+                </p>
+                <p
+                  class="priority"
+                  [style.background-color]="c.dataList[0]?.selectedColor"
+                ></p>
+              </div>
+            }
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  
