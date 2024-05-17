@@ -1,15 +1,17 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
-import { NavItemsService } from '../../services/nav-items.service';
-import { NavItem, Submneu } from '../../../shared/models/nav-items';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatMenu, MatMenuModule } from '@angular/material/menu';
+import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { NavItem } from '../../../shared/models/nav-items';
+import { NavItemsService } from '../../services/nav-items.service';
+import { groupBy } from 'lodash';
 
 @Component({
   selector: 'app-header',
@@ -24,18 +26,20 @@ import { CommonModule } from '@angular/common';
     MatSidenavModule,
     MatListModule,
     RouterOutlet,
+    MatButtonModule,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent implements OnInit {
   menuItem: NavItem[] = [];
-  subMenus: Submneu[] = [];
   title = 'material-responsive-sidenav';
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
   isMobile = true;
   isCollapsed = true;
+  groupedData: any = {};
+  menuMap: { [key: string]: MatMenu } = {};
 
   constructor(
     private navService: NavItemsService,
@@ -54,52 +58,32 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+
   getNavItems() {
     this.navService.getNavItems().subscribe({
       next: (res: any) => {
-        this.menuItem = res.data;
-        console.log('✅✅result menuItem', res);
+        this.groupedData = this.groupByMenu(res.data, 'menu_name');
+        console.log('✅', this.groupedData);
       },
       error: e => console.error(e),
       complete: () => {},
     });
   }
-
   stopPropagation(event: Event) {
     event.stopPropagation();
   }
 
-  getSubMenuItems(parentNavId: number) {
-    this.navService.getSubmenuItems(parentNavId).subscribe({
-      next: (res: any) => {
-        const getStoreItem = localStorage.getItem('storeUser');
-        const getItem = JSON.parse(getStoreItem || '{}');
-        if (res) {
-          if (res.data[0].permission === getItem.user?.role) {
-            this.subMenus = res.data;
-            console.log('✅result subMenus', res);
-          }
-          // res.subMenu?.find((sub) => sub.permission == getItem.user.role)
-        }
-      },
-      error: err => {
-        console.log(err);
-      },
-      complete: () => {
-        console.log('complete');
-      },
-    });
+  groupByMenu(data: any[], key: string) {
+    return groupBy(data, key);
   }
 
-  navigateUrl() {
-    const getUrl = this.subMenus.find(u => u.url);
-    this.router.navigate([getUrl?.url]);
+  getMenuNames() {
+    return Object.keys(this.groupedData);
   }
 
   toggleMenu() {
     if (this.isMobile) {
       this.sidenav.toggle();
-      debugger;
       this.isCollapsed = false; // On mobile, the menu can never be collapsed
     } else {
       this.sidenav.open(); // On desktop/tablet, the menu can never be fully closed

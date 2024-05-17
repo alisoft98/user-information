@@ -4,9 +4,9 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
   <mat-dialog-content class="mat-typography">
     <div class="section">
-      <mat-form-field class="example-form-field" appearance="outline">
+      <mat-form-field  appearance="outline">
         <mat-label>Add title</mat-label>
-        <input matInput type="text" formControlName="title" />
+        <input matInput type="text" formControlName="event_title" />
         @if (value) {
           <button
             matSuffix
@@ -28,12 +28,12 @@
         <div>
           <!-- SELECTED COLOR -->
           <mat-form-field class="choose-color">
-            <mat-select formControlName="selectedColor">
+            <mat-select formControlName="color">
               @for (c of dataColor; track c) {
                 <mat-option [value]="c.color">
-                  <div
+                  <span
                     class="color-circle"
-                    [style.background-color]="c.color"></div>
+                    [style.background-color]="c.color">{{c.color}}</span>
                 </mat-option>
               }
             </mat-select>
@@ -49,7 +49,7 @@
         <textarea
           matInput
           placeholder="Ex. It makes me feel..."
-          formControlName="describe"></textarea>
+          formControlName="event_description"></textarea>
       </mat-form-field>
     </div>
     <button
@@ -65,7 +65,6 @@
     <button
       mat-button
       [mat-dialog-close]="true"
-      cdkFocusInitial
       type="submit"
       [disabled]="!form.valid">
       Save

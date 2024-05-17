@@ -23,6 +23,7 @@ import {
   DragDropModule,
 } from '@angular/cdk/drag-drop';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const ANGULR_MATERIAL_MODULES = [
   MatAutocompleteModule,
@@ -47,6 +48,7 @@ const ANGULR_MATERIAL_MODULES = [
   MatFormFieldModule,
   MatInputModule,
   FormsModule,
+  MatTooltipModule,
   MatButtonModule,
   MatDialogModule,
   ReactiveFormsModule,

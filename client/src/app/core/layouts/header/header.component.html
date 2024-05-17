@@ -1,51 +1,3 @@
-<!-- <mat-toolbar color="primary">
-  <button mat-icon-button aria-label="Menu icon" (click)="toggleMenu()">
-    <mat-icon>menu</mat-icon>
-  </button>
-</mat-toolbar>
-<mat-sidenav-container autosize>
-  <mat-sidenav
-    [ngClass]="!isCollapsed ? 'expanded' : ''"
-    [mode]="isMobile ? 'over' : 'side'"
-    [opened]="isMobile ? 'false' : 'true'">
-    @for (item of menuItem; track item.id) {
-    <mat-nav-list>
-        <a mat-list-item (click)="getSubMenuItems(item.id)">
-          <span class="entry">
-            <mat-icon>house</mat-icon>
-            @if (!isCollapsed) {
-              {{ item.title }}
-            }
-          </span>
-        </a>
-      </mat-nav-list>
-    }
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container> -->
-
-<!-- @for (item of menuItem; track item.id) {
-  <div class="parent_menu">
-    <button
-      mat-button
-      [matMenuTriggerFor]="animals"
-      (click)="getSubMenuItems(item.id)"
-      [routerLink]="item.path">
-      {{ item.title }}
-    </button>
-  </div>
-
-  <mat-menu #animals="matMenu">
-    @for (sub of subMenus; track sub.id) {
-      <a (click)="navigateUrl()">
-        <button mat-menu-item>{{ sub.name }}</button>
-      </a>
-    }
-  </mat-menu>
-} -->
-
 <mat-toolbar color="primary">
   <button mat-icon-button aria-label="Menu icon" (click)="toggleMenu()">
     <mat-icon>menu</mat-icon>
@@ -55,29 +7,27 @@
   <mat-sidenav
     [ngClass]="!isCollapsed ? 'expanded' : ''"
     [mode]="isMobile ? 'over' : 'side'"
-    [opened]="isMobile ? 'false' : 'true'">
+    [opened]="!isMobile">
     <mat-nav-list>
-      @for (item of menuItem; track item.id) {
-        <a mat-list-item (click)="getSubMenuItems(item.id)">
-          <span class="entry">
-            <mat-icon>house</mat-icon>
-            {{ item.title }}
-          </span>
-        </a>
-        <!-- Submenu container -->
-        @if(subMenus){
-        <div class="submenu">
-          @for (child of subMenus; track child) {
-            <a mat-list-item>
-              {{ child.name }}
-            </a>
+      @for (menuName of getMenuNames(); track $index) {
+        <button mat-menu-item [matMenuTriggerFor]="submenu">
+          {{ menuName }}
+        </button>
+        <mat-menu #submenu="matMenu">
+          @if (groupedData[menuName]) {
+            @for (item of groupedData[menuName]; track $index) {
+              <button mat-menu-item>
+                <a mat-list-item [routerLink]="item.url">
+                  {{ item.submenu_name }}
+                </a>
+              </button>
+            }
           }
-        </div>
+        </mat-menu>
       }
-    }
-
     </mat-nav-list>
   </mat-sidenav>
+
   <mat-sidenav-content>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

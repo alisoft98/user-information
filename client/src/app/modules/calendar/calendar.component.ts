@@ -1,30 +1,17 @@
-import { CommonModule, AsyncPipe } from '@angular/common';
+import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { Calendar } from '../../shared/models/calendar';
+import { CalendarDay } from './classes/calnder-day';
 import { DialogCalendarComponent } from './dialog-calendar/dialog-calendar.component';
-import { ChunkPipe } from '../../shared/pipes/chunk.pipe';
-import {
-  CdkDrag,
-  CdkDragDrop,
-  CdkDragHandle,
-  CdkDropList,
-  CdkDropListGroup,
-  DragDropModule,
-  moveItemInArray,
-  transferArrayItem,
-} from '@angular/cdk/drag-drop';
-import { MatMenuModule } from '@angular/material/menu';
-import { SharedModule } from '../../shared/shared.module';
-import { CalendarDay } from './calnder-day';
-
+import { CalendarService } from './services/calendar.service';
+import { ICalendar } from './models/calendar.interface';
 
 @Component({
   selector: 'app-calendar',
   standalone: false,
   templateUrl: './calendar.component.html',
-  styleUrl: './calendar.component.scss'
+  styleUrl: './calendar.component.scss',
 })
 export class CalendarComponent {
   calendar: CalendarDay[] = [];
@@ -55,8 +42,12 @@ export class CalendarComponent {
   private monthIndex: number = 0;
   day!: Date;
   isSelected!: boolean;
+  dataEvent: ICalendar[] = [];
 
-  constructor(private matDialog: MatDialog) {}
+  constructor(
+    private matDialog: MatDialog,
+    private calendarService: CalendarService
+  ) {}
 
   ngOnInit(): void {
     this.generateCalendarDays(this.monthIndex);
@@ -67,7 +58,7 @@ export class CalendarComponent {
 
     // we set the date
     this.day = new Date(
-      new Date().setMonth(new Date().getMonth() + monthIndex),
+      new Date().setMonth(new Date().getMonth() + monthIndex)
     );
 
     //set the display month for UI
@@ -95,7 +86,7 @@ export class CalendarComponent {
     if (startingDateOfCalendar.getDay() != 1) {
       do {
         startingDateOfCalendar = new Date(
-          startingDateOfCalendar.setDate(startingDateOfCalendar.getDate() - 1),
+          startingDateOfCalendar.setDate(startingDateOfCalendar.getDate() - 1)
         );
       } while (startingDateOfCalendar.getDay() != 1);
     }
@@ -125,11 +116,15 @@ export class CalendarComponent {
         width: '500px',
         data: { data: c.dataList },
       });
-      dialogRef.afterClosed().subscribe((res: Calendar) => {
+      dialogRef.afterClosed().subscribe((res: ICalendar[]) => {
         c.dataList.push(res);
+        if (res) {
+          this.sendEventData(c);
+        }
       });
     }
   }
+
   dragStarted() {
     this.isSelected = true;
   }
@@ -143,7 +138,21 @@ export class CalendarComponent {
       event.previousContainer.data,
       event.container.data,
       event.previousIndex,
-      event.currentIndex,
+      event.currentIndex
     );
+  }
+
+  sendEventData(dataList: any) {
+    debugger;
+    const eventData = {
+      event_title: dataList.dataList[0].event_title,
+      event_description: dataList.dataList[0].event_description,
+      color: dataList.dataList[0].color,
+      date: dataList.date.toISOString(),
+    };
+    // date: date.toISOString(), // Convert date to ISO string
+    this.calendarService.createEvent(eventData).subscribe(res => {
+      console.log('✅', res);
+    });
   }
 }

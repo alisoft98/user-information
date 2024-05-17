@@ -1,11 +1,10 @@
-import { Request } from "express";
-import schemaAuth from "./schema";
 import { getUserByPassword } from "../../bin/db";
 import useValidation from "../../helper/use_validation";
 import ResponseError from "../../modules/error/response_error";
+import schemaAuth from "./schema";
 
 class AuthService {
-  public static async signIn(formData: Response) {
+  public static async signIn(formData: any) {
     // const { username, password } = req.body;
     const checkValidation = useValidation(schemaAuth.login, formData);
     const userData = await getUserByPassword(

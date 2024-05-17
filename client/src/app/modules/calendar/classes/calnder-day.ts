@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Calendar } from '../../shared/models/calendar';
+import { ICalendar } from '../models/calendar.interface';
 
 @Component({
   standalone: true,
@@ -13,7 +13,7 @@ export class CalendarDay {
   public title!: string;
   public isPastDate: boolean;
   public isToday: boolean;
-  dataList: Array<Calendar> = [];
+  dataList: Array<ICalendar> = [];
 
   public getDateString() {
     return this.date.toISOString().split('T')[0];

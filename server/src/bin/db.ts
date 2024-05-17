@@ -29,87 +29,52 @@ export async function getUserByPassword(
 }
 
 export async function getNavItems() {
-  const getNavItems = await query<RowDataPacket[]>(
-    `SELECT * FROM ${coreSchema}.nav_item`
+  const getManu = await query<RowDataPacket[]>(
+    `SELECT m.menu_id, m.menu_name, m.url, s.submenu_id, s.submenu_name, s.url FROM 
+      ${coreSchema}.menu m
+      LEFT JOIN 
+       ${coreSchema}.submenu s ON m.menu_id = s.menu_id`
   );
-  return getNavItems;
+  return getManu;
 }
 
-export async function getSubMenuItemsdb(id: number) {
+// export async function insertEventDb(eventData: any) {
+//   try {
+//     const values = [
+//       eventData.event_title,
+//       eventData.color,
+//       eventData.date,
+//       eventData.event_description,
+//     ];
+//     const insertEvent = await query<RowDataPacket[]>(
+//       `INSERT INTO ${coreSchema}.calendar_events (event_title, color ,date, event_description)
+//       VALUES (?, ?, ?, ?)`,
+//       values
+//     );
+//     return insertEvent;
+//   } catch (error) {
+//     throw new Error(`Error inserting event:${error}`);
+//   }
+// }
 
-  const submenuRows = await query<RowDataPacket[]>(
-    `SELECT *
-    FROM ${coreSchema}.submenu_items
-    WHERE parent_id = ?`,
-    {
-      values: [id],
-    }
+export async function insertEventDb(eventData: any) {
+  try {
+    const insertEvent = await query<RowDataPacket[]>(
+      `INSERT INTO ${coreSchema}.calendar_events 
+      (event_title, color, date, event_description)
+       VALUES (?, ?, ?, ?)`,
+      {
+        values: [
+          eventData.event_title,
+          eventData.color,
+          eventData.date,
+          eventData.event_description,
+        ],
+      }
+    );
 
-  )
-  return submenuRows
-
+    return insertEvent;
+  } catch (error) {
+    throw new Error(`Error inserting event: ${error}`);
+  }
 }
-
-
-
-export async function getUserDataByEmail(email: string): Promise<User | {}> {
-  const user = await query<RowDataPacket[]>(
-    `SELECT id,external_id, name, surname, middle_name, activated, disabled, activation_date, email, birthday, address, gender 
-      FROM ${coreSchema}.user 
-      WHERE email = ?`,
-    {
-      values: [email],
-    }
-  );
-  return {
-    data: user,
-    isSuccessfull: true,
-    message: "the list of user roles",
-  } as AppResponse;
-}
-
-export async function getUserRoles(userId: string) {
-  const userRoles = await query<RowDataPacket[]>(`
-          SELECT r.name AS roleName, b.name AS branchName, s.name AS schoolName, 
-          ur.assignment_date AS assignmentDate, ur.update_date AS updateDate 
-          FROM ${coreSchema}.user_role ur 
-          INNER JOIN ${coreSchema}.user u ON u.id = ur.user_id
-          INNER JOIN ${coreSchema}.role r ON r.id = ur.role_id
-          LEFT JOIN ${coreSchema}.branch b ON b.id = ur.branch_id
-          LEFT JOIN ${coreSchema}.school s ON s.id = ur.school_id
-          WHERE u.id='${userId}' AND ur.disabled = 0 AND ur.archived = 0 
-          ORDER BY r.name, b.name, s.name
-          `);
-  return {
-    data: userRoles,
-    isSuccessfull: true,
-    message: "the list of user roles",
-  } as AppResponse;
-}
-
-export async function getLatestTemplates(userId: string) {
-  const latestTemplates = await query<RowDataPacket[]>(`
-    SELECT t.id, t.name as name, tt.name as templateType, t.description, 
-    s.name as segment, es.name as educationSystem, asst.name as assestmentType, 
-    casst.name as createAssestmentType, lvl.name as level, sub.name as subject, sch.name as school, 
-    IF(t.is_disabled = 1, 'deleted', t.status) as status, 
-    t.creation_date as creationDate, t.update_date as updateDate 
-    FROM school_curriculum_builder_v3.template t
-    LEFT JOIN school_curriculum_builder_v3.template_type tt ON tt.id = t.type_id 
-    LEFT JOIN school_core_v3.segment s ON s.id = t.segment_id 
-    LEFT JOIN school_curriculum_builder_v3.education_system es ON es.id = t.education_system_id 
-    LEFT JOIN school_curriculum_builder_v3.assessment_type asst ON asst.id = t.assessment_type_id 
-    LEFT JOIN school_curriculum_builder_v3.assessment_type casst ON casst.id = t.create_assessment_type_id 
-    LEFT JOIN school_core_v3.level lvl ON lvl.id = t.level_id 
-    LEFT JOIN school_core_v3.subject sub ON sub.id = t.subject_id 
-    LEFT JOIN school_core_v3.school sch ON sch.id = t.school_id 
-    WHERE t.creator_user_id = ${userId} ORDER BY t.update_date DESC LIMIT 15;
-`);
-  return {
-    data: latestTemplates,
-    isSuccessfull: true,
-    message: "the list of latest template",
-  } as AppResponse;
-}
-
-

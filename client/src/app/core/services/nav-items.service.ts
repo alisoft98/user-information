@@ -18,9 +18,9 @@ export class NavItemsService {
     return this.#http.get<NavItem[]>(this.apiEndPoint + 'navItem');
   }
 
-  getSubmenuItems(parentNavId: number): Observable<any> {
+  getSubmenuItems(menuId: number): Observable<any> {
     return this.#http.get<NavItem>(
-      `${this.apiEndPoint}submenu/${parentNavId}`
+      `${this.apiEndPoint}submenu/${menuId}`
     );
   }
 }

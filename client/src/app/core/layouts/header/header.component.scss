@@ -3,9 +3,15 @@
 }
 
 .expanded {
-  width: 250px;   
+  width: 25rem;   
 }
 
+mat-nav-list{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+}
 
 mat-toolbar{
   position:fixed;

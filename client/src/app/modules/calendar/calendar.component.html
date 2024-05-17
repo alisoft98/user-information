@@ -1,14 +1,47 @@
-<div>
-    <div>
+
+  <div class="btn_calendar">
+    <button mat-flat-button color="primary" (click)="setCurrentMonth()">
+      Today
+    </button>
+    <strong>
       {{ displayMonth }}
-    </div>
-    <div>
-      <input type="button" (click)="setCurrentMonth()" value="today" />
-      <input type="button" (click)="decreaseMonth()" value="-" />
-      <input type="button" (click)="increaseMonth()" value="+" />
+    </strong>
+
+    <div class="example-button-container">
+      <button
+        mat-mini-fab
+        color="primary"
+        aria-label=""
+        (click)="decreaseMonth()">
+        <svg
+          matTooltip="last month"
+          xmlns="http://www.w3.org/2000/svg"
+          height="20px"
+          viewBox="0 -960 960 960"
+          width="20px"
+          fill="#75FBFD">
+          <path
+            d="m330-444 201 201-51 51-288-288 288-288 51 51-201 201h438v72H330Z" />
+        </svg>
+      </button>
+      <button
+        mat-mini-fab
+        color="primary"
+        aria-label=""
+        (click)="increaseMonth()">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="20px"
+          viewBox="0 -960 960 960"
+          width="20px"
+          fill="#75FBFD">
+          <path
+            d="M630-444H192v-72h438L429-717l51-51 288 288-288 288-51-51 201-201Z" />
+        </svg>
+      </button>
     </div>
   </div>
-  <div cdkDropListGroup>
+<div cdkDropListGroup>
   <table class="calendar-table">
     <thead>
       <tr>
@@ -27,32 +60,27 @@
           cdkDropList
           [cdkDropListData]="c.dataList"
           (cdkDropListDropped)="drop($event)"
-          (cdkDragEnded)="dragEnded()"
-        >
+          (cdkDragEnded)="dragEnded()">
           <div
             class="calendar-day-header"
-            [ngClass]="{ 'blue-date': c.isToday }"
-          
-          >
+            [ngClass]="{ 'blue-date': c.isToday }">
             <strong>{{ c.date.getDate() }} </strong>
-  
+
             <strong
-              *ngIf="c.isToday || (i == 0 && j == 0) || c.date.getDate() == 1"
-            >
+              *ngIf="c.isToday || (i == 0 && j == 0) || c.date.getDate() == 1">
               {{ monthNames[c.date.getMonth()] }}
             </strong>
-            @if (c.dataList[0]?.title) {
+            @if (c.dataList[0]?.event_title) {
               <div class="content-schedule" cdkDrag>
                 <p>
-                  <strong>{{ c.dataList[0]?.title }}</strong>
+                  <strong>{{ c.dataList[0]?.event_title }}</strong>
                 </p>
                 <p>
-                  <strong>{{ c.dataList[0]?.describe }}</strong>
+                  <strong>{{ c.dataList[0]?.event_description }}</strong>
                 </p>
                 <p
                   class="priority"
-                  [style.background-color]="c.dataList[0]?.selectedColor"
-                ></p>
+                  [style.background-color]="c.dataList[0]?.color"></p>
               </div>
             }
           </div>
@@ -60,5 +88,4 @@
       </tr>
     </tbody>
   </table>
-  </div>
-  
+</div>

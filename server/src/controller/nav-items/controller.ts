@@ -1,6 +1,6 @@
 import asyncHandler from "../../helper/async-handler";
 import routes from "../../routes/public";
-import  { SubMenuService ,NavItemService} from "./service";
+import { NavItemService } from "./service";
 import BuildResponse from "../../modules/response/app_response";
 
 routes.get(
@@ -13,11 +13,3 @@ routes.get(
     }
   })
 );
-
-routes.get('/submenu/:id',
-  asyncHandler(async function getSubMenuItems(req: any, res: any) {
-    const id = +req.params.id
-    const data = await SubMenuService.getSubMenu(id);
-    const buildResponse = BuildResponse.get(data);
-    return res.status(200).json(buildResponse)
-  }))

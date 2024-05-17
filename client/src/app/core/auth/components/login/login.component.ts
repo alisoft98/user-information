@@ -64,7 +64,7 @@ export class LoginComponent {
           this.cookieService.set('authorized', dataCookie);
           this.toastr.success('Login is succsessful!');
           this.router.navigate(['/profile/user-info']);
-          console.log(res);
+          console.log('✅success login',res);
         } else {
           this.toastr.success('incorrect email or password!');
         }
