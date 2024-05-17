@@ -9,6 +9,6 @@ import { UserInfo } from '../models/userInfo';
   styleUrl: './custom-tab.component.scss'
 })
 export class CustomTabComponent {
-  data = input.required<UserInfo>()
+  data = input.required<any>()
 
 }

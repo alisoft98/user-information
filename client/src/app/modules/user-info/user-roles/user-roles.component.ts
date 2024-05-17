@@ -1,10 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
+import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import moment from 'moment';
-import { Observable, Subject, concatMap, defer, of } from 'rxjs';
-import { UserInfoService } from '../../../shared/services/user-info.service';
+import { UserInfoService } from '../../../core/services/user-info.service';
 import { UserRole } from '../../../shared/models/userInfo';
 
 @Component({

@@ -11,8 +11,7 @@ import { MatDrawerMode, MatSidenavModule } from '@angular/material/sidenav';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { FooterComponent } from './footer/footer.component';
-import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from '../core/layouts/footer/footer.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SearchBarComponent } from './search-bar/search-bar.component';
@@ -56,15 +55,13 @@ const ANGULR_MATERIAL_MODULES = [
   MatSelectModule,
 ];
 const COMMON_MODULES = [CommonModule, ReactiveFormsModule, FormsModule];
-const SHARED_COMPONENT = [FooterComponent, HeaderComponent];
+// const SHARED_COMPONENT = [];
 @NgModule({
   declarations: [
-    FooterComponent,
-    HeaderComponent,
     SearchBarComponent,
     ChunkPipe,
   ],
   imports: [...COMMON_MODULES, ...ANGULR_MATERIAL_MODULES],
-  exports: [...ANGULR_MATERIAL_MODULES, ...COMMON_MODULES, ...SHARED_COMPONENT,ChunkPipe],
+  exports: [...ANGULR_MATERIAL_MODULES, ...COMMON_MODULES,ChunkPipe,SearchBarComponent],
 })
 export class SharedModule {}

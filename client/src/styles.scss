@@ -1,5 +1,5 @@
-@import "@angular/material/prebuilt-themes/indigo-pink.css";
 
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
 
 
 
@@ -23,105 +23,105 @@
 /* You can add global styles to this file, and also import other style files */
 /* You can add global styles to this file, and also import other style files */
 /* You can add global styles to this file, and also import other style files */
-app-root {
-  display: block;
-  min-width: 200px;
-  width: 100%;
-  padding: 20px;
-  box-sizing: border-box;
-}
+// app-root {
+//   display: block;
+//   min-width: 200px;
+//   width: 100%;
+//   padding: 20px;
+//   box-sizing: border-box;
+// }
 
-body {
-  font-family: "Poppins", sans-serif;
-  font-size: 16px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+// body {
+//   font-family: "Poppins", sans-serif;
+//   font-size: 16px;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+// }
 
-main {
-  background-color: #fafafa;
-  padding: 15px;
-  border-radius: 15px;
-  margin-top: 15px;
-  border: 1px solid #999;
-}
+// main {
+//   background-color: #fafafa;
+//   padding: 15px;
+//   border-radius: 15px;
+//   margin-top: 15px;
+//   border: 1px solid #999;
+// }
 
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-bottom: 2px solid #999;
-  padding-bottom: 20px;
-  margin-bottom: 20px;
-}
+// .header {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   border-bottom: 2px solid #999;
+//   padding-bottom: 20px;
+//   margin-bottom: 20px;
+// }
 
-.profile-link {
-  display: inline-block;
-  text-decoration: none;
-  border-radius: 10px;
-  background-color: #fafafa;
-  border: 1px solid #999;
-  padding: 10px 15px;
-  box-sizing: border-box;
-  margin-right: 10px;
-}
+// .profile-link {
+//   display: inline-block;
+//   text-decoration: none;
+//   border-radius: 10px;
+//   background-color: #fafafa;
+//   border: 1px solid #999;
+//   padding: 10px 15px;
+//   box-sizing: border-box;
+//   margin-right: 10px;
+// }
 
-.user-list {
-  overflow: auto;
-  white-space: nowrap;
-}
+// .user-list {
+//   overflow: auto;
+//   white-space: nowrap;
+// }
 
-.user-data {
-  list-style: none;
-  padding: 0;
+// .user-data {
+//   list-style: none;
+//   padding: 0;
 
-  li {
-    padding: 10px 15px;
-    border-bottom: 1px dotted #999;
-    display: flex;
+//   li {
+//     padding: 10px 15px;
+//     border-bottom: 1px dotted #999;
+//     display: flex;
 
-    span {
-      display: block;
+//     span {
+//       display: block;
 
-      &.key {
-        min-width: 80px;
-      }
+//       &.key {
+//         min-width: 80px;
+//       }
 
-      &.value {
-        font-weight: bold;
-      }
-    }
+//       &.value {
+//         font-weight: bold;
+//       }
+//     }
 
-    &:last-child {
-      border-bottom: none;
-    }
-  }
-}
+//     &:last-child {
+//       border-bottom: none;
+//     }
+//   }
+// }
 
-.toggle-button,
-.demo-button {
-  display: block;
-  box-sizing: border-box;
-  text-align: center;
-  text-decoration: none;
-  padding: 10px 20px;
-  width: 100%;
-  border-radius: 20px;
-  border: 1px solid #ccc;
-  background: #fff;
-  cursor: pointer;
+// .toggle-button,
+// .demo-button {
+//   display: block;
+//   box-sizing: border-box;
+//   text-align: center;
+//   text-decoration: none;
+//   padding: 10px 20px;
+//   width: 100%;
+//   border-radius: 20px;
+//   border: 1px solid #ccc;
+//   background: #fff;
+//   cursor: pointer;
 
-  &:hover {
-    background: #ccc;
-  }
-}
+//   &:hover {
+//     background: #ccc;
+//   }
+// }
 
-.demo-button {
-  margin-top: 10px;
-}
+// .demo-button {
+//   margin-top: 10px;
+// }
 
-h4 span {
-  color: red
-}
+// h4 span {
+//   color: red
+// }

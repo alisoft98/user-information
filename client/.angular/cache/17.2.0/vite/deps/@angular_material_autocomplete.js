@@ -1,16 +1,15 @@
 import {
-  MAT_FORM_FIELD,
-  MatFormField
-} from "./chunk-2X3KUE5C.js";
-import {
-  NG_VALUE_ACCESSOR
-} from "./chunk-44O7A66R.js";
-import {
   Overlay,
   OverlayConfig,
-  OverlayModule,
+  OverlayModule
+} from "./chunk-DJWPSURB.js";
+import {
   TemplatePortal
-} from "./chunk-D5636FH6.js";
+} from "./chunk-MKUB73T2.js";
+import {
+  MAT_FORM_FIELD,
+  MatFormField
+} from "./chunk-3NFHBV6X.js";
 import {
   animate,
   group,
@@ -18,11 +17,15 @@ import {
   style,
   transition,
   trigger
-} from "./chunk-FPIYKXFY.js";
+} from "./chunk-SBUIKC4I.js";
 import {
   CdkScrollableModule,
   ViewportRuler
-} from "./chunk-XMACMNAD.js";
+} from "./chunk-INB2BZVO.js";
+import "./chunk-VKJYD3E7.js";
+import {
+  NG_VALUE_ACCESSOR
+} from "./chunk-XU74HTOH.js";
 import {
   MAT_OPTGROUP,
   MAT_OPTION_PARENT_COMPONENT,
@@ -33,27 +36,29 @@ import {
   MatOptionSelectionChange,
   _countGroupLabelsBeforeOption,
   _getOptionScrollPosition
-} from "./chunk-DKRMIBKS.js";
+} from "./chunk-HO2JPH3C.js";
 import {
   ActiveDescendantKeyManager,
   DOWN_ARROW,
   Directionality,
   ENTER,
   ESCAPE,
-  Platform,
   TAB,
   UP_ARROW,
-  _getEventTarget,
   addAriaReferencedId,
-  coerceStringArray,
   hasModifierKey,
   removeAriaReferencedId
-} from "./chunk-775PIYIU.js";
+} from "./chunk-F75TWDMW.js";
+import {
+  Platform,
+  _getEventTarget,
+  coerceStringArray
+} from "./chunk-ICIXDPTC.js";
 import {
   CommonModule,
   DOCUMENT,
   NgClass
-} from "./chunk-ED6ESSXY.js";
+} from "./chunk-HWJ4ENZA.js";
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -104,13 +109,13 @@ import {
   ɵɵrestoreView,
   ɵɵtemplate,
   ɵɵviewQuery
-} from "./chunk-UGF5OYXD.js";
-import "./chunk-UKEHM6V6.js";
+} from "./chunk-BAMEL5WE.js";
 import {
   defer,
   fromEvent,
   merge
-} from "./chunk-V2DXGMIT.js";
+} from "./chunk-SG3BCSKH.js";
+import "./chunk-SAVXX6OM.js";
 import {
   Subject,
   Subscription,
@@ -122,7 +127,8 @@ import {
   switchMap,
   take,
   tap
-} from "./chunk-ZDOIMVJD.js";
+} from "./chunk-PQ7O3X3G.js";
+import "./chunk-X6JV76XL.js";
 
 // node_modules/@angular/material/fesm2022/autocomplete.mjs
 var _c0 = ["panel"];

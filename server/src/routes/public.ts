@@ -8,3 +8,4 @@ export default router
 //  APIs
 require('../controller/auth/controller');
 require('../controller/user/controller');
+require('../controller/nav-items/controller');

@@ -38,7 +38,7 @@ export class LatestTemplatesComponent implements OnInit {
 
   ngOnInit(): void {
     this.http
-      .get('http://localhost:8080/v1/latestTemplates?userId=36834')
+      .get('http://localhost:8000/v1/latestTemplates?userId=36834')
       .subscribe((res: any) => {
         if (res.data) {
           this.latestTemplates = res.data;

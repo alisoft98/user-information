@@ -14,7 +14,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MyErrorStateMatcher } from '../../shared/input-validation/input-validation';
 import { UserInfo } from '../../shared/models/userInfo';
-import { UserInfoService } from '../../shared/services/user-info.service';
 import moment from 'moment';
 
 import { UserRolesComponent } from './user-roles/user-roles.component';
@@ -25,6 +24,7 @@ import { ChipComponent } from '../../shared/chip/chip.component';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { CanCopyToClipboardDirective } from '../../shared/directives/can-copy-to-clipboard/can-copy-to-clipboard.directive';
 import { RouterLink } from '@angular/router';
+import { UserInfoService } from '../../core/services/user-info.service';
 
 @Component({
   selector: 'app-user-info',

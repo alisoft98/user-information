@@ -2,43 +2,74 @@ import { User } from "../types/user";
 import { AppResponse } from "../types/response.interface";
 import { RowDataPacket, coreSchema, query } from "./mysql";
 
-
-
-export async function getUserByPassword(username: string, password: string) {
-    const userData = await query<RowDataPacket[]>(`
-    SELECT * FROM ${coreSchema}.support_user 
-    WHERE username=?`, {
-        values: [username]
-    });
+export async function getUserByPassword(
+  email: string,
+  password: string
+): Promise<User | null> {
+  try {
+    const userData = await query<RowDataPacket[]>(
+      `SELECT * FROM mydb.users WHERE email=?`,
+      {
+        values: [email],
+      }
+    );
     const storedPassword = userData[0].password;
+
     if (userData.length < 1) {
-        return null;
+      return null; // User not found
     } else if (password !== storedPassword) {
-        return null
+      return null;
     } else {
-        return userData[0] as User
+      return userData[0] as User;
     }
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    throw error;
+  }
+}
+
+export async function getNavItems() {
+  const getNavItems = await query<RowDataPacket[]>(
+    `SELECT * FROM ${coreSchema}.nav_item`
+  );
+  return getNavItems;
+}
+
+export async function getSubMenuItemsdb(id: number) {
+
+  const submenuRows = await query<RowDataPacket[]>(
+    `SELECT *
+    FROM ${coreSchema}.submenu_items
+    WHERE parent_id = ?`,
+    {
+      values: [id],
+    }
+
+  )
+  return submenuRows
 
 }
 
-export async function getUserDataByEmail(email: string) {
 
-    const user = await query<RowDataPacket[]>(
-        `SELECT id,external_id, name, surname, middle_name, activated, disabled, activation_date, email, birthday, address, gender 
+
+export async function getUserDataByEmail(email: string): Promise<User | {}> {
+  const user = await query<RowDataPacket[]>(
+    `SELECT id,external_id, name, surname, middle_name, activated, disabled, activation_date, email, birthday, address, gender 
       FROM ${coreSchema}.user 
-      WHERE email = ?`, {
-        values: [email]
-    });
-    return {
-        data: user,
-        isSuccessfull: true,
-        message: "the list of user roles"
-    } as AppResponse;
-
+      WHERE email = ?`,
+    {
+      values: [email],
+    }
+  );
+  return {
+    data: user,
+    isSuccessfull: true,
+    message: "the list of user roles",
+  } as AppResponse;
 }
 
 export async function getUserRoles(userId: string) {
-    const userRoles = await query<RowDataPacket[]>(`
+  const userRoles = await query<RowDataPacket[]>(`
           SELECT r.name AS roleName, b.name AS branchName, s.name AS schoolName, 
           ur.assignment_date AS assignmentDate, ur.update_date AS updateDate 
           FROM ${coreSchema}.user_role ur 
@@ -49,11 +80,15 @@ export async function getUserRoles(userId: string) {
           WHERE u.id='${userId}' AND ur.disabled = 0 AND ur.archived = 0 
           ORDER BY r.name, b.name, s.name
           `);
-    return { data: userRoles, isSuccessfull: true, message: "the list of user roles" } as AppResponse;
+  return {
+    data: userRoles,
+    isSuccessfull: true,
+    message: "the list of user roles",
+  } as AppResponse;
 }
 
 export async function getLatestTemplates(userId: string) {
-    const latestTemplates = await query<RowDataPacket[]>(`
+  const latestTemplates = await query<RowDataPacket[]>(`
     SELECT t.id, t.name as name, tt.name as templateType, t.description, 
     s.name as segment, es.name as educationSystem, asst.name as assestmentType, 
     casst.name as createAssestmentType, lvl.name as level, sub.name as subject, sch.name as school, 
@@ -70,6 +105,11 @@ export async function getLatestTemplates(userId: string) {
     LEFT JOIN school_core_v3.school sch ON sch.id = t.school_id 
     WHERE t.creator_user_id = ${userId} ORDER BY t.update_date DESC LIMIT 15;
 `);
-    return { data: latestTemplates, isSuccessfull: true, message: 'the list of latest template' } as AppResponse;
+  return {
+    data: latestTemplates,
+    isSuccessfull: true,
+    message: "the list of latest template",
+  } as AppResponse;
 }
+
 

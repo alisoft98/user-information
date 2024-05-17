@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { UserInfo, UserRole } from '../models/userInfo';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { UserInfo, UserRole } from '../../shared/models/userInfo';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 export class UserInfoService {
 
   #http = inject(HttpClient);
-  apiURL = 'http://localhost:8080/v1';
+  apiURL = 'http://localhost:8000/v1';
   isEducator = new BehaviorSubject<boolean>(false);
   userRoles = new BehaviorSubject<UserRole[]>([]);
   users$ = this.#http.get<UserInfo[]>(`https://jsonplaceholder.typicode.com/users`)

@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ModulesComponent } from './modules.component';
+import { ModulesComponent } from './profile.component';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { UserRolesComponent } from './user-info/user-roles/user-roles.component';
 import { LatestTemplatesComponent } from './user-info/latest-templates/latest-templates.component';
+import { LayoutComponent } from '../core/layouts/layout.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ModulesComponent,
+    component: LayoutComponent,
     children: [
       {
         path: 'user-info',

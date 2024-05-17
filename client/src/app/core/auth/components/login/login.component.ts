@@ -42,11 +42,12 @@ export class LoginComponent {
     public service: AuthService,
     public toastr: ToastrService,
     private cookieService: CookieService
-  ) {}
+  ) {
+  }
 
   createForm() {
     this.form = new FormGroup({
-      username: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required),
     });
   }
@@ -62,7 +63,7 @@ export class LoginComponent {
         if (res.code == 200) {
           this.cookieService.set('authorized', dataCookie);
           this.toastr.success('Login is succsessful!');
-          this.router.navigate(['/user-info']);
+          this.router.navigate(['/profile/user-info']);
           console.log(res);
         } else {
           this.toastr.success('incorrect email or password!');

@@ -14,7 +14,7 @@
         type="userName"
         matInput
         [errorStateMatcher]="matcher"
-        formControlName="username"
+        formControlName="email"
         placeholder="UserName" />
       @if (userName?.hasError('userName') && !userName?.hasError('required')) {
         <mat-error>Please enter a valid userName address</mat-error>
