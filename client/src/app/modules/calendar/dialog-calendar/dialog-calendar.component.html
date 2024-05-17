@@ -25,9 +25,21 @@
             {{ date | date: 'dd MMM yyyy' }}
           </span>
         </div>
+        <p class="selected-color-display">
+          <span class="color-circle" [style.backgroundColor]="form.get('color')?.value"></span>
+          priority level 
+        </p>
         <div>
           <!-- SELECTED COLOR -->
-          <mat-form-field class="choose-color">
+          <mat-form-field  class="choose-color">
+            <mat-select formControlName="color">
+              <mat-option *ngFor="let color of colors" [value]="color">
+                <span class="color-circle" [style.backgroundColor]="color"></span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        
+          <!-- <mat-form-field class="choose-color">
             <mat-select formControlName="color">
               @for (c of dataColor; track c) {
                 <mat-option [value]="c.color">
@@ -40,7 +52,7 @@
             <p
               class="color-circle"
               [style.background-color]="form.get('selectedColor')?.value"></p>
-          </mat-form-field>
+          </mat-form-field> -->
         </div>
       </div>
 
