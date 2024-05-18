@@ -4,12 +4,7 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
   <mat-dialog-content class="mat-typography">
     <div class="section">
-      <div class="date">
-        <span class="material-symbols-outlined ml-3"> schedule </span>
-        <strong>
-          {{ date | date: 'dd MMM yyyy' }}
-        </strong>
-      </div>
+    
       <mat-form-field appearance="outline">
         <mat-label>Add title</mat-label>
         <input matInput type="text" formControlName="event_title" />
@@ -26,9 +21,14 @@
 
       <!-- SELECTED Priority -->
       <div class="container">
+        <div class="date">
+          <span class="material-symbols-outlined ml-3"> schedule </span>
+          <strong>
+            {{ date | date: 'dd MMM yyyy' }}
+          </strong>
+        </div>
         <div class="show-date">
           <mat-form-field appearance="outline">
-            <mat-label>Task Priority</mat-label>
             <mat-select
               formControlName="color"
               (selectionChange)="onColorChange($event)">
@@ -36,24 +36,21 @@
                 <span
                   class="color-span"
                   [ngStyle]="{
-                    'background-color': selectedColor?.color
+                    'background-color': selectedColor
                   }"></span>
               </mat-select-trigger>
               <mat-option *ngFor="let color of colors" [value]="color">
-                <span
-                  class="color-span"
-                  [ngStyle]="{ 'background-color': color.color }"></span>
-                {{ color.name }}
+                <div class="color-span" [ngStyle]="{'background-color': color}"></div>
               </mat-option>
             </mat-select>
           </mat-form-field>
         </div>
-        <span
+        <!-- <span
           class="selected-color-display"
           *ngIf="selectedColor"
-          [ngStyle]="{ 'background-color': selectedColor.color }">
-          {{ selectedColor.name }}
-        </span>
+          [ngStyle]="{ 'background-color': selectedColor }">
+          {{ selectedColor }}
+        </span> -->
       </div>
 
       <mat-form-field class="example-full-width" appearance="outline">

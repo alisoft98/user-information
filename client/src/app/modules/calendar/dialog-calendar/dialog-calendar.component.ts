@@ -19,13 +19,8 @@ export class DialogCalendarComponent {
 
   selectedColor: any;
 
-  colors = [
-    { name: 'high-priority', color: '#FF0000' },
-    { name: 'no-priority', color: '#2E3192' },
-    { name: 'medium-priority', color: '#FFD400' },
-    { name: 'no-priority', color: '#F15A24' },
-    { name: 'low-priority', color: '#ACD58A' },
-  ];
+  // colors = ['#FF0000', '#2E3192', '#FFD400', '#F15A24'];
+  colors: string[] = ['#FF0000', '#00FF00', '#0000FF'];
   compareObjects(o1: any, o2: any): boolean {
     return o1.color === o2.color;
   }
@@ -61,7 +56,7 @@ export class DialogCalendarComponent {
     });
 
     this.form.get('color')?.valueChanges.subscribe(value => {
-      debugger
+      debugger;
       this.selectedColor = value;
     });
   }
@@ -71,6 +66,11 @@ export class DialogCalendarComponent {
   }
 
   submit() {
+    const payload = {
+      event_description: this.form.value.event_title,
+      event_title: this.form.value.event_title,
+      color: this.form.value.color.name,
+    };
     this.dialogRef.close(this.form.value);
   }
   getFormattedDate(date: string) {

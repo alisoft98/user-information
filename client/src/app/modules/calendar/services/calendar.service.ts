@@ -9,9 +9,16 @@ import { ICalendar } from '../models/calendar.interface';
 })
 export class CalendarService {
   #http = inject(HttpClient);
-  apiEndPoint = 'http://localhost:8080/v1'
+  apiEndPoint = 'http://localhost:8080/v1';
+
   createEvent(eventData: ICalendar): Observable<ICalendar> {
-    debugger;
-    return this.#http.post<ICalendar>(`${this.apiEndPoint}/insertEvent`, eventData);
+    return this.#http.post<ICalendar>(
+      `${this.apiEndPoint}/insertEvent`,
+      eventData
+    );
+  }
+
+  getEventData(): Observable<ICalendar[]> {
+    return this.#http.get<ICalendar[]>(`${this.apiEndPoint}/getEventData`);
   }
 }

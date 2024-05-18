@@ -51,6 +51,49 @@ export class CalendarComponent {
 
   ngOnInit(): void {
     this.generateCalendarDays(this.monthIndex);
+    this.getEventData();
+  }
+
+  getEventData() {
+    this.calendarService.getEventData().subscribe(
+      (res: any) => {
+        console.log('API response:', res);
+        if (Array.isArray(res)) {
+          this.assignEventsToCalendar(res);
+        } else {
+          console.error('Expected an array of events, but got:', res);
+        }
+      },
+      (error) => {
+        console.error('Error fetching event data:', error);
+      }
+    );
+  }
+
+  // getEventData() {
+  //   this.calendarService.getEventData().subscribe((res: ICalendar[]) => {
+  //     this.assignEventsToCalendar(res)
+
+  //       console.log('result', res);
+
+  //       // Code to execute for each element
+  //     // this.calendar.dataList.push(res);
+  //   });
+  // }
+
+  private assignEventsToCalendar(events: ICalendar[]) {
+    debugger;
+    events.forEach((event:any) => {
+      const eventDate = new Date(event.date);
+      const calendarDay = this.calendar.find(day => 
+        day.date.toISOString().split('T')[0] === eventDate.toISOString().split('T')[0]
+      );
+      if (calendarDay) {
+        calendarDay.dataList.push(event);
+      }
+    });
+
+
   }
   private generateCalendarDays(monthIndex: number): void {
     // we reset our calendar
@@ -117,6 +160,7 @@ export class CalendarComponent {
         data: { data: c.dataList },
       });
       dialogRef.afterClosed().subscribe((res: ICalendar[]) => {
+        debugger;
         c.dataList.push(res);
         if (res) {
           this.sendEventData(c);
@@ -143,16 +187,14 @@ export class CalendarComponent {
   }
 
   sendEventData(dataList: any) {
-    debugger;
     const eventData = {
       event_title: dataList.dataList[0].event_title,
       event_description: dataList.dataList[0].event_description,
       color: dataList.dataList[0].color,
       date: dataList.date.toISOString(),
     };
-    // date: date.toISOString(), // Convert date to ISO string
     this.calendarService.createEvent(eventData).subscribe(res => {
-      console.log('✅', res);
+      debugger;
     });
   }
 }

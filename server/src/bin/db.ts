@@ -38,25 +38,6 @@ export async function getNavItems() {
   return getManu;
 }
 
-// export async function insertEventDb(eventData: any) {
-//   try {
-//     const values = [
-//       eventData.event_title,
-//       eventData.color,
-//       eventData.date,
-//       eventData.event_description,
-//     ];
-//     const insertEvent = await query<RowDataPacket[]>(
-//       `INSERT INTO ${coreSchema}.calendar_events (event_title, color ,date, event_description)
-//       VALUES (?, ?, ?, ?)`,
-//       values
-//     );
-//     return insertEvent;
-//   } catch (error) {
-//     throw new Error(`Error inserting event:${error}`);
-//   }
-// }
-
 export async function insertEventDb(eventData: any) {
   try {
     const insertEvent = await query<RowDataPacket[]>(
@@ -76,5 +57,32 @@ export async function insertEventDb(eventData: any) {
     return insertEvent;
   } catch (error) {
     throw new Error(`Error inserting event: ${error}`);
+  }
+}
+
+// export async function getEventDb() {
+//   const getEventData = await query<RowDataPacket[]>(
+//     `SELECT * FROM ${coreSchema}.calendar_events`
+//   );
+//   if (getEventData) {
+//     return getEventData;
+//   }
+// }
+
+export async function getEventDb() {
+  try {
+    const getEventData = await query<RowDataPacket[]>(
+      `SELECT * FROM ${coreSchema}.calendar_events`
+    );
+    
+    // Ensure the function always returns an array
+    if (Array.isArray(getEventData)) {
+      return getEventData;
+    } else {
+      return [];
+    }
+  } catch (error) {
+    console.error('Error fetching event data:', error);
+    return [];
   }
 }
