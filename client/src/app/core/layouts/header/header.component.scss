@@ -2,46 +2,54 @@
   flex: 1 1 auto;
 }
 
-.expanded {
-  width: 25rem;   
+.btn-menu:hover {
+  background-color: lightgray;
+  border-radius: 25px;
+
+
 }
 
-mat-nav-list{
+.expanded {
+  width: 25rem;
+}
+
+mat-nav-list {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-
 }
 
-mat-toolbar{
-  position:fixed;
-  top:0;
+mat-toolbar {
+  position: fixed;
+  top: 0;
   z-index: 2;
 }
 
 mat-sidenav-container {
-  height:90vh;
+  height: 90vh;
 }
 
 // Move the content down so that it won't be hidden by the toolbar
 mat-sidenav {
   padding-top: 3.5rem;
+
   @media screen and (min-width: 600px) {
     padding-top: 4rem;
   }
 
-  .entry{
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding:0.75rem;
+  .entry {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
   }
 }
 
 // Move the content down so that it won't be hidden by the toolbar
-mat-sidenav-content{
+mat-sidenav-content {
   padding-top: 3.5rem;
+
   @media screen and (min-width: 600px) {
-      padding-top: 4rem;
+    padding-top: 4rem;
   }
 }

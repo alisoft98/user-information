@@ -5,12 +5,13 @@
 </mat-toolbar>
 <mat-sidenav-container autosize>
   <mat-sidenav
+  class="side-nav"
     [ngClass]="!isCollapsed ? 'expanded' : ''"
     [mode]="isMobile ? 'over' : 'side'"
     [opened]="!isMobile">
     <mat-nav-list>
       @for (menuName of getMenuNames(); track $index) {
-        <button mat-menu-item [matMenuTriggerFor]="submenu">
+        <button mat-menu-item [matMenuTriggerFor]="submenu" class="btn-menu">
           {{ menuName }}
         </button>
         <mat-menu #submenu="matMenu">

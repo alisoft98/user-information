@@ -57,10 +57,11 @@ export class DialogCalendarComponent {
         ],
       ],
       event_description: [''],
-      color: [null],
+      color: [''],
     });
 
-    this.form.get('selectedColor')?.valueChanges.subscribe(value => {
+    this.form.get('color')?.valueChanges.subscribe(value => {
+      debugger
       this.selectedColor = value;
     });
   }
