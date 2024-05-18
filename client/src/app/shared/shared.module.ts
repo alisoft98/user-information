@@ -55,6 +55,7 @@ const ANGULR_MATERIAL_MODULES = [
   DatePipe,
   MatIconModule,
   MatSelectModule,
+  MatMenuModule
 ];
 const COMMON_MODULES = [CommonModule, ReactiveFormsModule, FormsModule];
 // const SHARED_COMPONENT = [];

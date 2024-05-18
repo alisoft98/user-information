@@ -4,7 +4,13 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
   <mat-dialog-content class="mat-typography">
     <div class="section">
-      <mat-form-field  appearance="outline">
+      <div class="date">
+        <span class="material-symbols-outlined ml-3"> schedule </span>
+        <strong>
+          {{ date | date: 'dd MMM yyyy' }}
+        </strong>
+      </div>
+      <mat-form-field appearance="outline">
         <mat-label>Add title</mat-label>
         <input matInput type="text" formControlName="event_title" />
         @if (value) {
@@ -18,42 +24,38 @@
         }
       </mat-form-field>
 
-      <div class="show-date">
-        <div class="date">
-          <span class="material-symbols-outlined mr-2"> schedule </span>
-          <span>
-            {{ date | date: 'dd MMM yyyy' }}
-          </span>
-        </div>
-        <p class="selected-color-display">
-          <span class="color-circle" [style.backgroundColor]="form.get('color')?.value"></span>
-          priority level 
-        </p>
-        <div>
-          <!-- SELECTED COLOR -->
-          <mat-form-field  class="choose-color">
-            <mat-select formControlName="color">
+      <!-- SELECTED Priority -->
+
+      <div class="container">
+        <div class="show-date">
+          <!-- SELECTED Priority -->
+          <mat-form-field appearance="outline">
+            <mat-label>Task Priority</mat-label>
+            <mat-select
+              formControlName="selectedColor"
+              (selectionChange)="onColorChange($event)">
+              <mat-select-trigger>
+                <span
+                  class="color-span"
+                  [ngStyle]="{
+                    'background-color': selectedColor?.color
+                  }"></span>
+              </mat-select-trigger>
               <mat-option *ngFor="let color of colors" [value]="color">
-                <span class="color-circle" [style.backgroundColor]="color"></span>
+                <span
+                  class="color-span"
+                  [ngStyle]="{ 'background-color': color.color }"></span>
+                {{ color.name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
-        
-          <!-- <mat-form-field class="choose-color">
-            <mat-select formControlName="color">
-              @for (c of dataColor; track c) {
-                <mat-option [value]="c.color">
-                  <span
-                    class="color-circle"
-                    [style.background-color]="c.color">{{c.color}}</span>
-                </mat-option>
-              }
-            </mat-select>
-            <p
-              class="color-circle"
-              [style.background-color]="form.get('selectedColor')?.value"></p>
-          </mat-form-field> -->
         </div>
+        <span
+          class="selected-color-display"
+          *ngIf="selectedColor"
+          [ngStyle]="{ 'background-color': selectedColor.color }">
+          {{ selectedColor.name }}
+        </span>
       </div>
 
       <mat-form-field class="example-full-width" appearance="outline">

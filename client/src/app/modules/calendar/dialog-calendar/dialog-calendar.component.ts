@@ -1,12 +1,6 @@
 import { Component, Inject, Input } from '@angular/core';
-import {
-  FormBuilder,
-  Validators
-} from '@angular/forms';
-import {
-  MAT_DIALOG_DATA,
-  MatDialogRef
-} from '@angular/material/dialog';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import moment from 'moment';
 import { banWords } from '../../../shared/functions/ban-words.validators';
 import { Calendar } from '../../../shared/models/calendar';
@@ -20,18 +14,21 @@ import { Calendar } from '../../../shared/models/calendar';
 export class DialogCalendarComponent {
   value = 'Clear me';
   events: string[] = [];
-  // @Input() form!: FormGroup;
   @Input() getValueFromPicker: any;
   date: Date = new Date();
 
-  dataColor = [
-    { name: 'Red', color: 'red' },
-    { name: 'Green', color: '#008000' },
-    { name: 'Yellow', color: 'yellow' },
-    { name: 'Pink', color: 'pink' },
-  ];
+  selectedColor: any;
 
-  colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];  
+  colors = [
+    { name: 'high-priority', color: '#FF0000' },
+    { name: 'no-priority', color: '#2E3192' },
+    { name: 'medium-priority', color: '#FFD400' },
+    { name: 'no-priority', color: '#F15A24' },
+    { name: 'low-priority', color: '#ACD58A' },
+  ];
+  compareObjects(o1: any, o2: any): boolean {
+    return o1.color === o2.color;
+  }
 
   constructor(
     private fb: FormBuilder,
@@ -39,18 +36,7 @@ export class DialogCalendarComponent {
     @Inject(MAT_DIALOG_DATA) public data: Calendar
   ) {}
 
-  form = this.fb.group({
-    event_title: [
-      '',
-      [
-        Validators.required,
-        Validators.minLength(3),
-        banWords(['test', 'dummy']),
-      ],
-    ],
-    event_description: [''],
-    color: ['red'],
-  });
+  form!: FormGroup;
 
   ngOnInit(): void {
     // if (this.data) {
@@ -60,9 +46,29 @@ export class DialogCalendarComponent {
     //     selectedColor: this.data.dataList.selectedColor,
     //   });
     // }
+
+    this.form = this.fb.group({
+      event_title: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          banWords(['test', 'dummy']),
+        ],
+      ],
+      event_description: [''],
+      color: [null],
+    });
+
+    this.form.get('selectedColor')?.valueChanges.subscribe(value => {
+      this.selectedColor = value;
+    });
   }
 
- 
+  onColorChange(event: any) {
+    this.selectedColor = event.value;
+  }
+
   submit() {
     this.dialogRef.close(this.form.value);
   }
