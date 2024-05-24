@@ -9,4 +9,4 @@ export default router
 require('../controller/auth/controller');
 require('../controller/user/controller');
 require('../controller/nav-items/controller');
-require('../controller/calendar/controller');
+require('../controller/appointment/controller');

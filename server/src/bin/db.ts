@@ -1,5 +1,5 @@
+import { IAppointment } from "../types/appointment.interface";
 import { User } from "../types/user";
-import { AppResponse } from "../types/response.interface";
 import { RowDataPacket, coreSchema, query } from "./mysql";
 
 export async function getUserByPassword(
@@ -30,7 +30,7 @@ export async function getUserByPassword(
 
 export async function getNavItems() {
   const getManu = await query<RowDataPacket[]>(
-    `SELECT m.menu_id, m.menu_name, m.url, s.submenu_id, s.submenu_name, s.url FROM 
+    `SELECT m.menu_id,m.icon, m.menu_name, m.url, s.submenu_id, s.submenu_name, s.url FROM 
       ${coreSchema}.menu m
       LEFT JOIN 
        ${coreSchema}.submenu s ON m.menu_id = s.menu_id`
@@ -38,7 +38,7 @@ export async function getNavItems() {
   return getManu;
 }
 
-export async function insertEventDb(eventData: any) {
+export async function saveAppointment(eventData: IAppointment) {
   try {
     const insertEvent = await query<RowDataPacket[]>(
       `INSERT INTO ${coreSchema}.calendar_events 
@@ -60,29 +60,36 @@ export async function insertEventDb(eventData: any) {
   }
 }
 
-// export async function getEventDb() {
-//   const getEventData = await query<RowDataPacket[]>(
-//     `SELECT * FROM ${coreSchema}.calendar_events`
-//   );
-//   if (getEventData) {
-//     return getEventData;
-//   }
-// }
+export async function getAppointment() {
+  const getEventData = await query<RowDataPacket[]>(
+    `SELECT * FROM ${coreSchema}.calendar_events`
+  );
+  return getEventData;
+}
 
-export async function getEventDb() {
-  try {
-    const getEventData = await query<RowDataPacket[]>(
-      `SELECT * FROM ${coreSchema}.calendar_events`
-    );
-    
-    // Ensure the function always returns an array
-    if (Array.isArray(getEventData)) {
-      return getEventData;
-    } else {
-      return [];
+export async function updateAppointment(
+  data: IAppointment
+): Promise<IAppointment[] | undefined> {
+  const result = await query<RowDataPacket[]>(
+    `UPDATE ${coreSchema}.calendar_events
+    SET date = ?, updated_at = ?
+    WHERE event_id = ?`,
+    {
+      values: [data.date, new Date(), data.event_id],
     }
-  } catch (error) {
-    console.error('Error fetching event data:', error);
-    return [];
+  );
+  if (result) {
+    return result as IAppointment[];
   }
+}
+
+export async function deleteAppointment(event_id: string) {
+  const result = await query<RowDataPacket[]>(
+    `DELETE FROM ${coreSchema}.calendar_events
+      WHERE event_id=?`,
+    {
+      values: [event_id],
+    }
+  );
+  return result;
 }
