@@ -1,45 +1,48 @@
-
-  <div class="btn_calendar">
-    <button mat-flat-button class="btn-today" color="primary" (click)="setCurrentMonth()">
-      Today
+<div class="btn_calendar">
+  <button
+    mat-flat-button
+    class="btn-today"
+    color="primary"
+    (click)="setCurrentMonth()">
+    Today
+  </button>
+  <strong class="displayMonth">
+    {{ displayMonth }}
+  </strong>
+  <div class="example-button-container">
+    <button
+      mat-mini-fab
+      color="primary"
+      aria-label=""
+      (click)="decreaseMonth()">
+      <svg
+        matTooltip="last month"
+        xmlns="http://www.w3.org/2000/svg"
+        height="20px"
+        viewBox="0 -960 960 960"
+        width="20px"
+        fill="#75FBFD">
+        <path
+          d="m330-444 201 201-51 51-288-288 288-288 51 51-201 201h438v72H330Z" />
+      </svg>
     </button>
-    <strong class="displayMonth">
-      {{ displayMonth }}
-    </strong>
-    <div class="example-button-container">
-      <button
-        mat-mini-fab
-        color="primary"
-        aria-label=""
-        (click)="decreaseMonth()">
-        <svg
-          matTooltip="last month"
-          xmlns="http://www.w3.org/2000/svg"
-          height="20px"
-          viewBox="0 -960 960 960"
-          width="20px"
-          fill="#75FBFD">
-          <path
-            d="m330-444 201 201-51 51-288-288 288-288 51 51-201 201h438v72H330Z" />
-        </svg>
-      </button>
-      <button
-        mat-mini-fab
-        color="primary"
-        aria-label=""
-        (click)="increaseMonth()">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          height="20px"
-          viewBox="0 -960 960 960"
-          width="20px"
-          fill="#75FBFD">
-          <path
-            d="M630-444H192v-72h438L429-717l51-51 288 288-288 288-51-51 201-201Z" />
-        </svg>
-      </button>
-    </div>
+    <button
+      mat-mini-fab
+      color="primary"
+      aria-label=""
+      (click)="increaseMonth()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="20px"
+        viewBox="0 -960 960 960"
+        width="20px"
+        fill="#75FBFD">
+        <path
+          d="M630-444H192v-72h438L429-717l51-51 288 288-288 288-51-51 201-201Z" />
+      </svg>
+    </button>
   </div>
+</div>
 <div cdkDropListGroup>
   <table class="calendar-table">
     <thead>
@@ -55,36 +58,62 @@
           class="calendar-day"
           [ngClass]="{ 'past-date': c.isPastDate, today: c.isToday }"
           *ngFor="let c of row; let j = index"
-          (click)="getValueOfRow(row, c)"
-          cdkDropList
-          [cdkDropListData]="c.dataList"
-          (cdkDropListDropped)="drop($event)"
-          (cdkDragEnded)="dragEnded()">
+          (click)="getValueOfMonth(c)">
           <div
             class="calendar-day-header"
-            [ngClass]="{ 'blue-date': c.isToday }">
+            [ngClass]="{ 'blue-date': c.isToday }"
+            cdkDropList
+            [cdkDropListData]="calendar"
+            (cdkDropListDropped)="drop($event)"
+            (cdkDragEnded)="dragEnded($event)">
             <strong>{{ c.date.getDate() }} </strong>
 
             <strong
               *ngIf="c.isToday || (i == 0 && j == 0) || c.date.getDate() == 1">
               {{ monthNames[c.date.getMonth()] }}
             </strong>
-            @if (c.dataList[0]?.event_title) {
-              <div class="content-schedule" cdkDrag>
-                <p>
-                  <strong>{{ c.dataList[0]?.event_title }}</strong>
+            <div
+              *ngIf="c.dataList"
+              cdkDrag
+              class="body-event"
+              (contextmenu)="onRightClick($event, c)">
+              @for (event of c.dataList; track $index) {
+                <p class="priority" [style.background-color]="event.color"></p>
+                <p *ngFor="let event of c.dataList" class="event_title">
+                  <strong>{{ event.event_title }}</strong>
                 </p>
-                <p>
-                  <strong>{{ c.dataList[0]?.event_description }}</strong>
-                </p>
-                <p
-                  class="priority"
-                  [style.background-color]="c.dataList[0]?.color"></p>
-              </div>
-            }
+
+                <!-- <p *ngFor="let event of c.dataList">
+              <strong>{{ event.event_description }}</strong>
+            </p> -->
+              }
+            </div>
           </div>
         </td>
       </tr>
     </tbody>
   </table>
 </div>
+@if (contextMenuVisible) {
+  <div
+    [ngStyle]="{ top: contextMenuPosition.y, left: contextMenuPosition.x }"
+    class="context-menu">
+    <div class="btn_delete">
+      <button
+        mat-button
+        color="primary"
+        class="flat"
+        type="button"
+        (click)="deleteAppointment()">
+        <span class="material-symbols-outlined"> delete </span>
+        <span> Delete </span>
+      </button>
+    </div>
+    <hr />
+    <div>
+      <p
+        class="priority"
+        [style.background-color]="dataContexMenu.dataList[0].color"></p>
+    </div>
+  </div>
+}

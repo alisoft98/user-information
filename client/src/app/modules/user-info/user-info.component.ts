@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -12,19 +12,18 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import moment from 'moment';
 import { MyErrorStateMatcher } from '../../shared/input-validation/input-validation';
 import { UserInfo } from '../../shared/models/userInfo';
-import moment from 'moment';
 
-import { UserRolesComponent } from './user-roles/user-roles.component';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { LatestTemplatesComponent } from './latest-templates/latest-templates.component';
-import { ButtonComponent } from '../../shared/button/button.component';
-import { ChipComponent } from '../../shared/chip/chip.component';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
-import { CanCopyToClipboardDirective } from '../../shared/directives/can-copy-to-clipboard/can-copy-to-clipboard.directive';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { RouterLink } from '@angular/router';
 import { UserInfoService } from '../../core/services/user-info.service';
+import { ButtonComponent } from '../../shared/button/button.component';
+import { ChipComponent } from '../../shared/chip/chip.component';
+import { CanCopyToClipboardDirective } from '../../shared/directives/can-copy-to-clipboard/can-copy-to-clipboard.directive';
+import { UserRolesComponent } from './user-roles/user-roles.component';
 
 @Component({
   selector: 'app-user-info',
@@ -41,7 +40,6 @@ import { UserInfoService } from '../../core/services/user-info.service';
     ReactiveFormsModule,
     UserRolesComponent,
     MatExpansionModule,
-    LatestTemplatesComponent,
     ButtonComponent,
     ChipComponent,
     NgFor,

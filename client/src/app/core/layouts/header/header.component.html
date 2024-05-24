@@ -5,15 +5,64 @@
 </mat-toolbar>
 <mat-sidenav-container autosize>
   <mat-sidenav
-  class="side-nav"
+    class="side-nav"
     [ngClass]="!isCollapsed ? 'expanded' : ''"
     [mode]="isMobile ? 'over' : 'side'"
     [opened]="!isMobile">
     <mat-nav-list>
+      @for (menuName of getMenuNames(); track trackByFn) {
+        @if (isCollapsed) {
+          @for (item of groupedData[menuName]; track trackByFn) {
+            <div class="still-icon">
+              <span class="material-symbols-outlined">
+                {{ item.icon }}
+              </span>
+            </div>
+          }
+        }
+        @if (!isCollapsed) {
+          <ul class="btn-menu">
+            @for (item of groupedData[menuName]; track trackByFn) {
+              <li [matMenuTriggerFor]="submenu">
+                @if (!isCollapsed) {
+                  <span class="material-symbols-outlined">
+                    {{ item.icon }}
+                  </span>
+                }
+                {{ menuName }}
+              </li>
+            }
+          </ul>
+          <mat-menu #submenu="matMenu">
+            @if (groupedData[menuName]) {
+              @for (item of groupedData[menuName]; track trackByFn) {
+                <button mat-menu-item>
+                  <a mat-list-item [routerLink]="item.url">
+                    {{ item.submenu_name }}
+                  </a>
+                </button>
+              }
+            }
+          </mat-menu>
+        }
+      }
+
+      <!-- 
       @for (menuName of getMenuNames(); track $index) {
-        <button mat-menu-item [matMenuTriggerFor]="submenu" class="btn-menu">
-          {{ menuName }}
-        </button>
+        @if (!isCollapsed) {
+          <ul class="btn-menu">
+            @for (item of groupedData[menuName]; track $index) {
+            <li  [matMenuTriggerFor]="submenu">
+                <span class="material-symbols-outlined"> 
+                  {{item.icon}}  
+                </span>
+                {{ menuName }}
+                
+              </li>
+            }
+          </ul>
+    
+        }
         <mat-menu #submenu="matMenu">
           @if (groupedData[menuName]) {
             @for (item of groupedData[menuName]; track $index) {
@@ -25,7 +74,7 @@
             }
           }
         </mat-menu>
-      }
+      } -->
     </mat-nav-list>
   </mat-sidenav>
 

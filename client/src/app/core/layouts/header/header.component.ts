@@ -62,8 +62,8 @@ export class HeaderComponent implements OnInit {
   getNavItems() {
     this.navService.getNavItems().subscribe({
       next: (res: any) => {
-        this.groupedData = this.groupByMenu(res.data, 'menu_name');
-        console.log('✅', this.groupedData);
+        this.groupedData = this.groupByMenu(res.data, 'menu_name',);
+        debugger;
       },
       error: e => console.error(e),
       complete: () => {},
@@ -89,5 +89,9 @@ export class HeaderComponent implements OnInit {
       this.sidenav.open(); // On desktop/tablet, the menu can never be fully closed
       this.isCollapsed = !this.isCollapsed;
     }
+  }
+  trackByFn(index: number, item: any): any {
+    debugger
+    return item.id; // Ensure each item has a unique identifier
   }
 }

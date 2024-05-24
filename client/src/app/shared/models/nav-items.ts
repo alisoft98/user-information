@@ -4,12 +4,12 @@ export interface NavItem {
   icon?: string;
   menu_id: number;
   route?: string;
-  path: string;
-  role: Role[];
-  order_index: number;
-  created_at: Date;
-  updated_at: Date;
-  subMenu: Submneu[] | null;
+  path?: string;
+  role?: Role[];
+  order_index?: number;
+  created_at?: Date;
+  updated_at?: Date;
+  subMenu?: Submneu[] | null;
 }
 export interface Role {
   user_id: number;

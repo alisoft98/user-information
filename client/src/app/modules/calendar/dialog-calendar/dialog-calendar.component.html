@@ -4,7 +4,6 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
   <mat-dialog-content class="mat-typography">
     <div class="section">
-    
       <mat-form-field appearance="outline">
         <mat-label>Add title</mat-label>
         <input matInput type="text" formControlName="event_title" />
@@ -40,17 +39,13 @@
                   }"></span>
               </mat-select-trigger>
               <mat-option *ngFor="let color of colors" [value]="color">
-                <div class="color-span" [ngStyle]="{'background-color': color}"></div>
+                <div
+                  class="color-span"
+                  [ngStyle]="{ 'background-color': color }"></div>
               </mat-option>
             </mat-select>
           </mat-form-field>
         </div>
-        <!-- <span
-          class="selected-color-display"
-          *ngIf="selectedColor"
-          [ngStyle]="{ 'background-color': selectedColor }">
-          {{ selectedColor }}
-        </span> -->
       </div>
 
       <mat-form-field class="example-full-width" appearance="outline">
@@ -70,7 +65,7 @@
     </button>
   </mat-dialog-content>
   <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button mat-dialog-close type="button">Cancel</button>
     <button
       mat-button
       [mat-dialog-close]="true"

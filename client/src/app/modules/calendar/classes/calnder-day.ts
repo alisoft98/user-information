@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, input } from '@angular/core';
 import { ICalendar } from '../models/calendar.interface';
 
 @Component({
@@ -13,7 +13,7 @@ export class CalendarDay {
   public title!: string;
   public isPastDate: boolean;
   public isToday: boolean;
-  public dataList: ICalendar[] = [];
+  dataList: any[] = [];
 
  
   constructor(d: Date) {

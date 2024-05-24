@@ -1,24 +1,37 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../environments/environment';
 import { ICalendar } from '../models/calendar.interface';
+import { environment } from '../../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CalendarService {
   #http = inject(HttpClient);
-  apiEndPoint = 'http://localhost:8080/v1';
+  private config = environment.apiEndPoint;
 
-  createEvent(eventData: ICalendar): Observable<ICalendar> {
+  createAppointment(eventData: ICalendar): Observable<ICalendar> {
     return this.#http.post<ICalendar>(
-      `${this.apiEndPoint}/insertEvent`,
+      `${this.config}/insertAppointment`,
       eventData
     );
   }
 
-  getEventData(): Observable<ICalendar[]> {
-    return this.#http.get<ICalendar[]>(`${this.apiEndPoint}/getEventData`);
+  getAppointmentData(): Observable<any> {
+    return this.#http.get<any>(`${this.config}/getAppointment`);
+  }
+
+  deleteAppointment(id: string): Observable<string> {
+    return this.#http.delete<string>(
+      `${this.config}/deleteAppointment/delete/${id}`
+    );
+  }
+
+  updateAppointment(appintmentData: ICalendar): Observable<ICalendar> {
+    return this.#http.put<ICalendar>(
+      `${this.config}/updateAppointment/update`,
+      appintmentData
+    );
   }
 }

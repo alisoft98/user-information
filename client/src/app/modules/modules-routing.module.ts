@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { ModulesComponent } from './profile.component';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { UserRolesComponent } from './user-info/user-roles/user-roles.component';
-import { LatestTemplatesComponent } from './user-info/latest-templates/latest-templates.component';
 import { LayoutComponent } from '../core/layouts/layout.component';
 import { CalendarComponent } from './calendar/calendar.component';
 
@@ -24,10 +23,7 @@ const routes: Routes = [
         path: 'schedule',
         component: CalendarComponent,
       },
-      {
-        path: 'latest-templates',
-        component: LatestTemplatesComponent,
-      },
+    
       {
         path: '',
         redirectTo: 'user-info',

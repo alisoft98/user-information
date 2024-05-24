@@ -11,12 +11,18 @@ export interface ICalendar {
   create_at?: string;
   date: string;
   dataList?: IDataList;
+  color:string;
 }
 
 export interface IDataList {
   color: string;
   event_description: string;
   event_title: string;
+  date:Date;
+  isPastDate:boolean;
+  isToday:boolean;
+  
+  
 }
 
 

@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { UserInfo, UserRole } from '../../shared/models/userInfo';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
@@ -10,19 +10,20 @@ import { UserInfo, UserRole } from '../../shared/models/userInfo';
 export class UserInfoService {
 
   #http = inject(HttpClient);
-  apiURL = 'http://localhost:8000/v1';
+  private config = environment.apiEndPoint;
+
   isEducator = new BehaviorSubject<boolean>(false);
   userRoles = new BehaviorSubject<UserRole[]>([]);
   users$ = this.#http.get<UserInfo[]>(`https://jsonplaceholder.typicode.com/users`)
 
 
   getDataByEmail(email: string): Observable<string> {
-    return this.#http.post<string>(`${this.apiURL}/getAllUserInfo`, email);
+    return this.#http.post<string>(`${this.config}/getAllUserInfo`, email);
   }
 
   getUserRoles(id: number | undefined): BehaviorSubject<UserRole[]> {
     this.#http
-      .get<UserRole>(`${this.apiURL}/userRoles?userId=${id}`)
+      .get<UserRole>(`${this.config}/userRoles?userId=${id}`)
       .subscribe((res: any) => {
         this.userRoles.next(res.data);
         this.checkRoles(res.data.map((role: UserRole) => role.roleName));
@@ -52,7 +53,6 @@ export class UserInfoService {
 
   profile(id: string | number) {
     return this.#http.get<UserInfo>(`https://jsonplaceholder.typicode.com/users/${id}`);
-
   }
 
 }

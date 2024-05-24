@@ -1,31 +1,13 @@
-mat-form-field {
-  width: 100%;
-}
-
-
 .date {
   display: flex;
   align-items: center;
   margin-bottom: 1rem;
-
 }
 
 .section {
   border: 1px solid gray;
   border-radius: 5px;
   padding: 1rem;
-}
-
-.choose-color {
-  width: 8rem;
-}
-
-.selected-color {
-  background-color: rgb(255, 0, 0);
-  border-radius: 6px;
-  text-align: center;
-  padding: 2px;
-  color: white;
 }
 
 .color-circle {
@@ -37,17 +19,14 @@ mat-form-field {
   vertical-align: middle;
 }
 
-
 ::ng-deep .mdc-text-field--outlined {
   --mdc-outlined-text-field-container-shape: 28px;
 }
 
-
 .container {
   display: grid;
-  grid-template-columns: 1fr  6rem;
+  grid-template-columns: 1fr 6rem;
   gap: 44px;
-  /* Adjust the gap as needed */
 }
 
 .show-date {
@@ -64,8 +43,6 @@ mat-form-field {
   padding: 5px;
   height: 43px;
   border: 1px solid gray;
-
-
 }
 
 .color-span {

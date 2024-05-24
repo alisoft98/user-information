@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { LoginComponent } from './login.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 describe('LoginComponent', () => {
   let fixture: ComponentFixture<LoginComponent>;
@@ -14,6 +15,7 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      providers:[HttpClient],
       imports: [
         LoginComponent,
         BrowserAnimationsModule,
@@ -42,12 +44,12 @@ describe('LoginComponent', () => {
   it('should create the form with username and password controls', () => {
     let actualForm = component.form.value;
     expect(actualForm).toEqual({
-      username: '',
+      email: '',
       password: '',
     });
   });
   it('should validate username as required and email format', () => {
-    const usernameControl = component.form.get('username');
+    const usernameControl = component.form.get('email');
     usernameControl?.setValue('invalie-email');
 
     expect(usernameControl?.valid).toBeFalsy();
