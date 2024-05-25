@@ -1,4 +1,10 @@
 export interface UserInfo {
+  user_id: number;
+  firstName: string;
+  lastName: string;
+  age: number;
+  sex: string;
+  phoneNumber: string;
   id: number;
   external_id?: number;
   name?: string;

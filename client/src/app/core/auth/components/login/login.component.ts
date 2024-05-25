@@ -28,6 +28,7 @@ import { AuthService } from '../../../services/auth.service';
     MatButtonModule,
     MatFormFieldModule,
   ],
+  providers:[ToastrService],
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
@@ -63,7 +64,7 @@ export class LoginComponent {
         if (res.code == 200) {
           this.cookieService.set('authorized', dataCookie);
           this.toastr.success('Login is succsessful!');
-          this.router.navigate(['/profile/user-info']);
+          this.router.navigate(['/profile/dashboard']);
           console.log('✅success login',res);
         } else {
           this.toastr.success('incorrect email or password!');

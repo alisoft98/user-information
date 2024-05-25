@@ -1,6 +1,6 @@
-<div class="container">
+<div class="content">
   <div class="logo mt-4">
-    <img src="../../../../assets/images/icons/beed.png" width="100" alt="" />
+    <img src="../../../assets/langchain.jpg" width="100" alt="" />
   </div>
   <!-- INPUT_SEARCH -->
   <div class="search_input">
@@ -40,8 +40,9 @@
     }
   </div>
 
+
   @if (userInfo) {
-  <div class="register_right m-4" [@fadeIn]>
+  <div class="register_right" [@fadeIn]>
     <!-- USER_DETAIL -->
     <div class="m-3">
       <span>LMS ID:</span>
@@ -49,23 +50,23 @@
     </div>
     <div class="m-3">
       <span>External ID:</span>
-      <span>{{ userInfo.external_id }}</span>
+      <span>{{ userInfo.firstName }}</span>
     </div>
     <div class="m-3">
       <span>Name:</span>
-      <span>{{ userInfo.name }}</span>
+      <span>{{ userInfo.lastName }}</span>
     </div>
     <div class="m-3">
       <span>Surname:</span>
-      <span>{{ userInfo.surname }}</span>
+      <span>{{ userInfo.phoneNumber }}</span>
     </div>
     <div class="m-3">
       <span>Middle_name:</span>
-      <span>{{ userInfo.middle_name }}</span>
+      <span>{{ userInfo.sex }}</span>
     </div>
     <div class="m-3">
       <span>Gender:</span>
-      <span>{{ userInfo.gender }}</span>
+      <span>{{ userInfo.age }}</span>
     </div>
     <div class="m-3">
       <span>Birthday:</span>

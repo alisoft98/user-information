@@ -3,36 +3,11 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "client": {
+    "project": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss",
-          "skipTests": false,
-          "standalone": true
-        },
-        "@schematics/angular:class": {
-          "skipTests": false
-        },
-        "@schematics/angular:directive": {
-          "skipTests": false,
-          "standalone": true
-        },
-        "@schematics/angular:guard": {
-          "skipTests": false
-        },
-        "@schematics/angular:interceptor": {
-          "skipTests": false
-        },
-        "@schematics/angular:pipe": {
-          "skipTests": false,
-          "standalone": false
-        },
-        "@schematics/angular:resolver": {
-          "skipTests": false
-        },
-        "@schematics/angular:service": {
-          "skipTests": false
+          "style": "scss"
         }
       },
       "root": "",
@@ -42,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/client",
+            "outputPath": "dist/project",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -51,32 +26,35 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              {
+                "glob": "**/*",
+                "input": "public"
+              }
             ],
             "styles": [
-              "@angular/material/prebuilt-themes/indigo-pink.css",
+              "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.scss",
               "node_modules/ngx-toastr/toastr.css"
             ],
-            "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.js"
-            ],
-            "allowedCommonJsDependencies": []
+            "scripts": [],
+            "server": "src/main.server.ts",
+            "prerender": true,
+            "ssr": {
+              "entry": "server.ts"
+            }
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "40kb"
+                  "maximumWarning": "2kB",
+                  "maximumError": "4kB"
                 }
               ],
               "outputHashing": "all"
@@ -87,8 +65,8 @@
               "sourceMap": true,
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.development.ts"
+                  "replace": "./src/app/environments/environment.development.ts",
+                  "with": "./src/app/environments/environment.ts"
                 }
               ]
             }
@@ -99,24 +77,20 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "client:build:production"
+              "buildTarget": "project:build:production"
             },
             "development": {
-              "buildTarget": "client:build:development"
+              "buildTarget": "project:build:development"
             }
           },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "buildTarget": "client:build"
-          }
+          "builder": "@angular-devkit/build-angular:extract-i18n"
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "codeCoverage": true,
             "polyfills": [
               "zone.js",
               "zone.js/testing"
@@ -124,11 +98,13 @@
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              {
+                "glob": "**/*",
+                "input": "public"
+              }
             ],
             "styles": [
-              "@angular/material/prebuilt-themes/indigo-pink.css",
+              "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -138,6 +114,6 @@
     }
   },
   "cli": {
-    "analytics": "445bded8-daad-4838-9621-bcf225ff736e"
+    "analytics": "ace7d4a5-2899-4b0a-a114-90a355a9100e"
   }
 }

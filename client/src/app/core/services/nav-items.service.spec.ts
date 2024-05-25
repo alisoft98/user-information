@@ -1,10 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { NavItemsService } from './nav-items.service';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('NavItemsService', () => {
   let service: NavItemsService;
@@ -12,9 +10,9 @@ describe('NavItemsService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [NavItemsService],
-    });
+    imports: [],
+    providers: [NavItemsService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
 
     service = TestBed.inject(NavItemsService);
     httpTestingController = TestBed.inject(HttpTestingController);

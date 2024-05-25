@@ -30,12 +30,22 @@ export async function getUserByPassword(
 
 export async function getNavItems() {
   const getManu = await query<RowDataPacket[]>(
-    `SELECT m.menu_id,m.icon, m.menu_name, m.url, s.submenu_id, s.submenu_name, s.url FROM 
+    `SELECT m.menu_id,m.icon, m.menu_name, m.path, s.submenu_id, s.submenu_name, s.url FROM 
       ${coreSchema}.menu m
       LEFT JOIN 
        ${coreSchema}.submenu s ON m.menu_id = s.menu_id`
   );
   return getManu;
+}
+
+export async function getUserInfo(email: string) {
+  const data = await query<RowDataPacket[]>(
+    `SELECT * FROM ${coreSchema}.user_info WHERE email=?`,
+    {
+      values: [email],
+    }
+  );
+  if (data) return data;
 }
 
 export async function saveAppointment(eventData: IAppointment) {

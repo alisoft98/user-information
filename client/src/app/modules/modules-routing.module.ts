@@ -5,12 +5,17 @@ import { UserInfoComponent } from './user-info/user-info.component';
 import { UserRolesComponent } from './user-info/user-roles/user-roles.component';
 import { LayoutComponent } from '../core/layouts/layout.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
     children: [
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+      },
       {
         path: 'user-info',
         component: UserInfoComponent,

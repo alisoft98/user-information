@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { UserInfo, UserRole } from '../../shared/models/userInfo';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +18,7 @@ export class UserInfoService {
 
 
   getDataByEmail(email: string): Observable<string> {
-    return this.#http.post<string>(`${this.config}/getAllUserInfo`, email);
+    return this.#http.post<string>(`${this.config}getUserInfo`, email);
   }
 
   getUserRoles(id: number | undefined): BehaviorSubject<UserRole[]> {

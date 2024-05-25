@@ -1,4 +1,6 @@
-.container {
+.content {
+  padding: 2em;
+
   background: rgb(2, 0, 36);
   background: linear-gradient(
     90deg,
@@ -45,6 +47,7 @@
   background: #f8f9fa;
   border-top-right-radius: 10% 50%;
   border-bottom-right-radius: 10% 50%;
+  margin-left: 10px;
 }
 
 .register_right > div {
@@ -52,6 +55,8 @@
   justify-content: space-between;
   max-width: 25em;
   border-bottom: 1px solid lightblue;
+  padding: 5px;
+  margin-left: 10px;
 }
 
 .logo {

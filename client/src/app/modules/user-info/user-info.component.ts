@@ -106,11 +106,12 @@ export class UserInfoComponent implements OnInit {
   onSubmit(email: string) {
     if (email) {
       this.userInfoService.getDataByEmail(email).subscribe((res: any) => {
+        debugger;
         this.stateOfElement = true;
-        this.userInfo = res.data[0];
-        if (this.userInfo) {
-          this.userInfoService.getUserRoles(this.userInfo.id);
-        }
+        this.userInfo = res[0];
+        // if (this.userInfo) {
+        //   this.userInfoService.getUserRoles(this.userInfo.user_id);
+        // }
       });
     }
   }

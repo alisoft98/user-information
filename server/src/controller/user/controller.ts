@@ -5,21 +5,21 @@ import { Request, Response } from 'express';
 import BuildResponse from '../../modules/response/app_response';
 
 // getAllUserInfo
-// routes.post(
-//   '/getAllUserInfo',
-//   async function getAllUserData(req: Request, res: Response) {
-//     try {
-//       const data = req.body.email
-//       const userData = await UserService.getAllUserInfo(data)
-//       const buildResponse = await BuildResponse.get(userData);
-//       return res.json(buildResponse)
+routes.post(
+  '/getUserInfo',
+  async function getAllUserData(req: Request, res: Response) {
+    try {
+      const data = req.body.email
+      const userData = await UserService.getUserInfo(data)
+      const buildResponse = await BuildResponse.get(userData);
+      return res.json(buildResponse)
 
-//     } catch (error) {
-//       console.log(error);
+    } catch (error) {
+      console.log(error);
 
-//     }
-//   }
-// );
+    }
+  }
+);
 
 // userRoles
 // routes.get(
