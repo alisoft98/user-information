@@ -5,9 +5,10 @@ import {
   HostBinding,
   Input,
 } from '@angular/core';
-import { CanDisableDirective } from '../directives/can-disable/can-disable.directive';
-import { HasTabIndexDirective } from '../directives/has-disable/has-tab-index.directive';
-import { toBooleanProperty } from '../utils/type-coercion';
+import { CanDisableDirective } from '../../directives/can-disable/can-disable.directive';
+import { HasTabIndexDirective } from '../../directives/has-disable/has-tab-index.directive';
+import { toBooleanProperty } from '../../utils/type-coercion';
+
 
 export const BUTTON_CLASESS = {
   solid: 'solid-button',

@@ -1,5 +1,4 @@
 import { Component, input } from '@angular/core';
-import { UserInfo } from '../models/userInfo';
 
 @Component({
   selector: 'app-custom-tab',

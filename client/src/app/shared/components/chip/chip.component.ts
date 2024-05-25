@@ -6,7 +6,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { HasTabIndexDirective } from '../directives/has-disable/has-tab-index.directive';
+import { HasTabIndexDirective } from '../../directives/has-disable/has-tab-index.directive';
 
 @Component({
   selector: 'app-chip',

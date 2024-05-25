@@ -20,10 +20,10 @@ import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { RouterLink } from '@angular/router';
 import { UserInfoService } from '../../core/services/user-info.service';
-import { ButtonComponent } from '../../shared/button/button.component';
-import { ChipComponent } from '../../shared/chip/chip.component';
 import { CanCopyToClipboardDirective } from '../../shared/directives/can-copy-to-clipboard/can-copy-to-clipboard.directive';
 import { UserRolesComponent } from './user-roles/user-roles.component';
+import { ButtonComponent } from '../../shared/components/button/button.component';
+import { ChipComponent } from '../../shared/components/chip/chip.component';
 
 @Component({
   selector: 'app-user-info',
@@ -106,7 +106,6 @@ export class UserInfoComponent implements OnInit {
   onSubmit(email: string) {
     if (email) {
       this.userInfoService.getDataByEmail(email).subscribe((res: any) => {
-        debugger;
         this.stateOfElement = true;
         this.userInfo = res[0];
         // if (this.userInfo) {

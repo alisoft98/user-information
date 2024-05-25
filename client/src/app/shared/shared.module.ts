@@ -21,7 +21,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ChunkPipe } from './pipes/chunk.pipe';
+import { ChunkPipe } from './pipes/chunk/chunk.pipe';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 
 const ANGULR_MATERIAL_MODULES = [

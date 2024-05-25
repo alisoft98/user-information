@@ -5,7 +5,7 @@ import { DialogCalendarComponent } from './calendar/dialog-calendar/dialog-calen
 import { ModulesRoutingModule } from './modules-routing.module';
 import { ModulesComponent } from './profile.component';
 @NgModule({
-  declarations: [ModulesComponent, DialogCalendarComponent, CalendarComponent],
+  declarations: [ModulesComponent, DialogCalendarComponent, CalendarComponent,],
   imports: [ModulesRoutingModule, SharedModule],
 })
 export class ModulesModule {}

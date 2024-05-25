@@ -1,0 +1,21 @@
+.copied-text {
+    display: block;
+    font-size: 11px;
+  }
+
+
+  .banner,
+  .alt-banner {
+    padding: 15px 30px;
+    box-sizing: border-box;
+    text-align: center;
+    width: 100%;
+    background: #daf8ff;
+    border: #89d7e9 solid 1px;
+    border-radius: 10px;
+    min-width: 300px;
+  }
+  .alt-banner {
+    border-style: dashed;
+    background: transparent;
+  }

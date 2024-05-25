@@ -73,7 +73,6 @@ export class SideBarComponent {
   getNavItems() {
     this.navService.getNavItems().subscribe({
       next: (res: any) => {
-        debugger;
         this.groupedData = this.groupByMenu(res.data, 'menu_name');
       },
       error: e => console.error(e),
@@ -112,7 +111,6 @@ export class SideBarComponent {
   toggleMenuItem(menuName: string) {
     const sub = this.groupedData[menuName][0].submenu_name;
     const path = this.groupedData[menuName][0].path;
-    debugger
     if(sub){
       this.expandedMenus[menuName] = !this.expandedMenus[menuName];
     }else{
