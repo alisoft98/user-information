@@ -7,19 +7,16 @@
  * {} => false
  * ...
  */
-
 export function isNumber(value: any) {
   return !isNaN(parseFloat(value)) && !isNaN(Number(value));
 }
-
 /**
  * Transforms a provided value to a boolean component property
  * 'false' => false | it allows <comp disable="false" />
  * '' => true | it allows <comp disable />
  * null => false
- *
+ * 
  */
-
 export function toBooleanProperty(value: any): boolean {
   return value != null && `${value}` !== 'false';
 }
@@ -34,3 +31,4 @@ export function toBooleanProperty(value: any): boolean {
 export function toNumberProperty(value: any): number {
   return isNumber(value) ? Number(value) : 0;
 }
+

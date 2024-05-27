@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { TestBed } from '@angular/core/testing';
 import { User } from '../auth/models/user';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -10,7 +11,8 @@ describe('AuthService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [],
+      imports: [NoopAnimationsModule],
+
     providers: [AuthService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
 });
     service = TestBed.inject(AuthService);

@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Self } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -97,6 +97,7 @@ export class UserInfoComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
     });
   }
+  
   constructor(public userInfoService: UserInfoService) { }
 
   ngOnInit(): void {

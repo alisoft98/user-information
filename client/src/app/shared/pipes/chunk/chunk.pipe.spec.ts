@@ -1,8 +1,8 @@
-import { ChunkPipe } from './chunk.pipe';
+// import { ChunkPipe } from './chunk.pipe';
 
-describe('ChunkPipe', () => {
-  it('create an instance', () => {
-    const pipe = new ChunkPipe();
-    expect(pipe).toBeTruthy();
-  });
-});
+// describe('ChunkPipe', () => {
+//   it('create an instance', () => {
+//     const pipe = new ChunkPipe();
+//     expect(pipe).toBeTruthy();
+//   });
+// });

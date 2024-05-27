@@ -10,6 +10,7 @@ import { banWords } from '../../../shared/functions/ban-words.validators';
   styleUrl: './dialog-calendar.component.scss',
 })
 export class DialogCalendarComponent {
+  title: string = 'Create Appointment';
   value = 'Clear me';
   date: any;
   selectedColor: any;
@@ -22,6 +23,9 @@ export class DialogCalendarComponent {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.date = data.data.date;
+    setTimeout(() => {
+      this.title = 'testing change detection'
+    }, 2000);
   }
 
   ngOnInit(): void {
@@ -46,7 +50,7 @@ export class DialogCalendarComponent {
         ],
       ],
       event_description: [''],
-      color: [''],
+      color: ['#FF0000'],
     });
   }
 
@@ -55,9 +59,7 @@ export class DialogCalendarComponent {
   }
 
   submit() {
-    
     this.dialogRef.close(this.form.value);
-
   }
 
   updateForm() {

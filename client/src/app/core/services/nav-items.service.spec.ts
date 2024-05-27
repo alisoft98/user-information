@@ -3,6 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { NavItemsService } from './nav-items.service';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('NavItemsService', () => {
   let service: NavItemsService;
@@ -10,7 +11,7 @@ describe('NavItemsService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [],
+    imports: [NoopAnimationsModule],
     providers: [NavItemsService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
 });
 

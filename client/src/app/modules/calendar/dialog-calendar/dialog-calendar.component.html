@@ -1,5 +1,5 @@
 <mat-toolbar>
-  <span>Create Appointment</span>
+  <span>{{title}}</span>
 </mat-toolbar>
 <form [formGroup]="form" (ngSubmit)="submit()">
   <mat-dialog-content class="mat-typography">
@@ -23,7 +23,7 @@
         <div class="date">
           <span class="material-symbols-outlined ml-3"> schedule </span>
           <strong>
-            {{ date | date: 'dd MMM yyyy' }}
+            {{ date | date: 'short' }}
           </strong>
         </div>
         <div class="show-date">
@@ -48,6 +48,7 @@
         </div>
       </div>
 
+      <app-time-picker></app-time-picker>
       <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Leave a comment</mat-label>
         <textarea

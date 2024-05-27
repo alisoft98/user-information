@@ -1,18 +1,18 @@
 // import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-// import { ItemCardComponent } from './item-card.component';
+// import { TimePickerComponent } from './time-picker.component';
 
-// describe('ItemCardComponent', () => {
-//   let component: ItemCardComponent;
-//   let fixture: ComponentFixture<ItemCardComponent>;
+// describe('TimePickerComponent', () => {
+//   let component: TimePickerComponent;
+//   let fixture: ComponentFixture<TimePickerComponent>;
 
 //   beforeEach(async () => {
 //     await TestBed.configureTestingModule({
-//       imports: [ItemCardComponent]
+//       imports: [TimePickerComponent]
 //     })
 //     .compileComponents();
     
-//     fixture = TestBed.createComponent(ItemCardComponent);
+//     fixture = TestBed.createComponent(TimePickerComponent);
 //     component = fixture.componentInstance;
 //     fixture.detectChanges();
 //   });
