@@ -9,7 +9,6 @@ export class ProductUrlPipe implements PipeTransform {
   private baseUrl: string = 'https://test.com';
 
   transform(productId: string | number): unknown {
-    debugger;
     const id = toNumberProperty(productId);
     if (!this.baseUrl) {
       throw new Error(`Base URL was not provided...`);

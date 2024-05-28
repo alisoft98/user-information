@@ -1,8 +1,7 @@
-import schema from './schema';
-import UserService from './sercvice';
-import routes from '../../routes/public';
 import { Request, Response } from 'express';
 import BuildResponse from '../../modules/response/app_response';
+import routes from '../../routes/public';
+import UserService from './sercvice';
 
 // getAllUserInfo
 routes.post(

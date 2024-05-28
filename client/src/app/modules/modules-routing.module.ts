@@ -6,6 +6,7 @@ import { UserRolesComponent } from './user-info/user-roles/user-roles.component'
 import { LayoutComponent } from '../core/layouts/layout.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { UsersComponent } from './users/users.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,10 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
+      },
+      {
+        path: 'users',
+        component: UsersComponent,
       },
       {
         path: 'user-info',

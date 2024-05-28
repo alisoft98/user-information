@@ -28,7 +28,7 @@ import { AuthService } from '../../../services/auth.service';
     MatButtonModule,
     MatFormFieldModule,
   ],
-  providers:[ToastrService],
+  providers: [ToastrService],
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
@@ -43,8 +43,7 @@ export class LoginComponent {
     public service: AuthService,
     public toastr: ToastrService,
     private cookieService: CookieService
-  ) {
-  }
+  ) {}
 
   createForm() {
     this.form = new FormGroup({
@@ -65,7 +64,7 @@ export class LoginComponent {
           this.cookieService.set('authorized', dataCookie);
           this.toastr.success('Login is succsessful!');
           this.router.navigate(['/profile/dashboard']);
-          console.log('✅success login',res);
+          console.log('✅success login', res);
         } else {
           this.toastr.success('incorrect email or password!');
         }
@@ -81,3 +80,5 @@ export class LoginComponent {
     return this.form.get('password');
   }
 }
+
+

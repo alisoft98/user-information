@@ -39,7 +39,6 @@ export class HideAfterDirective implements OnInit {
     private cd: ChangeDetectorRef
   ) {}
   ngOnInit(): void {
-    debugger;
     this.viewContainerRef.createEmbeddedView(this.template, this.context);
     const intervalId = setInterval(() => {
       this.context.counter--;

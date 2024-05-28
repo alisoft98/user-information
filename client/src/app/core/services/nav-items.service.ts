@@ -9,8 +9,7 @@ import { environment } from '../../environments/environment';
 })
 export class NavItemsService {
   #http = inject(HttpClient);
-   config = environment.apiEndPoint;
-
+  config = environment.apiEndPoint;
 
   constructor() {}
 

@@ -47,3 +47,7 @@ mat-form-field {
   width: 100%;
 }
 
+
+.mdc-text-field--outlined {
+  --mdc-outlined-text-field-container-shape: 28px !important;
+}

@@ -1,6 +1,6 @@
-import { BreakpointObserver, MediaMatcher } from '@angular/cdk/layout';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -14,6 +14,8 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { groupBy } from 'lodash';
 import { NavItem } from '../../../shared/models/nav-items';
 import { NavItemsService } from '../../services/nav-items.service';
+import { Menu } from '../types/navItem';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'side-bar',
@@ -33,6 +35,21 @@ import { NavItemsService } from '../../services/nav-items.service';
   ],
   templateUrl: './side-bar.component.html',
   styleUrl: './side-bar.component.scss',
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({
+          transform: 'translateY(-20%)',
+        }),
+        animate(
+          '900ms ease',
+          style({
+            transform: 'translateY(0)',
+          })
+        ),
+      ]),
+    ]),
+  ],
 })
 export class SideBarComponent {
   menuItem: NavItem[] = [];
@@ -51,8 +68,6 @@ export class SideBarComponent {
     private navService: NavItemsService,
     private router: Router,
     private observer: BreakpointObserver,
-    changeDetectorRef: ChangeDetectorRef,
-    media: MediaMatcher
   ) {
     // this.mobileQuery = media.matchMedia('(max-width: 600px)');
     // this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -79,11 +94,12 @@ export class SideBarComponent {
       complete: () => {},
     });
   }
+
   stopPropagation(event: Event) {
     event.stopPropagation();
   }
 
-  groupByMenu(data: any[], key: string) {
+  groupByMenu(data: Menu[], key: string) {
     return groupBy(data, key);
   }
 
@@ -108,15 +124,17 @@ export class SideBarComponent {
   getMenuIcon(menuName: string): string {
     return this.groupedData[menuName][0]?.icon || 'folder';
   }
+
   toggleMenuItem(menuName: string) {
-    const sub = this.groupedData[menuName][0].submenu_name;
+    const sub = this.groupedData[menuName][0].submenus;
     const path = this.groupedData[menuName][0].path;
     if(sub){
       this.expandedMenus[menuName] = !this.expandedMenus[menuName];
-    }else{
       this.router.navigate([path])
+    }else{
     }
   }
+
   isMenuItemExpanded(menuName: string): boolean {
     return !!this.expandedMenus[menuName];
   }

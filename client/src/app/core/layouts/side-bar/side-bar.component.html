@@ -1,59 +1,4 @@
-<!-- <mat-toolbar color="primary">
-  <button mat-icon-button aria-label="Menu icon" (click)="toggleMenu()"
-  >
-    <mat-icon>menu</mat-icon>
-  </button>
-</mat-toolbar>
-<mat-sidenav-container autosize >
-  <mat-sidenav
-    class="side-nav"
-    
-    [ngClass]="!isCollapsed ? 'expanded' : ''"
-    [mode]="isMobile ? 'over' : 'side'"
-    [opened]="!isMobile">
-    <mat-nav-list>
 
-
-
-      @for (menuName of getMenuNames(); track trackByFn) { @if (isCollapsed) {
-      @for (item of groupedData[menuName]; track trackByFn) {
-      <div class="still-icon">
-        <span class="material-symbols-outlined">
-          {{ item.icon }}
-        </span>
-      </div>
-      } } @if (!isCollapsed) {
-      <ul class="btn-menu" >
-        @for (item of groupedData[menuName]; track trackByFn) {
-        <li [matMenuTriggerFor]="submenu">
-          @if (!isCollapsed) {
-          <span class="material-symbols-outlined">
-            {{ item.icon }}
-          </span>
-          }
-          {{ menuName }}
-          <span class="material-symbols-outlined">
-            chevron_right
-            </span>
-        </li>
-        }
-      </ul>
-      <mat-menu #submenu="matMenu">
-        @if (groupedData[menuName]) { @for (item of groupedData[menuName]; track
-        trackByFn) {
-        <a mat-list-item [routerLink]="item.url">
-          {{ item.submenu_name }}
-        </a>
-        } }
-      </mat-menu>
-      } }
-    </mat-nav-list>
-  </mat-sidenav>
-
-  <mat-sidenav-content>
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container> -->
 
 <mat-toolbar color="primary">
   <button mat-icon-button aria-label="Menu icon" (click)="toggleMenu()">
@@ -72,7 +17,6 @@
         *ngFor="let menuName of getMenuNames(); trackBy: trackByFn"
         class="menu_content">
         @for (item of groupedData[menuName]; track trackByFn) {
-
         <div class="menu_items">
           <span *ngIf="isCollapsed" class="material-symbols-outlined">
             {{ getMenuIcon(menuName) }}
@@ -85,19 +29,21 @@
           </span>
           <span
             class="material-symbols-outlined"
-            *ngIf="!isCollapsed && item.submenu_name">
+            *ngIf="!isCollapsed && item['submenus']">
             {{ isMenuItemExpanded(menuName) ? 'expand_less' : 'expand_more' }}
           </span>
         </div>
         <ul *ngIf="isMenuItemExpanded(menuName)">
           <li>
-            @if (item.submenu_name) {
-            <a mat-list-item [routerLink]="item.url">
-              <span class="material-symbols-outlined">{{ item.icon }}</span>
-              <span>
-                {{ item.submenu_name }}
-              </span>
-            </a>
+            @if (item.submenus) {
+              @for (s of item['submenus']; track $index) {
+                <a mat-list-item [routerLink]="s.url">
+                  <span class="material-symbols-outlined">{{ s.icon }}</span>
+                  <span >
+                    {{ s.submenu_name}}
+                  </span>
+                </a>
+              }
             }
           </li>
         </ul>
