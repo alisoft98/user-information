@@ -1,23 +1,11 @@
-<ul>
-    <li>
-        <span class="key">ID:</span>
-        <span class="value">{{data().id}}</span>
-    </li>
-    <li>
-        <span class="key">Name:</span>
-        <span class="value">{{data().name}}</span>
-    </li>
-    <li>
-        <span class="key">Email:</span>
-        <span class="value">{{data().email}}</span>
-    </li>
-    <li>
-        <span class="key">Address:</span>
-        <span class="value">
-            {{data().zipcode}}
-            {{data().city}}
-            {{data().street}}
-            {{data().suite}}
-        </span>
-    </li>
-</ul>
+<mat-tab-group
+  mat-stretch-tabs="false"
+  mat-align-tabs="start"
+  (selectedTabChange)="onTabChanged($event.tab)">
+  @for (tab of tabs(); track tab) {
+  <mat-tab label="{{ tab }}">
+ یبیسب
+  </mat-tab>
+  }
+</mat-tab-group>
+

@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -16,6 +16,7 @@ import { NavItem } from '../../../shared/models/nav-items';
 import { NavItemsService } from '../../services/nav-items.service';
 import { Menu } from '../types/navItem';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'side-bar',
@@ -51,7 +52,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
     ]),
   ],
 })
-export class SideBarComponent {
+export class SideBarComponent implements OnInit, OnDestroy {
   menuItem: NavItem[] = [];
   title = 'material-responsive-sidenav';
   @ViewChild(MatSidenav)
@@ -63,11 +64,12 @@ export class SideBarComponent {
   hasBackdrop = new FormControl(null as null | boolean);
   position = new FormControl('start' as 'start' | 'end');
   expandedMenus: { [key: string]: boolean } = {};
+  private ngUnsubscribe: Subject<any> = new Subject();
 
   constructor(
     private navService: NavItemsService,
     private router: Router,
-    private observer: BreakpointObserver,
+    private observer: BreakpointObserver
   ) {
     // this.mobileQuery = media.matchMedia('(max-width: 600px)');
     // this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -76,13 +78,16 @@ export class SideBarComponent {
 
   ngOnInit(): void {
     this.getNavItems();
-    this.observer.observe(['max-with:800px']).subscribe(screenSize => {
-      if (screenSize.matches) {
-        this.isMobile = true;
-      } else {
-        this.isMobile = false;
-      }
-    });
+    this.observer
+      .observe(['max-with:800px'])
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(screenSize => {
+        if (screenSize.matches) {
+          this.isMobile = true;
+        } else {
+          this.isMobile = false;
+        }
+      });
   }
 
   getNavItems() {
@@ -128,14 +133,19 @@ export class SideBarComponent {
   toggleMenuItem(menuName: string) {
     const sub = this.groupedData[menuName][0].submenus;
     const path = this.groupedData[menuName][0].path;
-    if(sub){
+    if (sub) {
       this.expandedMenus[menuName] = !this.expandedMenus[menuName];
-      this.router.navigate([path])
-    }else{
+      this.router.navigate([path]);
+    } else {
     }
   }
 
   isMenuItemExpanded(menuName: string): boolean {
     return !!this.expandedMenus[menuName];
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next(null);
+    this.ngUnsubscribe.complete();
   }
 }

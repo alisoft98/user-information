@@ -17,8 +17,9 @@ mat-card {
     margin: 0 auto;
   }
 
- 
+
 }
+
 ::ng-deep .mdc-text-field--outlined {
   --mdc-outlined-text-field-container-shape: 28px;
 }
@@ -30,6 +31,9 @@ button {
 .chip-text {
   color: blue;
 }
-mat-form-field{
+
+mat-form-field {
   width: 100%;
 }
+
+

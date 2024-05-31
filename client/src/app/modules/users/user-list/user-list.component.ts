@@ -1,16 +1,15 @@
-import { Component, ViewChild, computed, input, signal } from '@angular/core';
-import { FilterComponent } from '../filter/filter.component';
-import { FormsModule } from '@angular/forms';
-import { Customers } from '../models/customers';
-import { CustomersService } from '../services/customers.service';
 import { NgFor, NgIf } from '@angular/common';
-import { Observable, filter } from 'rxjs';
-import { map } from 'lodash';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { take } from 'rxjs';
+import { FilterComponent } from '../filter/filter.component';
+import { Customers } from '../models/customers';
+import { CustomersService } from '../services/customers.service';
 
 @Component({
   selector: 'app-user-list',
@@ -29,7 +28,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss',
 })
-export class UserListComponent {
+export class UserListComponent implements OnDestroy, OnInit {
   customers: Customers[] = [];
   displayedColumns: string[] = [
     'position',
@@ -58,15 +57,27 @@ export class UserListComponent {
     this.dataSource.sort = this.sort;
   }
 
+  /**
+  * This is the get function
+  * @returns returns array of UserData
+  */
   getData() {
-    this.service.getCustomers().subscribe((data: any) => {
-      this.dataSource = new MatTableDataSource(data.data);
-      this.dataSource.sort = this.sort;
-      // this.customers = data.data;
-      console.log('✅Customer', data);
-    });
+    this.service
+      .getCustomers()
+      .pipe(take(1))
+      .subscribe((data: any) => {
+        this.dataSource = new MatTableDataSource(data.data);
+        this.dataSource.sort = this.sort;
+        // this.customers = data.data;
+        console.log('✅Customer', data);
+      });
   }
 
+    /**
+  * This is the get function
+  * @param event This is the applyFilter 
+  * @returns returns datauser with filter
+  */
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -74,5 +85,9 @@ export class UserListComponent {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  ngOnDestroy(): void {
+
   }
 }
