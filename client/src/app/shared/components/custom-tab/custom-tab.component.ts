@@ -1,33 +1,56 @@
+import { AsyncPipe, CommonModule, NgTemplateOutlet } from '@angular/common';
 import {
+  AfterViewInit,
   Component,
-  ContentChildren,
-  ElementRef,
   EventEmitter,
-  OnInit,
   Output,
   TemplateRef,
-  input,
-  viewChild,
+  input
 } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
+
 @Component({
   selector: 'generic-tab',
   standalone: true,
-  imports: [MatTabsModule],
+  imports: [MatTabsModule, NgTemplateOutlet, AsyncPipe, CommonModule],
   templateUrl: './custom-tab.component.html',
   styleUrl: './custom-tab.component.scss',
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CustomTabComponent implements OnInit {
-  tabs = input.required<string[]>();
-  tabContent = TemplateRef<any>;
+export class CustomTabComponent implements AfterViewInit {
+  tabs =
+    input.required<
+      { id: number; title: string; template: TemplateRef<any>; context?: any }[]
+    >();
 
-  @Output() selectedIndexChange = new EventEmitter<any>();
+  @Output() selectedIndexChange = new EventEmitter<number>();
+  selectedTemplate!: TemplateRef<any>;
+  context: any;
 
-  onTabChanged(index: any) {
-    this.selectedIndexChange.emit(index);
+  constructor() {}
+
+  ngOnInit() {
+    // if (this.tabs().length > 0) {
+    //   this.setSelectedTab(0);
+    // }
+  }
+  ngAfterViewInit() {
+    const data = this.tabs();
+    if (data.length > 0) {
+      this.setSelectedTab(0);
+    }
   }
 
-  ngOnInit(): void {
-    // const factory = this.template.
+  onTabChanged(index: number) {
+    if (this.tabs().length > index) {
+      this.setSelectedTab(index);
+      this.selectedIndexChange.emit(index);
+    }
+  }
+
+  private setSelectedTab(index: number) {
+    const selectedTab = this.tabs()[index];
+    this.selectedTemplate = selectedTab.template;
+    this.context = { $implicit: selectedTab.context };
   }
 }

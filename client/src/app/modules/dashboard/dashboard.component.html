@@ -175,6 +175,25 @@
 </div> -->
 
 <!-- <list-item-demo /> -->
-<generic-tab [tabs]="dataTab" (selectedIndexChange)="tabChange($event)" >
-     <h2>asldf;jk</h2>
+<generic-tab [tabs]="tabs" (selectedIndexChange)="handleTabChange($event)">
+  <ng-template #templateOne let-data="data">
+    <p>Content for Tab 1: {{ data }}</p>
+    <app-users></app-users>
+  </ng-template>
+
+  <ng-template #templateTwo let-data="data">
+    <p>Content for Tab 2: {{ data }}</p>
+    <app-chip value="reactjs" (removed)="onRemove($event)" [removable]="true"
+      >ReactJS</app-chip>
+  </ng-template>
+  <ng-template #templateThree let-data="data">
+    <p>Content for Tab 3: {{ data }}</p>
+    <app-chip value="reactjs" (removed)="onRemove($event)" [removable]="true"
+      >ReactJS</app-chip>
+  </ng-template>
+  <ng-template #templatefour let-data="data">
+    <p>Content for Tab 4: {{ data }}</p>
+    <app-chip value="reactjs" (removed)="onRemove($event)" [removable]="true"
+      >ReactJS</app-chip>
+  </ng-template>
 </generic-tab>
