@@ -8,8 +8,8 @@
     ]
   },
   "files": [
-    "src/main.ts",
-    "src/main.server.ts",
+    "projects/panel-admin/src/main.ts",
+    "projects/panel-admin/src/main.server.ts",
     "server.ts"
   ],
   "include": [
