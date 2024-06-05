@@ -1,6 +1,7 @@
 import { AsyncPipe, CommonModule, NgTemplateOutlet } from '@angular/common';
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Output,
@@ -15,7 +16,7 @@ import { MatTabsModule } from '@angular/material/tabs';
   imports: [MatTabsModule, NgTemplateOutlet, AsyncPipe, CommonModule],
   templateUrl: './custom-tab.component.html',
   styleUrl: './custom-tab.component.scss',
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CustomTabComponent implements AfterViewInit {
   tabs =
@@ -42,6 +43,7 @@ export class CustomTabComponent implements AfterViewInit {
   }
 
   onTabChanged(index: number) {
+    debugger;
     if (this.tabs().length > index) {
       this.setSelectedTab(index);
       this.selectedIndexChange.emit(index);

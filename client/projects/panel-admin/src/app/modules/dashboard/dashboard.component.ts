@@ -17,6 +17,8 @@ import { CanDisableDirective } from '../../shared/directives/can-disable/can-dis
 import { HideAfterDirective } from '../../shared/directives/hide-after/hide-after.directive';
 import { ProductUrlPipe } from '../../shared/pipes/product-url/product-url.pipe';
 import { UsersComponent } from '../users/users.component';
+import { RatingPickerPageComponent } from '../../shared/components/rating-picker-page/rating-picker-page.component';
+import { SmartSelecOtionComponent } from '../../shared/components/smart-select-option/smart-select-option.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -36,6 +38,8 @@ import { UsersComponent } from '../users/users.component';
     CustomTabComponent,
     UsersComponent,
     NgTemplateOutlet,
+    RatingPickerPageComponent,
+    SmartSelecOtionComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
