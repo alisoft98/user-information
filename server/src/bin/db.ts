@@ -9,7 +9,7 @@ export async function getUserByPassword(
 ): Promise<User | null> {
   try {
     const userData = await query<RowDataPacket[]>(
-      `SELECT * FROM mydb.users WHERE email=?`,
+      `SELECT * FROM ${coreSchema}.users WHERE email=?`,
       {
         values: [email],
       }
@@ -147,7 +147,7 @@ export async function deleteAppointment(event_id: string) {
 
 export async function getCustomers() {
   const customers = await query<RowDataPacket[]>(`
-  SELECT * FROM ${coreSchema}.customers
+  SELECT * FROM ${coreSchema}.user_info
   `);
     return customers;
 }

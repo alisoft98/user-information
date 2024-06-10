@@ -16,9 +16,9 @@ import { CanCopyToClipboardDirective } from '../../shared/directives/can-copy-to
 import { CanDisableDirective } from '../../shared/directives/can-disable/can-disable.directive';
 import { HideAfterDirective } from '../../shared/directives/hide-after/hide-after.directive';
 import { ProductUrlPipe } from '../../shared/pipes/product-url/product-url.pipe';
-import { UsersComponent } from '../users/users.component';
 import { RatingPickerPageComponent } from '../../shared/components/rating-picker-page/rating-picker-page.component';
 import { SmartSelecOtionComponent } from '../../shared/components/smart-select-option/smart-select-option.component';
+import { UsersComponent } from '../users/components/users.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -36,10 +36,10 @@ import { SmartSelecOtionComponent } from '../../shared/components/smart-select-o
     ProductUrlPipe,
     DemoComponent,
     CustomTabComponent,
-    UsersComponent,
     NgTemplateOutlet,
     RatingPickerPageComponent,
-    SmartSelecOtionComponent
+    SmartSelecOtionComponent,
+    UsersComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',

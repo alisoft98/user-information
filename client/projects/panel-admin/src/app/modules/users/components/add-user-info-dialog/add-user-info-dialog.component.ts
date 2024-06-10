@@ -1,0 +1,109 @@
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormRecord,
+  ReactiveFormsModule,
+  UntypedFormControl,
+  Validators,
+} from '@angular/forms';
+import { Observable, debounceTime, distinctUntilChanged, tap } from 'rxjs';
+import { CustomersService } from '../../services/customers.service';
+
+@Component({
+  selector: 'app-add-user-info-dialog',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
+  templateUrl: './add-user-info-dialog.component.html',
+  styleUrl: './add-user-info-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class AddUserInfoDialogComponent implements OnInit {
+  years = this.getYears();
+  phoneLabels = ['Main', 'Mobile', 'Work', 'Home'];
+  skiil$!: Observable<string[]>;
+
+  form = this.fb.group({
+    firstName: ['ali', [Validators.required, Validators.minLength(3)]],
+    lastName: ['es', [Validators.required, Validators.minLength(2)]],
+    nikname: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.pattern(/^[\w.]+$/),
+      ],
+    ],
+    email: [
+      'aliakbaresmaeili98@gmail.com',
+      [Validators.required, Validators.email],
+    ],
+    yearOfBirth: this.fb.nonNullable.control(
+      this.years[this.years.length - 1],
+      Validators.required
+    ),
+    passport: ['', [Validators.pattern(/^[A-Z]{2}[0-9]{6}$/)]],
+    address: this.fb.nonNullable.group({
+      fullAddress: ['', Validators.required],
+      city: ['', Validators.required],
+      postCode: [0, Validators.required],
+    }),
+    phones: this.fb.array([
+      this.fb.group({
+        label: this.fb.nonNullable.control(this.phoneLabels[0]),
+        phone: '',
+      }),
+    ]),
+    skills: this.fb.record<boolean>({}),
+  });
+
+  constructor(private service: CustomersService, private fb: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.skiil$ = this.service
+      .getSkills()
+      .pipe(tap(skills => this.buildSkillControls(skills)));
+    // for get value during time
+    // this.form.controls.firstName.valueChanges.pipe(
+    //   debounceTime(100),
+    //   distinctUntilChanged()
+    // ).subscribe((res)=>{
+    //   console.log(res);
+    // })
+  }
+  addPhone() {
+    this.form.controls.phones.insert(
+      0,
+      new FormGroup({
+        label: new FormControl(this.phoneLabels[0], { nonNullable: true }),
+        phone: new FormControl(''),
+      })
+    );
+  }
+  removePhone(i: number) {
+    this.form.controls.phones.removeAt(i);
+  }
+
+  onSubmit(e: Event) {
+    console.log(this.form.value);
+    this.form.reset();
+  }
+
+  private buildSkillControls(skills: string[]) {
+    skills.forEach(skill =>
+      this.form.controls.skills.addControl(
+        skill,
+        new FormControl(false, { nonNullable: true })
+      )
+    );
+  }
+  private getYears() {
+    const now = new Date().getUTCFullYear();
+    return Array(now - (now - 40))
+      .fill('')
+      .map((_, idx) => now - idx);
+  }
+}

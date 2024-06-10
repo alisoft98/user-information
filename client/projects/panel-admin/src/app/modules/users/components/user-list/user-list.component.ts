@@ -7,9 +7,12 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { take } from 'rxjs';
-import { FilterComponent } from '../filter/filter.component';
-import { Customers } from '../models/customers';
-import { CustomersService } from '../services/customers.service';
+import { FilterComponent } from '../../filter/filter.component';
+import { Customers } from '../../models/customers';
+import { CustomersService } from '../../services/customers.service';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDialog } from '@angular/material/dialog';
+import { AddUserInfoDialogComponent } from '../add-user-info-dialog/add-user-info-dialog.component';
 
 @Component({
   selector: 'app-user-list',
@@ -24,6 +27,7 @@ import { CustomersService } from '../services/customers.service';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    MatToolbarModule,
   ],
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss',
@@ -46,7 +50,7 @@ export class UserListComponent implements OnDestroy, OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private service: CustomersService) {}
+  constructor(private service: CustomersService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.getData();
@@ -58,9 +62,9 @@ export class UserListComponent implements OnDestroy, OnInit {
   }
 
   /**
-  * This is the get function
-  * @returns returns array of UserData
-  */
+   * This is the get function
+   * @returns returns array of UserData
+   */
   getData() {
     this.service
       .getCustomers()
@@ -73,21 +77,24 @@ export class UserListComponent implements OnDestroy, OnInit {
       });
   }
 
-    /**
-  * This is the get function
-  * @param event This is the applyFilter 
-  * @returns returns datauser with filter
-  */
+  /**
+   * This is the get function
+   * @param event This is the applyFilter
+   * @returns returns datauser with filter
+   */
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy(): void {}
 
+  addUserInfo() {
+    this.dialog.open(AddUserInfoDialogComponent, {
+      height:'900px'
+    });
   }
 }

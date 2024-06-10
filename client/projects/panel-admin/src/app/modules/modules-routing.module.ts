@@ -1,12 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ModulesComponent } from './profile.component';
-import { UserInfoComponent } from './user-info/user-info.component';
-import { UserRolesComponent } from './user-info/user-roles/user-roles.component';
 import { LayoutComponent } from '../core/layouts/layout.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { UsersComponent } from './users/users.component';
+import { UsersComponent } from './users/components/users.component';
 
 const routes: Routes = [
   {
@@ -21,14 +18,14 @@ const routes: Routes = [
         path: 'users',
         component: UsersComponent,
       },
-      {
-        path: 'user-info',
-        component: UserInfoComponent,
-      },
-      {
-        path: 'user-roles',
-        component: UserRolesComponent,
-      },
+      // {
+      //   path: 'user-info',
+      //   // component: UserInfoComponent,
+      // },
+      // {
+      //   path: 'user-roles',
+      //   // component: UserRolesComponent,
+      // },
       {
         path: 'schedule',
         component: CalendarComponent,

@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
-import { FilterComponent } from './filter/filter.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { FilterComponent } from '../filter/filter.component';
 
 
 
