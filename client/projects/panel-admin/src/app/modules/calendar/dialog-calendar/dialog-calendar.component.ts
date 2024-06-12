@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { banWords } from '../../../shared/functions/ban-words.validators';
+import { banWords } from '../../../shared/validators/ban-words.validators';
 
 @Component({
   selector: 'app-dialog-calendar',

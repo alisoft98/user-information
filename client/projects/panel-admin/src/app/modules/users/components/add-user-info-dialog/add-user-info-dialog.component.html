@@ -14,7 +14,13 @@
       <div class="input-error">
         The name must be at least
         <strong>{{ firstName.getError('minlength').requiredLength }} </strong
-        >characters 
+        >characters
+      </div>
+      } @if(firstName.hasError('banWords') && firstName.dirty){
+      <div class="input-error">
+        The value
+        <strong>{{ firstName.getError('banWords').bannedWord }} </strong>is
+        banned
       </div>
       }
     </ng-container>
@@ -31,6 +37,12 @@
       <div class="input-error">This field is required</div>
       } @if(lastName.hasError('minlength') && lastName.dirty){
       <div class="input-error">The name is short</div>
+      } @if(lastName.hasError('banWords') && lastName.dirty){
+      <div class="input-error">
+        The value
+        <strong>{{ lastName.getError('banWords').bannedWord }} </strong>is
+        banned
+      </div>
       }
     </ng-container>
   </div>
@@ -46,6 +58,11 @@
       <div class="input-error">This field is required</div>
       } @if(nikname.hasError('minlength') && nikname.dirty){
       <div class="input-error">The nikname is too short</div>
+      }@if(nikname.hasError('banWords') && nikname.dirty){
+      <div class="input-error">
+        The value
+        <strong>{{ nikname.getError('banWords').bannedWord }} </strong>is banned
+      </div>
       }
     </ng-container>
   </div>
@@ -162,6 +179,43 @@
         <label [for]="skill">{{ skill | titlecase }}</label>
       </div>
     </ng-container>
+  </fieldset>
+
+  <fieldset formGroupName="password">
+    <legend>Password</legend>
+    <div class="form-field">
+      <label for="password"> Create Password</label>
+      <input
+        formControlName="password"
+        type="password"
+        id="password"
+        placeholder="Enter password..." />
+
+      <ng-container *ngIf="form.controls.address.controls.postCode as postCode">
+        @if(postCode.hasError('required') && postCode.dirty){
+        <div class="input-error">This field is required</div>
+        }
+      </ng-container>
+      <ng-container
+        *ngIf="form.controls.password.controls.password as password">
+        @if(password.dirty && password.hasError('required')){
+        <div class="input-error">This field is required</div>
+        } @if(password.dirty && password.hasError('minlength')){
+        <div class="input-error">
+          Password should be at least
+          <strong>{{ password.getError('minlength').requiredLength }}</strong>
+        </div>
+        }
+      </ng-container>
+    </div>
+    <div class="form-field">
+      <label for="confirm-password">Confirm Password</label>
+      <input
+        formControlName="confirmPassword"
+        type="password"
+        id="confirm-password"
+        placeholder="Enter confirmPassword..." />
+    </div>
   </fieldset>
 
   <button [disabled]="form.invalid">Save</button>

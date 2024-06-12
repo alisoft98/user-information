@@ -12,6 +12,7 @@ import {
 } from '@angular/forms';
 import { Observable, debounceTime, distinctUntilChanged, tap } from 'rxjs';
 import { CustomersService } from '../../services/customers.service';
+import { banWords } from '../../../../shared/validators/ban-words.validators';
 
 @Component({
   selector: 'app-add-user-info-dialog',
@@ -27,14 +28,29 @@ export class AddUserInfoDialogComponent implements OnInit {
   skiil$!: Observable<string[]>;
 
   form = this.fb.group({
-    firstName: ['ali', [Validators.required, Validators.minLength(3)]],
-    lastName: ['es', [Validators.required, Validators.minLength(2)]],
+    firstName: [
+      'ali',
+      [
+        Validators.required,
+        Validators.minLength(3),
+        banWords(['test', 'dummy']),
+      ],
+    ],
+    lastName: [
+      'es',
+      [
+        Validators.required,
+        Validators.minLength(2),
+        banWords(['ali', 'dummy']),
+      ],
+    ],
     nikname: [
       '',
       [
         Validators.required,
         Validators.minLength(2),
         Validators.pattern(/^[\w.]+$/),
+        banWords(['test', 'dummy']),
       ],
     ],
     email: [
@@ -58,6 +74,11 @@ export class AddUserInfoDialogComponent implements OnInit {
       }),
     ]),
     skills: this.fb.record<boolean>({}),
+
+    password: this.fb.group({
+      password: ['', Validators.required, Validators.minLength(6)],
+      confirmPassword: '',
+    }),
   });
 
   constructor(private service: CustomersService, private fb: FormBuilder) {}
