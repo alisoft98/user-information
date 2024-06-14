@@ -109,7 +109,7 @@ export class RegisterComponent {
       console.log('👉', res.tokenVerify);
       if (res.code === 200) {
         this.toastr.success('Login is succssesfully')
-        this.router.navigate(['login']);
+        this.router.navigate(['app-confirm-email']);
       }
     });
   }

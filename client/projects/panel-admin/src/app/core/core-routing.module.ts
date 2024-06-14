@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { LoginComponent } from './auth/components/login/login.component';
+import { OtpComponent } from './auth/components/otp/otp.component';
 import { RegisterComponent } from './auth/components/register/register.component';
 
 const routes = [
@@ -12,11 +13,11 @@ const routes = [
     path: 'register',
     component: RegisterComponent
   },
-  // {
-  //   path: 'otp',
-  //   component: OtpComponent,
-  //   canActivate: [RegistrationGuard],
-  // },
+  {
+    path: 'otp',
+    component: OtpComponent,
+    // canActivate: [RegistrationGuard],
+  },
   // {
   //   path: 'request-otp',
   //   component: RequestOtpComponent
