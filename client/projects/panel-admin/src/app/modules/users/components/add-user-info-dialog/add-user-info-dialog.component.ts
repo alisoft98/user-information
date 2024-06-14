@@ -1,18 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import {
-  FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
-  FormRecord,
   ReactiveFormsModule,
-  UntypedFormControl,
-  Validators,
+  Validators
 } from '@angular/forms';
-import { Observable, debounceTime, distinctUntilChanged, tap } from 'rxjs';
-import { CustomersService } from '../../services/customers.service';
+import { Observable, tap } from 'rxjs';
 import { banWords } from '../../../../shared/validators/ban-words.validators';
+import { passswordShouldMatch } from '../../../../shared/validators/password-should-math.validator';
+import { CustomersService } from '../../services/customers.service';
 
 @Component({
   selector: 'app-add-user-info-dialog',
@@ -68,16 +66,22 @@ export class AddUserInfoDialogComponent implements OnInit {
       postCode: [0, Validators.required],
     }),
     phones: this.fb.array([
-      this.fb.group({
-        label: this.fb.nonNullable.control(this.phoneLabels[0]),
-        phone: '',
-      }),
+      this.fb.group(
+        {
+          label: this.fb.nonNullable.control(this.phoneLabels[0]),
+          phone: '',
+        },
+        
+      ),
     ]),
     skills: this.fb.record<boolean>({}),
 
     password: this.fb.group({
       password: ['', Validators.required, Validators.minLength(6)],
       confirmPassword: '',
+    },
+    {
+      validators: passswordShouldMatch,
     }),
   });
 
@@ -109,7 +113,6 @@ export class AddUserInfoDialogComponent implements OnInit {
   }
 
   onSubmit(e: Event) {
-    console.log(this.form.value);
     this.form.reset();
   }
 

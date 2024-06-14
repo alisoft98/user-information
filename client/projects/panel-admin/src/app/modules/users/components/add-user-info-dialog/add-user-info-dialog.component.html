@@ -179,7 +179,7 @@
         <label [for]="skill">{{ skill | titlecase }}</label>
       </div>
     </ng-container>
-  </fieldset>
+  </fieldset>  
 
   <fieldset formGroupName="password">
     <legend>Password</legend>
@@ -190,12 +190,6 @@
         type="password"
         id="password"
         placeholder="Enter password..." />
-
-      <ng-container *ngIf="form.controls.address.controls.postCode as postCode">
-        @if(postCode.hasError('required') && postCode.dirty){
-        <div class="input-error">This field is required</div>
-        }
-      </ng-container>
       <ng-container
         *ngIf="form.controls.password.controls.password as password">
         @if(password.dirty && password.hasError('required')){
@@ -215,6 +209,12 @@
         type="password"
         id="confirm-password"
         placeholder="Enter confirmPassword..." />
+        <ng-container
+        *ngIf="form.controls.password.controls.confirmPassword as confirmPassword">
+        @if(confirmPassword.hasError('passswordShouldMatch')&& confirmPassword.dirty){
+        <div class="input-error">Password doesn't match</div>
+        } 
+      </ng-container>
     </div>
   </fieldset>
 

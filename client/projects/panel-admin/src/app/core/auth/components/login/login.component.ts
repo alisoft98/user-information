@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -11,10 +11,12 @@ import { MatCardModule } from '@angular/material/card';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../../services/auth.service';
+import { CommonModule } from '@angular/common';
+import { HotToastService } from '@ngneat/hot-toast';
+
 
 @Component({
   selector: 'app-login',
@@ -27,8 +29,10 @@ import { AuthService } from '../../../services/auth.service';
     MatInputModule,
     MatButtonModule,
     MatFormFieldModule,
+    RouterLink,
+    CommonModule,
   ],
-  providers: [ToastrService],
+  providers: [HotToastService],
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
@@ -38,12 +42,10 @@ export class LoginComponent {
   matcher = new ErrorStateMatcher();
   form!: FormGroup;
 
-  constructor(
-    private router: Router,
-    public service: AuthService,
-    public toastr: ToastrService,
-    private cookieService: CookieService
-  ) {}
+  #router = inject(Router);
+  #authService = inject(AuthService);
+  #toastrService = inject(HotToastService);
+  #cookieService = inject(CookieService);
 
   createForm() {
     this.form = new FormGroup({
@@ -58,15 +60,14 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.form.value) {
-      this.service.signIn(this.form.value).subscribe((res: any) => {
+      this.#authService.signIn(this.form.value).subscribe((res: any) => {
         const dataCookie = res.data;
         if (res.code == 200) {
-          this.cookieService.set('authorized', dataCookie);
-          this.toastr.success('Login is succsessful!');
-          this.router.navigate(['/profile/dashboard']);
-          console.log('✅success login', res);
+          this.#cookieService.set('authorized', dataCookie);
+          this.#toastrService.success('Login is succsessful!');
+          this.#router.navigate(['/profile/dashboard']);
         } else {
-          this.toastr.success('incorrect email or password!');
+          this.#toastrService.success('incorrect email or password!');
         }
       });
     }
@@ -80,5 +81,3 @@ export class LoginComponent {
     return this.form.get('password');
   }
 }
-
-

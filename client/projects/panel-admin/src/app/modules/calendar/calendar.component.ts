@@ -170,7 +170,6 @@ export class CalendarComponent {
   }
 
   drop(event: CdkDragDrop<CalendarDay[]>) {
-    console.log('eventcontainer', event);
     transferArrayItem(
       event.previousContainer.data,
       event.container.data,
@@ -210,7 +209,6 @@ export class CalendarComponent {
       date: data.date,
     };
     this.calendarService.createAppointment(eventData).subscribe(res => {
-      console.log('✅res after save', res);
       this.ngOnInit();
     });
   }
@@ -229,7 +227,6 @@ export class CalendarComponent {
     this.contextMenuVisible = true;
   }
   onMenuItemClick(action: string): void {
-    console.log(`Menu item clicked: ${action}`);
     this.contextMenuVisible = false;
   }
 

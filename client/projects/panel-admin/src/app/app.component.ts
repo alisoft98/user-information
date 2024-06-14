@@ -1,4 +1,4 @@
-import { Component, computed, effect, signal } from '@angular/core';
+import { Component, OnInit, computed, effect, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -8,7 +8,7 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   // price = 100;
   // quantity = signal(1);
   // id = signal(0);
@@ -22,6 +22,9 @@ export class AppComponent {
   // });
 
   constructor() {
+  }
+  ngOnInit(): void {
+    
   }
 
   // plus() {

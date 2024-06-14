@@ -1,0 +1,201 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="container">
+  <div class="beed_icon">
+    <img
+      img-testing="logo"
+      src="../../../../assets/images/icons/beed.png"
+      width="200px"
+      alt="" />
+    <h2 data-testing="login-text" class="login-text">Register</h2>
+  </div>
+
+  <!-- *****firstName***** -->
+  <mat-form-field data-testing="firstName" appearance="outline">
+    <mat-label>firstName</mat-label>
+    <input
+      type="firstName"
+      matInput
+      [errorStateMatcher]="matcher"
+      formControlName="firstName"
+      placeholder="firstName" />
+    @if (firstName?.hasError('firstName') && !firstName?.hasError('required')) {
+    <mat-error>Please enter a valid firstName address</mat-error>
+    } @if (firstName?.hasError('required')) {
+    <mat-error>firstName is <strong>required</strong></mat-error>
+    } @if (form.controls.firstName.hasError('minlength')) {
+    <mat-error>
+      firstName is too short
+      <strong>{{
+        form.controls.firstName.getError('minlength')?.requiredLength
+      }}</strong>
+    </mat-error>
+    } @if (firstName?.hasError('banWords')) {
+    <mat-error>
+      The value
+      <strong>{{ firstName?.getError('banWords').bannedWord }} </strong>is
+      banned
+    </mat-error>
+    }
+  </mat-form-field>
+  <!-- *****lastName***** -->
+  <mat-form-field data-testing="lastName" appearance="outline">
+    <mat-label>lastName</mat-label>
+    <input
+      type="lastName"
+      matInput
+      [errorStateMatcher]="matcher"
+      formControlName="lastName"
+      placeholder="lastName" />
+    @if (lastName?.hasError('lastName') && !lastName?.hasError('required')) {
+    <mat-error>Please enter a valid lastName address</mat-error>
+    } @if (lastName?.hasError('required')) {
+    <mat-error>lastName is <strong>required</strong></mat-error>
+    } @if (form.controls.lastName.hasError('minlength')) {
+    <mat-error>
+      lastName is too short
+      <strong>{{
+        form.controls.lastName.getError('minlength')?.requiredLength
+      }}</strong>
+    </mat-error>
+    } @if (lastName?.hasError('banWords')) {
+    <mat-error>
+      The value
+      <strong>{{ lastName?.getError('banWords').bannedWord }} </strong>is banned
+    </mat-error>
+    }
+  </mat-form-field>
+  <!-- *****nickName***** -->
+  <mat-form-field data-testing="nickName" appearance="outline">
+    <mat-label>nickName</mat-label>
+    <input
+      type="nickName"
+      matInput
+      [errorStateMatcher]="matcher"
+      formControlName="nickName"
+      placeholder="nickName" />
+    @if (nickName?.hasError('nickName') && !nickName?.hasError('required')) {
+    <mat-error>Please enter a valid nickName address</mat-error>
+    } @if (nickName?.hasError('required')) {
+    <mat-error>nickName is <strong>required</strong></mat-error>
+    } @if (form.controls.nickName.hasError('minlength')) {
+    <mat-error>
+      nickName is too short
+      <strong>{{
+        form.controls.nickName.getError('minlength')?.requiredLength
+      }}</strong>
+    </mat-error>
+    } @if (nickName?.hasError('banWords')) {
+    <mat-error>
+      The value
+      <strong>{{ nickName?.getError('banWords').bannedWord }} </strong>is banned
+    </mat-error>
+    }
+  </mat-form-field>
+  <div class="gender-content">
+  <!-- *****gender***** -->
+  <mat-form-field data-testing="gender" appearance="outline">
+    <mat-label>Gender</mat-label>
+    <mat-select formControlName="gender" name="g">
+      @for (g of genders; track g) {
+      <mat-option [value]="g">{{ g }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <!-- *****Year of birth***** -->
+  <mat-form-field data-testing="Year of birth" appearance="outline">
+    <mat-label>Year of birth</mat-label>
+    <mat-select formControlName="yearOfBirth" name="g">
+      @for (year of years; track year) {
+      <mat-option [value]="year">{{ year }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+</div>
+  <!-- *****email***** -->
+  <mat-form-field data-testing="email" appearance="outline">
+    <mat-label>email</mat-label>
+    <input
+      type="email"
+      matInput
+      [errorStateMatcher]="matcher"
+      formControlName="email"
+      placeholder="email" />
+    @if (email?.hasError('email') && !email?.hasError('required')) {
+    <mat-error>Please enter a valid email address</mat-error>
+    } @if (email?.hasError('required')) {
+    <mat-error>email is <strong>required</strong></mat-error>
+    }
+  </mat-form-field>
+  <!-- *****phoneNumber***** -->
+  <mat-form-field data-testing="phoneNumber" appearance="outline">
+    <mat-label>phoneNumber</mat-label>
+    <ngx-mat-intl-tel-input
+      [preferredCountries]="['tr']"
+      [enablePlaceholder]="true"
+      [enableSearch]="true"
+      name="phoneNumber"
+      formControlName="phoneNumber">
+    </ngx-mat-intl-tel-input>
+    @if (phoneNumber?.hasError('phoneNumber') &&
+    !phoneNumber?.hasError('required')) {
+    <mat-error>Please enter a valid phoneNumber address</mat-error>
+    } @if (phoneNumber?.hasError('required')) {
+    <mat-error>phoneNumber is <strong>required</strong></mat-error>
+    }
+  </mat-form-field>
+
+  <!-- *****password***** -->
+  <fieldset formGroupName="password">
+    <legend>Password</legend>
+  <!-- *****password***** -->
+    <mat-form-field data-testing="password" appearance="outline">
+      <mat-label>password</mat-label>
+      <input
+        type="password"
+        matInput
+        [errorStateMatcher]="matcher"
+        formControlName="password"
+        placeholder="password" />
+      @if (form.controls.password.controls.password.hasError('required')) {
+      <mat-error>password is <strong>required</strong></mat-error>
+      } @if (form.controls.password.controls.password.hasError('minlength')) {
+      <mat-error>
+        password is too short
+        <strong>{{
+          form.controls.password.controls.password.getError('minlength')
+            ?.requiredLength
+        }}</strong>
+      </mat-error>
+      }
+      <!-- @if (!password?.hasError('minlength')) {
+      <mat-error>
+        password is too short <strong>{{ password?.getError('minlength')?.requiredLength }}</strong>
+      </mat-error>
+      } -->
+    </mat-form-field>
+  <!-- *****confirmPassword***** -->
+    <mat-form-field data-testing="confirmPassword" appearance="outline">
+      <mat-label>confirmPassword</mat-label>
+      <input
+        type="confirmPassword"
+        matInput
+        [errorStateMatcher]="matcher"
+        formControlName="confirmPassword"
+        placeholder="confirmPassword" />
+      @if (!confirmPassword?.hasError('passswordShouldMatch')) {
+      <mat-error>Password doesn't match</mat-error>
+      }
+    </mat-form-field>
+  </fieldset>
+
+  <button
+    data-testid="login-button"
+    mat-raised-button
+    color="primary"
+    type="submit"
+    [disabled]="!form.valid">
+    Register
+  </button>
+  <div class="register">
+    <a [routerLink]="['/login']">Login</a>
+  </div>
+</form>

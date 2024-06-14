@@ -1,32 +1,72 @@
 import { IAppointment } from "../types/appointment.interface";
-import { User } from "../types/user";
+import { CreateUser, User } from "../types/user";
 import { Menu, Submenu } from "../types/navItem";
 import { RowDataPacket, coreSchema, query } from "./mysql";
+import schemaUser from "../controller/user/schema";
+import bcrypt from "bcrypt";
+import { v4 as uuidv4 } from "uuid";
+
+// Users
+export async function checkUserExist(email: string): Promise<RowDataPacket[]> {
+  const user = await query<RowDataPacket[]>(
+    `SELECT id,email FROM  ${coreSchema}.users
+      WHERE email=?`,
+    {
+      values: [email],
+    }
+  );
+  return user;
+}
+
+export async function createUser(data: any) {
+  const password = data.password;
+  const confirmPassword = data.confirmPassword;
+  const fdPassword = { password, confirmPassword };
+  const validPassword = schemaUser.createPassword.validateSyncAt(
+    "confirmPassword",
+    fdPassword
+  );
+  const saltRounds = 10;
+  const hash = bcrypt.hashSync(validPassword, saltRounds);
+  const newId = uuidv4();
+
+  const result = await query<RowDataPacket[]>(
+    `INSERT INTO ${coreSchema}.users
+    (id,firstName,lastName,nickName,gender,birthDay,email,phoneNumber,password,signupStatus,verify_code,createdAt,updatedAt,tokenVerify)
+    VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+    {
+      values: [
+        newId,
+        data.firstName,
+        data.lastName,
+        data.nickName,
+        data.gender,
+        data.birthDay,
+        data.email,
+        data.phoneNumber,
+        hash,
+        0,
+        data.verify_code,
+        new Date(),
+        new Date(),
+        data.tokenVerify,
+      ],
+    }
+  );
+  return result as CreateUser[];
+}
 
 export async function getUserByPassword(
   email: string,
   password: string
 ): Promise<User | null> {
-  try {
     const userData = await query<RowDataPacket[]>(
       `SELECT * FROM ${coreSchema}.users WHERE email=?`,
       {
         values: [email],
       }
     );
-    const storedPassword = userData[0].password;
-
-    if (userData.length < 1) {
-      return null; // User not found
-    } else if (password !== storedPassword) {
-      return null;
-    } else {
       return userData[0] as User;
-    }
-  } catch (error) {
-    console.error("Error fetching user data:", error);
-    throw error;
-  }
 }
 
 export async function getNavItems() {
@@ -149,5 +189,5 @@ export async function getCustomers() {
   const customers = await query<RowDataPacket[]>(`
   SELECT * FROM ${coreSchema}.user_info
   `);
-    return customers;
+  return customers;
 }

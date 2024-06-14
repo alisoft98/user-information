@@ -73,7 +73,6 @@ export class UserListComponent implements OnDestroy, OnInit {
         this.dataSource = new MatTableDataSource(data.data);
         this.dataSource.sort = this.sort;
         // this.customers = data.data;
-        console.log('✅Customer', data);
       });
   }
 

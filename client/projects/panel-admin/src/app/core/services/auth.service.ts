@@ -1,26 +1,53 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User, Users } from '../auth/models/user';
+import { Register, SignupResponse, User } from '../auth/models/user';
 import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-   config = environment.apiEndPoint;
+  config = environment.apiEndPoint;
+  #http = inject(HttpClient);
+  tokenKey!: any;
 
-
-  constructor(private httpClient: HttpClient) {}
+  constructor() {
+  if (typeof localStorage !== 'undefined') {
+    this.tokenKey = localStorage.getItem('tokenKey');
+    }
+  }
 
   signIn(userData: User): Observable<User> {
-    return this.httpClient.post<User>(
-      `${this.config}/auth/sign-in`,
+    return this.#http.post<User>(`${this.config}auth/sign-in`, userData);
+  }
+
+  signUp(userData: any): Observable<SignupResponse> {
+    return this.#http.post<SignupResponse>(
+      `${this.config}auth/sign-up`,
       userData
     );
   }
 
-  getAllUsers(): Observable<Users> {
-    return this.httpClient.get<Users>(`${this.config}/users`);
+ 
+  getToken(): string | null {
+    return localStorage.getItem(this.tokenKey);
   }
+  isAuthDataAvailable(): boolean {
+    return !!this.getToken();
+  }
+
+  // refreshToken(): Observable<any> {
+  //   const refreshToken = 'get_from_local_storage_or_other_storage'; // Implement logic to get refresh token
+  //   return this.http.post<any>(`${this.apiUrl}/refresh-token`, { refreshToken }).pipe(
+  //     catchError(error => {
+  //       // Handle error, e.g., redirect to login page
+  //       console.error('Error refreshing token:', error);
+  //       throw error;
+  //     })
+  //   );
+  // }
+  // getAllUsers(): Observable<Users> {
+  //   return this.httpClient.get<Users>(`${this.config}/users`);
+  // }
 }

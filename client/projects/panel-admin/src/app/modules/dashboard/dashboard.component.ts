@@ -93,7 +93,6 @@ export class DashboardComponent {
   }
 
   handleTabChange(index: number) {
-    console.log('Selected tab index:', index);
   }
 
   onRemove(e:any){}
