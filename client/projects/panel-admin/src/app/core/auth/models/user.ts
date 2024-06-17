@@ -2,6 +2,8 @@ export interface User {
   id: number;
   email: string;
   password: string;
+  firstName:string;
+  lastName:string;
 }
 
 export interface Register {
@@ -25,4 +27,10 @@ export interface SignupResponse {
 export interface CurrentUser extends SignupResponse {
   id: number;
   email: string;
+}
+
+export interface ConfirmEmail {
+  email: string;
+  id: string;
+  verify_code: string;
 }

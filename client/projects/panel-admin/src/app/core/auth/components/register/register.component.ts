@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, ViewEncapsulation, inject } from '@angular/core';
 import {
   FormBuilder,
   FormsModule,
@@ -13,13 +13,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Router, RouterLink } from '@angular/router';
+import { HotToastService } from '@ngneat/hot-toast';
 import { CookieService } from 'ngx-cookie-service';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
-import { HotToastService } from '@ngneat/hot-toast';
 import { banWords } from '../../../../shared/validators/ban-words.validators';
 import { passswordShouldMatch } from '../../../../shared/validators/password-should-math.validator';
 import { AuthService } from '../../../services/auth.service';
-import { SignupResponse } from '../../models/user';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -42,10 +42,10 @@ import { SignupResponse } from '../../models/user';
 export class RegisterComponent {
   router = inject(Router);
   service = inject(AuthService);
+  userService = inject(UserService);
   toastr = inject(HotToastService);
   cookieService = inject(CookieService);
   fb = inject(FormBuilder);
-
 
   title: string = 'Angular';
   labelUserName: string = 'UserName';
@@ -90,7 +90,6 @@ export class RegisterComponent {
     ),
   });
 
-
   ngOnInit(): void {}
 
   onSubmit() {
@@ -105,14 +104,13 @@ export class RegisterComponent {
       password: this.form.controls.password.value.password,
       confirmPassword: this.form.controls.password.value.confirmPassword,
     };
-    this.service.signUp(payload).subscribe((res: SignupResponse) => {
-      console.log('👉', res.tokenVerify);
-      if (res.code === 200) {
-        this.toastr.success('Login is succssesfully')
-        this.router.navigate(['app-confirm-email']);
-      }
+    this.service.signUp(payload).subscribe((res:any) => {
+      console.log('👉', res);
+        this.userService.userEmail.next(res.newUser?.email);
+        this.router.navigate(['confirm-email']);
     });
   }
+
   private getYears() {
     const now = new Date().getUTCFullYear();
     return Array(now - (now - 40))

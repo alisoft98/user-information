@@ -18,7 +18,6 @@ const create = yup.object().shape({
     .min(8, "at least 8 characters")
     .oneOf([yup.ref("password")], "passwords are not the same"),
 });
-
 const createPassword = yup.object().shape({
   password: yup
     .string()
@@ -29,7 +28,6 @@ const createPassword = yup.object().shape({
     .min(8, "at least 8 characters")
     .oneOf([yup.ref("password")], "passwords are not the same"),
 });
-
 const userRoles = yup
   .object()
   .shape({
@@ -44,4 +42,20 @@ const latestTemplates = yup
   })
   .required();
 
-export default { userRoles, latestTemplates, create, createPassword }
+const confirmEmail = yup.object().shape({
+  email: yup.string().required("email is required"),
+  id: yup.string().required("user id is required"),
+  verify_code: yup
+    .string()
+    .required("verify code is required")
+    .min(4, "verify code should be 4 chr")
+    .max(4, "verify code should be 4 chr"),
+});
+
+export default {
+  userRoles,
+  latestTemplates,
+  create,
+  createPassword,
+  confirmEmail,
+};

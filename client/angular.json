@@ -35,6 +35,7 @@
               "@angular/material/prebuilt-themes/azure-blue.css",
               "projects/panel-admin/src/styles.scss",
               "node_modules/@ngneat/hot-toast/src/styles/styles.css"
+              
             ],
             "scripts": [],
             "server": "projects/panel-admin/src/main.server.ts",

@@ -9,7 +9,7 @@ routes.post(
     const formData = req.body;
     const data = await AuthService.signUp(formData);
     const buildResponse = BuildResponse.get(data);
-    res.status(buildResponse.code).json(buildResponse);
+    return res.json(buildResponse);
   }
 );
 

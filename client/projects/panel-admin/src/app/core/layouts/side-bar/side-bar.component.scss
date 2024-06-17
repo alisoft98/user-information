@@ -1,3 +1,30 @@
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.content-user {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.icon_userName {
+    width: 40px;
+    border: 1px solid lightgray;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 43px;
+    height: 40px;
+    cursor: pointer;
+}
+
+
+
 .example-spacer {
     flex: 1 1 auto;
 }

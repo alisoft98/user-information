@@ -1,201 +1,251 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="container">
-  <div class="beed_icon">
-    <img
-      img-testing="logo"
-      src="../../../../assets/images/icons/beed.png"
-      width="200px"
-      alt="" />
-    <h2 data-testing="login-text" class="login-text">Register</h2>
-  </div>
+<div
+  class="min-h-screen flex justify-center items-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 
+  max-w-sm rounded overflow-hidden shadow-lg" >
+  <div class="max-w-md w-full space-y-8">
+    <div>
+      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+        Create your account
+      </h2>
+      <p class="mt-2 text-center text-sm text-gray-600">
+        Or
+        <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
+          sign in to your account
+        </a>
+      </p>
+    </div>
+    <form
+      class="mt-8 space-y-6"
+      action="#"
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()">
+      <input type="hidden" name="remember" value="true" />
+      <div class="rounded-md shadow-sm -space-y-px">
+        <div>
+          <!-- *****lastName***** -->
+          <mat-form-field data-testing="lastName" >
+            <mat-label>lastName</mat-label>
+            <input
+              type="lastName"
+              matInput
+              [errorStateMatcher]="matcher"
+              formControlName="lastName"
+              placeholder="lastName" />
+            @if (lastName?.hasError('lastName') &&
+            !lastName?.hasError('required')) {
+            <mat-error>Please enter a valid lastName address</mat-error>
+            } @if (lastName?.hasError('required')) {
+            <mat-error>lastName is <strong>required</strong></mat-error>
+            } @if (form.controls.lastName.hasError('minlength')) {
+            <mat-error>
+              lastName is too short
+              <strong>{{
+                form.controls.lastName.getError('minlength')?.requiredLength
+              }}</strong>
+            </mat-error>
+            } @if (lastName?.hasError('banWords')) {
+            <mat-error>
+              The value
+              <strong>{{ lastName?.getError('banWords').bannedWord }} </strong
+              >is banned
+            </mat-error>
+            }
+          </mat-form-field>
+          <!-- *****nickName***** -->
+          <mat-form-field data-testing="nickName" appearance="outline">
+            <mat-label>nickName</mat-label>
+            <input
+              type="nickName"
+              matInput
+              [errorStateMatcher]="matcher"
+              formControlName="nickName"
+              placeholder="nickName" />
+            @if (nickName?.hasError('nickName') &&
+            !nickName?.hasError('required')) {
+            <mat-error>Please enter a valid nickName address</mat-error>
+            } @if (nickName?.hasError('required')) {
+            <mat-error>nickName is <strong>required</strong></mat-error>
+            } @if (form.controls.nickName.hasError('minlength')) {
+            <mat-error>
+              nickName is too short
+              <strong>{{
+                form.controls.nickName.getError('minlength')?.requiredLength
+              }}</strong>
+            </mat-error>
+            } @if (nickName?.hasError('banWords')) {
+            <mat-error>
+              The value
+              <strong>{{ nickName?.getError('banWords').bannedWord }} </strong
+              >is banned
+            </mat-error>
+            }
+          </mat-form-field>
+          <div class="gender-content">
+            <!-- *****gender***** -->
+            <mat-form-field data-testing="gender" appearance="outline">
+              <mat-label>Gender</mat-label>
+              <mat-select formControlName="gender" name="g">
+                @for (g of genders; track g) {
+                <mat-option [value]="g">{{ g }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+            <!-- *****Year of birth***** -->
+            <mat-form-field data-testing="Year of birth" appearance="outline">
+              <mat-label>Year of birth</mat-label>
+              <mat-select formControlName="yearOfBirth" name="g">
+                @for (year of years; track year) {
+                <mat-option [value]="year">{{ year }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-- *****email***** -->
+          <mat-form-field data-testing="email" appearance="outline">
+            <mat-label>email</mat-label>
+            <input
+              type="email"
+              matInput
+              [errorStateMatcher]="matcher"
+              formControlName="email"
+              placeholder="email" />
+            @if (email?.hasError('email') && !email?.hasError('required')) {
+            <mat-error>Please enter a valid email address</mat-error>
+            } @if (email?.hasError('required')) {
+            <mat-error>email is <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
+          <!-- *****phoneNumber***** -->
+          <mat-form-field data-testing="phoneNumber" appearance="outline">
+            <mat-label>phoneNumber</mat-label>
+            <ngx-mat-intl-tel-input
+              [preferredCountries]="['tr']"
+              [enablePlaceholder]="true"
+              [enableSearch]="true"
+              name="phoneNumber"
+              formControlName="phoneNumber">
+            </ngx-mat-intl-tel-input>
+            @if (phoneNumber?.hasError('phoneNumber') &&
+            !phoneNumber?.hasError('required')) {
+            <mat-error>Please enter a valid phoneNumber address</mat-error>
+            } @if (phoneNumber?.hasError('required')) {
+            <mat-error>phoneNumber is <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
 
-  <!-- *****firstName***** -->
-  <mat-form-field data-testing="firstName" appearance="outline">
-    <mat-label>firstName</mat-label>
-    <input
-      type="firstName"
-      matInput
-      [errorStateMatcher]="matcher"
-      formControlName="firstName"
-      placeholder="firstName" />
-    @if (firstName?.hasError('firstName') && !firstName?.hasError('required')) {
-    <mat-error>Please enter a valid firstName address</mat-error>
-    } @if (firstName?.hasError('required')) {
-    <mat-error>firstName is <strong>required</strong></mat-error>
-    } @if (form.controls.firstName.hasError('minlength')) {
-    <mat-error>
-      firstName is too short
-      <strong>{{
-        form.controls.firstName.getError('minlength')?.requiredLength
-      }}</strong>
-    </mat-error>
-    } @if (firstName?.hasError('banWords')) {
-    <mat-error>
-      The value
-      <strong>{{ firstName?.getError('banWords').bannedWord }} </strong>is
-      banned
-    </mat-error>
-    }
-  </mat-form-field>
-  <!-- *****lastName***** -->
-  <mat-form-field data-testing="lastName" appearance="outline">
-    <mat-label>lastName</mat-label>
-    <input
-      type="lastName"
-      matInput
-      [errorStateMatcher]="matcher"
-      formControlName="lastName"
-      placeholder="lastName" />
-    @if (lastName?.hasError('lastName') && !lastName?.hasError('required')) {
-    <mat-error>Please enter a valid lastName address</mat-error>
-    } @if (lastName?.hasError('required')) {
-    <mat-error>lastName is <strong>required</strong></mat-error>
-    } @if (form.controls.lastName.hasError('minlength')) {
-    <mat-error>
-      lastName is too short
-      <strong>{{
-        form.controls.lastName.getError('minlength')?.requiredLength
-      }}</strong>
-    </mat-error>
-    } @if (lastName?.hasError('banWords')) {
-    <mat-error>
-      The value
-      <strong>{{ lastName?.getError('banWords').bannedWord }} </strong>is banned
-    </mat-error>
-    }
-  </mat-form-field>
-  <!-- *****nickName***** -->
-  <mat-form-field data-testing="nickName" appearance="outline">
-    <mat-label>nickName</mat-label>
-    <input
-      type="nickName"
-      matInput
-      [errorStateMatcher]="matcher"
-      formControlName="nickName"
-      placeholder="nickName" />
-    @if (nickName?.hasError('nickName') && !nickName?.hasError('required')) {
-    <mat-error>Please enter a valid nickName address</mat-error>
-    } @if (nickName?.hasError('required')) {
-    <mat-error>nickName is <strong>required</strong></mat-error>
-    } @if (form.controls.nickName.hasError('minlength')) {
-    <mat-error>
-      nickName is too short
-      <strong>{{
-        form.controls.nickName.getError('minlength')?.requiredLength
-      }}</strong>
-    </mat-error>
-    } @if (nickName?.hasError('banWords')) {
-    <mat-error>
-      The value
-      <strong>{{ nickName?.getError('banWords').bannedWord }} </strong>is banned
-    </mat-error>
-    }
-  </mat-form-field>
-  <div class="gender-content">
-  <!-- *****gender***** -->
-  <mat-form-field data-testing="gender" appearance="outline">
-    <mat-label>Gender</mat-label>
-    <mat-select formControlName="gender" name="g">
-      @for (g of genders; track g) {
-      <mat-option [value]="g">{{ g }}</mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
-  <!-- *****Year of birth***** -->
-  <mat-form-field data-testing="Year of birth" appearance="outline">
-    <mat-label>Year of birth</mat-label>
-    <mat-select formControlName="yearOfBirth" name="g">
-      @for (year of years; track year) {
-      <mat-option [value]="year">{{ year }}</mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
-</div>
-  <!-- *****email***** -->
-  <mat-form-field data-testing="email" appearance="outline">
-    <mat-label>email</mat-label>
-    <input
-      type="email"
-      matInput
-      [errorStateMatcher]="matcher"
-      formControlName="email"
-      placeholder="email" />
-    @if (email?.hasError('email') && !email?.hasError('required')) {
-    <mat-error>Please enter a valid email address</mat-error>
-    } @if (email?.hasError('required')) {
-    <mat-error>email is <strong>required</strong></mat-error>
-    }
-  </mat-form-field>
-  <!-- *****phoneNumber***** -->
-  <mat-form-field data-testing="phoneNumber" appearance="outline">
-    <mat-label>phoneNumber</mat-label>
-    <ngx-mat-intl-tel-input
-      [preferredCountries]="['tr']"
-      [enablePlaceholder]="true"
-      [enableSearch]="true"
-      name="phoneNumber"
-      formControlName="phoneNumber">
-    </ngx-mat-intl-tel-input>
-    @if (phoneNumber?.hasError('phoneNumber') &&
-    !phoneNumber?.hasError('required')) {
-    <mat-error>Please enter a valid phoneNumber address</mat-error>
-    } @if (phoneNumber?.hasError('required')) {
-    <mat-error>phoneNumber is <strong>required</strong></mat-error>
-    }
-  </mat-form-field>
-
-  <!-- *****password***** -->
-  <fieldset formGroupName="password">
-    <legend>Password</legend>
-  <!-- *****password***** -->
-    <mat-form-field data-testing="password" appearance="outline">
-      <mat-label>password</mat-label>
-      <input
-        type="password"
-        matInput
-        [errorStateMatcher]="matcher"
-        formControlName="password"
-        placeholder="password" />
-      @if (form.controls.password.controls.password.hasError('required')) {
-      <mat-error>password is <strong>required</strong></mat-error>
-      } @if (form.controls.password.controls.password.hasError('minlength')) {
-      <mat-error>
-        password is too short
-        <strong>{{
-          form.controls.password.controls.password.getError('minlength')
-            ?.requiredLength
-        }}</strong>
-      </mat-error>
-      }
-      <!-- @if (!password?.hasError('minlength')) {
+          <!-- *****password***** -->
+          <fieldset formGroupName="password">
+            <legend>Password</legend>
+            <!-- *****password***** -->
+            <mat-form-field data-testing="password" appearance="outline">
+              <mat-label>password</mat-label>
+              <input
+                type="password"
+                matInput
+                [errorStateMatcher]="matcher"
+                formControlName="password"
+                placeholder="password" />
+              @if
+              (form.controls.password.controls.password.hasError('required')) {
+              <mat-error>password is <strong>required</strong></mat-error>
+              } @if
+              (form.controls.password.controls.password.hasError('minlength')) {
+              <mat-error>
+                password is too short
+                <strong>{{
+                  form.controls.password.controls.password.getError('minlength')
+                    ?.requiredLength
+                }}</strong>
+              </mat-error>
+              }
+              <!-- @if (!password?.hasError('minlength')) {
       <mat-error>
         password is too short <strong>{{ password?.getError('minlength')?.requiredLength }}</strong>
       </mat-error>
       } -->
-    </mat-form-field>
-  <!-- *****confirmPassword***** -->
-    <mat-form-field data-testing="confirmPassword" appearance="outline">
-      <mat-label>confirmPassword</mat-label>
-      <input
-        type="confirmPassword"
-        matInput
-        [errorStateMatcher]="matcher"
-        formControlName="confirmPassword"
-        placeholder="confirmPassword" />
-      @if (!confirmPassword?.hasError('passswordShouldMatch')) {
-      <mat-error>Password doesn't match</mat-error>
-      }
-    </mat-form-field>
-  </fieldset>
+            </mat-form-field>
+            <!-- *****confirmPassword***** -->
+            <mat-form-field data-testing="confirmPassword" appearance="outline">
+              <mat-label>confirmPassword</mat-label>
+              <input
+                type="confirmPassword"
+                matInput
+                [errorStateMatcher]="matcher"
+                formControlName="confirmPassword"
+                placeholder="confirmPassword" />
+              @if (!confirmPassword?.hasError('passswordShouldMatch')) {
+              <mat-error>Password doesn't match</mat-error>
+              }
+            </mat-form-field>
+          </fieldset>
 
-  <button
-    data-testid="login-button"
-    mat-raised-button
-    color="primary"
-    type="submit"
-    [disabled]="!form.valid">
-    Register
-  </button>
-  <div class="register">
-    <a [routerLink]="['/login']">Login</a>
+          <!-- <button
+            data-testid="login-button"
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="!form.valid">
+            Register
+          </button>
+          <div class="register">
+            <a [routerLink]="['/login']">Login</a>
+          </div> -->
+        </div>
+        <!-- <div>
+          <label for="last-name" class="sr-only">Last Name</label>
+          <input
+            id="last-name"
+            name="last-name"
+            type="text"
+            autocomplete="family-name"
+            required
+            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+            placeholder="Last Name" />
+        </div>
+        <div>
+          <label for="email-address" class="sr-only">Email address</label>
+          <input
+            id="email-address"
+            name="email"
+            type="email"
+            autocomplete="email"
+            required
+            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+            placeholder="Email address" />
+        </div>
+        <div>
+          <label for="password" class="sr-only">Password</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            autocomplete="new-password"
+            required
+            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+            placeholder="Password" />
+        </div> -->
+      </div>
+
+      <div>
+        <button
+          [disabled]="!form.valid"
+          type="submit"
+          class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+            <svg
+              class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden="true">
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11.414V10a1 1 0 11-2 0V6.586l-1.293 1.293a1 1 0 01-1.414-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 6.586z"
+                clip-rule="evenodd" />
+            </svg>
+          </span>
+          Sign up
+        </button>
+      </div>
+    </form>
   </div>
-</form>
+</div>

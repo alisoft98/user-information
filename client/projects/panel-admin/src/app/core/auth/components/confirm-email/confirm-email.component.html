@@ -1,0 +1,37 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="container">
+    <div class="beed_icon">
+      <!-- <img
+        img-testing="logo"
+        src="../../../../assets/images/icons/beed.png"
+        width="200px"
+        alt="" /> -->
+      <h2 data-testing="login-text" class="opt-text">login</h2>
+    </div>
+    <mat-form-field data-testing="verify_code" appearance="outline">
+      <mat-label>Insert Code </mat-label>
+      <input
+        type="userName"
+        matInput
+        [errorStateMatcher]="matcher"
+        formControlName="verify_code"
+        placeholder="UserName" />
+      @if (verify_code?.hasError('userName') && !verify_code?.hasError('required')) {
+      <mat-error>Please enter a valid verify_code address</mat-error>
+      } @if (verify_code?.hasError('required')) {
+      <mat-error>verify_code is <strong>required</strong></mat-error>
+      }
+    </mat-form-field>
+ 
+    <button
+      data-testid="login-button"
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="!form.valid">
+      Login
+    </button>
+    <div class="register">
+      <a [routerLink]="['/register']">Register</a>
+      </div>
+  </form>
+  

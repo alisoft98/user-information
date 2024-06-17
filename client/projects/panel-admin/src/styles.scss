@@ -1,11 +1,71 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+@import '@angular/cdk/overlay-prebuilt.css';
 
+// Style to fix the weird border with angular material
+.mdc-notched-outline__notch {
+  border-right: none !important;
+}
 body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  width: 100%;
+  height: 100%;
+  font-family: 'CustomFont', sans-serif;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
 }
 
-@import '@angular/cdk/overlay-prebuilt.css';
+@font-face {
+  font-family: 'CustomFont';
+  src: url('./assets/fonts/roboto/Roboto-Medium.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'CustomFont';
+  src: url('./assets/fonts/Roboto/Roboto-Light.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+// ScrollBar
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  border-radius: 8px;
+  background-color: #e7e7e7;
+  border: 1px solid #cacaca;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: #363636;
+}
+
+.mdc-text-field--outlined {
+  --mdc-outlined-text-field-container-shape: 28px !important;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
 
 :root {
   --color-primary: #004859;
@@ -25,27 +85,31 @@ body {
   --font-size-h1: 34px;
 }
 
+mat-form-field {
+  width: 100%;
+}
+
 // forms
-form {
-  padding: calc(var(--spacing-step) * 3);
-  box-sizing: border-box;
-  border-radius: var(--border-radius);
-  background: var(--color-background);
-  min-width: 395px;
-  width: 100%;
-  max-width: 450px;
-}
+// form {
+//   padding: calc(var(--spacing-step) * 3);
+//   box-sizing: border-box;
+//   border-radius: var(--border-radius);
+//   background: var(--color-background);
+//   min-width: 395px;
+//   width: 100%;
+//   max-width: 450px;
+// }
 
-label, input:not([type="checkbox"]), fieldset, button {
-  width: 100%;
-  box-sizing: border-box;
-}
+// label, input:not([type="checkbox"]), fieldset, button {
+//   width: 100%;
+//   box-sizing: border-box;
+// }
 
-input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  margin-right: var(--spacing-step);
-}
+// input[type="checkbox"] {
+//   width: 16px;
+//   height: 16px;
+//   margin-right: var(--spacing-step);
+// }
 
 fieldset {
   border-radius: var(--border-radius);
@@ -53,138 +117,66 @@ fieldset {
   margin-top: var(--spacing-step);
 }
 
-button {
-  margin-top: calc(var(--spacing-step) * 2);
-  background-color: var(--color-accent-secondary);
-  border: var(--color-accent-secondary-darker) 1px solid;
-  color: var(--color-text);
-  font-weight: bold;
-  cursor: pointer;
-  &:hover {
-    opacity: 0.8;
-  }
-  &:active {
-    background-color: var(--color-accent-secondary-darker);
-    border: var(--color-accent-secondary) 1px solid;
-  }
-  &.reset-button {
-    background-color: transparent;
-    border: var(--color-primary) 1px solid;
-  }
-}
+// button {
+//   margin-top: calc(var(--spacing-step) * 2);
+//   background-color: var(--color-accent-secondary);
+//   border: var(--color-accent-secondary-darker) 1px solid;
+//   color: var(--color-text);
+//   font-weight: bold;
+//   cursor: pointer;
+//   &:hover {
+//     opacity: 0.8;
+//   }
+//   &:active {
+//     background-color: var(--color-accent-secondary-darker);
+//     border: var(--color-accent-secondary) 1px solid;
+//   }
+//   &.reset-button {
+//     background-color: transparent;
+//     border: var(--color-primary) 1px solid;
+//   }
+// }
 
-input, select {
-  border: var(--color-text) solid 2px;
-}
+// input, select {
+//   border: var(--color-text) solid 2px;
+// }
 
-legend {
-  font-weight: bold;
-}
+// legend {
+//   font-weight: bold;
+// }
 
-input, button, select {
-  border-radius: 5px;
-  font-size: 18px;
-  padding: 10px 11px;
-}
+// input, button, select {
+//   border-radius: 5px;
+//   font-size: 18px;
+//   padding: 10px 11px;
+// }
 
-select {
-  width: 100%;
-}
+// select {
+//   width: 100%;
+// }
 
+// .review-textarea {
+//   border-radius: var(--border-radius);
+//   background-color: white;
+//   padding: calc(var(--spacing-step) * 2);
+//   margin-top: var(--spacing-step);
+//   min-height: 74px;
+//   box-sizing: border-box;
 
+//   h4 {
+//     margin-bottom: var(--spacing-step);
 
-.review-textarea {
-  border-radius: var(--border-radius);
-  background-color: white;
-  padding: calc(var(--spacing-step) * 2);
-  margin-top: var(--spacing-step);
-  min-height: 74px;
-  box-sizing: border-box;
+//     &:empty:before {
+//       content: attr(data-placeholder);
+//       opacity: 0.6;
+//     }
+//   }
 
-  h4 {
-    margin-bottom: var(--spacing-step);
-
-    &:empty:before {
-      content: attr(data-placeholder);
-      opacity: 0.6;
-    }
-  }
-
-  p,
-  div {
-    &:empty:before {
-      content: attr(data-placeholder);
-      opacity: 0.6;
-    }
-  }
-}
-
-@import "@angular/material/prebuilt-themes/indigo-pink.css";
-
-
-@font-face {
-  font-family: 'CustomFont';
-  src: url('./assets/fonts/roboto/Roboto-Medium.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'CustomFont';
-  src: url('./assets/fonts/Roboto/Roboto-Light.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-}
-
-body,
-button {
-  font-family: 'CustomFont', sans-serif;
-}
-
-
-// ScrollBar
-*::-webkit-scrollbar {
-  width: 10px;
-}
-
-*::-webkit-scrollbar-track {
-  border-radius: 8px;
-  background-color: #e7e7e7;
-  border: 1px solid #cacaca;
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
-}
-
-*::-webkit-scrollbar-thumb {
-  border-radius: 8px;
-  background-color: #363636;
-}
-
-
-.mdc-text-field--outlined {
-  --mdc-outlined-text-field-container-shape: 28px !important;
-}
-
-
-
-html, body {
-  width: 100%;
-  height:100%;
-}
-
-body {
-    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
-}
-
-@keyframes gradient {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
+//   p,
+//   div {
+//     &:empty:before {
+//       content: attr(data-placeholder);
+//       opacity: 0.6;
+//     }
+//   }
+// }

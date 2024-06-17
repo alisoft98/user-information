@@ -1,9 +1,20 @@
-
-
 <mat-toolbar color="primary">
-  <button mat-icon-button aria-label="Menu icon" (click)="toggleMenu()">
-    <mat-icon>menu</mat-icon>
-  </button>
+  <div class="content-header">
+    <div>
+      <button mat-icon-button aria-label="Menu icon" (click)="toggleMenu()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+    <div class="content-user">
+      <!-- <span class="material-symbols-outlined"> account_circle </span> -->
+      <!-- <button mat-button >Menu</button> -->
+      <span [matMenuTriggerFor]="menu" class="icon_userName">{{ firstWord }}</span>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="logout()">Logout</button>
+        <button mat-menu-item>User Details</button>
+      </mat-menu>
+    </div>
+  </div>
 </mat-toolbar>
 
 <mat-sidenav-container autosize>
@@ -35,16 +46,14 @@
         </div>
         <ul *ngIf="isMenuItemExpanded(menuName)">
           <li>
-            @if (item.submenus) {
-              @for (s of item['submenus']; track $index) {
-                <a mat-list-item [routerLink]="s.url">
-                  <span class="material-symbols-outlined">{{ s.icon }}</span>
-                  <span >
-                    {{ s.submenu_name}}
-                  </span>
-                </a>
-              }
-            }
+            @if (item.submenus) { @for (s of item['submenus']; track $index) {
+            <a mat-list-item [routerLink]="s.url">
+              <span class="material-symbols-outlined">{{ s.icon }}</span>
+              <span>
+                {{ s.submenu_name }}
+              </span>
+            </a>
+            } }
           </li>
         </ul>
 

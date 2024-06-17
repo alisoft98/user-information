@@ -17,7 +17,6 @@ import { AuthService } from '../../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { HotToastService } from '@ngneat/hot-toast';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -61,9 +60,10 @@ export class LoginComponent {
   onSubmit() {
     if (this.form.value) {
       this.#authService.signIn(this.form.value).subscribe((res: any) => {
-        const dataCookie = res.data;
+        const stroeDataUser = res.payloadToken;
         if (res.code == 200) {
-          this.#cookieService.set('authorized', dataCookie);
+          localStorage.setItem('userData', JSON.stringify(stroeDataUser));
+          debugger;
           this.#toastrService.success('Login is succsessful!');
           this.#router.navigate(['/profile/dashboard']);
         } else {

@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -17,6 +17,8 @@ import { NavItemsService } from '../../services/nav-items.service';
 import { Menu } from '../types/navItem';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Subject, takeUntil } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
+import { User } from '../../auth/models/user';
 
 @Component({
   selector: 'side-bar',
@@ -65,6 +67,10 @@ export class SideBarComponent implements OnInit, OnDestroy {
   position = new FormControl('start' as 'start' | 'end');
   expandedMenus: { [key: string]: boolean } = {};
   private ngUnsubscribe: Subject<any> = new Subject();
+  username!: User;
+  firstWord: string = '';
+
+  #cookieService = inject(CookieService);
 
   constructor(
     private navService: NavItemsService,
@@ -88,6 +94,23 @@ export class SideBarComponent implements OnInit, OnDestroy {
           this.isMobile = false;
         }
       });
+
+    this.getUserDataFromLocalStorage();
+  }
+
+  getUserDataFromLocalStorage() {
+    const getStoreItem = localStorage.getItem('userData');
+    if (getStoreItem) {
+      this.username = JSON.parse(getStoreItem);
+      const concatUserName = `${this.username.firstName} ${this.username.lastName}`;
+      this.firstWord = this.getFirstWord(concatUserName);
+    } else {
+      this.firstWord = '';
+    }
+  }
+
+  getFirstWord(username: string): string {
+    return username.charAt(0);
   }
 
   getNavItems() {
@@ -144,6 +167,9 @@ export class SideBarComponent implements OnInit, OnDestroy {
     return !!this.expandedMenus[menuName];
   }
 
+  logout() {
+    this.router.navigate(['login']);
+  }
   ngOnDestroy(): void {
     this.ngUnsubscribe.next(null);
     this.ngUnsubscribe.complete();

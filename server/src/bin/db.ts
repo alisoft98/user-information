@@ -1,10 +1,11 @@
 import { IAppointment } from "../types/appointment.interface";
-import { CreateUser, User } from "../types/user";
+import { ConfirmEmail, CreateUser, Register, User } from "../types/user";
 import { Menu, Submenu } from "../types/navItem";
 import { RowDataPacket, coreSchema, query } from "./mysql";
 import schemaUser from "../controller/user/schema";
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
+import { AppResponse } from "../types/response.interface";
 
 // Users
 export async function checkUserExist(email: string): Promise<RowDataPacket[]> {
@@ -19,8 +20,8 @@ export async function checkUserExist(email: string): Promise<RowDataPacket[]> {
 }
 
 export async function createUser(data: any) {
-  const password = data.password;
-  const confirmPassword = data.confirmPassword;
+  const {password} = data;
+  const {confirmPassword} = data;
   const fdPassword = { password, confirmPassword };
   const validPassword = schemaUser.createPassword.validateSyncAt(
     "confirmPassword",
@@ -30,7 +31,7 @@ export async function createUser(data: any) {
   const hash = bcrypt.hashSync(validPassword, saltRounds);
   const newId = uuidv4();
 
-  const result = await query<RowDataPacket[]>(
+  const result = await query<RowDataPacket>(
     `INSERT INTO ${coreSchema}.users
     (id,firstName,lastName,nickName,gender,birthDay,email,phoneNumber,password,signupStatus,verify_code,createdAt,updatedAt,tokenVerify)
     VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
@@ -53,20 +54,79 @@ export async function createUser(data: any) {
       ],
     }
   );
-  return result as CreateUser[];
+  return result;
+  
+}
+
+export async function confirmEmail(data: ConfirmEmail) {
+  const result = await query<RowDataPacket[]>(
+    `
+    SELECT * 
+    FROM ${coreSchema}.users
+    WHERE id=? AND deletedAt IS NULL
+    `,
+    {
+      values: [data.id],
+    }
+  );
+  if (result.length < 1)
+    return {
+      isSuccessfull: false,
+      status: 1,
+      message: "user not found!",
+    } as AppResponse;
+  const user = result[0] as User;
+  if (user.email !== data.email)
+    return {
+      isSuccessfull: false,
+      status: 1,
+      message: "email is not correct",
+    } as AppResponse;
+  if (user.emailConfirmed) {
+    if (user.signupStatus === 1) {
+      const result = await query<RowDataPacket[]>(
+        `
+        UPDATE ${coreSchema}.users
+        SET signupStatus=?,emailConfirmed=?,updatedAt=?
+        WHERE id =?
+        `,
+        {
+          values: [1, 1, new Date(), data.id],
+        }
+      );
+    }
+    return {
+      isSuccessfull: true,
+      message: "email already confirmed",
+    } as AppResponse;
+  }
+  if (user.verify_code !== data.verify_code)
+    return { status: false, message: "code is not correct" };
+  await query<RowDataPacket[]>(
+    `
+    UPDATE ${coreSchema}.users
+    SET emailConfirmed=1, signupStatus=2,updatedAt=?
+    WHERE id=?
+  `,
+    {
+      values: [new Date(), data.id],
+    }
+  );
+  return { isSuccessfull: true, showToUser: true, messageCode: "MSG_01", messageKind: 1, message: 'email confirmed successfully' } as AppResponse
+
 }
 
 export async function getUserByPassword(
   email: string,
   password: string
 ): Promise<User | null> {
-    const userData = await query<RowDataPacket[]>(
-      `SELECT * FROM ${coreSchema}.users WHERE email=?`,
-      {
-        values: [email],
-      }
-    );
-      return userData[0] as User;
+  const userData = await query<RowDataPacket[]>(
+    `SELECT * FROM ${coreSchema}.users WHERE email=?`,
+    {
+      values: [email],
+    }
+  );
+  return userData[0] as User;
 }
 
 export async function getNavItems() {

@@ -1,17 +1,16 @@
 import * as dotenv from "dotenv";
-import { OkPacket, RowDataPacket } from "mysql2";
+import { ResultSetHeader, RowDataPacket } from "mysql2";
 import * as mysql from "mysql2/promise";
+import { PoolConnection } from "mysql2/promise";
 
 dotenv.config();
-
 const coreSchema = process.env.DB_DATABASE;
 
-export { OkPacket, RowDataPacket, coreSchema };
+export { ResultSetHeader, RowDataPacket, coreSchema };
 
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USERNAME,
-  port: Number(process.env.DB_PORT),
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
   connectionLimit: 20,
@@ -19,37 +18,36 @@ const pool = mysql.createPool({
   charset: "utf8",
   timezone: process.env.DB_TIMEZONE,
 });
-// eslint-disable-next-line no-param-reassign
-pool.on("connection", (connection): void => {
+
+pool.on("connection", (connection: PoolConnection): void => {
   connection.config.namedPlaceholders = true;
 });
 
-export { mysql, pool };
+export { pool, mysql };
 
-export async function query<T extends RowDataPacket[] | OkPacket | any>(
+export async function query<T extends RowDataPacket[] | ResultSetHeader | any>(
   sql: string,
   options: {
-    connection?: any;
+    connection?: PoolConnection;
     nestTables?: boolean;
     values?: any[] | any;
   } = {},
   attempt: number = 0
 ): Promise<T> {
   const useExternalConnection = Boolean(options.connection);
-  const connection = options.connection || (await pool.getConnection());
+  const connection: PoolConnection =
+    options.connection || (await pool.getConnection());
 
   let result;
   let sqlQuery = sql;
 
   try {
     sqlQuery = connection.format(sql, options.values);
-
     [result] = await connection.query({
       sql,
       values: options.values,
       nestTables: options.nestTables,
     });
-
     if (!result) {
       result = [];
     }
@@ -62,6 +60,5 @@ export async function query<T extends RowDataPacket[] | OkPacket | any>(
       connection.release();
     }
   }
-
   return result as T;
 }
