@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { SelectModule } from 'ali';
-import { EventEmitter } from 'stream';
 
 @Component({
   selector: 'app-select',

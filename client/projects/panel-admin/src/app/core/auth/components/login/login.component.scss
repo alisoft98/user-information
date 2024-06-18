@@ -1,54 +1,54 @@
-form {
-  background-color: white;
-  border-radius: 10px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 10px;
-  width: 30%;
+// form {
+//   background-color: white;
+//   border-radius: 10px;
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   padding: 10px;
+//   width: 30%;
 
-  .container {
-    display: flex;
-    flex-direction: column;
-    margin: 100px auto;
-    max-width: 400px;
-  }
+//   .container {
+//     display: flex;
+//     flex-direction: column;
+//     margin: 100px auto;
+//     max-width: 400px;
+//   }
 
-  .beed_icon {
-    margin: 0 auto;
-  }
+//   .beed_icon {
+//     margin: 0 auto;
+//   }
 
-  .login-text {
-    display: flex;
-    justify-content: center;
-  }
+//   .login-text {
+//     display: flex;
+//     justify-content: center;
+//   }
 
-}
+// }
 
-::ng-deep .mdc-text-field--outlined {
-  --mdc-outlined-text-field-container-shape: 28px;
-}
+// ::ng-deep .mdc-text-field--outlined {
+//   --mdc-outlined-text-field-container-shape: 28px;
+// }
 
-button {
-  border-radius: 50px;
-  width: 100%;
-}
+// button {
+//   border-radius: 50px;
+//   width: 100%;
+// }
 
-.chip-text {
-  color: blue;
-}
+// .chip-text {
+//   color: blue;
+// }
 
-mat-form-field {
-  width: 100%;
-}
+// mat-form-field {
+//   width: 100%;
+// }
 
-.register {
-  margin-top: 1rem;
-  padding: 10px;
-  cursor: pointer;
+// .register {
+//   margin-top: 1rem;
+//   padding: 10px;
+//   cursor: pointer;
 
-  a {
-    text-decoration: none;
-  }
-}
+//   a {
+//     text-decoration: none;
+//   }
+// }

@@ -4,7 +4,7 @@
   "compilerOptions": {
     "paths": {
       "ali": [
-        "./dist/ali"
+        "./dist/ali-lib"
       ]
     },
     "outDir": "./dist/out-tsc",

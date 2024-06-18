@@ -99,13 +99,15 @@ export class SideBarComponent implements OnInit, OnDestroy {
   }
 
   getUserDataFromLocalStorage() {
-    const getStoreItem = localStorage.getItem('userData');
-    if (getStoreItem) {
-      this.username = JSON.parse(getStoreItem);
-      const concatUserName = `${this.username.firstName} ${this.username.lastName}`;
-      this.firstWord = this.getFirstWord(concatUserName);
-    } else {
-      this.firstWord = '';
+    if (typeof localStorage !== 'undefined') {
+      const getStoreItem = localStorage.getItem('userData');
+      if (getStoreItem) {
+        this.username = JSON.parse(getStoreItem);
+        const concatUserName = `${this.username.firstName} ${this.username.lastName}`;
+        this.firstWord = this.getFirstWord(concatUserName);
+      } else {
+        this.firstWord = '';
+      }
     }
   }
 

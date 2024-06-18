@@ -33,6 +33,6 @@ export interface Register {
 
 export interface ConfirmEmail {
   email: string;
-  id: string;
+  id?: string;
   verify_code: string;
 }

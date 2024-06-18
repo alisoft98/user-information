@@ -5,8 +5,8 @@ import {
   Component,
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { RatingPickerComponent ,RatingOptions} from 'ali';
 import { EditableContentValueAccessor } from '../../directives/value-accessor/value.directive';
+import { RatingOptions, RatingPickerComponent } from 'ali';
 
 interface Rating {
   reviewText: string;

@@ -62,8 +62,9 @@ export class LoginComponent {
       this.#authService.signIn(this.form.value).subscribe((res: any) => {
         const stroeDataUser = res.payloadToken;
         if (res.code == 200) {
-          localStorage.setItem('userData', JSON.stringify(stroeDataUser));
-          debugger;
+          if (typeof localStorage !== 'undefined') {
+            localStorage.setItem('userData', JSON.stringify(stroeDataUser));
+          }
           this.#toastrService.success('Login is succsessful!');
           this.#router.navigate(['/profile/dashboard']);
         } else {

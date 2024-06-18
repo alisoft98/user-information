@@ -15,7 +15,6 @@ export class UserService {
 
 
   confirmEmail(data: any): Observable<CurrentUser> {
-    debugger;
     return this.#http.post<CurrentUser>(`${this.config}user/confirm`, data);
   }
 }

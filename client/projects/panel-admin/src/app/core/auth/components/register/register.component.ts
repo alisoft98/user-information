@@ -118,6 +118,8 @@ export class RegisterComponent {
       .map((_, idx) => now - idx);
   }
 
+  trackByFn(){}
+
   // Get Value Form For Validation
 
   get firstName() {

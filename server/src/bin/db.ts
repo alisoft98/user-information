@@ -63,10 +63,10 @@ export async function confirmEmail(data: ConfirmEmail) {
     `
     SELECT * 
     FROM ${coreSchema}.users
-    WHERE id=? AND deletedAt IS NULL
+    WHERE email=? AND deletedAt IS NULL
     `,
     {
-      values: [data.id],
+      values: [data.email],
     }
   );
   if (result.length < 1)
@@ -88,10 +88,10 @@ export async function confirmEmail(data: ConfirmEmail) {
         `
         UPDATE ${coreSchema}.users
         SET signupStatus=?,emailConfirmed=?,updatedAt=?
-        WHERE id =?
+        WHERE email =?
         `,
         {
-          values: [1, 1, new Date(), data.id],
+          values: [1, 1, new Date(), data.email],
         }
       );
     }
@@ -106,10 +106,10 @@ export async function confirmEmail(data: ConfirmEmail) {
     `
     UPDATE ${coreSchema}.users
     SET emailConfirmed=1, signupStatus=2,updatedAt=?
-    WHERE id=?
+    WHERE email=?
   `,
     {
-      values: [new Date(), data.id],
+      values: [new Date(), data.email],
     }
   );
   return { isSuccessfull: true, showToUser: true, messageCode: "MSG_01", messageKind: 1, message: 'email confirmed successfully' } as AppResponse

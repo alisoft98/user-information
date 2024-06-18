@@ -44,7 +44,7 @@ const latestTemplates = yup
 
 const confirmEmail = yup.object().shape({
   email: yup.string().required("email is required"),
-  id: yup.string().required("user id is required"),
+  // id: yup.string().required("user id is required"),
   verify_code: yup
     .string()
     .required("verify code is required")

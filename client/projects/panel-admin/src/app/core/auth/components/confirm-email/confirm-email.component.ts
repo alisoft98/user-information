@@ -1,31 +1,16 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { Router, RouterLink } from '@angular/router';
-import { UserService } from '../../../services/user.service';
 import { HotToastService } from '@ngneat/hot-toast';
+import { NgOtpInputModule } from 'ali';
+import { UserService } from '../../../services/user.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-confirm-email',
   standalone: true,
-  imports: [
-    MatFormFieldModule,
-    CommonModule,
-    FormsModule,
-    RouterLink,
-    ReactiveFormsModule,
-    MatInputModule,
-  ],
+  imports: [NgOtpInputModule, RouterLink, CommonModule],
   templateUrl: './confirm-email.component.html',
   styleUrl: './confirm-email.component.scss',
 })
@@ -36,31 +21,50 @@ export class ConfirmEmailComponent implements OnInit {
   form!: FormGroup;
   #router = inject(Router);
   #toastrService = inject(HotToastService);
+  otp!: string;
+  showOtpComponent = true;
+
+  config = {
+    allowNumbersOnly: false,
+    length: 4,
+    isPasswordInput: false,
+    disableAutoFocus: false,
+    inputStyles: {
+      width: '50px',
+      height: '50px',
+    },
+  };
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      verify_code: new FormControl('', [Validators.required]),
+      verify_code: new FormControl('', [
+        Validators.required,
+        Validators.minLength(4),
+      ]),
     });
     this.#service.storeEmail$.subscribe(res => {
       console.log('email', res);
       this.userData = res;
     });
   }
-
-
+  onOtpChange(otp: any) {
+    this.otp = otp;
+    if (this.form.valid) {
+    
+      this.onSubmit();
+    }
+  }
   onSubmit() {
     const payload = {
       email: this.userData,
-      verify_code: this.form.value.verify_code,
-      id: 7813,
+      verify_code: this.otp,
     };
     this.#service.confirmEmail(payload).subscribe(res => {
       if (res) {
-        this.#toastrService.success('Login is succsessful!');
-        this.#router.navigate(['/profile/dashboard']);
-      }
-      console.log();
-    });
+          this.#toastrService.success('Login is succsessful!');
+          // this.#router.navigate(['/profile/dashboard']);
+        }
+      });
   }
   get verify_code() {
     return this.form.get('verify_code');

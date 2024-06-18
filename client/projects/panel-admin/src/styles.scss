@@ -2,6 +2,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
 @import '@angular/cdk/overlay-prebuilt.css';
 
@@ -9,9 +10,11 @@
 .mdc-notched-outline__notch {
   border-right: none !important;
 }
-body {
+body, html {
   width: 100%;
   height: 100%;
+  margin: 0; /* Ensure there is no margin */
+  padding: 0; /* Ensure there is no padding */
   font-family: 'CustomFont', sans-serif;
   background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
   background-size: 400% 400%;
@@ -85,9 +88,7 @@ body {
   --font-size-h1: 34px;
 }
 
-mat-form-field {
-  width: 100%;
-}
+
 
 // forms
 // form {
