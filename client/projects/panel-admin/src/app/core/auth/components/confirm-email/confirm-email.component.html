@@ -14,38 +14,13 @@
           </a>
         </p>
       </div>
+      
       <app-otp-input
         #ngOtpInput
         (onInputChange)="onOtpChange($event)"
         *ngIf="showOtpComponent"
         [config]="config"></app-otp-input>
 
-      <!-- <form [formGroup]="form" (ngSubmit)="onSubmit()" class="container">
-        <mat-form-field data-testing="verify_code" appearance="outline">
-          <mat-label>Insert Code </mat-label>
-          <input
-            type="userName"
-            matInput
-            [errorStateMatcher]="matcher"
-            formControlName="verify_code"
-            placeholder="UserName"
-            (keyup)="onKeyUp($event)" />
-          @if (verify_code?.hasError('required')) {
-          <mat-error>verify_code is <strong>required</strong></mat-error>
-          } @if (verify_code?.hasError('minlength')) {
-          <mat-error> Verification code must be 4 characters</mat-error>
-          }
-        </mat-form-field>
-
-        <button
-          data-testid="login-button"
-          mat-raised-button
-          color="primary"
-          type="submit"
-          [disabled]="!form.valid">
-          Login
-        </button>
-      </form> -->
     </div>
   </div>
 </div>

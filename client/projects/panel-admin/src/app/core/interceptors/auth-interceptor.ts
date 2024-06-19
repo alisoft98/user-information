@@ -1,22 +1,20 @@
-import { Injectable, inject } from '@angular/core';
 import {
-  HttpRequest,
-  HttpHandler,
   HttpEvent,
+  HttpHandler,
   HttpInterceptor,
-  HttpErrorResponse,
+  HttpRequest,
 } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import { HotToastService } from '@ngneat/hot-toast';
+import { CookieService } from 'ngx-cookie-service';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { CookieService } from 'ngx-cookie-service';
-import { environment } from '../../environments/environment';
 import { AuthService } from '../services/auth.service';
-import { HotToastService } from '@ngneat/hot-toast';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   cookieService = inject(CookieService);
-  toast = inject(HotToastService)
+  toast = inject(HotToastService);
   authService = inject(AuthService);
   isRefreshing = false;
 
@@ -34,18 +32,16 @@ export class AuthInterceptor implements HttpInterceptor {
     });
 
     return handler.handle(request).pipe(
-      catchError((err) => {
+      catchError(err => {
         if (err.status === 401 && err.message.includes('Unauthorized')) {
           return throwError(() => new Error('test'));
           // TODO send to the login
         } else {
-          if (err.error.message) this.toast.error(err.error.message)
+          if (err.error.message) this.toast.error(err.error.message);
           else if (err.error.Message) this.toast.error(err.error.Message);
           return throwError(() => new Error('test'));
         }
-        })
-        );
-        
-        }
-
+      })
+    );
+  }
 }

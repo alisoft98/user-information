@@ -49,10 +49,8 @@ export class ConfirmEmailComponent implements OnInit {
   }
   onOtpChange(otp: any) {
     this.otp = otp;
-    if (this.form.valid) {
     
       this.onSubmit();
-    }
   }
   onSubmit() {
     const payload = {

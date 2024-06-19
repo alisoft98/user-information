@@ -1,5 +1,4 @@
-import { Component, Input, input } from '@angular/core';
-import { ICalendar } from '../models/calendar.interface';
+import { Component } from '@angular/core';
 
 @Component({
   standalone: true,

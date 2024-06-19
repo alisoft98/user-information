@@ -25,6 +25,7 @@ export class OtpInputComponent {
   componentKey =
     Math.random().toString(36).substring(2) + new Date().getTime().toString(36);
   inputType!: string;
+  isTimeDone: boolean = false;
 
   constructor(
     private keysPipe: KeysPipe,
@@ -211,5 +212,13 @@ export class OtpInputComponent {
       return;
     }
     this.setValue(pastedData);
+  }
+
+  onCount(e: any) {
+    console.log('asdf', e);
+    if (e.action === 'done') this.isTimeDone = true;
+  }
+  resendCode(){
+    // this.
   }
 }
