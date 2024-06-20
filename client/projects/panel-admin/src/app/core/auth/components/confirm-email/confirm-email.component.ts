@@ -2,10 +2,10 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router, RouterLink } from '@angular/router';
-import { HotToastService } from '@ngneat/hot-toast';
 import { NgOtpInputModule } from 'ali';
 import { UserService } from '../../../services/user.service';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-confirm-email',
@@ -20,7 +20,7 @@ export class ConfirmEmailComponent implements OnInit {
   userData: any;
   form!: FormGroup;
   #router = inject(Router);
-  #toastrService = inject(HotToastService);
+  #toastrService = inject(ToastrService);
   otp!: string;
   showOtpComponent = true;
 

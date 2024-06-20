@@ -15,7 +15,7 @@ import { Router, RouterLink } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../../../services/auth.service';
 import { CommonModule } from '@angular/common';
-import { HotToastService } from '@ngneat/hot-toast';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -31,7 +31,7 @@ import { HotToastService } from '@ngneat/hot-toast';
     RouterLink,
     CommonModule,
   ],
-  providers: [HotToastService],
+  providers: [],
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
@@ -43,7 +43,7 @@ export class LoginComponent {
 
   #router = inject(Router);
   #authService = inject(AuthService);
-  #toastrService = inject(HotToastService);
+  #toastrService = inject(ToastrService);
   #cookieService = inject(CookieService);
 
   createForm() {
@@ -57,14 +57,13 @@ export class LoginComponent {
     this.createForm();
   }
 
-  onSubmit() {
+  login() {
     if (this.form.value) {
       this.#authService.signIn(this.form.value).subscribe((res: any) => {
         const stroeDataUser = res.payloadToken;
         if (res.code == 200) {
-          if (typeof localStorage !== 'undefined') {
-            localStorage.setItem('userData', JSON.stringify(stroeDataUser));
-          }
+         this.setCookie(stroeDataUser)
+          this.#cookieService.set('authorized', res);
           this.#toastrService.success('Login is succsessful!');
           this.#router.navigate(['/profile/dashboard']);
         } else {
@@ -72,6 +71,12 @@ export class LoginComponent {
         }
       });
     }
+  }
+  setCookie(dataUser:any) {
+    debugger;
+    const date = new Date();
+    date.setTime(date.getTime() + 7 * 24 * 60 * 60 * 1000); //7days
+    this.#cookieService.set('userData', dataUser, date);
   }
 
   // Get Value Form For Validation

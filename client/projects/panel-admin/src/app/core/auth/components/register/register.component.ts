@@ -13,13 +13,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Router, RouterLink } from '@angular/router';
-import { HotToastService } from '@ngneat/hot-toast';
 import { CookieService } from 'ngx-cookie-service';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { banWords } from '../../../../shared/validators/ban-words.validators';
 import { passswordShouldMatch } from '../../../../shared/validators/password-should-math.validator';
 import { AuthService } from '../../../services/auth.service';
 import { UserService } from '../../../services/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -43,7 +43,7 @@ export class RegisterComponent {
   router = inject(Router);
   service = inject(AuthService);
   userService = inject(UserService);
-  toastr = inject(HotToastService);
+  toastr = inject(ToastrService);
   cookieService = inject(CookieService);
   fb = inject(FormBuilder);
 

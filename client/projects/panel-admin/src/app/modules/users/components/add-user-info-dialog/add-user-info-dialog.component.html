@@ -85,7 +85,7 @@
     <div class="form-field form-field--small">
       <label for="year-of-birth">Year of birth</label>
       <select formControlName="yearOfBirth" id="year-of-birth">
-        <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+        <!-- <option *ngFor="let year of years" [value]="year">{{ year }}</option> -->
       </select>
     </div>
     <div class="form-field form-field--small">
@@ -155,9 +155,9 @@
       <label for="phones-{{ i }}"> Phone number </label>
       <div class="control-container">
         <select class="phone-label-dropdown" formControlName="label">
-          <option *ngFor="let label of phoneLabels" [value]="label">
+          <!-- <option *ngFor="let label of phoneLabels" [value]="label">
             {{ label }}
-          </option>
+          </option> -->
         </select>
         <input
           formControlName="phone"
@@ -174,10 +174,10 @@
   <fieldset formGroupName="skills">
     <legend>User Skills</legend>
     <ng-container *ngIf="skiil$ | async as skills; else loading">
-      <div class="skill-container" *ngFor="let skill of skills">
+      <!-- <div class="skill-container" *ngFor="let skill of skills">
         <input type="checkbox" [id]="skill" [formGroupName]="skill" />
         <label [for]="skill">{{ skill | titlecase }}</label>
-      </div>
+      </div> -->
     </ng-container>
   </fieldset>  
 

@@ -1,17 +1,17 @@
-import { NgFor, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { take } from 'rxjs';
 import { FilterComponent } from '../../filter/filter.component';
 import { Customers } from '../../models/customers';
 import { CustomersService } from '../../services/customers.service';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatDialog } from '@angular/material/dialog';
 import { AddUserInfoDialogComponent } from '../add-user-info-dialog/add-user-info-dialog.component';
 
 @Component({
@@ -20,8 +20,7 @@ import { AddUserInfoDialogComponent } from '../add-user-info-dialog/add-user-inf
   imports: [
     FilterComponent,
     FormsModule,
-    NgFor,
-    NgIf,
+    CommonModule,
     MatFormFieldModule,
     MatInputModule,
     MatTableModule,
@@ -93,7 +92,7 @@ export class UserListComponent implements OnDestroy, OnInit {
 
   addUserInfo() {
     this.dialog.open(AddUserInfoDialogComponent, {
-      height:'900px'
+      height: '900px',
     });
   }
 }

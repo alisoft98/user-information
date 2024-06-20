@@ -1,8 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, throwError } from 'rxjs';
 import { Register, SignupResponse, User } from '../auth/models/user';
 import { environment } from '../../environments/environment';
+import { CookieService } from 'ngx-cookie-service';
+import { filter, take, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,10 +13,15 @@ export class AuthService {
   config = environment.apiEndPoint;
   #http = inject(HttpClient);
   tokenKey!: any;
+  #cookieService = inject(CookieService);
+  private refreshTokenInProgress = false;
+  private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(
+    null
+  );
 
   constructor() {
-  if (typeof localStorage !== 'undefined') {
-    this.tokenKey = localStorage.getItem('tokenKey');
+    if (typeof localStorage !== 'undefined') {
+      this.tokenKey = localStorage.getItem('tokenKey');
     }
   }
 
@@ -29,7 +36,13 @@ export class AuthService {
     );
   }
 
- 
+  logout() {
+    // Implement logout logic, like removing cookies, clearing local storage, etc.
+    this.#cookieService.delete('authorized');
+    this.#cookieService.delete('refreshToken');
+    // Additional logic to navigate to login page or show a message
+  }
+
   getToken(): string | null {
     return localStorage.getItem(this.tokenKey);
   }
@@ -37,16 +50,39 @@ export class AuthService {
     return !!this.getToken();
   }
 
-  // refreshToken(): Observable<any> {
-  //   const refreshToken = 'get_from_local_storage_or_other_storage'; // Implement logic to get refresh token
-  //   return this.http.post<any>(`${this.apiUrl}/refresh-token`, { refreshToken }).pipe(
-  //     catchError(error => {
-  //       // Handle error, e.g., redirect to login page
-  //       console.error('Error refreshing token:', error);
-  //       throw error;
-  //     })
-  //   );
-  // }
+  refreshToken(): Observable<string> {
+    if (this.refreshTokenInProgress) {
+      return this.refreshTokenSubject.pipe(
+        filter(token => token !== null),
+        take(1)
+      );
+    } else {
+      this.refreshTokenInProgress = true;
+      this.refreshTokenSubject.next(null);
+
+      const refreshToken = this.#cookieService.get('refreshToken');
+      return this.#http
+        .post<{ accessToken: string }>(`${this.config}auth/sign-in`, {
+          refreshToken,
+        })
+        .pipe(
+          map(response => {
+            const newAccessToken = response.accessToken;
+            this.refreshTokenInProgress = false;
+            this.refreshTokenSubject.next(newAccessToken);
+            return newAccessToken;
+          }),
+          catchError((error: HttpErrorResponse) => {
+            this.refreshTokenInProgress = false;
+            this.#cookieService.delete('authorized');
+            this.#cookieService.delete('refreshToken');
+            return throwError(() => new Error(error.message));
+          })
+        );
+    }
+  }
+
+ 
   // getAllUsers(): Observable<Users> {
   //   return this.httpClient.get<Users>(`${this.config}/users`);
   // }
