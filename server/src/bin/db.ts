@@ -20,8 +20,8 @@ export async function checkUserExist(email: string): Promise<RowDataPacket[]> {
 }
 
 export async function createUser(data: any) {
-  const {password} = data;
-  const {confirmPassword} = data;
+  const { password } = data;
+  const { confirmPassword } = data;
   const fdPassword = { password, confirmPassword };
   const validPassword = schemaUser.createPassword.validateSyncAt(
     "confirmPassword",
@@ -55,7 +55,6 @@ export async function createUser(data: any) {
     }
   );
   return result;
-  
 }
 
 export async function confirmEmail(data: ConfirmEmail) {
@@ -101,7 +100,7 @@ export async function confirmEmail(data: ConfirmEmail) {
     } as AppResponse;
   }
   if (user.verify_code !== data.verify_code)
-    return { status: false, message: "code is not correct" };
+    return { status: false, message: "code is not correct",code:400 };
   await query<RowDataPacket[]>(
     `
     UPDATE ${coreSchema}.users
@@ -112,8 +111,13 @@ export async function confirmEmail(data: ConfirmEmail) {
       values: [new Date(), data.email],
     }
   );
-  return { isSuccessfull: true, showToUser: true, messageCode: "MSG_01", messageKind: 1, message: 'email confirmed successfully' } as AppResponse
-
+  return {
+    isSuccessfull: true,
+    showToUser: true,
+    messageCode: "MSG_01",
+    messageKind: 1,
+    message: "email confirmed successfully",
+  } as AppResponse;
 }
 
 export async function getUserByPassword(
@@ -128,6 +132,38 @@ export async function getUserByPassword(
   );
   return userData[0] as User;
 }
+export async function getOTP(email: any, tokenVerify: any) {
+  const updateData = await query<RowDataPacket[]>(
+    `UPDATE  ${coreSchema}.users SET verify_code=? WHERE email = ?`,
+    {
+      values: [tokenVerify,email],
+    }
+  );
+  // const res = await query<RowDataPacket[]>(
+  //   `SELECT Ali_DB.users SET verify_code=${tokenVerify}  WHERE email = ?`,
+  //   {
+  //     values: [email],
+  //   }
+  // );
+  const result = await query<RowDataPacket[]>(
+    `SELECT * FROM ${coreSchema}.users WHERE email = ?`,
+    {
+      values: [email],
+    }
+  );
+  return result[0] as User;
+
+}
+
+// export async function getOTP(email: string) {
+//   const userData = await query<RowDataPacket>(
+//     `SELECT verify_code ${coreSchema}.users WHERE email=?`,
+//     {
+//       values: [email],
+//     }
+//   );
+//   return userData[0];
+// }
 
 export async function getNavItems() {
   const getManu = await query<RowDataPacket[]>(`

@@ -20,12 +20,14 @@ export class OtpInputComponent {
   @Input() config: Config = { length: 4 };
   // tslint:disable-next-line: no-output-on-prefix
   @Output() onInputChange = new EventEmitter<string>();
+  @Output() onCountDown = new EventEmitter<any>();
   otpForm!: any;
   inputControls: FormControl[] = new Array(this.config.length);
   componentKey =
     Math.random().toString(36).substring(2) + new Date().getTime().toString(36);
   inputType!: string;
   isTimeDone: boolean = false;
+ 
 
   constructor(
     private keysPipe: KeysPipe,
@@ -218,7 +220,8 @@ export class OtpInputComponent {
     console.log('asdf', e);
     if (e.action === 'done') this.isTimeDone = true;
   }
-  resendCode(){
+  resendCode(e:Event){
+    this.onCountDown.emit(e)
     // this.
   }
 }

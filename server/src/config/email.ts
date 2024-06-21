@@ -18,10 +18,10 @@ const {
   OAUTH_REDIRECT_URL,
 } = process.env;
 
-const isMailgunAPI = !isEmpty(MAILGUN_API_KEY) && !isEmpty(MAILGUN_DOMAIN);
+const isMailgunAPI = !isEmpty(MAILGUN_API_KEY) || !isEmpty(MAILGUN_DOMAIN);
 
 class EmailProvider {
-  private mailConfig: nodemailer.SentMessageInfo | mg.MailOptions;
+  private mailConfig: nodemailer.SentMessageInfo;
   private mailOptions: nodemailer.SendMailOptions | undefined;
 
   public send = (
@@ -37,7 +37,10 @@ class EmailProvider {
   };
 
   private setMailConfig = (): nodemailer.SentMessageInfo => {
-    const gmailEmail = "aliakbaresmaeili98@gmail.com";
+    // const gmailEmail = "aliakbaresmaeili98@gmail.com";
+    // const gmailAppPassword = "nffx hrgb xolq vsfa";
+
+     const gmailEmail = "aliakbaresmaeili98@gmail.com";
     const gmailAppPassword = "cgop ttip zuqz hqlr";
     const configTransport: nodemailer.SentMessageInfo = {
       service: MAIL_DRIVER,
@@ -64,7 +67,7 @@ class EmailProvider {
     subject: string,
     text: string
   ): nodemailer.SendMailOptions => {
-      return {
+    return {
       from: `${APP_NAME} <${MAIL_USERNAME}>`,
       to: dest,
       subject,

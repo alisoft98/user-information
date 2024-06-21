@@ -19,6 +19,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { Subject, takeUntil } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { User } from '../../auth/models/user';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'side-bar',
@@ -35,6 +36,7 @@ import { User } from '../../auth/models/user';
     RouterOutlet,
     MatButtonModule,
     MatCardModule,
+    HeaderComponent,
   ],
   templateUrl: './side-bar.component.html',
   styleUrl: './side-bar.component.scss',
@@ -101,6 +103,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
   getUserDataFromLocalStorage() {
     if (typeof localStorage !== 'undefined') {
       const getStoreItem = localStorage.getItem('userData');
+      debugger;
       if (getStoreItem) {
         this.username = JSON.parse(getStoreItem);
         const concatUserName = `${this.username.firstName} ${this.username.lastName}`;
@@ -138,6 +141,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
   }
 
   toggleMenu() {
+    debugger;
     if (this.isMobile) {
       this.sidenav.toggle();
       this.isCollapsed = false; // On mobile, the menu can never be collapsed
@@ -176,4 +180,5 @@ export class SideBarComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe.next(null);
     this.ngUnsubscribe.complete();
   }
+
 }

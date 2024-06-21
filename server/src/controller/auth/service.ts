@@ -2,12 +2,12 @@ import jwt from "jsonwebtoken";
 import ms from "ms";
 import { createUser, getUserByPassword } from "../../bin/db";
 import { getUniqueCodev2, getUniqueCodev3 } from "../../helper/common";
+import SendMail from '../../helper/send_email';
 import useValidation from "../../helper/use_validation";
 import ResponseError from "../../modules/error/response_error";
 import { CreateUser, User } from "../../types/user";
-import UserService from "../user/sercvice";
 import schemaAuth from "./schema";
-import SendMail from '../../helper/send_email'
+import UserService from "../user/sercvice";
 
 const { JWT_SECRET_ACCESS_TOKEN, JWT_SECRET_REFRESH_TOKEN }: any = process.env;
 
@@ -22,10 +22,10 @@ const expiresIn = ms(JWT_ACCESS_TOKEN_EXPIRED) / 1000;
 class AuthService {
 
   public static async signUp(formData: CreateUser) {
-    // const currentUser = await UserService.validateUserEmail(formData.email);
-    // if (currentUser) {
-    //   return { message: "the user already exist !", code: 400, currentUser };
-    // }
+    const currentUser = await UserService.validateUserEmail(formData.email);
+    if (currentUser) {
+      return { message: "the user already exist !", code: 400, currentUser };
+    }
     const generateToken = {
       code: getUniqueCodev2(),
     };

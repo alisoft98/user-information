@@ -19,7 +19,9 @@
         #ngOtpInput
         (onInputChange)="onOtpChange($event)"
         *ngIf="showOtpComponent"
-        [config]="config"></app-otp-input>
+        [config]="config"
+        (onCountDown)="getOtp()"
+        ></app-otp-input>
 
     </div>
   </div>

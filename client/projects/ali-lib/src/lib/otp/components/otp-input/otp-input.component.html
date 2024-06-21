@@ -27,7 +27,10 @@
   <countdown [config]="{ leftTime: 5 }" (event)="onCount($event)"></countdown>
 </div>
 @if (isTimeDone) {
-<a (click)="resendCode()" class="font-medium text-indigo-600 hover:text-indigo-500">
+<a
+  (click)="resendCode($event)"
+  class="font-medium text-indigo-600 hover:text-indigo-500"
+>
   Recend Code ...
 </a>
 }

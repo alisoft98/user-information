@@ -62,8 +62,9 @@ export class LoginComponent {
       this.#authService.signIn(this.form.value).subscribe((res: any) => {
         const stroeDataUser = res.payloadToken;
         if (res.code == 200) {
-         this.setCookie(stroeDataUser)
-          this.#cookieService.set('authorized', res);
+          if (typeof localStorage !== 'undefined') {
+            localStorage.setItem('userData', JSON.stringify(stroeDataUser));
+          }
           this.#toastrService.success('Login is succsessful!');
           this.#router.navigate(['/profile/dashboard']);
         } else {
@@ -71,12 +72,6 @@ export class LoginComponent {
         }
       });
     }
-  }
-  setCookie(dataUser:any) {
-    debugger;
-    const date = new Date();
-    date.setTime(date.getTime() + 7 * 24 * 60 * 60 * 1000); //7days
-    this.#cookieService.set('userData', dataUser, date);
   }
 
   // Get Value Form For Validation

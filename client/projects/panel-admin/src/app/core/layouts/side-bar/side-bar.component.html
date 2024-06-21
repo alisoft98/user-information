@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<!-- <mat-toolbar color="primary">
   <div class="content-header">
     <div>
       <button mat-icon-button aria-label="Menu icon" (click)="toggleMenu()">
@@ -6,16 +6,18 @@
       </button>
     </div>
     <div class="content-user">
-      <!-- <span class="material-symbols-outlined"> account_circle </span> -->
-      <!-- <button mat-button >Menu</button> -->
-      <span [matMenuTriggerFor]="menu" class="icon_userName">{{ firstWord }}</span>
+      <span [matMenuTriggerFor]="menu" class="icon_userName">{{
+        firstWord
+      }}</span>
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="logout()">Logout</button>
         <button mat-menu-item>User Details</button>
       </mat-menu>
     </div>
   </div>
-</mat-toolbar>
+</mat-toolbar> -->
+
+<app-header (toggleMenu)="toggleMenu()"/>
 
 <mat-sidenav-container autosize>
   <mat-sidenav

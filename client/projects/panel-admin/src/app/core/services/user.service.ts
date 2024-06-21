@@ -13,8 +13,11 @@ export class UserService {
   userEmail = new BehaviorSubject<any>('');
   storeEmail$ = this.userEmail.asObservable();
 
-
   confirmEmail(data: any): Observable<CurrentUser> {
     return this.#http.post<CurrentUser>(`${this.config}user/confirm`, data);
+  }
+
+  getOTP(email: string): Observable<CurrentUser> {
+    return this.#http.get<CurrentUser>(`${this.config}user/getOTP/${email}`);
   }
 }
