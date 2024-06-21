@@ -103,7 +103,6 @@ export class SideBarComponent implements OnInit, OnDestroy {
   getUserDataFromLocalStorage() {
     if (typeof localStorage !== 'undefined') {
       const getStoreItem = localStorage.getItem('userData');
-      debugger;
       if (getStoreItem) {
         this.username = JSON.parse(getStoreItem);
         const concatUserName = `${this.username.firstName} ${this.username.lastName}`;
@@ -141,7 +140,6 @@ export class SideBarComponent implements OnInit, OnDestroy {
   }
 
   toggleMenu() {
-    debugger;
     if (this.isMobile) {
       this.sidenav.toggle();
       this.isCollapsed = false; // On mobile, the menu can never be collapsed
