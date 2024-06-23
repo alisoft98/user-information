@@ -1,12 +1,10 @@
 import { Request, Response } from "express";
+import ms from "ms";
+import asyncHandler from "../../helper/async-handler";
+import { getUniqueCodev3 } from "../../helper/common";
 import BuildResponse from "../../modules/response/app_response";
 import routes from "../../routes/public";
 import UserService from "./sercvice";
-import asyncHandler from "../../helper/async-handler";
-import { getUniqueCodev2, getUniqueCodev3 } from "../../helper/common";
-import jwt from "jsonwebtoken";
-import ms from "ms";
-
 
 const { JWT_SECRET_ACCESS_TOKEN, JWT_SECRET_REFRESH_TOKEN }: any = process.env;
 
@@ -36,30 +34,27 @@ routes.post(
   asyncHandler(async function confirmEmail(req: Request, res: Response) {
     const formData = req.body;
     const result = await UserService.confrimEmail(formData);
-     res.status(result.code).json(result)
-
+    res.status(result.code).json(result);
   })
 );
-
 
 routes.get(
   "/user/getOTP/:email",
   asyncHandler(async function getOTP(req: Request, res: Response) {
-    // const generateToken = {
-    //   code: getUniqueCodev2(),
-    // };
-    // const tokenVerify = jwt.sign(
-    //   JSON.parse(JSON.stringify(generateToken)),
-    //   JWT_SECRET_ACCESS_TOKEN,
-    //   {
-    //     expiresIn,
-    //   }
-    // );
     const formData = req.params.email;
     const verify_code = getUniqueCodev3();
-    const result = await UserService.getVerifyCode(formData,verify_code);
-    // res.status(result.code).json(result);
-    const buildResponse = await BuildResponse.get(result)
-    res.json(buildResponse)
+    const result = await UserService.getVerifyCode(formData, verify_code);
+    const buildResponse = await BuildResponse.get(result);
+    res.json(buildResponse);
+  })
+);
+
+routes.put(
+  `/usre/updateProfile/:id`,
+  asyncHandler(async function updateProfileUser(req: Request, res: Response) {
+    const formData = req.body;
+    const result = await UserService.updateProfileuser(formData);
+    const buildResponse = await BuildResponse.get(result);
+    res.json(buildResponse);
   })
 );

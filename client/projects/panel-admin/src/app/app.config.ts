@@ -23,5 +23,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch(),
      withInterceptorsFromDi()),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    
   ],
+  
 };

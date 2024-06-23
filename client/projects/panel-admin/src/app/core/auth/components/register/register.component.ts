@@ -20,6 +20,7 @@ import { passswordShouldMatch } from '../../../../shared/validators/password-sho
 import { AuthService } from '../../../services/auth.service';
 import { UserService } from '../../../services/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { BaseComponent } from '../../../../shared/components/base/base.component';
 
 @Component({
   selector: 'app-register',
@@ -39,20 +40,13 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
-export class RegisterComponent {
-  router = inject(Router);
-  service = inject(AuthService);
-  userService = inject(UserService);
-  toastr = inject(ToastrService);
-  cookieService = inject(CookieService);
-  fb = inject(FormBuilder);
+export class RegisterComponent extends BaseComponent {
 
   title: string = 'Angular';
   labelUserName: string = 'UserName';
   labelPassword: string = 'password';
   matcher = new ErrorStateMatcher();
   genders: string[] = ['Man', 'Woman'];
-  years = this.getYears();
 
   form = this.fb.group({
     firstName: [
@@ -90,8 +84,6 @@ export class RegisterComponent {
     ),
   });
 
-  ngOnInit(): void {}
-
   onSubmit() {
     const payload = {
       firstName: this.form.value.firstName,
@@ -104,21 +96,14 @@ export class RegisterComponent {
       password: this.form.controls.password.value.password,
       confirmPassword: this.form.controls.password.value.confirmPassword,
     };
-    this.service.signUp(payload).subscribe((res:any) => {
+    this.authService.signUp(payload).subscribe((res: any) => {
       console.log('👉', res);
-        this.userService.userEmail.next(res.newUser?.email);
-        this.router.navigate(['confirm-email']);
+      this.userService.userEmail.next(res.newUser?.email);
+      this.router.navigate(['confirm-email']);
     });
   }
 
-  private getYears() {
-    const now = new Date().getUTCFullYear();
-    return Array(now - (now - 40))
-      .fill('')
-      .map((_, idx) => now - idx);
-  }
-
-  trackByFn(){}
+  trackByFn() {}
 
   // Get Value Form For Validation
 

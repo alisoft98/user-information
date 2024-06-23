@@ -10,6 +10,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MyErrorStateMatcher } from '../../../shared/input-validation/input-validation';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -20,6 +22,8 @@ import { MatMenuModule } from '@angular/material/menu';
     CommonModule,
     ReactiveFormsModule,
     MatMenuModule,
+    MatDividerModule,
+    RouterLink
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
@@ -28,7 +32,7 @@ export class HeaderComponent implements OnInit {
   @Output() onToggleMenu = new EventEmitter<any>();
   matcher = new MyErrorStateMatcher();
   showLng: any;
-
+  username: any;
   languages = [
     { name: 'ENG', flag: 'assets/flags/ad.svg' },
     { name: 'CA', code: 'ca', flag: 'assets/flags/ca.svg' },
@@ -41,10 +45,17 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.showLng = this.languages.find(lng => lng.name === 'ENG');
 
-    if (localStorage !== undefined) {
-      const userData = localStorage.getItem(JSON.parse('userData'));
+    this.getUserData();
+  }
+
+  getUserData() {
+    if (typeof localStorage !== 'undefined') {
+
+      let ali = localStorage.getItem('userData');
+      if (ali) {
+        this.username = JSON.parse(ali);
+      }
     }
-    debugger;
   }
 
   selectedCountry(lng: any) {

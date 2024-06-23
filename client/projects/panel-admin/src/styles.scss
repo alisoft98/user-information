@@ -14,6 +14,7 @@
 // Style to fix the weird border with angular material
 .mdc-notched-outline__notch {
   border-right: none !important;
+  border-left: none !important;
 }
 body, html {
   width: 100%;
@@ -94,6 +95,11 @@ body, html {
 }
 
 
+button{
+  border-radius: 25px!important;
+
+}
+
 
 // forms
 // form {
@@ -117,11 +123,11 @@ body, html {
 //   margin-right: var(--spacing-step);
 // }
 
-fieldset {
-  border-radius: var(--border-radius);
-  border: 1px solid var(--color-text-light);
-  margin-top: var(--spacing-step);
-}
+// fieldset {
+//   border-radius: var(--border-radius);
+//   border: 1px solid var(--color-text-light);
+//   margin-top: var(--spacing-step);
+// }
 
 // button {
 //   margin-top: calc(var(--spacing-step) * 2);

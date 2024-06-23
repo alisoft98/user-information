@@ -11,34 +11,27 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: 'dashboard',
+        path: '',
         component: DashboardComponent,
       },
       {
         path: 'users',
         component: UsersComponent,
       },
-      // {
-      //   path: 'user-info',
-      //   // component: UserInfoComponent,
-      // },
-      // {
-      //   path: 'user-roles',
-      //   // component: UserRolesComponent,
-      // },
       {
         path: 'schedule',
         component: CalendarComponent,
       },
-    
       {
-        path: '',
-        redirectTo: 'user-info',
-        pathMatch: 'full',
+        path: 'settings',
+        loadChildren: () =>
+          import('../core/settings/settings.module').then(
+            s => s.SettingsModule
+          ),
       },
       {
         path: '**',
-        redirectTo: 'user-info',
+        redirectTo: 'dashboard',
       },
     ],
   },

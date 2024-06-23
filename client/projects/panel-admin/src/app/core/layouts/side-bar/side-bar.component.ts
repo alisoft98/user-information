@@ -20,6 +20,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { User } from '../../auth/models/user';
 import { HeaderComponent } from '../header/header.component';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'side-bar',
@@ -37,6 +38,7 @@ import { HeaderComponent } from '../header/header.component';
     MatButtonModule,
     MatCardModule,
     HeaderComponent,
+    FooterComponent
   ],
   templateUrl: './side-bar.component.html',
   styleUrl: './side-bar.component.scss',
@@ -101,16 +103,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
   }
 
   getUserDataFromLocalStorage() {
-    if (typeof localStorage !== 'undefined') {
-      const getStoreItem = localStorage.getItem('userData');
-      if (getStoreItem) {
-        this.username = JSON.parse(getStoreItem);
-        const concatUserName = `${this.username.firstName} ${this.username.lastName}`;
-        this.firstWord = this.getFirstWord(concatUserName);
-      } else {
-        this.firstWord = '';
-      }
-    }
+
   }
 
   getFirstWord(username: string): string {

@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import {
   FormControl,
@@ -11,11 +12,10 @@ import { MatCardModule } from '@angular/material/card';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { AuthService } from '../../../services/auth.service';
-import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -42,9 +42,9 @@ export class LoginComponent {
   form!: FormGroup;
 
   #router = inject(Router);
+  #route = inject(ActivatedRoute);
   #authService = inject(AuthService);
   #toastrService = inject(ToastrService);
-  #cookieService = inject(CookieService);
 
   createForm() {
     this.form = new FormGroup({
@@ -55,6 +55,7 @@ export class LoginComponent {
 
   ngOnInit(): void {
     this.createForm();
+ 
   }
 
   login() {
@@ -62,11 +63,11 @@ export class LoginComponent {
       this.#authService.signIn(this.form.value).subscribe((res: any) => {
         const stroeDataUser = res.payloadToken;
         if (res.code == 200) {
-          if (typeof localStorage !== 'undefined') {
-            localStorage.setItem('userData', JSON.stringify(stroeDataUser));
-          }
+          const dataJson = JSON.stringify(stroeDataUser);
+          localStorage.setItem('userData', dataJson);
           this.#toastrService.success('Login is succsessful!');
-          this.#router.navigate(['/profile/dashboard']);
+          this.#router.navigate(['aliakbar/settings']);
+          
         } else {
           this.#toastrService.success('incorrect email or password!');
         }

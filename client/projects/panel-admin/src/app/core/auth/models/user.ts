@@ -1,11 +1,19 @@
 export interface User {
   id: number;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
-  firstName:string;
-  lastName:string;
-  accessToken:string;
-  refreshToken:string;
+  emailConfirmed: boolean;
+  signupStatus: number;
+  verify_code: string;
+  address: string;
+  country: string;
+  city: string;
+  state: string;
+  zipcode: string;
+  skills: string;
+  tokenVerify?: string | null;
 }
 
 export interface Register {
@@ -35,4 +43,10 @@ export interface ConfirmEmail {
   email: string;
   id: string;
   verify_code: string;
+}
+export interface TokenPermission {
+  tokenKey: string;
+  modify: boolean;
+  view: boolean;
+  isSingle?: boolean;
 }

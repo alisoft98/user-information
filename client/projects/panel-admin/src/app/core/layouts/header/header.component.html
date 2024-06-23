@@ -1,5 +1,5 @@
 <nav class="bg-white border-gray-200 dark:bg-gray-900">
-  <div class="grid grid-cols-2 md:grid-cols-2 p-3">
+  <div class="grid grid-cols-2 md:grid-cols-2 p-4">
     <div>
       <span
         (click)="toggleSide($event)"
@@ -34,24 +34,57 @@
           }
         </mat-menu>
       </div>
-      <div>
-        <button mat-button [matMenuTriggerFor]="menu">
-          <div class="flex">
+
+      <img
+        id="avatarButton"
+        type="button"
+        class="w-10 h-10 rounded-full cursor-pointer"
+        src="assets/images/ali.jpg"
+        alt="User dropdown"
+        [matMenuTriggerFor]="user" />
+
+      <!-- Dropdown menu -->
+      <mat-menu #user="matMenu" class="w-56">
+        <div class="flex-col">
+          <div class="flex items-center  gap-4 p-5">
             <img
               class="w-10 h-10 rounded-full"
               src="assets/images/ali.jpg"
-              alt="Rounded avatar" />
-          </div>
-        </button>
-        <mat-menu #menu="matMenu">
-          <div mat-menu-item class="flex justify-center items-center gap-2">
-            <div class="flex justify-center items-center">
-              <!-- <img [src]="lng.flag" alt="{{ lng.name }} " class="flag-icon" />
-              {{ lng.name }} -->
+              alt="" />
+            <div class="font-medium dark:text-black">
+              <div>
+                {{ username?.firstName }}&nbsp;-{{ username?.lastName }}
+              </div>
+              <div class="text-sm text-gray-500 dark:text-gray-400">Admin</div>
             </div>
           </div>
-        </mat-menu>
-      </div>
+          <mat-divider></mat-divider>
+          <div class="p-5">
+            <p
+              class="hover:text-sky-600 dark:hover:bg-slate-300 cursor-pointer flex items-center rounded-md gap-2 p-2">
+              <span class="material-symbols-outlined"> person </span>
+              My Profile
+            </p>
+            <p
+              routerLink="settings"
+              class="hover:text-sky-600 dark:hover:bg-slate-300 cursor-pointer flex items-center rounded-md gap-2 p-2">
+              <span class="material-symbols-outlined"> settings </span>
+              Setting
+            </p>
+            <p
+              class="hover:text-sky-600 dark:hover:bg-slate-300 cursor-pointer flex items-center rounded-md gap-2 p-2">
+              <span class="material-symbols-outlined"> info </span>
+              Support
+            </p>
+            <p
+              [routerLink]="['/login']"
+              class="hover:text-sky-600 dark:hover:bg-slate-300 cursor-pointer flex items-center rounded-md gap-2 p-2">
+              <span class="material-symbols-outlined"> logout </span>
+              Logout
+            </p>
+          </div>
+        </div>
+      </mat-menu>
     </div>
   </div>
 </nav>

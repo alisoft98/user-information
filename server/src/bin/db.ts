@@ -1,11 +1,11 @@
-import { IAppointment } from "../types/appointment.interface";
-import { ConfirmEmail, CreateUser, Register, User } from "../types/user";
-import { Menu, Submenu } from "../types/navItem";
-import { RowDataPacket, coreSchema, query } from "./mysql";
-import schemaUser from "../controller/user/schema";
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
+import schemaUser from "../controller/user/schema";
+import { IAppointment } from "../types/appointment.interface";
+import { Menu, Submenu } from "../types/navItem";
 import { AppResponse } from "../types/response.interface";
+import { ConfirmEmail, User } from "../types/user";
+import { RowDataPacket, coreSchema, query } from "./mysql";
 
 // Users
 export async function checkUserExist(email: string): Promise<RowDataPacket[]> {
@@ -100,7 +100,7 @@ export async function confirmEmail(data: ConfirmEmail) {
     } as AppResponse;
   }
   if (user.verify_code !== data.verify_code)
-    return { status: false, message: "code is not correct",code:400 };
+    return { status: false, message: "code is not correct", code: 400 };
   await query<RowDataPacket[]>(
     `
     UPDATE ${coreSchema}.users
@@ -136,15 +136,10 @@ export async function getOTP(email: any, tokenVerify: any) {
   const updateData = await query<RowDataPacket[]>(
     `UPDATE  ${coreSchema}.users SET verify_code=? WHERE email = ?`,
     {
-      values: [tokenVerify,email],
+      values: [tokenVerify, email],
     }
   );
-  // const res = await query<RowDataPacket[]>(
-  //   `SELECT Ali_DB.users SET verify_code=${tokenVerify}  WHERE email = ?`,
-  //   {
-  //     values: [email],
-  //   }
-  // );
+
   const result = await query<RowDataPacket[]>(
     `SELECT * FROM ${coreSchema}.users WHERE email = ?`,
     {
@@ -152,18 +147,42 @@ export async function getOTP(email: any, tokenVerify: any) {
     }
   );
   return result[0] as User;
-
 }
 
-// export async function getOTP(email: string) {
-//   const userData = await query<RowDataPacket>(
-//     `SELECT verify_code ${coreSchema}.users WHERE email=?`,
-//     {
-//       values: [email],
-//     }
-//   );
-//   return userData[0];
-// }
+export async function updateProfileUser(data: User): Promise<any> {
+  try {
+    const sql = `
+      UPDATE ${coreSchema}.users SET
+        firstName = ?,
+        lastName = ?,
+        email = ?,
+        address = ?,
+        country = ?,
+        city = ?,
+        state = ?,
+        zipcode = ?,
+        skills = ?
+      WHERE userId = ?; -- Assuming there's a userId to identify the user
+    `;
+    const values = [
+      data.firstName,
+      data.lastName,
+      data.email,
+      data.address,
+      data.country,
+      data.city,
+      data.state,
+      data.zipcode,
+      data.skills,
+      data.id, // Add userId to the data interface
+    ];
+    const result = await query<RowDataPacket[]>(sql, values);
+    return result;
+  } catch (error) {
+    console.error("Error updating user profile:", error);
+    throw new Error("Could not update user profile");
+  }
+}
 
 export async function getNavItems() {
   const getManu = await query<RowDataPacket[]>(`

@@ -1,14 +1,19 @@
 export interface User {
   id: number;
-  firstName:string;
-  lastName:string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
   emailConfirmed: boolean;
   signupStatus: number;
-  verify_code: string
-
-
+  verify_code: string;
+  address: string;
+  country: string;
+  city: string;
+  state: string;
+  zipcode: string;
+  skills: string;
+  tokenVerify?: string | null;
 }
 
 export interface CreateUser {

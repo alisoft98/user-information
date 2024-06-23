@@ -1,24 +1,4 @@
-<!-- <mat-toolbar color="primary">
-  <div class="content-header">
-    <div>
-      <button mat-icon-button aria-label="Menu icon" (click)="toggleMenu()">
-        <mat-icon>menu</mat-icon>
-      </button>
-    </div>
-    <div class="content-user">
-      <span [matMenuTriggerFor]="menu" class="icon_userName">{{
-        firstWord
-      }}</span>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="logout()">Logout</button>
-        <button mat-menu-item>User Details</button>
-      </mat-menu>
-    </div>
-  </div>
-</mat-toolbar> -->
-
-<app-header (onToggleMenu)="toggleMenu()"/>
-
+<app-header (onToggleMenu)="toggleMenu()" />
 <mat-sidenav-container autosize>
   <mat-sidenav
     class="side-nav"
@@ -42,7 +22,7 @@
           </span>
           <span
             class="material-symbols-outlined"
-            *ngIf="!isCollapsed && item['submenus']">
+            *ngIf="!isCollapsed && item.submenus.length">
             {{ isMenuItemExpanded(menuName) ? 'expand_less' : 'expand_more' }}
           </span>
         </div>
@@ -64,11 +44,8 @@
     </mat-nav-list>
   </mat-sidenav>
 
-  <mat-sidenav-content>
-    <mat-card class="content">
-      <mat-card-content>
-        <router-outlet></router-outlet>
-      </mat-card-content>
-    </mat-card>
+  <mat-sidenav-content class="bg-slate-200 w-full">
+    <router-outlet></router-outlet>
+    <app-footer />
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -4,12 +4,17 @@ import {
   NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
-import { Component, TemplateRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+  inject,
+} from '@angular/core';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { ChipComponent } from '../../shared/components/chip/chip.component';
-import {
-  CustomTabComponent
-} from '../../shared/components/custom-tab/custom-tab.component';
+import { CustomTabComponent } from '../../shared/components/custom-tab/custom-tab.component';
 import { ItemCardComponent } from '../../shared/components/item-card/item-card.component';
 import { DemoComponent } from '../../shared/components/list-item-host-binding/demo/demo.component';
 import { CanCopyToClipboardDirective } from '../../shared/directives/can-copy-to-clipboard/can-copy-to-clipboard.directive';
@@ -19,6 +24,8 @@ import { ProductUrlPipe } from '../../shared/pipes/product-url/product-url.pipe'
 import { RatingPickerPageComponent } from '../../shared/components/rating-picker-page/rating-picker-page.component';
 import { SmartSelecOtionComponent } from '../../shared/components/smart-select-option/smart-select-option.component';
 import { UsersComponent } from '../users/components/users.component';
+import { ActivatedRoute } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -39,15 +46,16 @@ import { UsersComponent } from '../users/components/users.component';
     NgTemplateOutlet,
     RatingPickerPageComponent,
     SmartSelecOtionComponent,
-    UsersComponent
+    UsersComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit, OnDestroy {
   @ViewChild('templateOne', { static: true }) templateOne!: TemplateRef<any>;
   @ViewChild('templateTwo', { static: true }) templateTwo!: TemplateRef<any>;
-  @ViewChild('templateThree', { static: true }) templateThree!: TemplateRef<any>;
+  @ViewChild('templateThree', { static: true })
+  templateThree!: TemplateRef<any>;
   @ViewChild('templatefour', { static: true }) templatefour!: TemplateRef<any>;
   tabs: {
     id: number;
@@ -56,14 +64,19 @@ export class DashboardComponent {
     context?: any;
   }[] = [];
 
-  constructor() {
-  }
-  
+  #route = inject(ActivatedRoute);
+  private destroy$ = new Subject<void>();
+
+  constructor() {}
+
   ngOnInit() {
-    this.setDataInTabs()
+    this.#route.paramMap.pipe(takeUntil(this.destroy$)).subscribe(params => {
+      console.log('params', params);
+    });
+    this.setDataInTabs();
   }
 
-  setDataInTabs(){
+  setDataInTabs() {
     this.tabs = [
       {
         id: 0,
@@ -92,8 +105,12 @@ export class DashboardComponent {
     ];
   }
 
-  handleTabChange(index: number) {
-  }
+  handleTabChange(index: number) {}
 
-  onRemove(e:any){}
+  onRemove(e: any) {}
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }

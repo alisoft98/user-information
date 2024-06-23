@@ -1,0 +1,51 @@
+<div class="flex gap-2 mt-2 ml-2 max-w-screen-2xl">
+  <!-- Hide the left section entirely -->
+  <div
+    class="bg-white border border-gray-200 rounded-lg shadow dark:border-gray-700 h-full">
+    <div class="flex flex-col items-center">
+      <img
+        class="w-24 h-24 mb-3 rounded-full shadow-lg"
+        src="assets/images/ali.jpg"
+        alt="Bonnie image" />
+      <h5 class="mb-1 text-xl font-medium">Aliakbar Esmaeili</h5>
+      <span class="text-sm text-gray-500 dark:text-gray-400 pb-2"
+        >Visual Designer</span
+      >
+      <mat-divider class="w-72"></mat-divider>
+      <div class="p-5">
+        <a
+          routerLink="/user/setting"
+          class="hover:text-sky-600 w-80 dark:hover:bg-slate-300 cursor-pointer flex items-center rounded-md gap-2 p-2">
+          <span class="material-symbols-outlined"> person </span>
+          Account Setting
+        </a>
+        <a
+          routerLink="change-password"
+          class="hover:text-sky-600 dark:hover:bg-slate-300 cursor-pointer flex items-center rounded-md gap-2 p-2">
+          <span class="material-symbols-outlined"> password </span>
+          Change Password
+        </a>
+        <a
+          routerLink="connections"
+          class="hover:text-sky-600 dark:hover:bg-slate-300 cursor-pointer flex items-center rounded-md gap-2 p-2">
+          <span class="material-symbols-outlined"> link </span>
+          Connections
+        </a>
+        <a
+          routerLink="privacy-policy"
+          class="hover:text-sky-600 dark:hover:bg-slate-300 cursor-pointer flex items-center rounded-md gap-2 p-2">
+          <span class="material-symbols-outlined"> person </span> Privacy Policy
+        </a>
+        <a
+          routerLink="terms-conditions"
+          class="hover:text-sky-600 dark:hover:bg-slate-300 cursor-pointer flex items-center rounded-md gap-2 p-2">
+          <span class="material-symbols-outlined"> info </span>
+          Terms & Conditions
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="w-full">
+    <app-settings />
+  </div>
+</div>

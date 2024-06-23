@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { ConfirmEmail, CurrentUser } from '../auth/models/user';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { CurrentUser, User } from '../auth/models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -19,5 +19,13 @@ export class UserService {
 
   getOTP(email: string): Observable<CurrentUser> {
     return this.#http.get<CurrentUser>(`${this.config}user/getOTP/${email}`);
+  }
+
+  updateProfile(data: User): Observable<User> {
+    debugger;
+    return this.#http.put<User>(
+      `${this.config}/usre/updateProfile/${data.id}`,
+      data
+    );
   }
 }

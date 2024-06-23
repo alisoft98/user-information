@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable, catchError, throwError } from 'rxjs';
-import { Register, SignupResponse, User } from '../auth/models/user';
+import { Register, SignupResponse, TokenPermission, User } from '../auth/models/user';
 import { environment } from '../../environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { filter, take, map } from 'rxjs';
@@ -14,6 +14,8 @@ export class AuthService {
   #http = inject(HttpClient);
   tokenKey!: any;
   #cookieService = inject(CookieService);
+  public permissions = new BehaviorSubject<TokenPermission[]>([]);
+
   private refreshTokenInProgress = false;
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(
     null
