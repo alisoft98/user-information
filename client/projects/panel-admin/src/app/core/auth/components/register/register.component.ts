@@ -1,10 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewEncapsulation, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import {
-  FormBuilder,
   FormsModule,
   ReactiveFormsModule,
-  Validators,
+  Validators
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -12,15 +11,11 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { Router, RouterLink } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
+import { RouterLink } from '@angular/router';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
+import { BaseComponent } from '../../../../shared/components/base/base.component';
 import { banWords } from '../../../../shared/validators/ban-words.validators';
 import { passswordShouldMatch } from '../../../../shared/validators/password-should-math.validator';
-import { AuthService } from '../../../services/auth.service';
-import { UserService } from '../../../services/user.service';
-import { ToastrService } from 'ngx-toastr';
-import { BaseComponent } from '../../../../shared/components/base/base.component';
 
 @Component({
   selector: 'app-register',
@@ -99,7 +94,7 @@ export class RegisterComponent extends BaseComponent {
     this.authService.signUp(payload).subscribe((res: any) => {
       console.log('👉', res);
       this.userService.userEmail.next(res.newUser?.email);
-      this.router.navigate(['confirm-email']);
+      this.router.navigate(['auth/confirm-email']);
     });
   }
 

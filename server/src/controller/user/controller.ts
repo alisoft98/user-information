@@ -50,11 +50,22 @@ routes.get(
 );
 
 routes.put(
-  `/usre/updateProfile/:id`,
+  `/user/updateProfile`,
   asyncHandler(async function updateProfileUser(req: Request, res: Response) {
     const formData = req.body;
     const result = await UserService.updateProfileuser(formData);
-    const buildResponse = await BuildResponse.get(result);
+    const buildResponse = await BuildResponse.get(formData);
     res.json(buildResponse);
+  })
+);
+
+routes.get(
+  `/user/getSkills`,
+  asyncHandler(async function getUserSkills(req: Request, res: Response) {
+    const result = await UserService.getUserSkills();
+    const buildResponse = BuildResponse.get(result);
+    if (buildResponse) {
+       res.status(200).json(buildResponse);
+    }
   })
 );

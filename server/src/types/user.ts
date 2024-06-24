@@ -1,5 +1,5 @@
 export interface User {
-  id: number;
+  user_id: number;
   firstName: string;
   lastName: string;
   email: string;
@@ -12,12 +12,17 @@ export interface User {
   city: string;
   state: string;
   zipcode: string;
-  skills: string;
+  skills: Skills[];
   tokenVerify?: string | null;
 }
 
+export interface Skills {
+  skill_id: number;
+  skill_name: string;
+}
+
 export interface CreateUser {
-  id: string;
+  user_id: string;
   email: string;
   newPassword: string;
   confirmNewPassword: string;
@@ -38,6 +43,6 @@ export interface Register {
 
 export interface ConfirmEmail {
   email: string;
-  id?: string;
+  user_id?: string;
   verify_code: string;
 }

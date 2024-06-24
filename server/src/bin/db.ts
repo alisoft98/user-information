@@ -10,7 +10,7 @@ import { RowDataPacket, coreSchema, query } from "./mysql";
 // Users
 export async function checkUserExist(email: string): Promise<RowDataPacket[]> {
   const user = await query<RowDataPacket[]>(
-    `SELECT id,email FROM  ${coreSchema}.users
+    `SELECT user_id,email FROM  ${coreSchema}.users
       WHERE email=?`,
     {
       values: [email],
@@ -33,7 +33,7 @@ export async function createUser(data: any) {
 
   const result = await query<RowDataPacket>(
     `INSERT INTO ${coreSchema}.users
-    (id,firstName,lastName,nickName,gender,birthDay,email,phoneNumber,password,signupStatus,verify_code,createdAt,updatedAt,tokenVerify)
+    (user_id,firstName,lastName,nickName,gender,birthDay,email,phoneNumber,password,signupStatus,verify_code,createdAt,updatedAt,tokenVerify)
     VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
     {
       values: [
@@ -151,7 +151,7 @@ export async function getOTP(email: any, tokenVerify: any) {
 
 export async function updateProfileUser(data: User): Promise<any> {
   try {
-    const sql = `
+    const updateUsersql = `
       UPDATE ${coreSchema}.users SET
         firstName = ?,
         lastName = ?,
@@ -161,10 +161,9 @@ export async function updateProfileUser(data: User): Promise<any> {
         city = ?,
         state = ?,
         zipcode = ?,
-        skills = ?
-      WHERE userId = ?; -- Assuming there's a userId to identify the user
+      
     `;
-    const values = [
+    const updateUservalues = [
       data.firstName,
       data.lastName,
       data.email,
@@ -173,11 +172,16 @@ export async function updateProfileUser(data: User): Promise<any> {
       data.city,
       data.state,
       data.zipcode,
-      data.skills,
-      data.id, // Add userId to the data interface
     ];
-    const result = await query<RowDataPacket[]>(sql, values);
-    return result;
+    const result = await query<RowDataPacket[]>(
+      updateUsersql,
+      updateUservalues
+    );
+    const insertSkillSql = `INSERT INTO ${coreSchema}.user_skill (user_id, skill_name) VALUES (?, ?)`;
+    for (const skill of data.skills) {
+      await query<RowDataPacket[]>(insertSkillSql, [data.user_id, skill]);
+    }
+    return { message: "User profile and skills updated successfully" };
   } catch (error) {
     console.error("Error updating user profile:", error);
     throw new Error("Could not update user profile");
@@ -305,4 +309,11 @@ export async function getCustomers() {
   SELECT * FROM ${coreSchema}.user_info
   `);
   return customers;
+}
+
+export async function getUserSkills() {
+  const skills = await query<RowDataPacket[]>(`
+    SELECT * FROM ${coreSchema}.user_skill
+    `);
+  return skills;
 }

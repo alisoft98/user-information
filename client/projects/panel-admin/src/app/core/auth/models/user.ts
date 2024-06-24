@@ -1,19 +1,23 @@
 export interface User {
-  id: number;
+  id?: number;
   firstName: string;
   lastName: string;
   email: string;
-  password: string;
-  emailConfirmed: boolean;
-  signupStatus: number;
-  verify_code: string;
+  password?: string;
+  emailConfirmed?: boolean;
+  signupStatus?: number;
+  verify_code?: string;
   address: string;
   country: string;
   city: string;
   state: string;
   zipcode: string;
-  skills: string;
-  tokenVerify?: string | null;
+  skills: Skills;
+}
+``;
+export interface Skills {
+  skill_id: number;
+  skill_name: string;
 }
 
 export interface Register {

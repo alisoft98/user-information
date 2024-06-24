@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import ms from "ms";
 import { createUser, getUserByPassword } from "../../bin/db";
 import { getUniqueCodev2, getUniqueCodev3 } from "../../helper/common";
-import SendMail from '../../helper/send_email';
+import SendMail from "../../helper/send_email";
 import useValidation from "../../helper/use_validation";
 import ResponseError from "../../modules/error/response_error";
 import { CreateUser, User } from "../../types/user";
@@ -17,10 +17,7 @@ const JWT_REFRESH_TOKEN_EXPIRED =
 
 const expiresIn = ms(JWT_ACCESS_TOKEN_EXPIRED) / 1000;
 
-
-
 class AuthService {
-
   public static async signUp(formData: CreateUser) {
     const currentUser = await UserService.validateUserEmail(formData.email);
     if (currentUser) {
@@ -43,18 +40,15 @@ class AuthService {
     const newUserId = await createUser(formData);
     if (!newUserId)
       throw new ResponseError.BadRequest("Cannot add user in the database !");
-    SendMail.AccountRegister(formData)
+    SendMail.AccountRegister(formData);
     return {
-      message:
-        null,
+      message: null,
       newUser: {
-        id: newUserId,
-        email: formData.email
+        user_id: newUserId,
+        email: formData.email,
       },
-    }
+    };
   }
-
-
 
   public static async signIn(formData: User) {
     const checkValidation = useValidation(schemaAuth.login, formData);
@@ -69,10 +63,10 @@ class AuthService {
     const comparePassword = true;
     if (comparePassword) {
       const payloadToken = {
-        id: userData?.id,
+        user_id: userData?.user_id,
         email: userData?.email,
-        firstName:userData.firstName,
-        lastName:userData.lastName
+        firstName: userData.firstName,
+        lastName: userData.lastName,
       };
 
       return {
@@ -82,8 +76,6 @@ class AuthService {
       };
     }
   }
-
- 
 }
 
 export default AuthService;

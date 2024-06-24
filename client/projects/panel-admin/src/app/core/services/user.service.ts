@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, delay, map, of } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { CurrentUser, User } from '../auth/models/user';
 
@@ -21,11 +21,23 @@ export class UserService {
     return this.#http.get<CurrentUser>(`${this.config}user/getOTP/${email}`);
   }
 
-  updateProfile(data: User): Observable<User> {
+  updateProfile(data: any): Observable<User> {
     debugger;
     return this.#http.put<User>(
-      `${this.config}/usre/updateProfile/${data.id}`,
+      `${this.config}user/updateProfile`,
       data
     );
   }
+
+  getSkills(): Observable<string[]> {
+    return this.#http
+      .get<{
+        code: number;
+        data: { skill_id: number; skill_name: string }[];
+        message: string;
+      }>(`${this.config}user/getSkills`)
+      .pipe(map(res => res.data.map(skill => skill.skill_name)));
+  }
+
+
 }

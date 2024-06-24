@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -10,6 +10,7 @@ import { UserService } from '../../../core/services/user.service';
 
 @Component({
   template: '',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export abstract class BaseComponent  {
   router = inject(Router);

@@ -3,6 +3,7 @@ import {
   confirmEmail,
   getOTP,
   getUserInfo,
+  getUserSkills,
   updateProfileUser,
 } from "../../bin/db";
 import useValidation from "../../helper/use_validation";
@@ -57,10 +58,10 @@ class UserService {
   }
 
   public static async updateProfileuser(userData: User) {
-    const currentUser = await UserService.validateUserEmail(userData.email);
-    if (currentUser) {
-      return { message: "the user already exist !", code: 400, currentUser };
-    }
+    // const currentUser = await UserService.validateUserEmail(userData.email);
+    // if (currentUser) {
+    //   return { message: "the user already exist !", code: 400, currentUser };
+    // }
 
     const generateToken = {
       code: getUniqueCodev2(),
@@ -87,6 +88,14 @@ class UserService {
       };
     }
   }
+
+  public static async getUserSkills() {
+    const data = await getUserSkills();
+    if (data) {
+      return { message: `ok`, data };
+    }
+    return null;
+  }
 }
 
-export default UserService;
+export default  UserService ;

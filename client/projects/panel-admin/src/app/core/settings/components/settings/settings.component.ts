@@ -1,6 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+  inject,
+} from '@angular/core';
+import {
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -15,6 +26,10 @@ import { banWords } from '../../../../shared/validators/ban-words.validators';
 import { passswordShouldMatch } from '../../../../shared/validators/password-should-math.validator';
 import { NgxEditorModule, Editor } from 'ngx-editor';
 import { MatIconModule } from '@angular/material/icon';
+import { Observable, tap } from 'rxjs';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { UniqueNicknameValidator } from '../../../../shared/validators/unique-nickname.validators';
+import { User } from '../../../auth/models/user';
 
 @Component({
   selector: 'app-settings',
@@ -32,10 +47,12 @@ import { MatIconModule } from '@angular/material/icon';
     MatSelectModule,
     NgxMatIntlTelInputComponent,
     NgxEditorModule,
-    MatIconModule
+    MatIconModule,
+    MatCheckboxModule,
   ],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SettingsComponent
   extends BaseComponent
@@ -43,16 +60,9 @@ export class SettingsComponent
 {
   matcher = new ErrorStateMatcher();
   genders: string[] = ['Man', 'Woman', 'Custom'];
-  skillOption: string[] = [
-    'Angular',
-    'Rxjs',
-    'Leadership',
-    'Commnucation',
-    'Data Analysis',
-    'Project Manager',
-    'User Experience',
-    'Seo',
-  ];
+  skills$!: Observable<string[]>;
+  private initialFormValues: any;
+
   country: string[] = [
     'Spanish',
     'UK',
@@ -62,24 +72,31 @@ export class SettingsComponent
     'Autria',
     'England',
   ];
- 
+
   form = this.fb.group({
     firstName: [
       'Aliakbar',
-      [Validators.required, Validators.minLength(2), banWords(['test'])],
-    ],
-    lastName: [
-      'Esmaeili',
-      [Validators.required, Validators.minLength(2), banWords(['test'])],
-    ],
-    nickName: [
-      'aliakbar',
       [
         Validators.required,
-        Validators.minLength(2),
-        Validators.pattern(/^[\w.]+$/),
+        Validators.minLength(4),
         banWords(['test', 'dummy']),
       ],
+    ],
+    lastName: ['Esmaeili', [Validators.required, Validators.minLength(2)]],
+    nickname: [
+      '',
+      {
+        validators: [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.pattern(/^[\w.]+$/),
+          banWords(['dummy', 'anonymous']),
+        ],
+        asyncValidators: [
+          this.uniqueNickname.validate.bind(this.uniqueNickname),
+        ],
+        updateOn: 'blur',
+      },
     ],
     gender: 'Man',
     yearOfBirth: this.fb.nonNullable.control(
@@ -88,31 +105,36 @@ export class SettingsComponent
     ),
     email: ['a@gmail.com', [Validators.required, Validators.email]],
     phoneNumber: [''],
-    password: this.fb.group(
-      {
-        password: ['11111111', [Validators.required, Validators.minLength(3)]],
-        confirmPassword: '11111111',
-      },
-      {
-        validators: passswordShouldMatch,
-      }
-    ),
     address: [''],
     country: [''],
     city: [''],
     state: [''],
-    zipCode: [''],
+    zipcode: [''],
     skills: [''],
-    editor: [''],
   });
-  constructor() {
+
+  constructor(private uniqueNickname: UniqueNicknameValidator) {
     super();
   }
-   ngOnInit() {
+  ngOnInit() {
+    this.getuserSkills();
   }
-  onSubmit() {}
+
+  onSubmit() {
+    debugger;
+    if (this.form.value) {
+      this.userService.updateProfile(this.form.value).subscribe(res => {
+        console.log(res);
+      });
+      console.log(this.form.value);
+    }
+  }
 
   trackByFn() {}
+
+  getuserSkills() {
+    this.skills$ = this.userService.getSkills();
+  }
 
   get firstName() {
     return this.form.get('firstName');
@@ -120,8 +142,8 @@ export class SettingsComponent
   get lastName() {
     return this.form.get('lastName');
   }
-  get nickName() {
-    return this.form.get('nickName');
+  get nickname() {
+    return this.form.get('nickname');
   }
   get gender() {
     return this.form.get('gender');
@@ -144,13 +166,12 @@ export class SettingsComponent
   get state() {
     return this.form.get('state');
   }
-  get zipCode() {
-    return this.form.get('zipCode');
+  get zipcode() {
+    return this.form.get('zipcode');
   }
-  get skills() {
-    return this.form.get('skills');
-  }
+  // get skills() {
+  //   return this.form.controls.ski.get('skills');
+  // }
 
-  ngOnDestroy(): void {
-  }
+  ngOnDestroy(): void {}
 }

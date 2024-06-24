@@ -90,28 +90,28 @@
               type="text"
               matInput
               [errorStateMatcher]="matcher"
-              formControlName="nickName"
+              formControlName="nickname"
               placeholder="nickName" />
             <!-- Error handling -->
             <mat-error
               *ngIf="
-                nickName?.hasError('nickName') &&
-                !nickName?.hasError('required')
+                nickname?.hasError('nickname') &&
+                !nickname?.hasError('required')
               "
               >Please enter a valid nickName</mat-error
             >
-            <mat-error *ngIf="nickName?.hasError('required')"
+            <mat-error *ngIf="nickname?.hasError('required')"
               >nickName is <strong>required</strong></mat-error
             >
-            <mat-error *ngIf="form.controls.nickName.hasError('minlength')"
+            <mat-error *ngIf="form.controls.nickname.hasError('minlength')"
               >nickName is too short
               <strong>{{
-                form.controls.nickName.getError('minlength')?.requiredLength
+                form.controls.nickname.getError('minlength')?.requiredLength
               }}</strong></mat-error
             >
-            <mat-error *ngIf="nickName?.hasError('banWords')"
+            <mat-error *ngIf="nickname?.hasError('banWords')"
               >The value
-              <strong>{{ nickName?.getError('banWords').bannedWord }} </strong
+              <strong>{{ nickname?.getError('banWords').bannedWord }} </strong
               >is banned</mat-error
             >
           </mat-form-field>
@@ -328,7 +328,7 @@
         <div class="w-1/3">
           <!-- *****Zip Code***** -->
           <mat-form-field
-            data-testing="zipCode"
+            data-testing="zipcode"
             appearance="outline"
             class="w-full">
             <mat-label>{{ 'Zip Code' | titlecase }}</mat-label>
@@ -336,27 +336,27 @@
               type="text"
               matInput
               [errorStateMatcher]="matcher"
-              formControlName="zipCode"
+              formControlName="zipcode"
               placeholder="State name" />
             <!-- Error handling -->
             <mat-error
               *ngIf="
-                zipCode?.hasError('zipCode') && !zipCode?.hasError('required')
+                zipcode?.hasError('zipcode') && !zipcode?.hasError('required')
               "
-              >Please enter a valid zipCode</mat-error
+              >Please enter a valid zipcode</mat-error
             >
-            <mat-error *ngIf="zipCode?.hasError('required')"
-              >zipCode is <strong>required</strong></mat-error
+            <mat-error *ngIf="zipcode?.hasError('required')"
+              >zipcode is <strong>required</strong></mat-error
             >
-            <mat-error *ngIf="form.controls.zipCode.hasError('minlength')"
-              >zipCode is too short
+            <mat-error *ngIf="form.controls.zipcode.hasError('minlength')"
+              >zipcode is too short
               <strong>{{
-                form.controls.zipCode.getError('minlength')?.requiredLength
+                form.controls.zipcode.getError('minlength')?.requiredLength
               }}</strong></mat-error
             >
-            <mat-error *ngIf="zipCode?.hasError('banWords')"
+            <mat-error *ngIf="zipcode?.hasError('banWords')"
               >The value
-              <strong>{{ zipCode?.getError('banWords').bannedWord }} </strong>is
+              <strong>{{ zipcode?.getError('banWords').bannedWord }} </strong>is
               banned</mat-error
             >
           </mat-form-field>
@@ -387,17 +387,19 @@
           class="w-full">
           <mat-label>Your Skills</mat-label>
           <mat-select formControlName="skills" multiple>
-            @for (skill of skillOption; track skill) {
+            @for (skill of skills$ | async; track skill) {
             <mat-option [value]="skill">{{ skill }}</mat-option>
             }
           </mat-select>
         </mat-form-field>
+        <ng-template #loading>
+          <p>Skills are loading...</p>
+        </ng-template>
       </div>
 
       <div class="flex justify-end gap-3 mt-2">
         <!-- *****CancelBTN***** -->
         <button mat-stroked-button type="button">Cancel</button>
-
         <!-- *****SaveBTN***** -->
         <button
           mat-flat-button
