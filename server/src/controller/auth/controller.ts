@@ -9,7 +9,7 @@ routes.post(
     const formData = req.body;
     const data = await AuthService.signUp(formData);
     const buildResponse = BuildResponse.get(data);
-    res.status(buildResponse.code).json(buildResponse)
+    res.status(buildResponse.code).json(buildResponse);
   }
 );
 
@@ -18,9 +18,14 @@ routes.post(
   async function signIn(req: Request, res: Response) {
     const formData = req.body;
     const data = await AuthService.signIn(formData);
-    const buildResponse = BuildResponse.get(data);
-    res.status(buildResponse.code).json(buildResponse);
+    const buildResponse = await BuildResponse.get(data);
+    if(buildResponse.statusCode === 400){
+      res.status(buildResponse.statusCode).json(buildResponse);
+    }else{
+      res.json(buildResponse)
+    }
   }
+  
 );
 
 // routes.post(

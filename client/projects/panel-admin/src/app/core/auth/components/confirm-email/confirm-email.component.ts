@@ -45,8 +45,6 @@ export class ConfirmEmailComponent implements OnInit {
     this.#service.storeEmail$.subscribe(res => {
       console.log('email', res);
       this.userData = res;
-
-      this.#router.navigate(['/profile/dashboard']);
     });
   }
   onOtpChange(otp: any) {
@@ -62,7 +60,9 @@ export class ConfirmEmailComponent implements OnInit {
     this.#service.confirmEmail(payload).subscribe(res => {
       if (res) {
         this.#toastrService.success('Login is succsessful!');
-        // this.#router.navigate(['/profile/dashboard']);
+      this.#router.navigate(['aliakbar/settings']);
+
+
       }
     });
   }

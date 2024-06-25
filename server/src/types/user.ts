@@ -4,7 +4,7 @@ export interface User {
   lastName: string;
   email: string;
   password: string;
-  emailConfirmed: boolean;
+  emailConfirmed: number;
   signupStatus: number;
   verify_code: string;
   address: string;

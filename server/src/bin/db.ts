@@ -124,13 +124,26 @@ export async function getUserByPassword(
   email: string,
   password: string
 ): Promise<User | null> {
-  const userData = await query<RowDataPacket[]>(
-    `SELECT * FROM ${coreSchema}.users WHERE email=?`,
-    {
-      values: [email],
-    }
-  );
-  return userData[0] as User;
+  try {
+    const user = await query<RowDataPacket[]>(
+      `SELECT * FROM ${coreSchema}.users WHERE email=?`,
+      {
+        values: [email],
+      }
+    );
+    if (user.length < 1) return null;
+    const match = await new Promise<boolean>((resolve, reject) => {
+      bcrypt.compare(password, user[0].password, (err, isMatch) => {
+        if (err) reject(err);
+        resolve(isMatch);
+      });
+    });
+    if (!match) return null;
+    return user[0] as User;
+  } catch (error) {
+    console.error("Error fetching user by password:", error);
+    throw new Error("Could not fetch user");
+  }
 }
 export async function getOTP(email: any, tokenVerify: any) {
   const updateData = await query<RowDataPacket[]>(

@@ -1,23 +1,34 @@
-import { Injectable, inject } from '@angular/core';
-// import { ToastrService } from 'ngx-toastr';
+import { Inject, Injectable, inject } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NotificationService {
-  // #toastrService = inject(ToastrService);
+  #toastrService = inject(ToastrService);
+
+  matDialog = inject(MatSnackBar);
 
   showSuccess(message: string) {
-    // return this.#toastrService.success(message);
+    return this.#toastrService.success(message);
   }
   showError(message: string) {
-    // return this.#toastrService.error(message);
+    debugger;
+    return this.#toastrService.error(message);
   }
   showWarning(message: string) {
-    // return this.#toastrService.warning(message);
+    return this.#toastrService.warning(message);
   }
 
   showInfo(message: string) {
-    // return this.#toastrService.info(message);
+    return this.#toastrService.info(message);
   }
+  // remove(id: number) {
+  //   this.snotify.remove(id);
+  // }
+
+  // clear() {
+  //   this.snotify.clear();
+  // }
 }

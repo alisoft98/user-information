@@ -51,29 +51,42 @@ class AuthService {
   }
 
   public static async signIn(formData: User) {
-    const checkValidation = useValidation(schemaAuth.login, formData);
-    const userData = await getUserByPassword(
-      checkValidation.email,
-      checkValidation.password
-    );
+    try {
+      const checkValidation = useValidation(schemaAuth.login, formData);
+ 
+      const userData = await getUserByPassword(
+        checkValidation.email,
+        checkValidation.password
+      );
+      if (!userData) {
+        throw new ResponseError.BadRequest(
+          "account not found or has been deleted",
+        );
+      } else if (userData.emailConfirmed === 0) {
+        throw new ResponseError.BadRequest("email is not confirm");
+      }
 
-    if (!userData) {
-      throw new ResponseError.BadRequest("incorrect email or password!");
-    }
-    const comparePassword = true;
-    if (comparePassword) {
-      const payloadToken = {
-        user_id: userData?.user_id,
-        email: userData?.email,
-        firstName: userData.firstName,
-        lastName: userData.lastName,
-      };
+      const comparePassword = true;
+      if (comparePassword) {
+        const payloadToken = {
+          user_id: userData?.user_id,
+          email: userData?.email,
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+        };
 
-      return {
-        message: "Login successfully",
-        token_type: "Bearer",
-        payloadToken: payloadToken,
-      };
+        return {
+          message: "Login successfully",
+          token_type: "Bearer",
+          payloadToken: payloadToken,
+        };
+      } else {
+        throw new ResponseError.Unauthorized("Invalid password");
+      }
+    } catch (error) {
+      console.error("Error during sign-in", error);
+      return error;
+
     }
   }
 }
