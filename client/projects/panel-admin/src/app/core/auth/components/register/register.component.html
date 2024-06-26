@@ -122,7 +122,13 @@
             <strong>{{ nickName?.getError('banWords').bannedWord }} </strong>is
             banned</mat-error
           >
+       
         </mat-form-field>
+        <ng-container>
+          <div class="input-info" *ngIf="nickName?.pending">
+            Checking nickname...
+          </div>
+        </ng-container>
       </div>
       <div>
         <!-- *****gender***** -->

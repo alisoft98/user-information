@@ -6,15 +6,15 @@ import BuildResponse from "../../modules/response/app_response";
 import routes from "../../routes/public";
 import UserService from "./sercvice";
 
-const { JWT_SECRET_ACCESS_TOKEN, JWT_SECRET_REFRESH_TOKEN }: any = process.env;
+routes.get(
+  "/user/checkNickName/:nickname",
+  asyncHandler(async function checkNickName(req: Request, res: Response) {
+    const formData = req.params.nickname;
+    const result = await UserService.checkNickName(formData);
+    res.json(result);
+  })
+);
 
-const JWT_ACCESS_TOKEN_EXPIRED = process.env.JWT_ACCESS_TOKEN_EXPIRED || "1d"; // 1 Days
-const JWT_REFRESH_TOKEN_EXPIRED =
-  process.env.JWT_REFRESH_TOKEN_EXPIRED || "30d"; // 30 Days
-
-const expiresIn = ms(JWT_ACCESS_TOKEN_EXPIRED) / 1000;
-
-// getAllUserInfo
 routes.post(
   "/getUserInfo",
   async function getAllUserData(req: Request, res: Response) {
@@ -65,7 +65,7 @@ routes.get(
     const result = await UserService.getUserSkills();
     const buildResponse = BuildResponse.get(result);
     if (buildResponse) {
-       res.status(200).json(buildResponse);
+      res.status(200).json(buildResponse);
     }
   })
 );

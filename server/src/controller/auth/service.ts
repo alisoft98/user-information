@@ -23,6 +23,15 @@ class AuthService {
     if (currentUser) {
       return { message: "the user already exist !", code: 400, currentUser };
     }
+
+    // const getNickName = await UserService.checkNickName(formData.email);
+    // if (getNickName === formData.email) {
+    //   return {
+    //     message: "the nickname is already exist!",
+    //     code: 400,
+    //     getNickName,
+    //   };
+    // }
     const generateToken = {
       code: getUniqueCodev2(),
     };
@@ -53,14 +62,14 @@ class AuthService {
   public static async signIn(formData: User) {
     try {
       const checkValidation = useValidation(schemaAuth.login, formData);
- 
+
       const userData = await getUserByPassword(
         checkValidation.email,
         checkValidation.password
       );
       if (!userData) {
         throw new ResponseError.BadRequest(
-          "account not found or has been deleted",
+          "account not found or has been deleted"
         );
       } else if (userData.emailConfirmed === 0) {
         throw new ResponseError.BadRequest("email is not confirm");
@@ -86,7 +95,6 @@ class AuthService {
     } catch (error) {
       console.error("Error during sign-in", error);
       return error;
-
     }
   }
 }

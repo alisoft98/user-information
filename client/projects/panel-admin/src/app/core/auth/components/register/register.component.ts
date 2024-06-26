@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormsModule,
   ReactiveFormsModule,
-  Validators
+  Validators,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -16,6 +16,7 @@ import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { BaseComponent } from '../../../../shared/components/base/base.component';
 import { banWords } from '../../../../shared/validators/ban-words.validators';
 import { passswordShouldMatch } from '../../../../shared/validators/password-should-math.validator';
+import { UniqueNicknameValidator } from '../../../../shared/validators/unique-nickname.validators';
 
 @Component({
   selector: 'app-register',
@@ -36,7 +37,7 @@ import { passswordShouldMatch } from '../../../../shared/validators/password-sho
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent extends BaseComponent {
-
+   uniqueNickname=inject( UniqueNicknameValidator);
   title: string = 'Angular';
   labelUserName: string = 'UserName';
   labelPassword: string = 'password';
@@ -52,14 +53,20 @@ export class RegisterComponent extends BaseComponent {
       'Esmaeili',
       [Validators.required, Validators.minLength(2), banWords(['test'])],
     ],
-    nickName: [
-      'aliakbar',
-      [
-        Validators.required,
-        Validators.minLength(2),
-        Validators.pattern(/^[\w.]+$/),
-        banWords(['test', 'dummy']),
-      ],
+    nickName: ['',
+      {
+        validators: [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.pattern(/^[\w.]+$/),
+          banWords(['dummy', 'anonymous','test'])
+        ],
+        asyncValidators: [
+          this.uniqueNickname.validate.bind(this.uniqueNickname)
+        ],
+        updateOn: 'blur'
+      },
+  
     ],
     gender: 'Man',
     yearOfBirth: this.fb.nonNullable.control(

@@ -6,19 +6,21 @@ import {
   ValidationErrors,
 } from '@angular/forms';
 import { Observable, catchError, map, of } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UniqueNicknameValidator implements AsyncValidator {
   #http = inject(HttpClient);
+  config = environment.apiEndPoint;
 
   validate(
     control: AbstractControl<any, any>
   ): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
     return this.#http
       .get<unknown[]>(
-        `https://jsonplaceholder.typicode.com/users?username=${control.value}`
+        `${environment.apiEndPoint}user/checkNickName/${control.value}`
       )
       .pipe(
         map(users =>

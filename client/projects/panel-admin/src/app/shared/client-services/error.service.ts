@@ -18,7 +18,6 @@ export class ErrorService {
   ) {}
 
   handle400Error(error: HttpErrorResponse) {
-    debugger;
     this.notificationService.showError(this.getErrorMessage(error));
   }
   handle401Error(error: HttpErrorResponse) {
@@ -33,7 +32,13 @@ export class ErrorService {
   handle422Error(error: HttpErrorResponse) {
     this.notificationService.showError(this.getErrorMessage(error));
   }
+
+  handle500Error(error?: HttpErrorResponse) {
+    this.notificationService.showError(COMMON_MESSAGES.serverIsNotResponsible);
+  }
+
   getErrorMessage(error: HttpErrorResponse): string {
+    debugger
     return error.error && error.error.message
       ? error.error.message
       : error.statusText

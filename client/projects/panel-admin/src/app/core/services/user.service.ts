@@ -22,7 +22,6 @@ export class UserService {
   }
 
   updateProfile(data: any): Observable<User> {
-    debugger;
     return this.#http.put<User>(
       `${this.config}user/updateProfile`,
       data

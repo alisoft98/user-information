@@ -19,6 +19,13 @@ export async function checkUserExist(email: string): Promise<RowDataPacket[]> {
   return user;
 }
 
+export async function checkNickName(): Promise<any> {
+  const getData = await query<RowDataPacket>(
+    `SELECT * FROM Ali_DB.users`
+  );
+  return getData;
+}
+
 export async function createUser(data: any) {
   const { password } = data;
   const { confirmPassword } = data;

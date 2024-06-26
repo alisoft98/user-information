@@ -1,4 +1,5 @@
 import {
+  checkNickName,
   checkUserExist,
   confirmEmail,
   getOTP,
@@ -37,7 +38,6 @@ class UserService {
     return null;
   }
 
-
   /**
    * @param email
    */
@@ -67,6 +67,7 @@ class UserService {
     const generateToken = {
       code: getUniqueCodev2(),
     };
+
     const tokenVerify = jwt.sign(
       JSON.parse(JSON.stringify(generateToken)),
       JWT_SECRET_ACCESS_TOKEN,
@@ -97,6 +98,17 @@ class UserService {
     }
     return null;
   }
+  /**
+   * @param email
+   */
+  public static async checkNickName(nickName: string) {
+    const getData = await checkNickName();
+    if (getData[0].nickName === nickName ) {
+      throw new ResponseError.BadRequest("The nickName is alreay exist!");
+    } else {
+      return;
+    }
+  }
 }
 
-export default  UserService ;
+export default UserService;

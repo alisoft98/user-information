@@ -23,8 +23,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, catchError, throwError } from 'rxjs';
 import { ErrorService } from '../client-services/error.service';
 
-
-
 @Injectable()
 export class GlobalHttpErrorHandler implements HttpInterceptor {
   snackBar = inject(MatSnackBar);
@@ -36,18 +34,14 @@ export class GlobalHttpErrorHandler implements HttpInterceptor {
     req: HttpRequest<any>,
     handler: HttpHandler
   ): Observable<HttpEvent<any>> {
-    console.log('Request URL: ' + req.url);
     return handler.handle(req).pipe(
       catchError(error => {
         if (error instanceof HttpErrorResponse) {
-          debugger;
           switch (error.status) {
             case 400:
               this.errorService.handle400Error(error);
               break;
             case 401:
-
-            debugger;
               this.errorService.handle401Error(error);
               break;
             case 404:
@@ -56,7 +50,9 @@ export class GlobalHttpErrorHandler implements HttpInterceptor {
             case 422:
               this.errorService.handle422Error(error);
               break;
-
+            case 500:
+              this.errorService.handle500Error(error);
+              break;
             default:
               break;
           }
@@ -72,6 +68,4 @@ export class GlobalHttpErrorHandler implements HttpInterceptor {
       })
     );
   }
-
-
 }

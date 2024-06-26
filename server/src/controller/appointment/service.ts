@@ -25,7 +25,6 @@ class CalendarService {
 
   public static async deleteAppointmentItem(id: string) {
     const data = await deleteAppointment(id);
-
     return data;
   }
 

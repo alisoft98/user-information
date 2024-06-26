@@ -1,4 +1,4 @@
-import { Inject, Injectable, inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ToastrService } from 'ngx-toastr';
 
@@ -14,7 +14,6 @@ export class NotificationService {
     return this.#toastrService.success(message);
   }
   showError(message: string) {
-    debugger;
     return this.#toastrService.error(message);
   }
   showWarning(message: string) {
@@ -24,11 +23,4 @@ export class NotificationService {
   showInfo(message: string) {
     return this.#toastrService.info(message);
   }
-  // remove(id: number) {
-  //   this.snotify.remove(id);
-  // }
-
-  // clear() {
-  //   this.snotify.clear();
-  // }
 }

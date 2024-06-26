@@ -75,6 +75,10 @@ export class LoginComponent {
     }
   }
 
+  navigateRegister(){
+    this.#router.navigate(['auth/register'])
+  }
+
   // Get Value Form For Validation
   get userName() {
     return this.form.get('userName');

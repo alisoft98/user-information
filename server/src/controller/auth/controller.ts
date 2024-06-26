@@ -19,13 +19,12 @@ routes.post(
     const formData = req.body;
     const data = await AuthService.signIn(formData);
     const buildResponse = await BuildResponse.get(data);
-    if(buildResponse.statusCode === 400){
+    if (buildResponse.statusCode === 400) {
       res.status(buildResponse.statusCode).json(buildResponse);
-    }else{
-      res.json(buildResponse)
+    } else {
+      res.json(buildResponse);
     }
   }
-  
 );
 
 // routes.post(

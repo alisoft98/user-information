@@ -38,12 +38,9 @@ export class AuthInterceptor implements HttpInterceptor {
     return handler.handle(request).pipe(
       catchError((err: HttpErrorResponse) => {
         if (err.status === 401 && err.message.includes('Unauthorized')) {
-          debugger;
           this.errorService.handle401Error(err)
           return throwError(() => new Error('test'));
         } else {
-          // Show error message
-
           // this.showError(err);
           return throwError(() => new Error(err.message));
         }

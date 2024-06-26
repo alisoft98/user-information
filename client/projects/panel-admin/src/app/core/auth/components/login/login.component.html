@@ -6,15 +6,13 @@
         Create your account
       </h2>
       <p class="mt-2 text-center text-sm text-gray-600">
-        <a [routerLink]="['auth/register']" class="font-medium text-indigo-600 hover:text-indigo-500">
+        <a (click)="navigateRegister()" class="font-medium text-indigo-600 hover:text-indigo-500 cursor-pointer">
           Sign up
         </a>
       </p>
     </div>
 
     <form [formGroup]="form" (ngSubmit)="login()" class="container">
-      
-   
       <mat-form-field
         data-testing="username"
         appearance="outline"

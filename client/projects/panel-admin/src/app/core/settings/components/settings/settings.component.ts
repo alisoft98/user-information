@@ -121,7 +121,6 @@ export class SettingsComponent
   }
 
   onSubmit() {
-    debugger;
     if (this.form.value) {
       this.userService.updateProfile(this.form.value).subscribe(res => {
         console.log(res);

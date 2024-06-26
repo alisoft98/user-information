@@ -5,7 +5,7 @@ import { authGuard } from './core/auth/guards/auth.guard';
 export const routes: Routes = [
 
   {
-    path: '',
+    path: 'login',
     component: LoginComponent,
   },
   {
@@ -19,12 +19,12 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'trinta/dashboard',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
   {
     path: '**',
-    redirectTo: 'trinta/dashboard',
+    redirectTo: 'login',
   },
 
 ];
