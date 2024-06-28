@@ -20,9 +20,7 @@ export async function checkUserExist(email: string): Promise<RowDataPacket[]> {
 }
 
 export async function checkNickName(): Promise<any> {
-  const getData = await query<RowDataPacket>(
-    `SELECT * FROM Ali_DB.users`
-  );
+  const getData = await query<RowDataPacket>(`SELECT * FROM Ali_DB.users`);
   return getData;
 }
 
@@ -170,8 +168,7 @@ export async function getOTP(email: any, tokenVerify: any) {
 }
 
 export async function updateProfileUser(data: User): Promise<any> {
-  try {
-    const updateUsersql = `
+  const updateUsersql = `
       UPDATE ${coreSchema}.users SET
         firstName = ?,
         lastName = ?,
@@ -183,29 +180,22 @@ export async function updateProfileUser(data: User): Promise<any> {
         zipcode = ?,
       
     `;
-    const updateUservalues = [
-      data.firstName,
-      data.lastName,
-      data.email,
-      data.address,
-      data.country,
-      data.city,
-      data.state,
-      data.zipcode,
-    ];
-    const result = await query<RowDataPacket[]>(
-      updateUsersql,
-      updateUservalues
-    );
-    const insertSkillSql = `INSERT INTO ${coreSchema}.user_skill (user_id, skill_name) VALUES (?, ?)`;
-    for (const skill of data.skills) {
-      await query<RowDataPacket[]>(insertSkillSql, [data.user_id, skill]);
-    }
-    return { message: "User profile and skills updated successfully" };
-  } catch (error) {
-    console.error("Error updating user profile:", error);
-    throw new Error("Could not update user profile");
+  const updateUservalues = [
+    data.firstName,
+    data.lastName,
+    data.email,
+    data.address,
+    data.country,
+    data.city,
+    data.state,
+    data.zipcode,
+  ];
+  const result = await query<RowDataPacket[]>(updateUsersql, updateUservalues);
+  const insertSkillSql = `UPDATE ${coreSchema}.user_skill SET (user_id, skill_name) VALUES (?, ?)`;
+  for (const skill of data.skills) {
+    await query<RowDataPacket[]>(insertSkillSql, [data.user_id, skill]);
   }
+  return result;
 }
 
 export async function getNavItems() {

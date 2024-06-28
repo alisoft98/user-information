@@ -61,7 +61,6 @@ export class SettingsComponent
   matcher = new ErrorStateMatcher();
   genders: string[] = ['Man', 'Woman', 'Custom'];
   skills$!: Observable<string[]>;
-  private initialFormValues: any;
 
   country: string[] = [
     'Spanish',
@@ -133,6 +132,8 @@ export class SettingsComponent
 
   getuserSkills() {
     this.skills$ = this.userService.getSkills();
+    console.log(this.skills$);
+    
   }
 
   get firstName() {

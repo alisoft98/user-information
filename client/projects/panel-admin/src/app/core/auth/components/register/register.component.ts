@@ -77,8 +77,8 @@ export class RegisterComponent extends BaseComponent {
     phoneNumber: [''],
     password: this.fb.group(
       {
-        password: ['11111111', [Validators.required, Validators.minLength(3)]],
-        confirmPassword: '11111111',
+        password: ['', [Validators.required, Validators.minLength(3)]],
+        confirmPassword: '',
       },
       {
         validators: passswordShouldMatch,

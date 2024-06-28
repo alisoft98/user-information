@@ -12,10 +12,10 @@ import { BaseComponent } from '../../../../shared/components/base/base.component
   templateUrl: './users_settings.component.html',
   styleUrl: './users_settings.component.scss',
 })
-export class UsersSettingsComponent extends BaseComponent{
+export class UsersSettingsComponent extends BaseComponent {
+  hasSetting = false;
 
-constructor(){
-  super()
-}
-
+  constructor() {
+    super();
+  }
 }

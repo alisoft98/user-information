@@ -9,11 +9,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 
 const routes = [
   {
-    path: '',
-    component: UsersSettingsComponent,
-  },
-  {
-    path: '',
+    path: 'settings',
     component: UsersSettingsComponent,
   },
   {

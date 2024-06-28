@@ -185,7 +185,7 @@
             class="w-full">
             <mat-label>Contact Number</mat-label>
             <ngx-mat-intl-tel-input
-              [preferredCountries]="['tr']"
+              [preferredCountries]="['my']"
               [enablePlaceholder]="true"
               [enableSearch]="true"
               name="phoneNumber"
@@ -363,22 +363,6 @@
         </div>
       </div>
 
-      <div class="w-full flex gap-3">
-        <!-- *****gender***** -->
-        <mat-form-field
-          data-testing="gender"
-          appearance="outline"
-          class="w-full">
-          <mat-label>Gender</mat-label>
-          <mat-select formControlName="gender" name="g">
-            <mat-option
-              *ngFor="let g of genders; trackBy: trackByFn"
-              [value]="g"
-              >{{ g }}</mat-option
-            >
-          </mat-select>
-        </mat-form-field>
-      </div>
 
       <div class="w-full">
         <mat-form-field

@@ -54,7 +54,7 @@ routes.put(
   asyncHandler(async function updateProfileUser(req: Request, res: Response) {
     const formData = req.body;
     const result = await UserService.updateProfileuser(formData);
-    const buildResponse = await BuildResponse.get(formData);
+    const buildResponse = await BuildResponse.get(result);
     res.json(buildResponse);
   })
 );
