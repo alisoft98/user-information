@@ -4,6 +4,10 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { SettingsComponent } from '../settings/settings.component';
 import { BaseComponent } from '../../../../shared/components/base/base.component';
 import { ChangePasswordComponent } from '../change-password/change-password.component';
+import { CommonModule } from '@angular/common';
+import { ConnectionsComponent } from '../../connections/connections.component';
+import { PrivacyPolicyComponent } from '../../privacy-policy/privacy-policy.component';
+import { TermsConditionsComponent } from '../../terms-conditions/terms-conditions.component';
 
 @Component({
   selector: 'app-users_settings',
@@ -14,6 +18,10 @@ import { ChangePasswordComponent } from '../change-password/change-password.comp
     RouterOutlet,
     SettingsComponent,
     ChangePasswordComponent,
+    CommonModule,
+    ConnectionsComponent,
+    PrivacyPolicyComponent,
+    TermsConditionsComponent
   ],
 
   templateUrl: './users_settings.component.html',
@@ -24,6 +32,7 @@ export class UsersSettingsComponent extends BaseComponent implements OnInit {
   hasTemp = false;
   changePasswordTemp = false;
   showAccountSettingTemp = true;
+  temp:any
 
   constructor() {
     super();
@@ -32,7 +41,6 @@ export class UsersSettingsComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {}
   showAccountSetting() {}
   changePassword() {
-    debugger;
     this.changePasswordTemp = true;
     this.showAccountSettingTemp = false;
   }
@@ -41,4 +49,8 @@ export class UsersSettingsComponent extends BaseComponent implements OnInit {
   privacyPolicy() {}
 
   terms() {}
+
+  hasTempTest() {
+    this.hasTemp = true;
+  }
 }
