@@ -4,6 +4,7 @@ import { LayoutComponent } from '../core/layouts/layout.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UsersComponent } from './users/components/users.component';
+import { UsersSettingsComponent } from '../core/settings/components/users_settings/users_settings.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,7 @@ const routes: Routes = [
         path: 'schedule',
         component: CalendarComponent,
       },
+
       {
         path: 'settings',
         loadChildren: () =>

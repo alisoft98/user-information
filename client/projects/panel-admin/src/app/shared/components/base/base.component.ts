@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { TokenPermission } from '../../../core/auth/models/user';
@@ -20,6 +20,7 @@ export abstract class BaseComponent  {
   authService = inject(AuthService);
   cookieService = inject(CookieService);
   userService = inject(UserService);
+  route = inject(ActivatedRoute)
 
   roles!: TokenPermission[];
   years = this.getYears();

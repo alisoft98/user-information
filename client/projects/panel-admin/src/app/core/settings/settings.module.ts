@@ -9,7 +9,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 
 const routes = [
   {
-    path: 'settings',
+    path: '',
     component: UsersSettingsComponent,
   },
   {
@@ -28,6 +28,7 @@ const routes = [
     path: 'privacy-policy',
     component: PrivacyPolicyComponent,
   },
+  
 ];
 
 @NgModule({

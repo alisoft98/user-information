@@ -14,30 +14,29 @@
       <mat-divider class="w-72"></mat-divider>
       <div class="p-5">
         <a
-          routerLink="/user/setting"
           class="hover:text-sky-600 w-80 dark:hover:bg-slate-300 cursor-pointer flex items-center rounded-md gap-2 p-2">
           <span class="material-symbols-outlined"> person </span>
           Account Setting
         </a>
         <a
-          routerLink="change-password"
+          (click)="changePassword()"
           class="hover:text-sky-600 dark:hover:bg-slate-300 cursor-pointer flex items-center rounded-md gap-2 p-2">
           <span class="material-symbols-outlined"> password </span>
           Change Password
         </a>
         <a
-          routerLink="connections"
+          (click)="connections()"
           class="hover:text-sky-600 dark:hover:bg-slate-300 cursor-pointer flex items-center rounded-md gap-2 p-2">
           <span class="material-symbols-outlined"> link </span>
           Connections
         </a>
         <a
-          routerLink="privacy-policy"
+          (click)="privacyPolicy()"
           class="hover:text-sky-600 dark:hover:bg-slate-300 cursor-pointer flex items-center rounded-md gap-2 p-2">
           <span class="material-symbols-outlined"> person </span> Privacy Policy
         </a>
         <a
-          routerLink="terms-conditions"
+          (click)="terms()"
           class="hover:text-sky-600 dark:hover:bg-slate-300 cursor-pointer flex items-center rounded-md gap-2 p-2">
           <span class="material-symbols-outlined"> info </span>
           Terms & Conditions
@@ -46,6 +45,14 @@
     </div>
   </div>
   <div class="w-full">
-    <router-outlet />
+    @if (showAccountSettingTemp) {
+    <ng-template>
+      <app-settings />
+    </ng-template>
+    } @if (changePasswordTemp) {
+    <ng-template>
+      <app-change-password />
+    </ng-template>
+    }
   </div>
 </div>
