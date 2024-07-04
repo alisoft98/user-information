@@ -1,5 +1,80 @@
 /* You can add global styles to this file, and also import other style files */
-@import "@angular/material/prebuilt-themes/indigo-pink.css";
+// @import "@angular/material/prebuilt-themes/indigo-pink.css";
+
+
+@use "@angular/material" as mat;
+@use "../../../m3-theme.scss";
+@use "../src/app/core/layouts/layout-component.theme";
+@use "./app/test-component.theme";
+
+@include mat.core();
+
+$angular-material-3-light-theme: mat.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    density: (
+      scale: 0,
+    ),
+  )
+);
+
+$angular-material-3-dark-theme: mat.define-theme(
+  (
+    color: (
+      theme-type: dark,
+      primary: mat.$magenta-palette,
+      tertiary: mat.$violet-palette,
+    ),
+    density: (
+      scale: 0,
+    ),
+  )
+);
+
+// Light theme
+// Un comment below to use theme created by ng add @angular-material
+// $theme: $angular-material-3-light-theme;
+
+// Light Theme created by ng generate @angular-material:m3-theme
+$theme: m3-theme.$light-theme;
+
+// Dark theme
+// Un-comment below to use dark theme using @angular/material
+// $dark-theme: $angular-material-3-dark-theme;
+
+// Dark Theme created by ng generate @angular-material:m3-theme
+$dark-theme: m3-theme.$dark-theme;
+
+:root {
+  @include mat.all-component-themes($theme);
+
+  // Components themes
+  @include layout-component.themeLayout($theme);
+  @include test-component.themeTest($theme);
+
+  // Add backwards compatibility styles for color variants
+  @include mat.color-variants-backwards-compatibility($theme);
+
+  @media (prefers-color-scheme: dark) {
+    @include mat.all-component-colors($dark-theme);
+
+    // Components themes
+    @include layout-component.themeLayout($dark-theme);
+    @include test-component.themeTest($dark-theme);
+
+    @include mat.color-variants-backwards-compatibility($dark-theme);
+  }
+}
+
+
+
+
+
+
 @import '@angular/cdk/overlay-prebuilt.css';
 // regular style toast
 @import 'ngx-toastr/toastr';
@@ -21,10 +96,10 @@ body, html {
   height: 100%;
   margin: 0; /* Ensure there is no margin */
   padding: 0; /* Ensure there is no padding */
-  font-family: 'CustomFont', sans-serif;
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-  background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
+  // font-family: 'CustomFont', sans-serif;
+  // background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  // background-size: 400% 400%;
+  // animation: gradient 15s ease infinite;
 }
 
 @font-face {
@@ -76,29 +151,29 @@ body, html {
   }
 }
 
-:root {
-  --color-primary: #004859;
-  --color-accent: #ff8888;
-  --color-accent-secondary: #ffc15a;
-  --color-accent-secondary-darker: #faa415;
-  --color-success: #4caf50;
-  --color-error: #ff5722;
-  --color-info: #449eff;
-  --color-background: #eceff1;
-  --color-text: #263238;
-  --color-text-light: #607d8b;
-  --height-header: 64px;
-  --height-footer: 48px;
-  --border-radius: 10px;
-  --spacing-step: 8px;
-  --font-size-h1: 34px;
-}
+// :root {
+//   --color-primary: #004859;
+//   --color-accent: #ff8888;
+//   --color-accent-secondary: #ffc15a;
+//   --color-accent-secondary-darker: #faa415;
+//   --color-success: #4caf50;
+//   --color-error: #ff5722;
+//   --color-info: #449eff;
+//   --color-background: #eceff1;
+//   --color-text: #263238;
+//   --color-text-light: #607d8b;
+//   --height-header: 64px;
+//   --height-footer: 48px;
+//   --border-radius: 10px;
+//   --spacing-step: 8px;
+//   --font-size-h1: 34px;
+// }
 
 
 
-button{
-  border-radius: 25px!important;
-}
+// button{
+//   border-radius: 25px!important;
+// }
 
 
 // forms

@@ -1,10 +1,12 @@
 import { Component, OnInit, computed, effect, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { LayoutComponent } from './core/layouts/layout.component';
+import { NgProgressModule } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet,LayoutComponent,NgProgressModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

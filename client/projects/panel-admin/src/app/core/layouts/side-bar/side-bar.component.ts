@@ -1,5 +1,5 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { CommonModule } from '@angular/common';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,17 +10,18 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenu, MatMenuModule } from '@angular/material/menu';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { groupBy } from 'lodash';
 import { NavItem } from '../../../shared/models/nav-items';
 import { NavItemsService } from '../../services/nav-items.service';
 import { Menu } from '../types/navItem';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, map, shareReplay, takeUntil } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { User } from '../../auth/models/user';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
+import { routes } from '../../../app.routes';
 
 @Component({
   selector: 'side-bar',
@@ -38,7 +39,9 @@ import { FooterComponent } from '../footer/footer.component';
     MatButtonModule,
     MatCardModule,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    AsyncPipe,
+    RouterLinkActive,
   ],
   templateUrl: './side-bar.component.html',
   styleUrl: './side-bar.component.scss',
@@ -74,6 +77,14 @@ export class SideBarComponent implements OnInit, OnDestroy {
   username!: User;
   firstWord: string = '';
 
+  private breakpointObserver = inject(BreakpointObserver);
+  rootRoutes = routes.filter(r=>r.path);
+
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
   #cookieService = inject(CookieService);
 
   constructor(
