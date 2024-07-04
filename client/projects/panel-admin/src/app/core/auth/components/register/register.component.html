@@ -1,5 +1,5 @@
-<div class="grid grid-cols-2 md:grid-cols-2 gap-1 w-full h-full">
-  <div class="w-full bg-white rounded-lg p-3">
+<div class="grid grid-cols-2 md:grid-cols-2 h-screen">
+  <div class="w-full rounded-lg p-3">
     <div>
       <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
         Create your account
@@ -122,7 +122,6 @@
             <strong>{{ nickName?.getError('banWords').bannedWord }} </strong>is
             banned</mat-error
           >
-       
         </mat-form-field>
         <ng-container>
           <div class="input-info" *ngIf="nickName?.pending">
@@ -278,5 +277,15 @@
     </form>
   </div>
 
-  <div class="w-full rounded-lg p-3 m-auto"></div>
+  <div class="">
+    <img
+      src="../../../../../assets/images/steel-background.jpg"
+      class="h-full rounded-md opacity-30 absolute"
+      width="50%"
+      alt="" />
+
+    <div class="relative flex justify-center items-center">
+      <h3 class="to-blue p-3 rounded-md border-2 w-3/6 m-auto">Welcome to my panel</h3>
+    </div>
+  </div>
 </div>

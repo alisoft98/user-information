@@ -1,17 +1,28 @@
-<nav class="bg-white border-gray-200 dark:bg-gray-900">
+<nav class="bg-white border-gray-200">
   <div class="grid grid-cols-2 md:grid-cols-2 p-4">
-    <div>
+    <!-- <div>
       <span
         (click)="toggleSide($event)"
-        class="material-symbols-outlined text-5xl text-white-900 dark:text-white cursor-pointer">
+        class="material-symbols-outlined text-5xl text-white-900 dark:text-white ">
         list
       </span>
-    </div>
+    </div> -->
 
-    <div class="flex items-center justify-end gap-4 mr-4">
+    <div class="flex items-center justify-end gap-6 mr-4">
+      <button
+      class="theme-switch"
+      type="button"
+      aria-label="Toggle theme"
+      mat-icon-button
+      (click)="toggleTheme()"
+      matTooltip="Toggle theme">
+      <mat-icon>
+        {{ theme() === 'light' ? 'light_mode' : 'dark_mode' }}
+      </mat-icon>
+    </button>
       <div>
         <button mat-button [matMenuTriggerFor]="menu">
-          <div class="flex">
+          <div class="flex items-center">
             <img
               [src]="showLng.flag"
               alt="{{ showLng.name }}"
@@ -44,44 +55,52 @@
         [matMenuTriggerFor]="user" />
 
       <!-- Dropdown menu -->
-      <mat-menu #user="matMenu" class="w-56">
+      <mat-menu #user="matMenu" xPosition="before">
         <div class="flex-col">
-          <div class="flex items-center  gap-4 p-5">
+          <div class="flex items-center gap-4 p-5">
             <img
               class="w-10 h-10 rounded-full"
               src="assets/images/ali.jpg"
               alt="" />
-            <div class="font-medium dark:text-black">
-              <div>
+            <div class="font-medium">
+              <div class="text-primary">
                 {{ username?.firstName }}&nbsp;-{{ username?.lastName }}
               </div>
-              <div class="text-sm text-gray-500 dark:text-gray-400">Admin</div>
+              <div class="text-sm text-primary">Admin</div>
             </div>
           </div>
           <mat-divider></mat-divider>
           <div class="p-5">
-            <p
-              class="hover:text-sky-600 dark:hover:bg-slate-300 cursor-pointer flex items-center rounded-md gap-2 p-2">
-              <span class="material-symbols-outlined"> person </span>
-              My Profile
-            </p>
-            <p
+            <button mat-menu-item class="flex items-center rounded-3xl">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined"> person </span>
+                <span> My Profile </span>
+              </div>
+            </button>
+            <button
+              mat-menu-item
               routerLink="/aliakbar/settings"
-              class="hover:text-sky-600 dark:hover:bg-slate-300 cursor-pointer flex items-center rounded-md gap-2 p-2">
-              <span class="material-symbols-outlined"> settings </span>
-              Setting
-            </p>
-            <p
-              class="hover:text-sky-600 dark:hover:bg-slate-300 cursor-pointer flex items-center rounded-md gap-2 p-2">
-              <span class="material-symbols-outlined"> info </span>
-              Support
-            </p>
-            <p
+              class="rounded-3xl">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined"> settings </span>
+                <span> Setting </span>
+              </div>
+            </button>
+            <button mat-menu-item class="flex items-center rounded-3xl">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined"> info </span>
+                <span> Support </span>
+              </div>
+            </button>
+            <button
+              mat-menu-item
               [routerLink]="['/auth/login']"
-              class="hover:text-sky-600 dark:hover:bg-slate-300 cursor-pointer flex items-center rounded-md gap-2 p-2">
-              <span class="material-symbols-outlined"> logout </span>
-              Logout
-            </p>
+              class="flex items-center rounded-3xl">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined"> logout </span>
+                <span> Logout </span>
+              </div>
+            </button>
           </div>
         </div>
       </mat-menu>

@@ -2,28 +2,31 @@
   <div
     class="py-12 px-4 sm:px-6 lg:px-8 max-w-md shadow-lg bg-white rounded-lg">
     <div class="max-w-md">
-      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-        Create your account
-      </h2>
+      <h5 class="mt-6 text-center font-extrabold text-gray-900">
+        Don't have an account yet?
+      </h5>
       <p class="mt-2 text-center text-sm text-gray-600">
-        <a (click)="navigateRegister()" class="font-medium text-indigo-600 hover:text-indigo-500 cursor-pointer">
-          Sign up
+        <a
+          (click)="navigateRegister()"
+          class="font-medium text-indigo-600 hover:text-indigo-500 cursor-pointer text-primary">
+          Sign up here
         </a>
       </p>
     </div>
 
-    <form [formGroup]="form" (ngSubmit)="login()" class="container">
+    <form [formGroup]="form" (ngSubmit)="login()">
       <mat-form-field
         data-testing="username"
         appearance="outline"
         class="w-full">
         <mat-label>{{ labelUserName }}</mat-label>
         <input
-          type="userName"
+          type="text"
           matInput
           [errorStateMatcher]="matcher"
           formControlName="email"
           placeholder="UserName" />
+
         @if (userName?.hasError('userName') && !userName?.hasError('required'))
         {
         <mat-error>Please enter a valid userName address</mat-error>
@@ -55,7 +58,6 @@
         [disabled]="!form.valid">
         Sign in
       </button>
-     
     </form>
   </div>
 </div>

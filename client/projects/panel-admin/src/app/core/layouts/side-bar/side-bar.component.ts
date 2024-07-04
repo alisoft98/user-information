@@ -10,7 +10,12 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenu, MatMenuModule } from '@angular/material/menu';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import {
+  Router,
+  RouterLink,
+  RouterLinkActive,
+  RouterOutlet,
+} from '@angular/router';
 import { groupBy } from 'lodash';
 import { NavItem } from '../../../shared/models/nav-items';
 import { NavItemsService } from '../../services/nav-items.service';
@@ -22,6 +27,8 @@ import { User } from '../../auth/models/user';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
 import { routes } from '../../../app.routes';
+import { ThemeManagerService } from '../../../shared/client-services/theme-manager.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'side-bar',
@@ -42,6 +49,7 @@ import { routes } from '../../../app.routes';
     FooterComponent,
     AsyncPipe,
     RouterLinkActive,
+    MatTooltipModule
   ],
   templateUrl: './side-bar.component.html',
   styleUrl: './side-bar.component.scss',
@@ -78,14 +86,15 @@ export class SideBarComponent implements OnInit, OnDestroy {
   firstWord: string = '';
 
   private breakpointObserver = inject(BreakpointObserver);
-  rootRoutes = routes.filter(r=>r.path);
+  rootRoutes = routes.filter(r => r.path);
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
       shareReplay()
     );
-  #cookieService = inject(CookieService);
+ 
 
   constructor(
     private navService: NavItemsService,
@@ -113,9 +122,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
     this.getUserDataFromLocalStorage();
   }
 
-  getUserDataFromLocalStorage() {
-
-  }
+  getUserDataFromLocalStorage() {}
 
   getFirstWord(username: string): string {
     return username.charAt(0);
@@ -182,5 +189,4 @@ export class SideBarComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe.next(null);
     this.ngUnsubscribe.complete();
   }
-
 }

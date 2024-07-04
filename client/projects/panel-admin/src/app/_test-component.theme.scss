@@ -6,9 +6,7 @@
   }
   .content {
     @media (pointer: fine) {
-      &::-webkit-scrollbar-thumb {
         background-color: mat.get-theme-color($theme, primary);
-      }
     }
   }
 }

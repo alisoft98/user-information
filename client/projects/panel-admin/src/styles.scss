@@ -9,38 +9,28 @@
 
 @include mat.core();
 
-$angular-material-3-light-theme: mat.define-theme(
-  (
-    color: (
-      theme-type: light,
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    density: (
-      scale: 0,
-    ),
-  )
-);
+$angular-material-3-light-theme: mat.define-theme((color: (theme-type: light,
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      density: (scale: 0,
+      ),
+    ));
 
-$angular-material-3-dark-theme: mat.define-theme(
-  (
-    color: (
-      theme-type: dark,
-      primary: mat.$magenta-palette,
-      tertiary: mat.$violet-palette,
-    ),
-    density: (
-      scale: 0,
-    ),
-  )
-);
+$angular-material-3-dark-theme: mat.define-theme((color: (theme-type: dark,
+        primary: mat.$magenta-palette,
+        tertiary: mat.$violet-palette,
+      ),
+      density: (scale: 0,
+      ),
+    ));
 
 // Light theme
 // Un comment below to use theme created by ng add @angular-material
 // $theme: $angular-material-3-light-theme;
 
 // Light Theme created by ng generate @angular-material:m3-theme
-$theme: m3-theme.$light-theme;
+$light-theme: m3-theme.$light-theme;
 
 // Dark theme
 // Un-comment below to use dark theme using @angular/material
@@ -49,33 +39,49 @@ $theme: m3-theme.$light-theme;
 // Dark Theme created by ng generate @angular-material:m3-theme
 $dark-theme: m3-theme.$dark-theme;
 
-:root {
-  @include mat.all-component-themes($theme);
-
+html {
+  @include mat.all-component-themes($light-theme);
+  background: mat.get-theme-color($light-theme, surface);
   // Components themes
-  @include layout-component.themeLayout($theme);
-  @include test-component.themeTest($theme);
+  @include layout-component.themeLayout($light-theme);
+  @include test-component.themeTest($light-theme);
 
-  // Add backwards compatibility styles for color variants
-  @include mat.color-variants-backwards-compatibility($theme);
-
-  @media (prefers-color-scheme: dark) {
+  &.dark {
     @include mat.all-component-colors($dark-theme);
-
-    // Components themes
-    @include layout-component.themeLayout($dark-theme);
+    background: mat.get-theme-color($dark-theme, surface);
+  @include layout-component.themeLayout($light-theme);
     @include test-component.themeTest($dark-theme);
 
-    @include mat.color-variants-backwards-compatibility($dark-theme);
+
   }
+
+  // Add backwards compatibility styles for color variants
+  // @include mat.color-variants-backwards-compatibility($light-theme);
+
+  // @media (prefers-color-scheme: dark) {
+
+  //   // Components themes
+  //   @include layout-component.themeLayout($dark-theme);
+  //   // @include test-component.themeTest($dark-theme);
+
+  //   @include mat.color-variants-backwards-compatibility($dark-theme);
+  // }
+}
+
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: CustomFont, 'CustomFont', sans-serif
 }
 
 
 
-
-
-
-@import '@angular/cdk/overlay-prebuilt.css';
+// @import '@angular/cdk/overlay-prebuilt.css';
 // regular style toast
 @import 'ngx-toastr/toastr';
 
@@ -91,16 +97,7 @@ $dark-theme: m3-theme.$dark-theme;
   border-right: none !important;
   border-left: none !important;
 }
-body, html {
-  width: 100%;
-  height: 100%;
-  margin: 0; /* Ensure there is no margin */
-  padding: 0; /* Ensure there is no padding */
-  // font-family: 'CustomFont', sans-serif;
-  // background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-  // background-size: 400% 400%;
-  // animation: gradient 15s ease infinite;
-}
+
 
 @font-face {
   font-family: 'CustomFont';

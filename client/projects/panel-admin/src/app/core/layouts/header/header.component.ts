@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import {
   FormControl,
   FormsModule,
@@ -12,6 +12,8 @@ import { MyErrorStateMatcher } from '../../../shared/input-validation/input-vali
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { RouterLink } from '@angular/router';
+import { ThemeManagerService } from '../../../shared/client-services/theme-manager.service';
+import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -23,7 +25,8 @@ import { RouterLink } from '@angular/router';
     ReactiveFormsModule,
     MatMenuModule,
     MatDividerModule,
-    RouterLink
+    RouterLink,
+    MatIconModule
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
@@ -42,6 +45,13 @@ export class HeaderComponent implements OnInit {
     // add more countries as needed
   ];
 
+  private themeManager = inject(ThemeManagerService);
+  theme = this.themeManager.theme;
+  toggleTheme() {
+    this.themeManager.toggleTheme();
+  }
+
+  
   ngOnInit(): void {
     this.showLng = this.languages.find(lng => lng.name === 'ENG');
 
@@ -50,7 +60,6 @@ export class HeaderComponent implements OnInit {
 
   getUserData() {
     if (typeof localStorage !== 'undefined') {
-
       let ali = localStorage.getItem('userData');
       if (ali) {
         this.username = JSON.parse(ali);
