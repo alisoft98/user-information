@@ -1,3 +1,4 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
@@ -10,6 +11,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenu, MatMenuModule } from '@angular/material/menu';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import {
   Router,
   RouterLink,
@@ -17,18 +19,14 @@ import {
   RouterOutlet,
 } from '@angular/router';
 import { groupBy } from 'lodash';
-import { NavItem } from '../../../shared/models/nav-items';
-import { NavItemsService } from '../../services/nav-items.service';
-import { Menu } from '../types/navItem';
-import { animate, style, transition, trigger } from '@angular/animations';
 import { Observable, Subject, map, shareReplay, takeUntil } from 'rxjs';
-import { CookieService } from 'ngx-cookie-service';
-import { User } from '../../auth/models/user';
-import { HeaderComponent } from '../header/header.component';
-import { FooterComponent } from '../footer/footer.component';
 import { routes } from '../../../app.routes';
-import { ThemeManagerService } from '../../../shared/client-services/theme-manager.service';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { NavItem } from '../../../shared/models/nav-items';
+import { User } from '../../auth/models/user';
+import { NavItemsService } from '../../services/nav-items.service';
+import { FooterComponent } from '../footer/footer.component';
+import { HeaderComponent } from '../header/header.component';
+import { Menu } from '../types/navItem';
 
 @Component({
   selector: 'side-bar',

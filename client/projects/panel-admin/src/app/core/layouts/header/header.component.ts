@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import {
   FormControl,
@@ -14,6 +14,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { RouterLink } from '@angular/router';
 import { ThemeManagerService } from '../../../shared/client-services/theme-manager.service';
 import { MatIconModule } from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -26,7 +28,10 @@ import { MatIconModule } from '@angular/material/icon';
     MatMenuModule,
     MatDividerModule,
     RouterLink,
-    MatIconModule
+    MatIconModule,
+    MatTooltipModule,
+    AsyncPipe,
+    MatButtonModule,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
@@ -34,6 +39,7 @@ import { MatIconModule } from '@angular/material/icon';
 export class HeaderComponent implements OnInit {
   @Output() onToggleMenu = new EventEmitter<any>();
   matcher = new MyErrorStateMatcher();
+  today: number = Date.now();
   showLng: any;
   username: any;
   languages = [

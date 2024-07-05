@@ -30,6 +30,7 @@ import { Observable, tap } from 'rxjs';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { UniqueNicknameValidator } from '../../../../shared/validators/unique-nickname.validators';
 import { User } from '../../../auth/models/user';
+import { UsersSettingsComponent } from '../users_settings/users_settings.component';
 
 @Component({
   selector: 'app-settings',
@@ -49,6 +50,7 @@ import { User } from '../../../auth/models/user';
     NgxEditorModule,
     MatIconModule,
     MatCheckboxModule,
+    UsersSettingsComponent
   ],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss',

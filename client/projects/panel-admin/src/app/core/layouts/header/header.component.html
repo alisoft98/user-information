@@ -1,25 +1,33 @@
-<nav class="bg-white border-gray-200">
-  <div class="grid grid-cols-2 md:grid-cols-2 p-4">
-    <!-- <div>
-      <span
-        (click)="toggleSide($event)"
-        class="material-symbols-outlined text-5xl text-white-900 dark:text-white ">
-        list
-      </span>
-    </div> -->
+  
 
-    <div class="flex items-center justify-end gap-6 mr-4">
+    <div class="flex items-center justify-end gap-3 mr-4">
       <button
-      class="theme-switch"
-      type="button"
-      aria-label="Toggle theme"
-      mat-icon-button
-      (click)="toggleTheme()"
-      matTooltip="Toggle theme">
-      <mat-icon>
-        {{ theme() === 'light' ? 'light_mode' : 'dark_mode' }}
-      </mat-icon>
-    </button>
+        class="theme-switch"
+        type="button"
+        aria-label="Toggle theme"
+        mat-icon-button
+        (click)="toggleTheme()"
+        matTooltip="Toggle theme">
+        <mat-icon>
+          {{ theme() === 'light' ? 'light_mode' : 'dark_mode' }}
+        </mat-icon>
+      </button>
+      <button mat-icon-button>
+        <span class="material-symbols-outlined"> mail </span>
+      </button>
+
+      <button mat-icon-button>
+        <span class="material-symbols-outlined"> notifications </span>
+      </button>
+
+      <div class="border-2 p-2 rounded-md flex items-center">
+        <span class="material-symbols-outlined text-blue">
+          calendar_today
+        </span>
+        <span class="text-sm">
+          {{ today | date : 'longDate' }}
+        </span>
+      </div>
       <div>
         <button mat-button [matMenuTriggerFor]="menu">
           <div class="flex items-center">
@@ -105,5 +113,3 @@
         </div>
       </mat-menu>
     </div>
-  </div>
-</nav>
