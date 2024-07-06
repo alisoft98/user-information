@@ -30,14 +30,14 @@ export const routes: Routes = [
         title: 'connections',
       },
       {
-        path: 'terms-conditions',
-        component: TermsConditionsComponent,
-        title: 'terms-conditions',
-      },
-      {
         path: 'privacy-policy',
         component: PrivacyPolicyComponent,
         title: 'privacy-policy',
+      },
+      {
+        path: 'terms-conditions',
+        component: TermsConditionsComponent,
+        title: 'terms-conditions',
       },
     ],
   },

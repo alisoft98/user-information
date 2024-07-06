@@ -1,22 +1,20 @@
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import {
-  FormControl,
   FormsModule,
-  ReactiveFormsModule,
-  Validators,
+  ReactiveFormsModule
 } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { MyErrorStateMatcher } from '../../../shared/input-validation/input-validation';
-import { MatMenuModule } from '@angular/material/menu';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
 import { ThemeManagerService } from '../../../shared/client-services/theme-manager.service';
-import { MatIconModule } from '@angular/material/icon';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import { MatButtonModule } from '@angular/material/button';
-import {MatBadgeModule} from '@angular/material/badge';
+import { MyErrorStateMatcher } from '../../../shared/input-validation/input-validation';
 @Component({
   selector: 'app-header',
   standalone: true,
