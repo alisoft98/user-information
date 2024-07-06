@@ -9,6 +9,7 @@ import { TermsConditionsComponent } from '../../terms-conditions/terms-condition
 import { ChangePasswordComponent } from '../change-password/change-password.component';
 import { SettingsComponent } from '../settings/settings.component';
 import { routes } from '../../settings.module';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-users_settings',
@@ -23,6 +24,7 @@ import { routes } from '../../settings.module';
     ConnectionsComponent,
     PrivacyPolicyComponent,
     TermsConditionsComponent,
+    MatCardModule
   ],
 
   templateUrl: './users_settings.component.html',

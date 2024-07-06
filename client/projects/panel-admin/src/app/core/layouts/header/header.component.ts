@@ -16,6 +16,7 @@ import { ThemeManagerService } from '../../../shared/client-services/theme-manag
 import { MatIconModule } from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
+import {MatBadgeModule} from '@angular/material/badge';
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -32,6 +33,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatTooltipModule,
     AsyncPipe,
     MatButtonModule,
+    MatBadgeModule
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',

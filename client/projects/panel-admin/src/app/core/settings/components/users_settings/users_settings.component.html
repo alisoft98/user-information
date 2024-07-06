@@ -1,29 +1,32 @@
 <div class="md:flex gap-2 mt-2 ml-2 max-w-screen-2xl">
-  <div
-    class="bg-white border border-gray-200 rounded-lg shadow dark:border-gray-700 h-full">
-    <div class="flex flex-col items-center mt-2">
-      <img
-        class="w-24 h-24 mb-3 rounded-full shadow-lg"
-        src="assets/images/ali.jpg"
-        alt="Bonnie image" />
-      <h5 class="mb-1 text-xl font-medium text-primary">Aliakbar Esmaeili</h5>
-      <span class="text-sm text-gray-500 dark:text-gray-400 pb-2"
-        >Visual Designer</span
-      >
-      <mat-divider class="w-72 text-primary"></mat-divider>
-      <div class="p-5">
-        @for (item of settingsRoutes; track $index) {
-        <a
-          [routerLink]="item?.path"
-          class="dark:hover:text-blue w-80 cursor-pointer flex items-center rounded-xl gap-2 p-2">
-          <span class="material-symbols-outlined"> person </span>
-          {{ item?.title }}
-        </a>
+  <mat-card appearance="outlined">
+    <mat-card-content>
+      <div class="flex flex-col items-center mt-2">
+        <img
+          class="w-24 h-24 mb-3 rounded-full shadow-lg"
+          src="assets/images/ali.jpg"
+          alt="Bonnie image" />
+        <h5 class="mb-1 text-xl font-medium text-blue">Aliakbar Esmaeili</h5>
+        <span class="text-sm text-gray-500 dark:text-gray-400 pb-2"
+          >Visual Designer</span
+        >
+        <mat-divider class="w-72 text-blue"></mat-divider>
+        <div class="p-5">
+          @for (item of settingsRoutes; track $index) {
+          <a
+            [routerLink]="item?.path"
+            class="dark:hover:text-blue w-80 cursor-pointer flex items-center rounded-xl gap-2 p-2">
+            <span class="material-symbols-outlined"> person </span>
+            {{ item?.title }}
+          </a>
 
-        }
+          }
+        </div>
       </div>
-    </div>
-  </div>
+    </mat-card-content>
+  </mat-card>
+
+ 
   <div class="w-full">
     <ng-content></ng-content>
     <!-- <div [ngSwitch]="temp">
