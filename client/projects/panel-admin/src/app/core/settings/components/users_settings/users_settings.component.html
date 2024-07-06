@@ -12,12 +12,12 @@
         >
         <mat-divider class="w-72 text-blue"></mat-divider>
         <div class="p-5">
-          @for (item of settingsRoutes; track $index) {
+          @for (route of settingsRoutes; track $index) {
           <a
-            [routerLink]="item?.path"
+            [routerLink]="route?.path"
             class="dark:hover:text-blue w-80 cursor-pointer flex items-center rounded-xl gap-2 p-2">
-            <span class="material-symbols-outlined"> person </span>
-            {{ item?.title }}
+            <span class="material-symbols-outlined"> {{route?.data?.['icon']}} </span>
+            {{ route?.title }}
           </a>
 
           }

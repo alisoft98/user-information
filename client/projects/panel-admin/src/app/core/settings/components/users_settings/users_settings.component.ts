@@ -40,5 +40,11 @@ export class UsersSettingsComponent extends BaseComponent implements OnInit {
   constructor() {
     super();
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+  }
+
+  trackByFn(index: number, route: any): any {
+    return route.path; // or any unique identifier
+  }
 }

@@ -8,8 +8,6 @@ import { SideBarComponent } from './side-bar/side-bar.component';
   imports: [
    SideBarComponent,
    RouterOutlet
-   
-    
   ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
