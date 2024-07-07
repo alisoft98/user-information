@@ -13,17 +13,20 @@ const routes: Routes = [
       {
         path: '',
         component: DashboardComponent,
-        title:'Dashboard'
+        title: 'Dashboard',
+        data: { icon: 'dashboard' }
       },
       {
         path: 'users',
         component: UsersComponent,
-        title:'users'
+        title: 'Users',
+        data: { icon: 'people' }
       },
       {
         path: 'schedule',
         component: CalendarComponent,
-        title:'Schedule'
+        title: 'Schedule',
+        data: { icon: 'calendar_today' }
       },
 
       {

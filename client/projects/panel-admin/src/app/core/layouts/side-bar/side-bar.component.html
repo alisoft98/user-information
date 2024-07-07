@@ -1,56 +1,4 @@
-<!-- <app-header (onToggleMenu)="toggleMenu()" />
-<mat-sidenav-container autosize>
-  <mat-sidenav
-    class="side-nav"
-    [ngClass]="isCollapsed ? 'collapsed' : 'expanded'"
-    [mode]="isMobile ? 'over' : 'side'"
-    [opened]="!isMobile">
-    <mat-nav-list>
-      <div
-        *ngFor="let menuName of getMenuNames(); trackBy: trackByFn"
-        class="menu_content">
-        @for (item of groupedData[menuName]; track trackByFn) {
-        <div class="menu_items">
-          <span *ngIf="isCollapsed" class="material-symbols-outlined">
-            {{ getMenuIcon(menuName) }}
-          </span>
-          <span *ngIf="!isCollapsed" class="material-symbols-outlined">
-            {{ getMenuIcon(menuName) }}
-          </span>
-          <span (click)="toggleMenuItem(menuName)">
-            {{ !isCollapsed ? menuName : '' }}
-          </span>
-          <span
-            class="material-symbols-outlined"
-            *ngIf="!isCollapsed && item.submenus.length">
-            {{ isMenuItemExpanded(menuName) ? 'expand_less' : 'expand_more' }}
-          </span>
-        </div>
-        <ul *ngIf="isMenuItemExpanded(menuName)">
-          <li>
-            @if (item.submenus) { @for (s of item['submenus']; track $index) {
-            <a mat-list-item [routerLink]="s.url">
-              <span class="material-symbols-outlined">{{ s.icon }}</span>
-              <span>
-                {{ s.submenu_name }}
-              </span>
-            </a>
-            } }
-          </li>
-        </ul>
-
-        }
-      </div>
-    </mat-nav-list>
-  </mat-sidenav>
-
-  <mat-sidenav-content class="bg-slate-200 w-full min-h-screen">
-    <router-outlet></router-outlet>
-    <app-footer />
-  </mat-sidenav-content>
-</mat-sidenav-container> -->
-
-<mat-sidenav-container class="sidenav-container">
+<mat-sidenav-container class="sidenav-container ">
   <mat-sidenav
     #drawer
     class="sidenav"
@@ -59,20 +7,53 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
-    <mat-nav-list>
-      @for (item of rootRoutes; track $index) {
+    @for (menuName of getMenuNames(); track $index) { @for (item of
+    groupedData[menuName]; track item ) {
+    <mat-list-item class="parent">
+      <div class="menu_items ">
+        <a class="cursor-pointer dark:hover:text-blue"
+          mat-list-item
+          #link="routerLinkActive"
+          routerLinkActive
+          [activated]="link.isActive">
+          <span class="flex items-center gap-2">
+            <span class="material-symbols-outlined">
+              {{ getMenuIcon(menuName) }}
+            </span>
+            <span
+              *ngIf="isExpanded || isShowing"
+              (click)="toggleSubmenu(item.menu_id)">
+              {{ item?.menu_name }}
+            </span>
+            @if (item.submenus.length) {
+            <mat-icon
+              class="menu-button"
+              [ngClass]="{ rotated: expandedMenus[item.menu_id] }"
+              *ngIf="isExpanded || isShowing"
+              >expand_more</mat-icon
+            >
+            }
+          </span>
+        </a>
+      </div>
+    </mat-list-item>
+    <div
+      class="submenu"
+      [ngClass]="{ expanded: expandedMenus[item.menu_id] }"
+      *ngIf="isShowing || isExpanded">
       <a
+        class="mt-4 dark:hover:text-blue"
         mat-list-item
-        [routerLink]="item.path"
-        #link="routerLinkActive"
-        routerLinkActive
-        [activated]="link.isActive">
-        {{ item.title }}
-      </a>
-      }
-    </mat-nav-list>
+        *ngFor="let sub of item['submenus']"
+        href="{{ sub.link }}"
+        >{{ sub.submenu_name }}</a
+      >
+   
+    </div>
+    } }
   </mat-sidenav>
-  <mat-sidenav-content>
+
+  <mat-sidenav-content >
     <mat-toolbar color="primary">
       <div class="w-screen flex justify-between">
         <div>

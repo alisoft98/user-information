@@ -51,21 +51,21 @@ import { Menu } from '../types/navItem';
   ],
   templateUrl: './side-bar.component.html',
   styleUrl: './side-bar.component.scss',
-  animations: [
-    trigger('fadeIn', [
-      transition(':enter', [
-        style({
-          transform: 'translateY(-20%)',
-        }),
-        animate(
-          '900ms ease',
-          style({
-            transform: 'translateY(0)',
-          })
-        ),
-      ]),
-    ]),
-  ],
+  // animations: [
+  //   trigger('fadeIn', [
+  //     transition(':enter', [
+  //       style({
+  //         transform: 'translateY(-20%)',
+  //       }),
+  //       animate(
+  //         '900ms ease',
+  //         style({
+  //           transform: 'translateY(0)',
+  //         })
+  //       ),
+  //     ]),
+  //   ]),
+  // ],
 })
 export class SideBarComponent implements OnInit, OnDestroy {
   menuItem: NavItem[] = [];
@@ -82,6 +82,11 @@ export class SideBarComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<any> = new Subject();
   username!: User;
   firstWord: string = '';
+  isExpanded = true;
+  showSubmenu: boolean = false;
+  isShowing = false;
+  showSubSubMenu: boolean = false;
+  expandedSubMenus: { [key: number]: { [key: string]: boolean } } = {};
 
   private breakpointObserver = inject(BreakpointObserver);
   rootRoutes = routes.filter(r => r.path);
@@ -106,16 +111,16 @@ export class SideBarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getNavItems();
-    this.observer
-      .observe(['max-with:800px'])
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(screenSize => {
-        if (screenSize.matches) {
-          this.isMobile = true;
-        } else {
-          this.isMobile = false;
-        }
-      });
+    // this.observer
+    //   .observe(['max-with:800px'])
+    //   .pipe(takeUntil(this.ngUnsubscribe))
+    //   .subscribe(screenSize => {
+    //     if (screenSize.matches) {
+    //       this.isMobile = true;
+    //     } else {
+    //       this.isMobile = false;
+    //     }
+    //   });
 
     this.getUserDataFromLocalStorage();
   }
@@ -125,17 +130,28 @@ export class SideBarComponent implements OnInit, OnDestroy {
   getFirstWord(username: string): string {
     return username.charAt(0);
   }
-
+  toggleSubmenu(index: number) {
+    debugger;
+    this.expandedMenus[index] = !this.expandedMenus[index];
+  }
+  toggleSubSubmenu(parentIndex: number, subparent: any) {
+    debugger;
+    if (!this.expandedSubMenus[parentIndex]) {
+      this.expandedSubMenus[parentIndex] = {};
+    }
+    this.expandedSubMenus[parentIndex][subparent.name] = !this.expandedSubMenus[parentIndex][subparent.name];
+  }
   getNavItems() {
     this.navService.getNavItems().subscribe({
       next: (res: any) => {
         this.groupedData = this.groupByMenu(res.data, 'menu_name');
+        console.log('👉',this.groupedData);
+        
       },
       error: e => console.error(e),
       complete: () => {},
     });
   }
-
   stopPropagation(event: Event) {
     event.stopPropagation();
   }
@@ -148,17 +164,18 @@ export class SideBarComponent implements OnInit, OnDestroy {
     return Object.keys(this.groupedData);
   }
 
-  toggleMenu() {
-    if (this.isMobile) {
-      this.sidenav.toggle();
-      this.isCollapsed = false; // On mobile, the menu can never be collapsed
-    } else {
-      this.sidenav.open(); // On desktop/tablet, the menu can never be fully closed
-      this.isCollapsed = !this.isCollapsed;
-    }
-  }
+  // toggleMenu() {
+  //   if (this.isMobile) {
+  //     this.sidenav.toggle();
+  //     this.isCollapsed = false; // On mobile, the menu can never be collapsed
+  //   } else {
+  //     this.sidenav.open(); // On desktop/tablet, the menu can never be fully closed
+  //     this.isCollapsed = !this.isCollapsed;
+  //   }
+  // }
 
   trackByFn(index: number, item: any): any {
+    debugger
     return item.id; // Ensure each item has a unique identifier
   }
 
@@ -177,6 +194,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
   }
 
   isMenuItemExpanded(menuName: string): boolean {
+    debugger;
     return !!this.expandedMenus[menuName];
   }
 
