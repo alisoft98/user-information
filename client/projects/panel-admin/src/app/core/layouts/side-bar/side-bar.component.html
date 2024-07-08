@@ -1,4 +1,4 @@
-<mat-sidenav-container class="sidenav-container ">
+<mat-sidenav-container class="sidenav-container">
   <mat-sidenav
     #drawer
     class="sidenav"
@@ -10,8 +10,9 @@
     @for (menuName of getMenuNames(); track $index) { @for (item of
     groupedData[menuName]; track item ) {
     <mat-list-item class="parent">
-      <div class="menu_items ">
-        <a class="cursor-pointer dark:hover:text-blue"
+      <div class="menu_items">
+        <a
+          class="cursor-pointer dark:hover:text-blue"
           mat-list-item
           #link="routerLinkActive"
           routerLinkActive
@@ -23,7 +24,7 @@
             <span
               *ngIf="isExpanded || isShowing"
               (click)="toggleSubmenu(item.menu_id)">
-              {{ item?.menu_name }}
+              {{ item.menu_name }}
             </span>
             @if (item.submenus.length) {
             <mat-icon
@@ -42,18 +43,24 @@
       [ngClass]="{ expanded: expandedMenus[item.menu_id] }"
       *ngIf="isShowing || isExpanded">
       <a
-        class="mt-4 dark:hover:text-blue"
+        class="mt-4 dark:hover:text-blue cursor-pointer"
         mat-list-item
+        [routerLink]="sub.url"
         *ngFor="let sub of item['submenus']"
         href="{{ sub.link }}"
         >{{ sub.submenu_name }}</a
       >
-   
     </div>
     } }
+    <a
+      class="mt-4 dark:hover:text-blue mb-0 "
+      mat-list-item
+      routerLink="login"
+      >Log out</a
+    >
   </mat-sidenav>
 
-  <mat-sidenav-content >
+  <mat-sidenav-content>
     <mat-toolbar color="primary">
       <div class="w-screen flex justify-between">
         <div>

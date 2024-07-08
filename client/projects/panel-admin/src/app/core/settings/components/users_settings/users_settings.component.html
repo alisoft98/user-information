@@ -16,7 +16,9 @@
           <a
             [routerLink]="route?.path"
             class="dark:hover:text-blue w-80 cursor-pointer flex items-center rounded-xl gap-2 p-2">
-            <span class="material-symbols-outlined"> {{route?.data?.['icon']}} </span>
+            <span class="material-symbols-outlined">
+              {{route?.data?.['icon']}}
+            </span>
             {{ route?.title }}
           </a>
 
@@ -26,7 +28,6 @@
     </mat-card-content>
   </mat-card>
 
- 
   <div class="w-full">
     <ng-content></ng-content>
     <!-- <div [ngSwitch]="temp">
