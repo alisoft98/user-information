@@ -23,20 +23,20 @@ export class CanCopyToClipboardDirective {
   @Input()
   text = '';
 
-  get #computedSelectionText() {
-    const currentSelection = window.getSelection()?.toString();
-    const innerElText = this.#el.nativeElement.innerElText;
-    return this.text || currentSelection || innerElText;
-  }
+  // get #computedSelectionText() {
+  //   // const currentSelection = window?.getSelection()?.toString();
+  //   // const innerElText = this.#el.nativeElement.innerElText;
+  //   // return this.text || currentSelection || innerElText;
+  // }
 
-  @HostListener('click', ['$event'])
-  copy(e?: Event) {
-    e?.preventDefault();
-    this.#el.nativeElement.select?.();
-    this.#clipboard
-      .copy(this.#computedSelectionText)
-      .then(() => this.#copied.next(false));
-  }
+  // @HostListener('click', ['$event'])
+  // copy(e?: Event) {
+  //   e?.preventDefault();
+  //   this.#el.nativeElement.select?.();
+  //   this.#clipboard
+  //     .copy(this.#computedSelectionText)
+  //     .then(() => this.#copied.next(false));
+  // }
 
   clear() {
     this.#clipboard.clear().then(() => this.#copied.next(false));

@@ -19,6 +19,7 @@ import { routes } from './app.routes';
 import { AuthInterceptor } from './core/interceptors/auth-interceptor';
 import { GlobalHttpErrorHandler } from './shared/interceptor/global-http-error-handler.interceptor';
 import { ProgressBarInterceptor } from './core/interceptors/progress-bar.interceptor';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 export const appConfig: ApplicationConfig = {
   providers: [

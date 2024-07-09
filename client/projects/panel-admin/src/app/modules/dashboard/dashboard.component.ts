@@ -12,27 +12,27 @@ import {
   ViewChild,
   inject,
 } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { ActivatedRoute } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { ButtonComponent } from '../../shared/components/button/button.component';
+import { LineChartComponent } from '../../shared/components/charts/line-chart/line-chart.component';
+import { StackedChartComponent } from '../../shared/components/charts/stacked-chart/stacked-chart.component';
 import { ChipComponent } from '../../shared/components/chip/chip.component';
 import { CustomTabComponent } from '../../shared/components/custom-tab/custom-tab.component';
 import { ItemCardComponent } from '../../shared/components/item-card/item-card.component';
 import { DemoComponent } from '../../shared/components/list-item-host-binding/demo/demo.component';
+import { RatingPickerPageComponent } from '../../shared/components/rating-picker-page/rating-picker-page.component';
+import { SmartSelecOtionComponent } from '../../shared/components/smart-select-option/smart-select-option.component';
 import { CanCopyToClipboardDirective } from '../../shared/directives/can-copy-to-clipboard/can-copy-to-clipboard.directive';
 import { CanDisableDirective } from '../../shared/directives/can-disable/can-disable.directive';
 import { HideAfterDirective } from '../../shared/directives/hide-after/hide-after.directive';
 import { ProductUrlPipe } from '../../shared/pipes/product-url/product-url.pipe';
-import { RatingPickerPageComponent } from '../../shared/components/rating-picker-page/rating-picker-page.component';
-import { SmartSelecOtionComponent } from '../../shared/components/smart-select-option/smart-select-option.component';
 import { UsersComponent } from '../users/components/users.component';
-import { ActivatedRoute } from '@angular/router';
-import { Subject, map, takeUntil } from 'rxjs';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { LineChartComponent } from '../../shared/components/line-chart/line-chart.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -60,41 +60,21 @@ import { LineChartComponent } from '../../shared/components/line-chart/line-char
     MatIconModule,
     MatButtonModule,
     MatCardModule,
-    LineChartComponent
+    LineChartComponent,
+    StackedChartComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  private breakpointObserver = inject(BreakpointObserver);
-
-  /** Based on the screen size, switch from standard to one column per row */
-  cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-    map(({ matches }) => {
-      if (matches) {
-        return [
-          { title: 'Card 1', cols: 1, rows: 1 },
-          { title: 'Card 2', cols: 1, rows: 1 },
-          { title: 'Card 3', cols: 1, rows: 1 },
-          { title: 'Card 4', cols: 1, rows: 1 }
-        ];
-      }
-
-      return [
-        { title: 'Card 1', cols: 2, rows: 1 },
-        { title: 'Card 2', cols: 1, rows: 1 },
-        { title: 'Card 3', cols: 1, rows: 2 },
-        { title: 'Card 4', cols: 1, rows: 1 }
-      ];
-    })
-  );
-
+chartTitle: string = 'Dynamic Chart Title';
 
   @ViewChild('templateOne', { static: true }) templateOne!: TemplateRef<any>;
   @ViewChild('templateTwo', { static: true }) templateTwo!: TemplateRef<any>;
   @ViewChild('templateThree', { static: true })
   templateThree!: TemplateRef<any>;
   @ViewChild('templatefour', { static: true }) templatefour!: TemplateRef<any>;
+
   tabs: {
     id: number;
     title: string;
@@ -105,7 +85,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   #route = inject(ActivatedRoute);
   private destroy$ = new Subject<void>();
 
-  constructor() {}
+  constructor() {
+    
+  }
 
   ngOnInit() {
     this.#route.paramMap.pipe(takeUntil(this.destroy$)).subscribe(params => {

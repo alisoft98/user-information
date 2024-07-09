@@ -195,20 +195,132 @@
   </ng-template>
 </generic-tab> -->
 
-<div class="grid-container">
-  <mat-grid-list cols="2" rowHeight="400px">
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <!-- <h1 class="mat-h1">Dashboard</h1> -->
-        </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
-          <div class="flex">
-            <app-line-chart />
-            <app-line-chart />
-            <app-line-chart />
-            <app-line-chart />
-          </div>
-        </mat-card-content>
-      </mat-card>
+<!-- <div class="grid-container">
+  <h1 class="mat-h1">Dashboard</h1>
+  <mat-grid-list cols="4" rowHeight="350px">
+    <mat-card class="dashboard-card">
+      <mat-card-content class="dashboard-card-content">
+        <div class="w-1/4">
+          <app-line-chart>
+            <a mat-fab extended routerLink=".">
+              <span class="material-symbols-outlined"> face </span>
+            </a>
+            <div class="flex-col">
+              <p class="font-medium float-end text-sm">Appointments</p>
+              <h6 class="font-bold mb-0">650</h6>
+            </div>
+          </app-line-chart>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    @for (card of cards | async; track card) {
+      <mat-grid-tile [colspan]="card.cols" [rowspan]="card.rows">
+        <mat-card class="dashboard-card">
+          <mat-card-header>
+            <mat-card-title>
+              {{card.title}}
+              <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu" xPosition="before">
+                <button mat-menu-item>Expand</button>
+                <button mat-menu-item>Remove</button>
+              </mat-menu>
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <div>Card Content Here</div>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+    }
   </mat-grid-list>
+</div> -->
+
+<div class="grid grid-cols-4 gap-4">
+  <mat-card appearance="outlined" class="mt-2 mr-2 ml-2">
+    <mat-card-content>
+      <div class="flex">
+        <app-line-chart>
+          <a mat-fab extended routerLink=".">
+            <span class="material-symbols-outlined"> face </span>
+          </a>
+          <div class="flex-col">
+            <p class="font-medium float-end text-sm">Appointments</p>
+            <h6 class="font-bold mb-0">650</h6>
+          </div>
+        </app-line-chart>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card appearance="outlined" class="mt-2 mr-2 ml-2">
+    <mat-card-content>
+      <div class="flex">
+        <app-line-chart>
+          <a mat-fab extended routerLink=".">
+            <span class="material-symbols-outlined"> content_cut </span>
+          </a>
+          <div class="flex-col">
+            <p class="font-medium float-end text-sm">Operations</p>
+            <h6 class="font-bold mb-0">650</h6>
+          </div>
+        </app-line-chart>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card appearance="outlined" class="mt-2 mr-2 ml-2">
+    <mat-card-content>
+      <div class="flex">
+        <app-line-chart>
+          <a mat-fab extended routerLink=".">
+            <span class="material-symbols-outlined"> person_add </span>
+          </a>
+          <div class="flex-col">
+            <p class="font-medium float-end text-sm">New Patients</p>
+            <h6 class="font-bold mb-0">23</h6>
+          </div>
+        </app-line-chart>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card appearance="outlined" class="mt-2 mr-2 ml-2">
+    <mat-card-content>
+      <div class="flex">
+        <app-line-chart>
+          <a mat-fab extended routerLink=".">
+            <span class="material-symbols-outlined"> local_activity </span>
+          </a>
+          <div class="flex-col">
+            <p class="font-medium float-end text-sm">Earning</p>
+            <h6 class="font-bold mb-0">123</h6>
+          </div>
+        </app-line-chart>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <div class="col-span-2 mt-2 mr-2 ml-2 ">
+    <mat-card appearance="outlined" class="h-80">
+      <mat-card-content>
+          <app-line-chart>
+            <a mat-fab extended routerLink=".">
+              <span class="material-symbols-outlined"> face </span>
+            </a>
+            <div class="flex-col">
+              <p class="font-medium float-end text-sm">Appointments</p>
+              <h6 class="font-bold mb-0">650</h6>
+            </div>
+          </app-line-chart>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-span-2 mt-2 mr-2 ml-2 ">
+    <mat-card appearance="outlined">
+      <mat-card-content>
+        <app-stacked-chart></app-stacked-chart>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-span-3 bg-blue">06</div>
+  <div class="bg-blue">07</div>
+  <div class="col-span-4 bg-blue">008</div>
 </div>

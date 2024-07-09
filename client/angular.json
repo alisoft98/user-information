@@ -37,7 +37,9 @@
               "projects/panel-admin/src/styles.scss",
               "node_modules/ngx-toastr/toastr.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/apexcharts/dist/apexcharts.min.js"
+            ],
             "server": "projects/panel-admin/src/main.server.ts",
             "prerender": true,
             "ssr": {
@@ -110,7 +112,9 @@
               "@angular/material/prebuilt-themes/azure-blue.css",
               "projects/panel-admin/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/apexcharts/dist/apexcharts.min.js"
+            ]
           }
         }
       }
