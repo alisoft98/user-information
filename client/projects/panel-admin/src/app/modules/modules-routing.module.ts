@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from '../core/layouts/layout.component';
 import { CalendarComponent } from './calendar/calendar.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { UsersComponent } from './users/components/users.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { DoctorDashboardComponent } from './doctor-dashboard/doctor-dashboard.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,12 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
+        title: 'Dashboard',
+        data: { icon: 'dashboard' }
+      },
+      {
+        path: 'dashboard/doctor-dashboard',
+        component: DoctorDashboardComponent,
         title: 'Dashboard',
         data: { icon: 'dashboard' }
       },

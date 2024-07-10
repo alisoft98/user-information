@@ -2,11 +2,6 @@
 //     height: 100%;
 //   }
 
-.sidenav {
-  width: 240px;
-  padding: 0 8px;
-  box-sizing: border-box;
-}
 
 //   .mat-toolbar.mat-primary {
 //     position: sticky;
@@ -59,8 +54,13 @@
 //     margin-left: auto;
 //   }
 
+.sidenav {
+  width: 240px;
+  padding: 0 8px;
+  box-sizing: border-box;
+}
+
 .example-container {
-  height: 500px;
   border: 1px solid rgba(0, 0, 0, 0.5);
 }
 .example-sidenav-content {
@@ -87,9 +87,10 @@
   transition: transform 300ms ease;
   transform: scaleY(0);
   transform-origin: top;
-  padding-left: 30px;
+  padding-left: 15px;
 }
 .submenu.expanded {
-  margin: 1rem;
+  margin: 20px;
   transform: scaleY(1);
 }
+

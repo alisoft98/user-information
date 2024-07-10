@@ -9,55 +9,43 @@
     <mat-toolbar>Menu</mat-toolbar>
     @for (menuName of getMenuNames(); track $index) { @for (item of
     groupedData[menuName]; track item ) {
-    <mat-list-item class="parent">
-      <div class="menu_items">
-        <a
-          class="cursor-pointer dark:hover:text-blue"
-          mat-list-item
-          #link="routerLinkActive"
-          routerLinkActive
-          [activated]="link.isActive">
-          <span class="flex items-center gap-2">
-            <span class="material-symbols-outlined">
-              {{ getMenuIcon(menuName) }}
-            </span>
-            <span
-              *ngIf="isExpanded || isShowing"
-              (click)="toggleSubmenu(item.menu_id)">
-              {{ item.menu_name }}
-            </span>
-            @if (item.submenus.length) {
-            <mat-icon
-              class="menu-button"
-              [ngClass]="{ rotated: expandedMenus[item.menu_id] }"
-              *ngIf="isExpanded || isShowing"
-              >expand_more</mat-icon
-            >
-            }
-          </span>
-        </a>
-      </div>
-    </mat-list-item>
-    <div
-      class="submenu"
-      [ngClass]="{ expanded: expandedMenus[item.menu_id] }"
-      *ngIf="isShowing || isExpanded">
+    <a
+      class="cursor-pointer dark:hover:text-blue"
+      mat-list-item
+      #link="routerLinkActive"
+      routerLinkActive
+      [activated]="link.isActive">
+      <span class="flex items-center gap-2">
+        <span class="material-symbols-outlined">
+          {{ getMenuIcon(menuName) }}
+        </span>
+        <span
+          *ngIf="isExpanded || isShowing"
+          (click)="toggleSubmenu(item.menu_id)">
+          {{ item.menu_name }}
+        </span>
+        @if (item.submenus.length) {
+        <mat-icon
+          class="menu-button"
+          [ngClass]="{ rotated: expandedMenus[item.menu_id] }"
+          *ngIf="isExpanded || isShowing"
+          >expand_more</mat-icon
+        >
+        }
+      </span>
+    </a>
+    @if (item.submenus || isShowing || isExpanded ) { @for(sub of
+    item['submenus'] ;track $index){
+    <div class="submenu" [ngClass]="{ expanded: expandedMenus[item.menu_id] }">
       <a
-        class="mt-4 dark:hover:text-blue cursor-pointer"
+        class="dark:hover:text-blue cursor-pointer"
         mat-list-item
         [routerLink]="sub.url"
-        *ngFor="let sub of item['submenus']"
-        href="{{ sub.link }}"
-        >{{ sub.submenu_name }}</a
-      >
+        href="{{ sub.link }}">
+        {{ sub.submenu_name }}
+      </a>
     </div>
-    } }
-    <a
-      class="mt-4 dark:hover:text-blue mb-0 "
-      mat-list-item
-      routerLink="login"
-      >Log out</a
-    >
+    } } } }
   </mat-sidenav>
 
   <mat-sidenav-content>

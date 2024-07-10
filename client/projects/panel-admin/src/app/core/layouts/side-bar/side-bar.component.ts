@@ -131,11 +131,9 @@ export class SideBarComponent implements OnInit, OnDestroy {
     return username.charAt(0);
   }
   toggleSubmenu(index: number) {
-    debugger;
     this.expandedMenus[index] = !this.expandedMenus[index];
   }
   toggleSubSubmenu(parentIndex: number, subparent: any) {
-    debugger;
     if (!this.expandedSubMenus[parentIndex]) {
       this.expandedSubMenus[parentIndex] = {};
     }
@@ -175,7 +173,6 @@ export class SideBarComponent implements OnInit, OnDestroy {
   // }
 
   trackByFn(index: number, item: any): any {
-    debugger
     return item.id; // Ensure each item has a unique identifier
   }
 
@@ -194,7 +191,6 @@ export class SideBarComponent implements OnInit, OnDestroy {
   }
 
   isMenuItemExpanded(menuName: string): boolean {
-    debugger;
     return !!this.expandedMenus[menuName];
   }
 
