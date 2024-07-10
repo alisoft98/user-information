@@ -33,6 +33,9 @@ import { CanDisableDirective } from '../../shared/directives/can-disable/can-dis
 import { HideAfterDirective } from '../../shared/directives/hide-after/hide-after.directive';
 import { ProductUrlPipe } from '../../shared/pipes/product-url/product-url.pipe';
 import { UsersComponent } from '../users/components/users.component';
+import { PatientsComponent } from '../patients/patients.component';
+import { DoctorListComponent } from "../doctor-list/doctor-list.component";
+import { OperationsComponent } from "../operations/operations.component";
 
 @Component({
   selector: 'app-dashboard',
@@ -61,8 +64,11 @@ import { UsersComponent } from '../users/components/users.component';
     MatButtonModule,
     MatCardModule,
     LineChartComponent,
-    StackedChartComponent
-  ],
+    StackedChartComponent,
+    PatientsComponent,
+    DoctorListComponent,
+    OperationsComponent
+],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })

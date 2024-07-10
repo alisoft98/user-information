@@ -1,21 +1,21 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatSort, MatSortModule } from '@angular/material/sort';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
+import { MatSortModule, MatSort } from '@angular/material/sort';
+import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { take } from 'rxjs';
-import { FilterComponent } from '../../filter/filter.component';
-import { Customers } from '../../models/customers';
-import { AddUserInfoDialogComponent } from '../add-user-info-dialog/add-user-info-dialog.component';
-import { CustomersService } from '../../services/customers.service';
+import { AddUserInfoDialogComponent } from '../users/components/add-user-info-dialog/add-user-info-dialog.component';
+import { FilterComponent } from '../users/filter/filter.component';
+import { Customers } from '../users/models/customers';
+import { CustomersService } from '../users/services/customers.service';
 
 @Component({
-  selector: 'app-user-list',
+  selector: 'app-patients',
   standalone: true,
   imports: [
     FilterComponent,
@@ -28,10 +28,10 @@ import { CustomersService } from '../../services/customers.service';
     MatPaginatorModule,
     MatToolbarModule,
   ],
-  templateUrl: './user-list.component.html',
-  styleUrl: './user-list.component.scss',
+  templateUrl: './patients.component.html',
+  styleUrl: './patients.component.scss'
 })
-export class UserListComponent implements OnDestroy, OnInit {
+export class PatientsComponent {
   customers: Customers[] = [];
   displayedColumns: string[] = [
     'position',

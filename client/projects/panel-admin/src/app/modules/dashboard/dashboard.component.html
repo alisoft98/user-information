@@ -237,8 +237,8 @@
   </mat-grid-list>
 </div> -->
 
-<div class="grid grid-cols-4 gap-4">
-  <mat-card appearance="outlined" class="mt-2 mr-2 ml-2">
+<div class="grid grid-cols-4 gap-4 mb-6">
+  <mat-card appearance="outlined" class="mt-2 ml-4">
     <mat-card-content>
       <div class="flex">
         <app-line-chart>
@@ -253,7 +253,7 @@
       </div>
     </mat-card-content>
   </mat-card>
-  <mat-card appearance="outlined" class="mt-2 mr-2 ml-2">
+  <mat-card appearance="outlined" class="mt-2">
     <mat-card-content>
       <div class="flex">
         <app-line-chart>
@@ -268,7 +268,7 @@
       </div>
     </mat-card-content>
   </mat-card>
-  <mat-card appearance="outlined" class="mt-2 mr-2 ml-2">
+  <mat-card appearance="outlined" class="mt-2">
     <mat-card-content>
       <div class="flex">
         <app-line-chart>
@@ -283,7 +283,7 @@
       </div>
     </mat-card-content>
   </mat-card>
-  <mat-card appearance="outlined" class="mt-2 mr-2 ml-2">
+  <mat-card appearance="outlined" class="mt-2 mr-4">
     <mat-card-content>
       <div class="flex">
         <app-line-chart>
@@ -298,29 +298,52 @@
       </div>
     </mat-card-content>
   </mat-card>
-  <div class="col-span-2 mt-2 mr-2 ml-2 ">
+  <div class="col-span-2 mt-2 ml-4">
     <mat-card appearance="outlined" class="h-80">
       <mat-card-content>
-          <app-line-chart>
-            <a mat-fab extended routerLink=".">
-              <span class="material-symbols-outlined"> face </span>
-            </a>
-            <div class="flex-col">
-              <p class="font-medium float-end text-sm">Appointments</p>
-              <h6 class="font-bold mb-0">650</h6>
-            </div>
-          </app-line-chart>
+        <app-line-chart>
+          <a mat-fab extended routerLink=".">
+            <span class="material-symbols-outlined"> face </span>
+          </a>
+          <div class="flex-col">
+            <p class="font-medium float-end text-sm">Appointments</p>
+            <h6 class="font-bold mb-0">650</h6>
+          </div>
+        </app-line-chart>
       </mat-card-content>
     </mat-card>
   </div>
-  <div class="col-span-2 mt-2 mr-2 ml-2 ">
+  <div class="col-span-2 mt-2 mr-4">
     <mat-card appearance="outlined">
       <mat-card-content>
         <app-stacked-chart></app-stacked-chart>
       </mat-card-content>
     </mat-card>
   </div>
-  <div class="col-span-3 bg-blue">06</div>
-  <div class="bg-blue">07</div>
-  <div class="col-span-4 bg-blue">008</div>
+  <div class="col-span-3">
+    <mat-card appearance="outlined" class="mt-2 ml-4">
+      <mat-card-title class="p-4"> Booked Appointment </mat-card-title>
+      <mat-card-content>
+        <app-patients></app-patients>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="">
+    <mat-card appearance="outlined" class="mt-2 mr-4">
+      <mat-card-title class="p-4">
+        
+        Doctors List </mat-card-title>
+      <mat-card-content class="p-4">
+        <app-doctor-list></app-doctor-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-span-4 mb-4">
+    <mat-card appearance="outlined" class="mt-2 mr-4 ml-4">
+      <mat-card-title class="p-4"> Operations </mat-card-title>
+      <mat-card-content>
+        <app-operations></app-operations>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

@@ -35,7 +35,7 @@ export class StackedChartComponent {
       ],
       chart: {
         type: "bar",
-        height: 273,
+        height: 272,
         stacked: true,
         toolbar: {
           show: true
