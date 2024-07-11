@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './core/auth/components/login/login.component';
 import { authGuard } from './core/auth/guards/auth.guard';
+import { NotFoundComponent } from './modules/not-found/not-found.component';
 
 export const routes: Routes = [
-
   {
     path: 'login',
     component: LoginComponent,
-    title:'login'
+    title: 'login',
   },
   {
     path: 'auth',
@@ -15,8 +15,13 @@ export const routes: Routes = [
   },
   {
     path: 'aliakbar',
-    loadChildren: () => import('./modules/profile.module').then(m => m.ModulesModule),
+    loadChildren: () =>
+      import('./modules/profile.module').then(m => m.ModulesModule),
     canActivate: [authGuard],
+  },
+  {
+    path: 'not found',
+    component: NotFoundComponent,
   },
   {
     path: '',
@@ -25,7 +30,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'login',
+    redirectTo: 'not found',
   },
-
 ];

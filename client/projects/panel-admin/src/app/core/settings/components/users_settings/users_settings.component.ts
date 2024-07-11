@@ -3,9 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { BaseComponent } from '../../../../shared/components/base/base.component';
-import { ConnectionsComponent } from '../../connections/connections.component';
-import { PrivacyPolicyComponent } from '../../privacy-policy/privacy-policy.component';
-import { TermsConditionsComponent } from '../../terms-conditions/terms-conditions.component';
+import { ConnectionsComponent } from '../connections/connections.component';
+import { PrivacyPolicyComponent } from '../privacy-policy/privacy-policy.component';
+import { TermsConditionsComponent } from '../terms-conditions/terms-conditions.component';
 import { ChangePasswordComponent } from '../change-password/change-password.component';
 import { SettingsComponent } from '../settings/settings.component';
 import { routes } from '../../settings.module';
@@ -42,6 +42,10 @@ export class UsersSettingsComponent extends BaseComponent implements OnInit {
   }
   ngOnInit(): void {
     
+  }
+  isRouteActive(routePath: any): boolean {
+    debugger
+    return this.router.isActive(routePath, false);
   }
 
   trackByFn(index: number, route: any): any {

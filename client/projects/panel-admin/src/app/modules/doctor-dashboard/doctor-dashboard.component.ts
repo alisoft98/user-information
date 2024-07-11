@@ -10,4 +10,6 @@ import { LineChartComponent } from '../../shared/components/charts/line-chart/li
   templateUrl: './doctor-dashboard.component.html',
   styleUrl: './doctor-dashboard.component.scss',
 })
-export class DoctorDashboardComponent {}
+export class DoctorDashboardComponent {
+  
+}

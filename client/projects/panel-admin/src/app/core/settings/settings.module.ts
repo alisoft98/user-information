@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { UsersSettingsComponent } from './components/users_settings/users_settings.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
-import { ConnectionsComponent } from './connections/connections.component';
-import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
-import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { ConnectionsComponent } from './components/connections/connections.component';
+import { TermsConditionsComponent } from './components/terms-conditions/terms-conditions.component';
+import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { LayoutSettingsComponent } from './components/layout-settings/layout-settings.component';
 import { SettingsComponent } from './components/settings/settings.component';
 
@@ -15,7 +15,7 @@ export const routes: Routes = [
     component: LayoutSettingsComponent,
     children: [
       {
-        path: '',
+        path: 'settings',
         component: SettingsComponent,
         title: 'Settings',
         data: { icon: 'settings' },
@@ -44,8 +44,14 @@ export const routes: Routes = [
         title: 'Terms & Conditions',
         data: { icon: 'gavel' },
       },
+      {
+        path: '',
+        redirectTo: 'settings',
+        pathMatch: 'full',
+      },
     ],
   },
+
 ];
 
 @NgModule({

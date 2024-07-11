@@ -1,7 +1,7 @@
-<div class="desktop:flex gap-2 mt-2 ml-2 tablet:flex pt-2">
-  <mat-card appearance="outlined" class="h-fit">
+<div class="desktop:flex tablet:flex w-full">
+  <mat-card appearance="outlined" class="h-fit m-3">
     <mat-card-content>
-      <div class="flex flex-col items-center mt-2">
+      <div class="flex flex-col items-center">
         <img
           class="w-24 h-24 mb-3 rounded-full shadow-lg"
           src="assets/images/ali.jpg"
@@ -12,25 +12,34 @@
         >
         <mat-divider class="w-72 text-blue"></mat-divider>
         <div class="p-5">
-          @for (route of settingsRoutes; track $index) {
-          <a
-            [routerLink]="route?.path"
-            class="dark:hover:text-blue w-80 cursor-pointer flex items-center rounded-xl gap-2 p-2">
-            <span class="material-symbols-outlined">
-              {{route?.data?.['icon']}}
-            </span>
-            {{ route?.title }}
-          </a>
-
-          }
+          <ng-container
+            *ngFor="
+              let route of settingsRoutes;
+              let i = index;
+              trackBy: trackByFn
+            ">
+            <a
+              [routerLink]="route?.path"
+              class="dark:hover:text-blue w-80 cursor-pointer flex items-center rounded-xl gap-2 p-2"
+              [ngClass]="{ 'selected-menu-item': isRouteActive(route?.path) }">
+              <span class="material-symbols-outlined">
+                {{route?.data?.['icon']}}
+              </span>
+              {{ route?.title }}
+            </a>
+          </ng-container>
         </div>
       </div>
     </mat-card-content>
   </mat-card>
 
-  <div class="w-full">
-    <ng-content></ng-content>
-    <!-- <div [ngSwitch]="temp">
+  <mat-card appearance="outlined" class="w-full h-fit mt-3 mr-3 mb-3">
+    <mat-card-content>
+      <ng-content></ng-content>
+    </mat-card-content>
+  </mat-card>
+</div>
+<!-- <div [ngSwitch]="temp">
       <ng-template [ngSwitchCase]="'setting'">
         <router-outlet></router-outlet>
         <app-settings />
@@ -53,5 +62,3 @@
         <app-settings />
       </ng-template>
     </div> -->
-  </div>
-</div>

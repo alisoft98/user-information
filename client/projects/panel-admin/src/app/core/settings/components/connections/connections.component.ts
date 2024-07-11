@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
-import { AddNewConnectionComponent } from '../components/add-new-connection/add-new-connection.component';
+import { AddNewConnectionComponent } from '../add-new-connection/add-new-connection.component';
 @Component({
   selector: 'app-connections',
   standalone: true,
