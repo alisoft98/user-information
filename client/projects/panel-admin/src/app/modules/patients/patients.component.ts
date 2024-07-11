@@ -13,6 +13,7 @@ import { AddUserInfoDialogComponent } from '../users/components/add-user-info-di
 import { FilterComponent } from '../users/filter/filter.component';
 import { Customers } from '../users/models/customers';
 import { CustomersService } from '../users/services/customers.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-patients',
@@ -27,6 +28,7 @@ import { CustomersService } from '../users/services/customers.service';
     MatSortModule,
     MatPaginatorModule,
     MatToolbarModule,
+    MatIconModule
   ],
   templateUrl: './patients.component.html',
   styleUrl: './patients.component.scss'

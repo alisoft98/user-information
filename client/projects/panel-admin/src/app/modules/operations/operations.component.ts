@@ -13,6 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { take } from 'rxjs';
 import { AddUserInfoDialogComponent } from '../users/components/add-user-info-dialog/add-user-info-dialog.component';
 import { CustomersService } from '../users/services/customers.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-operations',
@@ -27,6 +28,7 @@ import { CustomersService } from '../users/services/customers.service';
     MatSortModule,
     MatPaginatorModule,
     MatToolbarModule,
+    MatIconModule
   ],
   templateUrl: './operations.component.html',
   styleUrl: './operations.component.scss'
