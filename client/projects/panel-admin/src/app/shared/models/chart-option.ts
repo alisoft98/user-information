@@ -4,11 +4,12 @@ import {
   ApexDataLabels,
   ApexFill,
   ApexLegend,
+  ApexNonAxisChartSeries,
   ApexPlotOptions,
   ApexResponsive,
   ApexStroke,
   ApexTooltip,
-  ApexXAxis
+  ApexXAxis,
 } from 'ng-apexcharts';
 
 export type ChartOptions = {
@@ -22,4 +23,11 @@ export type ChartOptions = {
   responsive: ApexResponsive[] | any;
   legend: ApexLegend | any;
   fill: ApexFill | any;
+};
+
+export type ChartOptionsPieDount = {
+  series: ApexNonAxisChartSeries | any;
+  chart: ApexChart | any;
+  responsive: ApexResponsive[] | any;
+  labels: any |any;
 };

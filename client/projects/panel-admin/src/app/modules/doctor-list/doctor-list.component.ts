@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -29,20 +29,15 @@ import { CustomersService } from '../users/services/customers.service';
     MatToolbarModule,
   ],
   templateUrl: './doctor-list.component.html',
-  styleUrl: './doctor-list.component.scss'
+  styleUrl: './doctor-list.component.scss',
 })
 export class DoctorListComponent {
   customers: Customers[] = [];
-  displayedColumns: string[] = [
-    'position',
-    'doctorName',
-    'status',
-    
-  ];
+  displayedColumns: string[] = ['position', 'doctorName', 'status'];
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
+  @Input() title!: string;
   constructor(private service: CustomersService, private dialog: MatDialog) {}
 
   ngOnInit(): void {

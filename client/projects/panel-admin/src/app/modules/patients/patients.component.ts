@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -28,10 +28,10 @@ import { MatIconModule } from '@angular/material/icon';
     MatSortModule,
     MatPaginatorModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
   ],
   templateUrl: './patients.component.html',
-  styleUrl: './patients.component.scss'
+  styleUrl: './patients.component.scss',
 })
 export class PatientsComponent {
   customers: Customers[] = [];
@@ -50,7 +50,7 @@ export class PatientsComponent {
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
+  @Input() title!: string;
   constructor(private service: CustomersService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
