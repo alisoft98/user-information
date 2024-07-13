@@ -1,0 +1,270 @@
+<div class="grid grid-cols-2 md:grid-cols-2 h-screen">
+    <h2 class="text-xs font-medium">{{title}}</h2>
+
+  <div class="w-full rounded-lg p-3">
+    <div>
+      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+        Create your account
+      </h2>
+      <p class="mt-2 text-center text-sm text-gray-600">
+        Or
+        <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
+          sign in to your account
+        </a>
+      </p>
+    </div>
+    <form
+      class="grid gap-6 mb-6 md:grid-cols-2"
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()">
+      <div>
+        <!-- *****FirstName***** -->
+        <mat-form-field
+          data-testing="FirstName"
+          appearance="outline"
+          class="w-full">
+          <mat-label>FirstName</mat-label>
+          <input
+            type="text"
+            matInput
+            [errorStateMatcher]="matcher"
+            formControlName="firstName"
+            placeholder="firstName" />
+          <!-- Error handling -->
+          <mat-error
+            *ngIf="
+              firstName?.hasError('firstName') &&
+              !firstName?.hasError('required')
+            "
+            >Please enter a valid firstName</mat-error
+          >
+          <mat-error *ngIf="firstName?.hasError('required')"
+            >firstName is <strong>required</strong></mat-error
+          >
+          <mat-error *ngIf="form.controls.firstName.hasError('minlength')"
+            >firstName is too short
+            <strong>{{
+              form.controls.firstName.getError('minlength')?.requiredLength
+            }}</strong></mat-error
+          >
+          <mat-error *ngIf="firstName?.hasError('banWords')"
+            >The value
+            <strong>{{ firstName?.getError('banWords').bannedWord }} </strong>is
+            banned</mat-error
+          >
+        </mat-form-field>
+      </div>
+      <div>
+        <!-- *****lastName***** -->
+        <mat-form-field
+          data-testing="lastName"
+          appearance="outline"
+          class="w-full">
+          <mat-label>lastName</mat-label>
+          <input
+            type="text"
+            matInput
+            [errorStateMatcher]="matcher"
+            formControlName="lastName"
+            placeholder="lastName" />
+          <!-- Error handling -->
+          <mat-error
+            *ngIf="
+              lastName?.hasError('lastName') && !lastName?.hasError('required')
+            "
+            >Please enter a valid lastName</mat-error
+          >
+          <mat-error *ngIf="lastName?.hasError('required')"
+            >lastName is <strong>required</strong></mat-error
+          >
+          <mat-error *ngIf="form.controls.lastName.hasError('minlength')"
+            >lastName is too short
+            <strong>{{
+              form.controls.lastName.getError('minlength')?.requiredLength
+            }}</strong></mat-error
+          >
+          <mat-error *ngIf="lastName?.hasError('banWords')"
+            >The value
+            <strong>{{ lastName?.getError('banWords').bannedWord }} </strong>is
+            banned</mat-error
+          >
+        </mat-form-field>
+      </div>
+      <div>
+        <!-- *****nickName***** -->
+        <mat-form-field
+          data-testing="nickName"
+          appearance="outline"
+          class="w-full">
+          <mat-label>nickName</mat-label>
+          <input
+            type="text"
+            matInput
+            [errorStateMatcher]="matcher"
+            formControlName="nickName"
+            placeholder="nickName" />
+          <!-- Error handling -->
+          <mat-error
+            *ngIf="
+              nickName?.hasError('nickName') && !nickName?.hasError('required')
+            "
+            >Please enter a valid nickName</mat-error
+          >
+          <mat-error *ngIf="nickName?.hasError('required')"
+            >nickName is <strong>required</strong></mat-error
+          >
+          <mat-error *ngIf="form.controls.nickName.hasError('minlength')"
+            >nickName is too short
+            <strong>{{
+              form.controls.nickName.getError('minlength')?.requiredLength
+            }}</strong></mat-error
+          >
+          <mat-error *ngIf="nickName?.hasError('banWords')"
+            >The value
+            <strong>{{ nickName?.getError('banWords').bannedWord }} </strong>is
+            banned</mat-error
+          >
+        </mat-form-field>
+        <ng-container>
+          <div class="input-info" *ngIf="nickName?.pending">
+            Checking nickname...
+          </div>
+        </ng-container>
+      </div>
+      <div>
+        <!-- *****gender***** -->
+        <mat-form-field
+          data-testing="gender"
+          appearance="outline"
+          class="w-full">
+          <mat-label>Gender</mat-label>
+          <mat-select formControlName="gender" name="g">
+            <mat-option
+              *ngFor="let g of genders; trackBy: trackByFn"
+              [value]="g"
+              >{{ g }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div>
+        <!-- *****Year of birth***** -->
+        <mat-form-field
+          data-testing="yearOfBirth"
+          appearance="outline"
+          class="w-full">
+          <mat-label>Year of birth</mat-label>
+          <mat-select formControlName="yearOfBirth" name="g">
+            <mat-option
+              *ngFor="let year of years; trackBy: trackByFn"
+              [value]="year"
+              >{{ year }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div>
+        <!-- *****email***** -->
+        <mat-form-field
+          data-testing="email"
+          appearance="outline"
+          class="w-full">
+          <mat-label>Email</mat-label>
+          <input
+            type="email"
+            matInput
+            [errorStateMatcher]="matcher"
+            formControlName="email"
+            placeholder="email"
+            class="w-full" />
+          <!-- Error handling -->
+          <mat-error
+            *ngIf="email?.hasError('email') && !email?.hasError('required')"
+            >Please enter a valid email address</mat-error
+          >
+          <mat-error *ngIf="email?.hasError('required')"
+            >email is <strong>required</strong></mat-error
+          >
+        </mat-form-field>
+      </div>
+
+      <div>
+        <!-- *****password***** -->
+        <fieldset formGroupName="password" class="p-3">
+          <legend>Password</legend>
+          <!-- *****password***** -->
+          <mat-form-field
+            data-testing="password"
+            appearance="outline"
+            class="w-full">
+            <mat-label>Password</mat-label>
+            <input
+              type="password"
+              matInput
+              [errorStateMatcher]="matcher"
+              formControlName="password"
+              placeholder="password" />
+            <!-- Error handling -->
+            <mat-error
+              *ngIf="
+                form.controls.password.controls.password.hasError('required')
+              "
+              >password is <strong>required</strong></mat-error
+            >
+            <mat-error
+              *ngIf="
+                form.controls.password.controls.password.hasError('minlength')
+              "
+              >password is too short
+              <strong>{{
+                form.controls.password.controls.password.getError('minlength')
+                  ?.requiredLength
+              }}</strong></mat-error
+            >
+          </mat-form-field>
+          <!-- *****confirmPassword***** -->
+          <mat-form-field
+            data-testing="confirmPassword"
+            appearance="outline"
+            class="w-full">
+            <mat-label>Confirm Password</mat-label>
+            <input
+              type="password"
+              matInput
+              [errorStateMatcher]="matcher"
+              formControlName="confirmPassword"
+              placeholder="confirmPassword" />
+            <!-- Error handling -->
+            <mat-error *ngIf="!confirmPassword?.hasError('passwordShouldMatch')"
+              >Password doesn't match</mat-error
+            >
+          </mat-form-field>
+        </fieldset>
+      </div>
+
+      <button
+        class="rounded-full w-full mt-2"
+        data-testid="login-button"
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!form.valid">
+        Sign up
+      </button>
+    </form>
+  </div>
+
+  <div class="">
+    <img
+      src="../../../../../assets/images/steel-background.jpg"
+      class="h-full rounded-md opacity-30 absolute"
+      width="50%"
+      alt="" />
+
+    <div class="relative flex justify-center items-center">
+      <h3 class="to-blue p-3 rounded-md border-2 w-3/6 m-auto">
+        Welcome to my panel
+      </h3>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-import { animate, style, transition, trigger } from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
@@ -27,7 +27,7 @@ import { NavItemsService } from '../../services/nav-items.service';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
 import { Menu } from '../types/navItem';
-
+import {MatExpansionModule} from '@angular/material/expansion';
 @Component({
   selector: 'side-bar',
   standalone: true,
@@ -47,25 +47,20 @@ import { Menu } from '../types/navItem';
     FooterComponent,
     AsyncPipe,
     RouterLinkActive,
-    MatTooltipModule
+    MatTooltipModule,
+    MatExpansionModule,
   ],
   templateUrl: './side-bar.component.html',
   styleUrl: './side-bar.component.scss',
-  // animations: [
-  //   trigger('fadeIn', [
-  //     transition(':enter', [
-  //       style({
-  //         transform: 'translateY(-20%)',
-  //       }),
-  //       animate(
-  //         '900ms ease',
-  //         style({
-  //           transform: 'translateY(0)',
-  //         })
-  //       ),
-  //     ]),
-  //   ]),
-  // ],
+  animations: [
+    trigger('expandCollapse', [
+      state('collapsed', style({ height: '0px', opacity: 0 })),
+      state('expanded', style({ height: '*', opacity: 1 })),
+      transition('collapsed <=> expanded', [
+        animate('300ms ease-in-out')
+      ])
+    ])
+  ]
 })
 export class SideBarComponent implements OnInit, OnDestroy {
   menuItem: NavItem[] = [];
@@ -99,6 +94,9 @@ export class SideBarComponent implements OnInit, OnDestroy {
     );
  
 
+
+    
+
   constructor(
     private navService: NavItemsService,
     private router: Router,
@@ -131,14 +129,10 @@ export class SideBarComponent implements OnInit, OnDestroy {
     return username.charAt(0);
   }
   toggleSubmenu(index: number) {
+
     this.expandedMenus[index] = !this.expandedMenus[index];
   }
-  toggleSubSubmenu(parentIndex: number, subparent: any) {
-    if (!this.expandedSubMenus[parentIndex]) {
-      this.expandedSubMenus[parentIndex] = {};
-    }
-    this.expandedSubMenus[parentIndex][subparent.name] = !this.expandedSubMenus[parentIndex][subparent.name];
-  }
+
   getNavItems() {
     this.navService.getNavItems().subscribe({
       next: (res: any) => {
@@ -162,24 +156,17 @@ export class SideBarComponent implements OnInit, OnDestroy {
     return Object.keys(this.groupedData);
   }
 
-  // toggleMenu() {
-  //   if (this.isMobile) {
-  //     this.sidenav.toggle();
-  //     this.isCollapsed = false; // On mobile, the menu can never be collapsed
-  //   } else {
-  //     this.sidenav.open(); // On desktop/tablet, the menu can never be fully closed
-  //     this.isCollapsed = !this.isCollapsed;
-  //   }
-  // }
+  trackByIndex(index: number) {
+    return index;
+  }
+
+  trackByItem(index: number, item: any) {
+    return item.menu_id;
+  }
 
   trackByFn(index: number, item: any): any {
     return item.id; // Ensure each item has a unique identifier
   }
-
-  getMenuIcon(menuName: string): string {
-    return this.groupedData[menuName][0]?.icon || 'folder';
-  }
-
   toggleMenuItem(menuName: string) {
     const sub = this.groupedData[menuName][0].submenus;
     const path = this.groupedData[menuName][0].path;
@@ -194,6 +181,9 @@ export class SideBarComponent implements OnInit, OnDestroy {
     return !!this.expandedMenus[menuName];
   }
 
+  isMenuExpanded(menuId: string): boolean {
+    return this.expandedMenus[menuId];
+  }
   logout() {
     this.router.navigate(['login']);
   }

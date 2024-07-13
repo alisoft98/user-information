@@ -1,5 +1,5 @@
-<div class="grid grid-cols-4 gap-4">
-  <mat-card appearance="outlined" class="mt-2 ml-4 gradient-1 h-40">
+<section class="grid grid-cols-4 gap-4 p-4">
+  <mat-card appearance="outlined" class="gradient-1 h-40">
     <mat-card-content>
       <div class="grid grid-cols-6 gap-4">
         <div class="col-start-1 col-span-4">
@@ -17,7 +17,7 @@
       </div>
     </mat-card-content>
   </mat-card>
-  <mat-card appearance="outlined" class="mt-2 ml-4 gradient-2 h-40">
+  <mat-card appearance="outlined" class="gradient-2 h-40">
     <mat-card-content>
       <div class="grid grid-cols-6 gap-4">
         <div class="col-start-1 col-span-4">
@@ -35,7 +35,7 @@
       </div>
     </mat-card-content>
   </mat-card>
-  <mat-card appearance="outlined" class="mt-2 ml-4 gradient-3 h-40">
+  <mat-card appearance="outlined" class="gradient-3 h-40">
     <mat-card-content>
       <div class="grid grid-cols-6 gap-4">
         <div class="col-start-1 col-span-4">
@@ -53,7 +53,7 @@
       </div>
     </mat-card-content>
   </mat-card>
-  <mat-card appearance="outlined" class="mt-2 gradient-4 h-40 mr-4">
+  <mat-card appearance="outlined" class="gradient-4 h-40">
     <mat-card-content>
       <div class="grid grid-cols-6 gap-4">
         <div class="col-start-1 col-span-4">
@@ -71,47 +71,56 @@
       </div>
     </mat-card-content>
   </mat-card>
+</section>
 
-  <div class="col-span-3 mt-2 ml-4">
-    <mat-card appearance="outlined">
-      <mat-card-content>
-        <app-line-chart>
-          <a mat-fab extended routerLink=".">
-            <span class="material-symbols-outlined"> local_activity </span>
-          </a>
-          <div class="flex-col">
-            <p class="font-medium float-end text-sm">Earning</p>
-            <h6 class="font-bold mb-0">123</h6>
-          </div>
-        </app-line-chart>
-      </mat-card-content>
-    </mat-card>
-  </div>
-  <div class="col-span-1 mt-2 mr-4">
-    <mat-card appearance="outlined">
-      <mat-card-content>
-        <app-pie-dount-chart></app-pie-dount-chart>
-      </mat-card-content>
-    </mat-card>
-  </div>
-  <div class="col-span-3 mt-2 mr-4">
-    <mat-card appearance="outlined">
-      <mat-card-content>
-        <app-patients></app-patients>
-      </mat-card-content>
-    </mat-card>
-  </div>
-  
-  <div class="">
-    <mat-card appearance="outlined" class="mt-2 mr-4">
-      <mat-card-title class="p-4"> Doctors List </mat-card-title>
-      <mat-card-content class="p-4"> </mat-card-content>
-    </mat-card>
-  </div>
-  <div class="col-span-4 mb-4">
-    <mat-card appearance="outlined" class="mt-2 mr-4 ml-4">
-      <mat-card-title class="p-4"> Operations </mat-card-title>
-      <mat-card-content> </mat-card-content>
-    </mat-card>
-  </div>
-</div>
+<section class="grid grid-cols-8 gap-4 p-4">
+  <mat-card appearance="outlined" class="col-span-5">
+    <mat-card-content>
+      <app-line-chart>
+        <a mat-fab extended routerLink=".">
+          <span class="material-symbols-outlined"> local_activity </span>
+        </a>
+        <div class="flex-col">
+          <p class="font-medium float-end text-sm">Earning</p>
+          <h6 class="font-bold mb-0">123</h6>
+        </div>
+      </app-line-chart>
+    </mat-card-content>
+  </mat-card>
+  <mat-card appearance="outlined" class="col-span-3">
+    <mat-card-content>
+      <app-pie-dount-chart></app-pie-dount-chart>
+    </mat-card-content>
+  </mat-card>
+</section>
+
+<section class="grid grid-cols-6 gap-4 p-4">
+  <mat-card appearance="outlined" class="col-span-4">
+    <mat-card-content>
+      <app-patients></app-patients>
+    </mat-card-content>
+  </mat-card>
+  <mat-card appearance="outlined" class="col-span-2">
+    <mat-card-content>
+      <app-patients-group></app-patients-group>
+    </mat-card-content>
+  </mat-card>
+</section>
+
+<section class="grid grid-cols-6 gap-4 p-4">
+  <mat-card appearance="outlined" class="col-span-2 h-96">
+    <mat-card-content>
+      <app-todo-list></app-todo-list>
+    </mat-card-content>
+  </mat-card>
+  <mat-card appearance="outlined" class="col-span-2 h-96">
+    <mat-card-content>
+      <!-- <app-doctor-list></app-doctor-list> -->
+    </mat-card-content>
+  </mat-card>
+  <mat-card appearance="outlined" class="col-span-2 h-96">
+    <mat-card-content>
+      <app-line-chart></app-line-chart>
+    </mat-card-content>
+  </mat-card>
+</section>

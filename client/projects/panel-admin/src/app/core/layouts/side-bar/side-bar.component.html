@@ -10,42 +10,44 @@
     @for (menuName of getMenuNames(); track $index) { @for (item of
     groupedData[menuName]; track item ) {
     <a
-      class="cursor-pointer dark:hover:text-blue"
+      class="cursor-pointer dark:hover:text-blue p-1"
       mat-list-item
       #link="routerLinkActive"
       routerLinkActive
-      [activated]="link.isActive">
+      [activated]="link.isActive"
+      (click)="toggleSubmenu(item.menu_id)">
       <span class="flex items-center gap-2">
         <span class="material-symbols-outlined">
-          {{ getMenuIcon(menuName) }}
+          {{ item.icon }}
         </span>
-        <span
-          *ngIf="isExpanded || isShowing"
-          (click)="toggleSubmenu(item.menu_id)">
+        <span>
           {{ item.menu_name }}
         </span>
-        @if (item.submenus.length) {
-        <mat-icon
-          class="menu-button"
-          [ngClass]="{ rotated: expandedMenus[item.menu_id] }"
-          *ngIf="isExpanded || isShowing"
-          >expand_more</mat-icon
+        <mat-icon class="menu-button" *ngIf="!expandedMenus[item.menu_id]"
+          >add</mat-icon
         >
-        }
+        <mat-icon class="menu-button" *ngIf="expandedMenus[item.menu_id]"
+          >remove</mat-icon
+        >
       </span>
     </a>
-    @if (item.submenus || isShowing || isExpanded ) { @for(sub of
-    item['submenus'] ;track $index){
-    <div class="submenu" [ngClass]="{ expanded: expandedMenus[item.menu_id] }">
-      <a
-        class="dark:hover:text-blue cursor-pointer"
-        mat-list-item
-        [routerLink]="sub.url"
-        href="{{ sub.link }}">
-        {{ sub.submenu_name }}
-      </a>
+
+    <div *ngFor="let sub of item.submenus; let subIndex = index">
+      <div *ngIf="expandedMenus[item.menu_id]">
+        <div
+          class="submenu"
+          [ngClass]="{ expanded: expandedMenus[item.menu_id] }">
+          <a
+            class="dark:hover:text-blue cursor-pointer"
+            mat-list-item
+            [routerLink]="sub.url"
+            href="{{ sub.link }}">
+            {{ sub.submenu_name }}
+          </a>
+        </div>
+      </div>
     </div>
-    } } } }
+    } }
   </mat-sidenav>
 
   <mat-sidenav-content>
@@ -68,7 +70,7 @@
       </div>
     </mat-toolbar>
     <div class="sidenav-scroll-wrapper">
-        <ng-content></ng-content>
+      <ng-content></ng-content>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
