@@ -46,7 +46,27 @@
             mat-list-item
             [routerLink]="sub.url"
             href="{{ sub.link }}">
-            {{ sub.submenu_name }}
+            <div class="w-full flex items-center justify-between p-2">
+              <div class="flex gap-2">
+                <span class="material-symbols-outlined">
+                  {{ sub.icon }}
+                </span>
+                <span class="text-base">
+                  {{ sub.submenu_name }}
+                </span>
+              </div>
+              <!-- @if(sub.submenu_name){
+                <div class="flex">
+                  <mat-icon class="menu-button" *ngIf="!expandedMenus[sub.menu_id]"
+                  >add</mat-icon
+                  >
+                  <mat-icon class="menu-button" *ngIf="expandedMenus[sub.menu_id]"
+                  >remove</mat-icon
+                  >
+                </div>
+              } -->
+            </div>
+            
           </a>
         </div>
       </div>

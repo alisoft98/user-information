@@ -206,6 +206,7 @@ export async function getNavItems() {
   m.menu_name, 
   m.path, 
   s.submenu_id, 
+  s.icon,
   s.submenu_name, 
   s.url
 FROM 
@@ -236,6 +237,7 @@ ORDER BY
           submenu_id: row.submenu_id,
           submenu_name: row.submenu_name,
           url: row.url,
+          icon:row.icon
         };
         menuMap.get(menuId)?.submenus.push(submenu);
       }

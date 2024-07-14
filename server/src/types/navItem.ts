@@ -10,4 +10,5 @@ export interface Menu {
     submenu_id: number;
     submenu_name: string;
     url: string;
+    icon:string
   }

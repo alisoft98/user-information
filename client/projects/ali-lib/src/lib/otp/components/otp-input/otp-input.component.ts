@@ -42,22 +42,22 @@ export class OtpInputComponent {
     this.inputType = this.getInputType();
   }
   ngAfterViewInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      if (!this.config.disableAutoFocus && document) {
-        const containerItem = document?.getElementById(
-          `c_${this.componentKey}`
-        );
-        if (containerItem) {
-          containerItem.addEventListener('paste', (evt) =>
-            this.handlePaste(evt)
-          );
-          const ele: any = containerItem.getElementsByClassName('otp-input')[0];
-          if (ele && ele.focus) {
-            ele.focus();
-          }
-        }
-      }
-    }
+    // if (isPlatformBrowser(this.platformId)) {
+    //   if (!this.config.disableAutoFocus && document) {
+    //     const containerItem = document?.getElementById(
+    //       `c_${this.componentKey}`
+    //     );
+    //     if (containerItem) {
+    //       containerItem.addEventListener('paste', (evt) =>
+    //         // this.handlePaste(evt)
+    //       // );
+    //       const ele: any = containerItem.getElementsByClassName('otp-input')[0];
+    //       if (ele && ele.focus) {
+    //         ele.focus();
+    //       }
+    //     }
+    //   }
+    // }
   }
   private getControlName(idx: any) {
     return `ctrl_${idx}`;
@@ -201,20 +201,20 @@ export class OtpInputComponent {
       ? 'tel'
       : 'text';
   }
-  handlePaste(e: any) {
-    // Get pasted data via clipboard API
-    let clipboardData = e.clipboardData || (window as any['clipboardData']);
-    if (clipboardData) {
-      var pastedData = clipboardData.getData('Text');
-    }
-    // Stop data actually being pasted into div
-    e.stopPropagation();
-    e.preventDefault();
-    if (!pastedData) {
-      return;
-    }
-    this.setValue(pastedData);
-  }
+  // handlePaste(e: any) {
+  //   // Get pasted data via clipboard API
+  //   let clipboardData = e.clipboardData || (window as any['clipboardData']);
+  //   if (clipboardData) {
+  //     var pastedData = clipboardData.getData('Text');
+  //   }
+  //   // Stop data actually being pasted into div
+  //   e.stopPropagation();
+  //   e.preventDefault();
+  //   if (!pastedData) {
+  //     return;
+  //   }
+  //   this.setValue(pastedData);
+  // }
 
   onCount(e: any) {
     console.log('asdf', e);

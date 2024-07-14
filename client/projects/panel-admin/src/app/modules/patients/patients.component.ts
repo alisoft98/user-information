@@ -17,19 +17,6 @@ import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-patients',
-  standalone: true,
-  imports: [
-    FilterComponent,
-    FormsModule,
-    CommonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatTableModule,
-    MatSortModule,
-    MatPaginatorModule,
-    MatToolbarModule,
-    MatIconModule,
-  ],
   templateUrl: './patients.component.html',
   styleUrl: './patients.component.scss',
 })

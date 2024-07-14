@@ -36,6 +36,7 @@ import { UsersComponent } from '../users/components/users.component';
 import { PatientsComponent } from '../patients/patients.component';
 import { DoctorListComponent } from "../doctor-list/doctor-list.component";
 import { OperationsComponent } from "../operations/operations.component";
+import { PatientsModule } from '../patients/patients.module';
 
 @Component({
   selector: 'app-dashboard',
@@ -65,7 +66,7 @@ import { OperationsComponent } from "../operations/operations.component";
     MatCardModule,
     LineChartComponent,
     StackedChartComponent,
-    PatientsComponent,
+    PatientsModule,
     DoctorListComponent,
     OperationsComponent
 ],

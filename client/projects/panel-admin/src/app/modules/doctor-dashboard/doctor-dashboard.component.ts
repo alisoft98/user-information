@@ -7,6 +7,7 @@ import { PatientsComponent } from '../patients/patients.component';
 import { PatientsGroupComponent } from '../patients-group/patients-group.component';
 import { DoctorListComponent } from '../doctor-list/doctor-list.component';
 import { TodoListComponent } from '../todo-list/todo-list.component';
+import { PatientsModule } from '../patients/patients.module';
 
 @Component({
   selector: 'app-doctor-dashboard',
@@ -16,7 +17,7 @@ import { TodoListComponent } from '../todo-list/todo-list.component';
     MatGridListModule,
     LineChartComponent,
     PieDountChartComponent,
-    PatientsComponent,
+    PatientsModule,
     PatientsGroupComponent,
     DoctorListComponent,
     TodoListComponent

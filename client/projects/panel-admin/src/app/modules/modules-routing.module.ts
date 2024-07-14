@@ -5,6 +5,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { UsersComponent } from './users/components/users.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DoctorDashboardComponent } from './doctor-dashboard/doctor-dashboard.component';
+import { AddPatientComponent } from './patients/add-patient/add-patient.component';
 
 const routes: Routes = [
   {
@@ -15,25 +16,25 @@ const routes: Routes = [
         path: 'dashboard',
         component: DashboardComponent,
         title: 'Dashboard',
-        data: { icon: 'dashboard' }
+        data: { icon: 'dashboard' },
       },
       {
         path: 'dashboard/doctor-dashboard',
         component: DoctorDashboardComponent,
         title: 'Dashboard',
-        data: { icon: 'dashboard' }
+        data: { icon: 'dashboard' },
       },
       {
         path: 'users',
         component: UsersComponent,
         title: 'Users',
-        data: { icon: 'people' }
+        data: { icon: 'people' },
       },
       {
         path: 'schedule',
         component: CalendarComponent,
         title: 'Schedule',
-        data: { icon: 'calendar_today' }
+        data: { icon: 'calendar_today' },
       },
 
       {
@@ -42,6 +43,11 @@ const routes: Routes = [
           import('../core/settings/settings.module').then(
             s => s.SettingsModule
           ),
+      },
+      {
+        path: 'patients',
+        loadChildren: () =>
+          import('./patients/patients.module').then(p => p.PatientsModule),
       },
       {
         path: '**',
