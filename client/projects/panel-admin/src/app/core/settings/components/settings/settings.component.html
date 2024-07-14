@@ -308,6 +308,8 @@
       <mat-select formControlName="skills" multiple>
         @for (skill of skills$ | async; track skill) {
         <mat-option [value]="skill">{{ skill }}</mat-option>
+        } @empty {
+        <li>There are no items.</li>
         }
       </mat-select>
     </mat-form-field>

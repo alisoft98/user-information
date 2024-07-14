@@ -21,11 +21,15 @@ animationDuration="2000ms"
   (selectedTabChange)="onTabChanged($event.index)">
   @for (tab of tabs(); track $index) {
   <mat-tab [label]="tab.title">
-    <ng-container select=""
-      *ngTemplateOutlet="selectedTemplate; context: context || noContent"></ng-container>
-      <ng-template #noContent>
-        No conent...
-      </ng-template>
+    <ng-container
+      select=""
+      *ngTemplateOutlet="
+        selectedTemplate;
+        context: context || noContent
+      "></ng-container>
+    <ng-template #noContent> No conent... </ng-template>
   </mat-tab>
+  } @empty {
+  <li>There are no items.</li>
   }
 </mat-tab-group>

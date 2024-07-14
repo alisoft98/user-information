@@ -10,26 +10,30 @@
     @for (menuName of getMenuNames(); track $index) { @for (item of
     groupedData[menuName]; track item ) {
     <a
-      class="cursor-pointer dark:hover:text-blue p-1"
+      class="cursor-pointer dark:hover:text-blue"
       mat-list-item
       #link="routerLinkActive"
       routerLinkActive
       [activated]="link.isActive"
       (click)="toggleSubmenu(item.menu_id)">
-      <span class="flex items-center gap-2">
-        <span class="material-symbols-outlined">
-          {{ item.icon }}
-        </span>
-        <span>
-          {{ item.menu_name }}
-        </span>
-        <mat-icon class="menu-button" *ngIf="!expandedMenus[item.menu_id]"
-          >add</mat-icon
-        >
-        <mat-icon class="menu-button" *ngIf="expandedMenus[item.menu_id]"
-          >remove</mat-icon
-        >
-      </span>
+      <div class="flex items-center justify-between p-2">
+        <div class="flex gap-2">
+          <span class="material-symbols-outlined">
+            {{ item.icon }}
+          </span>
+          <span class="text-base">
+            {{ item.menu_name }}
+          </span>
+        </div>
+        <div class="flex">
+          <mat-icon class="menu-button" *ngIf="!expandedMenus[item.menu_id]"
+            >add</mat-icon
+          >
+          <mat-icon class="menu-button" *ngIf="expandedMenus[item.menu_id]"
+            >remove</mat-icon
+          >
+        </div>
+      </div>
     </a>
 
     <div *ngFor="let sub of item.submenus; let subIndex = index">
@@ -47,7 +51,9 @@
         </div>
       </div>
     </div>
-    } }
+    } }@empty {
+    <li>There are no items.</li>
+    }
   </mat-sidenav>
 
   <mat-sidenav-content>

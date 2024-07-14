@@ -5,11 +5,13 @@
   </div>
   <div class="tags">
     @for (tag of tags; track $index) {
-        <app-chip  [value]="tag">{{ tag }}</app-chip>
+    <app-chip [value]="tag">{{ tag }}</app-chip>
+    } @empty {
+    <li>There are no items.</li>
     }
   </div>
 </div>
 <div class="footer">
-  <button dfButton (click)="onPurchase()" [loading]="loading" >Purchase</button>
+  <button dfButton (click)="onPurchase()" [loading]="loading">Purchase</button>
   <div class="price">{{ item.price | currency }}</div>
 </div>

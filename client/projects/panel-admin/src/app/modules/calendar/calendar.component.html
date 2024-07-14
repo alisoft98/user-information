@@ -48,12 +48,14 @@
     <thead>
       <tr>
         @for (weekDay of weekDayNames; track $index) {
-          <th>{{ weekDay }}</th>
+        <th>{{ weekDay }}</th>
+        } @empty {
+        <li>There are no items.</li>
         }
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let row of calendar | chunk: 7; let i = index">
+      <tr *ngFor="let row of calendar | chunk : 7; let i = index">
         <td
           class="calendar-day"
           [ngClass]="{ 'past-date': c.isPastDate, today: c.isToday }"
@@ -78,14 +80,16 @@
               class="body-event"
               (contextmenu)="onRightClick($event, c)">
               @for (event of c.dataList; track $index) {
-                <p class="priority" [style.background-color]="event.color"></p>
-                <p *ngFor="let event of c.dataList" class="event_title">
-                  <strong>{{ event.event_title }}</strong>
-                </p>
+              <p class="priority" [style.background-color]="event.color"></p>
+              <p *ngFor="let event of c.dataList" class="event_title">
+                <strong>{{ event.event_title }}</strong>
+              </p>
 
-                <!-- <p *ngFor="let event of c.dataList">
+              <!-- <p *ngFor="let event of c.dataList">
               <strong>{{ event.event_description }}</strong>
             </p> -->
+              } @empty {
+              <li>There are no items.</li>
               }
             </div>
           </div>
@@ -95,25 +99,25 @@
   </table>
 </div>
 @if (contextMenuVisible) {
-  <div
-    [ngStyle]="{ top: contextMenuPosition.y, left: contextMenuPosition.x }"
-    class="context-menu">
-    <div class="btn_delete">
-      <button
-        mat-button
-        color="primary"
-        class="flat"
-        type="button"
-        (click)="deleteAppointment()">
-        <span class="material-symbols-outlined"> delete </span>
-        <span> Delete </span>
-      </button>
-    </div>
-    <hr />
-    <div>
-      <p
-        class="priority"
-        [style.background-color]="dataContexMenu.dataList[0].color"></p>
-    </div>
+<div
+  [ngStyle]="{ top: contextMenuPosition.y, left: contextMenuPosition.x }"
+  class="context-menu">
+  <div class="btn_delete">
+    <button
+      mat-button
+      color="primary"
+      class="flat"
+      type="button"
+      (click)="deleteAppointment()">
+      <span class="material-symbols-outlined"> delete </span>
+      <span> Delete </span>
+    </button>
   </div>
+  <hr />
+  <div>
+    <p
+      class="priority"
+      [style.background-color]="dataContexMenu.dataList[0].color"></p>
+  </div>
+</div>
 }
