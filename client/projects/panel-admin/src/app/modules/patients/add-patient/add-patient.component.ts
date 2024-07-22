@@ -8,7 +8,11 @@ import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-add-patient',
@@ -19,7 +23,12 @@ import { CommonModule } from '@angular/common';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    CommonModule
+    CommonModule,
+    MatCardModule,
+    NgxMatIntlTelInputComponent,
+    AsyncPipe,
+    MatDatepickerModule,
+    MatIconModule,
   ],
   templateUrl: './add-patient.component.html',
   styleUrl: './add-patient.component.scss',
@@ -35,20 +44,21 @@ export class AddPatientComponent extends BaseComponent {
   form = this.fb.group({
     firstName: [
       'Aliakbar',
-      [Validators.required, Validators.minLength(2), banWords(['test'])],
+      [
+        Validators.required,
+        Validators.minLength(4),
+        banWords(['test', 'dummy']),
+      ],
     ],
-    lastName: [
-      'Esmaeili',
-      [Validators.required, Validators.minLength(2), banWords(['test'])],
-    ],
-    nickName: [
+    lastName: ['Esmaeili', [Validators.required, Validators.minLength(2)]],
+    nickname: [
       '',
       {
         validators: [
           Validators.required,
           Validators.minLength(2),
           Validators.pattern(/^[\w.]+$/),
-          banWords(['dummy', 'anonymous', 'test']),
+          banWords(['dummy', 'anonymous']),
         ],
         asyncValidators: [
           this.uniqueNickname.validate.bind(this.uniqueNickname),
@@ -63,35 +73,15 @@ export class AddPatientComponent extends BaseComponent {
     ),
     email: ['a@gmail.com', [Validators.required, Validators.email]],
     phoneNumber: [''],
-    password: this.fb.group(
-      {
-        password: ['', [Validators.required, Validators.minLength(3)]],
-        confirmPassword: '',
-      },
-      {
-        validators: passswordShouldMatch,
-      }
-    ),
+    address: [''],
+    country: [''],
+    city: [''],
+    state: [''],
+    zipcode: [''],
+    skills: [''],
   });
 
-  onSubmit() {
-    const payload = {
-      firstName: this.form.value.firstName,
-      lastName: this.form.value.lastName,
-      nickName: this.form.value.nickName,
-      gender: this.form.value.gender,
-      birthDay: this.form.value.yearOfBirth?.toString(),
-      email: this.form.value.email,
-      phoneNumber: this.form.value.phoneNumber,
-      password: this.form.controls.password.value.password,
-      confirmPassword: this.form.controls.password.value.confirmPassword,
-    };
-    this.authService.signUp(payload).subscribe((res: any) => {
-      console.log('👉', res);
-      this.userService.userEmail.next(res.newUser?.email);
-      this.router.navigate(['auth/confirm-email']);
-    });
-  }
+  onSubmit() {}
 
   trackByFn() {}
 
@@ -103,8 +93,8 @@ export class AddPatientComponent extends BaseComponent {
   get lastName() {
     return this.form.get('lastName');
   }
-  get nickName() {
-    return this.form.get('nickName');
+  get nickname() {
+    return this.form.get('nickname');
   }
   get gender() {
     return this.form.get('gender');
@@ -117,5 +107,17 @@ export class AddPatientComponent extends BaseComponent {
   }
   get confirmPassword() {
     return this.form.get('confirmPassword');
+  }
+  get address() {
+    return this.form.get('address');
+  }
+  get city() {
+    return this.form.get('city');
+  }
+  get state() {
+    return this.form.get('state');
+  }
+  get zipcode() {
+    return this.form.get('zipcode');
   }
 }

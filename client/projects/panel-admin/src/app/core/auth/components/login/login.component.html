@@ -1,63 +1,99 @@
-<div class="min-h-screen flex items-center justify-center">
-  <div
-    class="py-12 px-4 sm:px-6 lg:px-8 max-w-md shadow-lg bg-white rounded-lg">
-    <div class="max-w-md">
-      <h5 class="mt-6 text-center font-extrabold text-gray-900">
-        Don't have an account yet?
-      </h5>
-      <p class="mt-2 text-center text-sm text-gray-600">
-        <a
-          (click)="navigateRegister()"
-          class="font-medium text-indigo-600 hover:text-indigo-500 cursor-pointer text-primary">
-          Sign up here
+<div class="flex content">
+  <section class="w-1/2">
+    <img src="../../../../../assets/images/bg-01.png" alt="" />
+  </section>
+
+  <section class="w-1/2 text-center">
+    <div class="w-2/3 m-auto desktop:mt-20">
+      <h3 class="text-left font-extrabold">Welcome Back</h3>
+      <p class="cursor-pointer flex justify-start text-xs">
+        Need an account?
+        <a (click)="navigateRegister()"
+          ><strong class="hover:text-blue">Sign up</strong>
         </a>
       </p>
+      <div class="grid grid-cols-3 gap-9">
+        <button mat-stroked-button type="button" class="w-full">Admin</button>
+        <button mat-stroked-button type="button" class="w-full">Doctor</button>
+        <button mat-stroked-button type="button" class="w-full">Patient</button>
+      </div>
+
+      <div>
+        <h3 class="text-left font-extrabold text-3xl p-3">Sign in</h3>
+        <form [formGroup]="form" (ngSubmit)="login()">
+          <mat-form-field
+            data-testing="username"
+            appearance="outline"
+            class="w-full">
+            <mat-label>{{ labelUserName }}</mat-label>
+            <input
+              type="text"
+              matInput
+              [errorStateMatcher]="matcher"
+              formControlName="email"
+              placeholder="UserName" />
+
+            @if (email?.hasError('email') && !email?.hasError('required')) {
+            <mat-error>Please enter a valid userName address</mat-error>
+            } @if (email?.hasError('required')) {
+            <mat-error>UserName is <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-full pt-2">
+            <mat-label>{{ labelPassword }}</mat-label>
+            <input
+              type="Password"
+              matInput
+              [errorStateMatcher]="matcher"
+              formControlName="password"
+              placeholder="Password" />
+            @if (password?.hasError('password') &&
+            !password?.hasError('required')) {
+            <mat-error>Please enter a valid password address</mat-error>
+            } @if (password?.hasError('required')) {
+            <mat-error>password is <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
+
+          <div class="flex justify-between items-center">
+            <mat-checkbox formControlName="remmeber">Remember me</mat-checkbox>
+            <a
+              (click)="navigateRegister()"
+              class="cursor-pointer flex justify-end text-xs dark:textblu hover:text-blue mt-7 mb-7">
+              Forgot Password?
+            </a>
+          </div>
+
+          <button
+            class="w-full desktop:m-0 tablet:mt-2 mobile:mt-2"
+            mat-flat-button
+            data-testid="login-button"
+            color="primary"
+            type="submit"
+            [disabled]="!form.valid">
+            Sign in
+          </button>
+        </form>
+        <h2 class="social-login-title">OR</h2>
+
+        <div class="flex justify-center items-center gap-3">
+          <button mat-mini-fab>
+            <i class="fab fa-google"></i>
+          </button>
+
+          <button mat-mini-fab>
+            <i class="fab fa-facebook"></i>
+          </button>
+
+          <button mat-mini-fab>
+            <i class="fab fa-twitter"></i>
+          </button>
+
+          <button mat-mini-fab>
+            <i class="fab fa-linkedin-in"></i>
+          </button>
+        </div>
+      </div>
     </div>
-
-    <form [formGroup]="form" (ngSubmit)="login()">
-      <mat-form-field
-        data-testing="username"
-        appearance="outline"
-        class="w-full">
-        <mat-label>{{ labelUserName }}</mat-label>
-        <input
-          type="text"
-          matInput
-          [errorStateMatcher]="matcher"
-          formControlName="email"
-          placeholder="UserName" />
-
-        @if (userName?.hasError('userName') && !userName?.hasError('required'))
-        {
-        <mat-error>Please enter a valid userName address</mat-error>
-        } @if (userName?.hasError('required')) {
-        <mat-error>UserName is <strong>required</strong></mat-error>
-        }
-      </mat-form-field>
-      <mat-form-field appearance="outline" class="w-full">
-        <mat-label>{{ labelPassword }}</mat-label>
-        <input
-          type="Password"
-          matInput
-          [errorStateMatcher]="matcher"
-          formControlName="password"
-          placeholder="Password" />
-        @if (password?.hasError('password') && !password?.hasError('required'))
-        {
-        <mat-error>Please enter a valid password address</mat-error>
-        } @if (password?.hasError('required')) {
-        <mat-error>password is <strong>required</strong></mat-error>
-        }
-      </mat-form-field>
-      <button
-        class="rounded-full w-full"
-        data-testid="login-button"
-        mat-raised-button
-        color="primary"
-        type="submit"
-        [disabled]="!form.valid">
-        Sign in
-      </button>
-    </form>
-  </div>
+  </section>
 </div>

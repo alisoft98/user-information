@@ -44,7 +44,6 @@ export class UsersSettingsComponent extends BaseComponent implements OnInit {
     
   }
   isRouteActive(routePath: any): boolean {
-    debugger
     return this.router.isActive(routePath, false);
   }
 
