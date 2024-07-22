@@ -1,4 +1,4 @@
-import { AsyncPipe, CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule, NgOptimizedImage } from '@angular/common';
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import {
   FormsModule,
@@ -31,7 +31,8 @@ import { MyErrorStateMatcher } from '../../../shared/input-validation/input-vali
     MatTooltipModule,
     AsyncPipe,
     MatButtonModule,
-    MatBadgeModule
+    MatBadgeModule,
+    NgOptimizedImage
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',

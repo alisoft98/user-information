@@ -28,6 +28,7 @@ import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
 import { Menu } from '../types/navItem';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { LoaderComponent } from '../../../shared/components/loader/loader.component';
 @Component({
   selector: 'side-bar',
   standalone: true,
@@ -49,6 +50,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     RouterLinkActive,
     MatTooltipModule,
     MatExpansionModule,
+    LoaderComponent
   ],
   templateUrl: './side-bar.component.html',
   styleUrl: './side-bar.component.scss',

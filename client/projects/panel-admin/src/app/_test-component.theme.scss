@@ -1,7 +1,7 @@
 @use "@angular/material" as mat;
 
 @mixin themeTest($theme) {
-  .content {
+  .content{
     background-color: rgba(mat.get-theme-color($theme, primary-container), 0.75);
   }
   .content {
