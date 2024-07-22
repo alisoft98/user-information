@@ -252,7 +252,7 @@ ORDER BY
 
 export async function getUserInfo(email: string) {
   const data = await query<RowDataPacket[]>(
-    `SELECT * FROM ${coreSchema}.user_info WHERE email=?`,
+    `SELECT * FROM ${coreSchema}.patients WHERE email=?`,
     {
       values: [email],
     }
@@ -318,7 +318,7 @@ export async function deleteAppointment(event_id: string) {
 
 export async function getCustomers() {
   const customers = await query<RowDataPacket[]>(`
-  SELECT * FROM ${coreSchema}.user_info
+  SELECT * FROM ${coreSchema}.patients
   `);
   return customers;
 }
