@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import {
   FormControl,
@@ -11,11 +11,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { ThemeManagerService } from '../../../../shared/client-services/theme-manager.service';
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
@@ -31,8 +30,6 @@ import { AuthService } from '../../../services/auth.service';
     MatFormFieldModule,
     RouterLink,
     CommonModule,
-    NgOptimizedImage,
-    MatIconModule
   ],
   providers: [],
   styleUrl: './login.component.scss',
@@ -48,12 +45,6 @@ export class LoginComponent {
   #route = inject(ActivatedRoute);
   #authService = inject(AuthService);
   #toastrService = inject(ToastrService);
-
-  private themeManager = inject(ThemeManagerService);
-  theme = this.themeManager.theme;
-  toggleTheme() {
-    this.themeManager.toggleTheme();
-  }
 
   createForm() {
     this.form = new FormGroup({
@@ -89,8 +80,8 @@ export class LoginComponent {
   }
 
   // Get Value Form For Validation
-  get email() {
-    return this.form.get('email');
+  get userName() {
+    return this.form.get('userName');
   }
   get password() {
     return this.form.get('password');

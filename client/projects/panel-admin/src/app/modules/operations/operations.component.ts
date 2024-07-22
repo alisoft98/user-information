@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -14,8 +14,6 @@ import { take } from 'rxjs';
 import { AddUserInfoDialogComponent } from '../users/components/add-user-info-dialog/add-user-info-dialog.component';
 import { CustomersService } from '../users/services/customers.service';
 import { MatIconModule } from '@angular/material/icon';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-operations',
@@ -30,9 +28,7 @@ import { SelectionModel } from '@angular/cdk/collections';
     MatSortModule,
     MatPaginatorModule,
     MatToolbarModule,
-    MatIconModule,
-    MatCheckboxModule,
-    NgOptimizedImage
+    MatIconModule
   ],
   templateUrl: './operations.component.html',
   styleUrl: './operations.component.scss'
@@ -40,9 +36,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 export class OperationsComponent {
   customers: Customers[] = [];
   displayedColumns: string[] = [
-    'select',
     'position',
-    'image',
     'customer_id',
     'first_name',
     'last_name',
@@ -56,7 +50,7 @@ export class OperationsComponent {
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  selection = new SelectionModel<any>(true, []);
+
   constructor(private service: CustomersService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
@@ -102,28 +96,5 @@ export class OperationsComponent {
     this.dialog.open(AddUserInfoDialogComponent, {
       height: '900px',
     });
-  }
-
-  /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
-
-  toggleAllRows() {
-    if (this.isAllSelected()) {
-      this.selection.clear();
-      return;
-    }
-
-    this.selection.select(...this.dataSource.data);
-  }
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: Customers): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
   }
 }

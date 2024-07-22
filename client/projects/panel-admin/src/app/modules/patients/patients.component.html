@@ -1,16 +1,15 @@
 <section class="p-4">
   <mat-card appearance="outlined">
-    <mat-toolbar class="bg-blue ">
-      <div>
+    <mat-toolbar class="bg-blue">
+    
         <mat-form-field appearance="outline" >
           <mat-label>Filter</mat-label>
           <input
-          matInput
-          (keyup)="applyFilter($event)"
-          placeholder="Ex. ium"
-          #input />
+            matInput
+            (keyup)="applyFilter($event)"
+            placeholder="Ex. ium"
+            #input />
         </mat-form-field>
-      </div>
         <!-- <button class="add-user-info" (click)="addUserInfo()" mat-mini-fab>
           <mat-icon>add</mat-icon>
         </button> -->

@@ -1,6 +1,19 @@
-<section class="min-h-screen flex items-center justify-center content">
-  <mat-card appearance="outlined" class="p-4 w-4/12">
-    <h5 class="p-14 text-center font-extrabold text-gray-900 dark:">Welcome Back</h5>
+<div class="min-h-screen flex items-center justify-center">
+  <div
+    class="py-12 px-4 sm:px-6 lg:px-8 max-w-md shadow-lg bg-white rounded-lg">
+    <div class="max-w-md">
+      <h5 class="mt-6 text-center font-extrabold text-gray-900">
+        Don't have an account yet?
+      </h5>
+      <p class="mt-2 text-center text-sm text-gray-600">
+        <a
+          (click)="navigateRegister()"
+          class="font-medium text-indigo-600 hover:text-indigo-500 cursor-pointer text-primary">
+          Sign up here
+        </a>
+      </p>
+    </div>
+
     <form [formGroup]="form" (ngSubmit)="login()">
       <mat-form-field
         data-testing="username"
@@ -14,13 +27,14 @@
           formControlName="email"
           placeholder="UserName" />
 
-        @if (email?.hasError('email') && !email?.hasError('required')) {
+        @if (userName?.hasError('userName') && !userName?.hasError('required'))
+        {
         <mat-error>Please enter a valid userName address</mat-error>
-        } @if (email?.hasError('required')) {
+        } @if (userName?.hasError('required')) {
         <mat-error>UserName is <strong>required</strong></mat-error>
         }
       </mat-form-field>
-      <mat-form-field appearance="outline" class="w-full pt-2">
+      <mat-form-field appearance="outline" class="w-full">
         <mat-label>{{ labelPassword }}</mat-label>
         <input
           type="Password"
@@ -35,43 +49,15 @@
         <mat-error>password is <strong>required</strong></mat-error>
         }
       </mat-form-field>
-
-      <a
-        (click)="navigateRegister()"
-        class="cursor-pointer flex justify-end text-xs dark:textblu hover:text-blue mt-7 mb-7">
-        Forgot Password?
-      </a>
-
       <button
-        class="w-full desktop:m-0 tablet:mt-2 mobile:mt-2"
-        mat-flat-button
+        class="rounded-full w-full"
         data-testid="login-button"
+        mat-raised-button
         color="primary"
         type="submit"
         [disabled]="!form.valid">
         Sign in
       </button>
-
-      <p class="cursor-pointer flex justify-start text-xs pt-7">
-        Don't have an account?
-        <a (click)="navigateRegister()"><strong>Sign up</strong> </a>
-      </p>
-      <button
-        class="w-full desktop:m-0 tablet:mt-2 mobile:mt-2"
-        data-testid="login-button"
-        mat-flat-button
-        color="primary"
-        type="submit"
-        [disabled]="!form.valid">
-        <span class="flex gap-2">
-          <img
-            src="../../../../../assets/images/icons/search.png"
-            alt=""
-            width="20"
-            height="" />
-          <span> Log with Google </span>
-        </span>
-      </button>
     </form>
-  </mat-card>
-</section>
+  </div>
+</div>

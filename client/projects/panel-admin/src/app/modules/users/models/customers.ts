@@ -1,6 +1,4 @@
 export interface Customers {
-  position?:any;
-  image?:any;
   customer_id: number;
   first_name: string;
   last_name: string;
