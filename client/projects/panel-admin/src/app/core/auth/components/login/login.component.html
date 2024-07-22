@@ -1,18 +1,6 @@
 <section class="min-h-screen flex items-center justify-center content">
   <mat-card appearance="outlined" class="p-4 w-4/12">
-    <!-- <button
-      class="theme-switch"
-      type="button"
-      aria-label="Toggle theme"
-      mat-icon-button
-      (click)="toggleTheme()"
-      matTooltip="Toggle theme">
-      <mat-icon>
-        {{ theme() === 'light' ? 'light_mode' : 'dark_mode' }}
-      </mat-icon>
-    </button> -->
     <h5 class="p-14 text-center font-extrabold text-gray-900 dark:">Welcome Back</h5>
-
     <form [formGroup]="form" (ngSubmit)="login()">
       <mat-form-field
         data-testing="username"
