@@ -6,6 +6,7 @@ import { Menu, Submenu } from "../types/navItem";
 import { AppResponse } from "../types/response.interface";
 import { ConfirmEmail, User } from "../types/user";
 import { RowDataPacket, coreSchema, query } from "./mysql";
+import { AdminDTO } from "../models/admin";
 
 // Users
 export async function checkUserExist(email: string): Promise<RowDataPacket[]> {
@@ -150,6 +151,14 @@ export async function getUserByPassword(
     throw new Error("Could not fetch user");
   }
 }
+
+export async function getAdmins() {
+  const userAdmin = await query<RowDataPacket[]>(`
+    SELECT * FROM ${coreSchema}.admin
+    `);
+    return userAdmin as AdminDTO[]
+}
+
 export async function getOTP(email: any, tokenVerify: any) {
   const updateData = await query<RowDataPacket[]>(
     `UPDATE  ${coreSchema}.users SET verify_code=? WHERE email = ?`,
@@ -237,7 +246,7 @@ ORDER BY
           submenu_id: row.submenu_id,
           submenu_name: row.submenu_name,
           url: row.url,
-          icon:row.icon
+          icon: row.icon,
         };
         menuMap.get(menuId)?.submenus.push(submenu);
       }

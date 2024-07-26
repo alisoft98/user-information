@@ -13,11 +13,13 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ThemeManagerService } from '../../../../shared/client-services/theme-manager.service';
 import { AuthService } from '../../../services/auth.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { AdminService } from '../../../services/admin.service';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -34,7 +36,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     CommonModule,
     NgOptimizedImage,
     MatIconModule,
-    MatCheckboxModule
+    RouterModule,
+    MatCheckboxModule,
   ],
   providers: [],
   styleUrl: './login.component.scss',
@@ -45,11 +48,13 @@ export class LoginComponent {
   labelPassword: string = 'password';
   matcher = new ErrorStateMatcher();
   form!: FormGroup;
+  role!:string;
 
   #router = inject(Router);
   #route = inject(ActivatedRoute);
   #authService = inject(AuthService);
   #toastrService = inject(ToastrService);
+  #adminService = inject(AdminService);
 
   private themeManager = inject(ThemeManagerService);
   theme = this.themeManager.theme;
@@ -67,30 +72,50 @@ export class LoginComponent {
 
   ngOnInit(): void {
     this.createForm();
- 
+  
   }
 
   login() {
-    if (this.form.value) {
-      this.#authService.signIn(this.form.value).subscribe((res: any) => {
-        const stroeDataUser = res.payloadToken;
-        if (res.code == 200) {
-          const dataJson = JSON.stringify(stroeDataUser);
-          localStorage.setItem('userData', dataJson);
-          this.#toastrService.success('Login is succsessful!');
-          this.#router.navigate(['aliakbar/settings']);
-          
-        } else {
-          this.#toastrService.success('incorrect email or password!');
-        }
-      });
+    this.form.events.pipe(
+      filter((event)=>event instanceof TouchEvent)
+
+    ).subscribe(event=>{
+      console.log('eventForm',event);
+      
+    })
+    if (this.role === 'admin') {
+      if (this.form.value) {
+        this.#authService.signIn(this.form.value).subscribe((res: any) => {
+          const stroeDataUser = res.payloadToken;
+          if (res.code == 200) {
+            const dataJson = JSON.stringify(stroeDataUser);
+            localStorage.setItem('userData', dataJson);
+            this.#toastrService.success('Login is succsessful!');
+            this.#router.navigate(['aliakbar/settings']);
+          } else {
+            this.#toastrService.success('incorrect email or password!');
+          }
+        });
+      }
     }
   }
 
-  navigateRegister(){
-    this.#router.navigate(['auth/register'])
+  navigateRegister() {
+    this.#router.navigate(['auth/register']);
   }
 
+  onAdminRol(data: string) {
+    this.role = data
+    console.log(data);
+
+    // this.#adminService.getAdmin().subscribe((res)=>{
+    //   console.log('doctorRol',res);
+    // })
+  }
+  onDoctorRol(data: string) {
+  }
+  onPatientRol(data: string) {
+  }
   // Get Value Form For Validation
   get email() {
     return this.form.get('email');

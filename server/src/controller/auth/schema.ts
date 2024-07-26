@@ -1,11 +1,11 @@
 import * as yup from 'yup';
 
 const register = yup.object().shape({
-    firstName: yup.string().required('firstname is required'),
-    lastName: yup.string().required('lastName is required'),
-    nickName: yup.string().required('nickName is required'),
+    userName: yup.string().required('userName is required'),
+    // lastName: yup.string().required('lastName is required'),
+    // nickName: yup.string().required('nickName is required'),
     email: yup.string().email('invalid email').required('email is required'),
-    phoneNumber: yup.string().nullable(),
+    // phoneNumber: yup.string().nullable(),
     tokenVerify: yup.string().nullable(),
     password: yup.string().min(8, 'at least 8 charecters')
         .oneOf([yup.ref('confirmPassword')], 'password are not the same'),

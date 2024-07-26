@@ -1,8 +1,7 @@
-import { Request, Response } from "express";
-import { CustomersService } from "./services";
-import BuildResponse from "../../modules/response/app_response";
 import asyncHandler from "../../helper/async-handler";
+import BuildResponse from "../../modules/response/app_response";
 import routes from "../../routes/public";
+import { CustomersService } from "./services";
 
 routes.get(
   "/customers",

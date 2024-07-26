@@ -4,13 +4,13 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { Router, RouterLink } from '@angular/router';
 import { NgOtpInputModule } from 'ali';
 import { UserService } from '../../../services/user.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-confirm-email',
   standalone: true,
-  imports: [NgOtpInputModule, RouterLink, CommonModule],
+  imports: [NgOtpInputModule, RouterLink, CommonModule, NgOptimizedImage],
   templateUrl: './confirm-email.component.html',
   styleUrl: './confirm-email.component.scss',
 })
@@ -60,9 +60,7 @@ export class ConfirmEmailComponent implements OnInit {
     this.#service.confirmEmail(payload).subscribe(res => {
       if (res) {
         this.#toastrService.success('Login is succsessful!');
-      this.#router.navigate(['aliakbar/settings']);
-
-
+        this.#router.navigate(['aliakbar/settings']);
       }
     });
   }

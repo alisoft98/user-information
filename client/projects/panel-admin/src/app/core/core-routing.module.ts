@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { ConfirmEmailComponent } from './auth/components/confirm-email/confirm-email.component';
 import { LoginComponent } from './auth/components/login/login.component';
 import { RegisterComponent } from './auth/components/register/register.component';
+import { ForgotPasswordComponent } from './auth/components/forgot-password/forgot-password.component';
 
 const routes = [
   {
@@ -16,6 +17,11 @@ const routes = [
   {
     path: 'confirm-email',
     component: ConfirmEmailComponent,
+    // canActivate: [RegistrationGuard],
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent,
     // canActivate: [RegistrationGuard],
   },
 
