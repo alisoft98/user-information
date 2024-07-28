@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -15,7 +15,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
-import { filter } from 'rxjs';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -36,17 +36,19 @@ import { filter } from 'rxjs';
 })
 export class ForgotPasswordComponent extends BaseComponent implements OnInit {
   matcher = new ErrorStateMatcher();
+  servce = inject(UserService);
 
-  form: FormGroup = this.fb.group({
-    email: ['', Validators.required, Validators.email],
+  form = this.fb.group({
+    email: ['', [Validators.required,Validators.email]],
   });
 
-  
-  ngOnInit(): void {
- 
-  }
+  ngOnInit(): void {}
 
-  resetPassword() {}
+  resetPassword() {
+    this.servce.forgetPassword(this.form.value.email).subscribe(res => {
+      console.log('forgetPassword', res);
+    });
+  }
 
   get email() {
     return this.form.get('email');

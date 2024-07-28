@@ -4,7 +4,7 @@ import schemaUser from "../controller/user/schema";
 import { IAppointment } from "../types/appointment.interface";
 import { Menu, Submenu } from "../types/navItem";
 import { AppResponse } from "../types/response.interface";
-import { ConfirmEmail, User } from "../types/user";
+import { ConfirmEmail, CreateUser, User } from "../types/user";
 import { RowDataPacket, coreSchema, query } from "./mysql";
 import { AdminDTO } from "../models/admin";
 
@@ -150,6 +150,28 @@ export async function getUserByPassword(
     console.error("Error fetching user by password:", error);
     throw new Error("Could not fetch user");
   }
+}
+
+export async function  updateUserVerifyCode(userId: string, newCode: string) {
+  const result = await query<RowDataPacket>(`
+    UPDATE ${coreSchema}.users
+    SET verify_code=?,updatedAt=?
+    WHERE user_id=?
+    `,{
+      values:[
+        newCode,
+        new Date(),
+        userId
+      ]
+    });
+    const user = await query<RowDataPacket[]>(`
+      SELECT user_id,email,verify_code
+      FROM ${coreSchema}.users
+      WHERE user_id=?
+      `,{
+        values:[userId]
+      });
+      return user[0] as CreateUser
 }
 
 export async function getAdmins() {

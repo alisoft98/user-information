@@ -1,5 +1,5 @@
 export interface User {
-  user_id: number;
+  user_id: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -8,6 +8,7 @@ export interface User {
   signupStatus: number;
   verify_code: string;
   address: string;
+  isActive?: boolean | null | number
   country: string;
   city: string;
   state: string;

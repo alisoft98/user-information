@@ -52,10 +52,15 @@ const confirmEmail = yup.object().shape({
     .max(4, "verify code should be 4 chr"),
 });
 
+const checkEmail = yup.object().shape({
+  email: yup.string().required("email is required!"),
+});
+
 export default {
   userRoles,
   latestTemplates,
   create,
   createPassword,
   confirmEmail,
+  checkEmail
 };

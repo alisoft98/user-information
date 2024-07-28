@@ -6,6 +6,7 @@ import {
   getUserInfo,
   getUserSkills,
   updateProfileUser,
+  updateUserVerifyCode,
 } from "../../bin/db";
 import useValidation from "../../helper/use_validation";
 import BuildResponse from "../../modules/response/app_response";
@@ -39,14 +40,16 @@ class UserService {
   }
 
   /**
-   * @param email
+   * @param formData
    */
   public static async confrimEmail(formData: ConfirmEmail) {
     const userData = useValidation(schemaUser.confirmEmail, formData);
     const confirmEmailResult = await confirmEmail(userData);
     return BuildResponse.appResponse(confirmEmailResult);
   }
-
+  /**
+   * @param formData
+   */
   public static async getVerifyCode(userData: any, tokenVerify: any) {
     // const userData = useValidation(schemaUser.confirmEmail,userData)
     const result = await getOTP(userData, tokenVerify);
@@ -57,7 +60,15 @@ class UserService {
     }
     return null;
   }
-
+  /**
+   * @param email
+   */
+  public static async changePassword(email: string) {
+    const userEmail = email;
+  }
+  /**
+   * @param userData
+   */
   public static async updateProfileuser(userData: User) {
     // const currentUser = await UserService.validateUserEmail(userData.email);
     // if (currentUser) {
@@ -103,11 +114,33 @@ class UserService {
    */
   public static async checkNickName(nickName: string) {
     const getData = await checkNickName();
-    if (getData[0].nickName === nickName ) {
+    if (getData[0].nickName === nickName) {
       throw new ResponseError.BadRequest("The nickName is alreay exist!");
     } else {
       return;
     }
+  }
+
+  public static async sendFrogetPasswordToken(email: string) {
+    useValidation(schemaUser.checkEmail, { email: email });
+    const currentUser = await UserService.validateUserEmail(email);
+    if (!currentUser) return { status: 1, message: "email is not valid !" };
+
+    if (currentUser.emailConfirmed === 0)
+      return {
+        status: 2,
+        message: "this email address is not confirmed yet !",
+      };
+    if (currentUser.signupStatus === 0)
+      return { status: 3, message: "signup process is not complete yet !" };
+    // TODO for fix isActive to boolean
+    if (currentUser.isActive === 0)
+      return { status: 4, message: "this account is not active !" };
+    const newCode = getUniqueCodev3();
+    await updateUserVerifyCode(currentUser.user_id, newCode);
+    // send forgot pass token code
+    // SendMail.sendResetPasswordEmail(currentUser, newCode);
+    return { status: 5, message: "code has been send successfully !" };
   }
 }
 

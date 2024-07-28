@@ -22,10 +22,7 @@ export class UserService {
   }
 
   updateProfile(data: any): Observable<User> {
-    return this.#http.put<User>(
-      `${this.config}user/updateProfile`,
-      data
-    );
+    return this.#http.put<User>(`${this.config}user/updateProfile`, data);
   }
 
   getSkills(): Observable<string[]> {
@@ -38,5 +35,7 @@ export class UserService {
       .pipe(map(res => res.data.map(skill => skill.skill_name)));
   }
 
-
+  forgetPassword(email: any): Observable<{}> {
+    return this.#http.get(`${this.config}user/forgot-passsword/${email}`);
+  }
 }
