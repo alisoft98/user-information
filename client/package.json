@@ -37,6 +37,7 @@
     "ngx-cookie-service": "^18.0.0",
     "ngx-countdown": "^18.0.0",
     "ngx-editor": "^17.5.4",
+    "ngx-image-compress": "^18.1.5",
     "ngx-mat-intl-tel-input": "^5.0.0",
     "ngx-progressbar": "^11.1.0",
     "ngx-toastr": "^19.0.0",

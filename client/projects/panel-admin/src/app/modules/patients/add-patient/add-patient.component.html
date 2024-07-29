@@ -73,56 +73,7 @@
           >
         </mat-form-field>
       </div>
-      <div class="desktop:grid grid-cols-2 gap-3">
-        <!-- *****nickName***** -->
-        <mat-form-field
-          data-testing="nickName"
-          appearance="outline"
-          class="w-full">
-          <mat-label>nickName</mat-label>
-          <input
-            type="text"
-            matInput
-            [errorStateMatcher]="matcher"
-            formControlName="nickname"
-            placeholder="nickName" />
-          <!-- Error handling -->
-          <mat-error
-            *ngIf="
-              nickname?.hasError('nickname') && !nickname?.hasError('required')
-            "
-            >Please enter a valid nickName</mat-error
-          >
-          <mat-error *ngIf="nickname?.hasError('required')"
-            >nickName is <strong>required</strong></mat-error
-          >
-          <mat-error *ngIf="form.controls.nickname.hasError('minlength')"
-            >nickName is too short
-            <strong>{{
-              form.controls.nickname.getError('minlength')?.requiredLength
-            }}</strong></mat-error
-          >
-          <mat-error *ngIf="nickname?.hasError('banWords')"
-            >The value
-            <strong>{{ nickname?.getError('banWords').bannedWord }} </strong>is
-            banned</mat-error
-          >
-        </mat-form-field>
-        <!-- *****gender***** -->
-        <mat-form-field
-          data-testing="gender"
-          appearance="outline"
-          class="w-full">
-          <mat-label>Gender</mat-label>
-          <mat-select formControlName="gender" name="g">
-            <mat-option
-              *ngFor="let g of genders; trackBy: trackByFn"
-              [value]="g"
-              >{{ g }}</mat-option
-            >
-          </mat-select>
-        </mat-form-field>
-      </div>
+
       <div class="desktop:grid grid-cols-2 gap-3">
         <!-- *****Year of birth***** -->
         <mat-form-field appearance="outline" class="w-full mb-1">
@@ -183,17 +134,6 @@
             >phoneNumber is <strong>required</strong></mat-error
           >
         </mat-form-field>
-        <!-- *****Select Country***** -->
-        <!-- <mat-form-field data-testing="gender" appearance="outline" class="w-full">
-      <mat-label>Select Country</mat-label>
-      <mat-select formControlName="country" name="g">
-        <mat-option *ngFor="let c of country; trackBy: trackByFn" [value]="c">{{
-          c
-        }}</mat-option>
-      </mat-select>
-    </mat-form-field> -->
-      </div>
-      <div class="desktop:w-full">
         <!-- *****Address***** -->
         <mat-form-field
           data-testing="Address"
@@ -229,7 +169,6 @@
           >
         </mat-form-field>
       </div>
-      <div class="w-full"></div>
       <div class="desktop:grid grid-cols-3 gap-3">
         <!-- *****Town/City***** -->
         <mat-form-field
@@ -329,6 +268,9 @@
             banned</mat-error
           >
         </mat-form-field>
+      </div>
+      <div class="desktop:grid grid-cols-3 gap-3 mb-2">
+        <app-img-uploader></app-img-uploader>
       </div>
       <div class="desktop:flex desktop:justify-end w-full gap-3">
         <!-- *****CancelBTN***** -->

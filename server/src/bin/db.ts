@@ -7,6 +7,7 @@ import { AppResponse } from "../types/response.interface";
 import { ConfirmEmail, CreateUser, User } from "../types/user";
 import { RowDataPacket, coreSchema, query } from "./mysql";
 import { AdminDTO } from "../models/admin";
+import { PatientDTO } from "../models/patients";
 
 // Users
 export async function checkUserExist(email: string): Promise<RowDataPacket[]> {
@@ -152,33 +153,35 @@ export async function getUserByPassword(
   }
 }
 
-export async function  updateUserVerifyCode(userId: string, newCode: string) {
-  const result = await query<RowDataPacket>(`
+export async function updateUserVerifyCode(userId: string, newCode: string) {
+  const result = await query<RowDataPacket>(
+    `
     UPDATE ${coreSchema}.users
     SET verify_code=?,updatedAt=?
     WHERE user_id=?
-    `,{
-      values:[
-        newCode,
-        new Date(),
-        userId
-      ]
-    });
-    const user = await query<RowDataPacket[]>(`
+    `,
+    {
+      values: [newCode, new Date(), userId],
+    }
+  );
+  const user = await query<RowDataPacket[]>(
+    `
       SELECT user_id,email,verify_code
       FROM ${coreSchema}.users
       WHERE user_id=?
-      `,{
-        values:[userId]
-      });
-      return user[0] as CreateUser
+      `,
+    {
+      values: [userId],
+    }
+  );
+  return user[0] as CreateUser;
 }
 
 export async function getAdmins() {
   const userAdmin = await query<RowDataPacket[]>(`
     SELECT * FROM ${coreSchema}.admin
     `);
-    return userAdmin as AdminDTO[]
+  return userAdmin as AdminDTO[];
 }
 
 export async function getOTP(email: any, tokenVerify: any) {
@@ -359,4 +362,38 @@ export async function getUserSkills() {
     SELECT * FROM ${coreSchema}.user_skill
     `);
   return skills;
+}
+
+export async function addPatient(patientData: PatientDTO) {
+  try {
+    const result = await query<RowDataPacket[]>(
+      `INSERT INTO ${coreSchema}.patients
+      (firstName, lastName, gender, mobile, dateOfBirth, age, email, maritalStatus, address,
+        bloodGroup, bloodPressure, sugarLevel, condition, profileImage)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      {
+        values: [
+          patientData.firstName,
+          patientData.lastName,
+          patientData.gender,
+          patientData.mobile,
+          patientData.dateOfBirth,
+          patientData.age,
+          patientData.email,
+          patientData.maritalStatus,
+          patientData.address,
+          patientData.bloodGroup,
+          patientData.bloodPressure,
+          patientData.sugarLevel,
+          patientData.condition,
+          patientData.profileImage,
+        ],
+      }
+    );
+    return result;
+  } catch (error) {
+    console.log();
+    console.error("Error inserting patient data:", error);
+    throw error;
+  }
 }
