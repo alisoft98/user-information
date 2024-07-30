@@ -67,7 +67,6 @@ export class ConfirmEmailComponent implements OnInit {
 
   getOtp() {
     this.#service.getOTP(this.userData).subscribe(res => {
-      console.log('resultOTP', res);
     });
   }
   get verify_code() {

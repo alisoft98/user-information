@@ -139,7 +139,6 @@ export class SideBarComponent implements OnInit, OnDestroy {
     this.navService.getNavItems().subscribe({
       next: (res: any) => {
         this.groupedData = this.groupByMenu(res.data, 'menu_name');
-        console.log('👉',this.groupedData);
         
       },
       error: e => console.error(e),

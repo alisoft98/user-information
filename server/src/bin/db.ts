@@ -350,7 +350,7 @@ export async function deleteAppointment(event_id: string) {
   return result;
 }
 
-export async function getCustomers() {
+export async function getPatients() {
   const customers = await query<RowDataPacket[]>(`
   SELECT * FROM ${coreSchema}.patients
   `);
@@ -369,7 +369,7 @@ export async function addPatient(patientData: PatientDTO) {
     const result = await query<RowDataPacket[]>(
       `INSERT INTO ${coreSchema}.patients
       (firstName, lastName, gender, mobile, dateOfBirth, age, email, maritalStatus, address,
-        bloodGroup, bloodPressure, sugarLevel, condition, profileImage)
+        bloodGroup, bloodPressure, sugarLevel, injury, profileImage)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       {
         values: [
@@ -385,7 +385,7 @@ export async function addPatient(patientData: PatientDTO) {
           patientData.bloodGroup,
           patientData.bloodPressure,
           patientData.sugarLevel,
-          patientData.condition,
+          patientData.injury,
           patientData.profileImage,
         ],
       }

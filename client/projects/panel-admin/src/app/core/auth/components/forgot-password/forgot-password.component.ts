@@ -46,7 +46,6 @@ export class ForgotPasswordComponent extends BaseComponent implements OnInit {
 
   resetPassword() {
     this.servce.forgetPassword(this.form.value.email).subscribe(res => {
-      console.log('forgetPassword', res);
     });
   }
 

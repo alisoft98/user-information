@@ -68,7 +68,6 @@ export class RegisterComponent extends BaseComponent {
       confirmPassword: this.form.controls.password.value.confirmPassword,
     };
     this.authService.signUp(payload).subscribe((res: any) => {
-      console.log('👉', res);
       this.userService.userEmail.next(res.newUser?.email);
       this.router.navigate(['auth/confirm-email']);
     });

@@ -65,14 +65,14 @@ export class UserListComponent implements OnDestroy, OnInit {
    * @returns returns array of UserData
    */
   getData() {
-    this.service
-      .getCustomers()
-      .pipe(take(1))
-      .subscribe((data: any) => {
-        this.dataSource = new MatTableDataSource(data.data);
-        this.dataSource.sort = this.sort;
-        // this.customers = data.data;
-      });
+    // this.service
+    //   .getCustomers()
+    //   .pipe(take(1))
+    //   .subscribe((data: any) => {
+    //     this.dataSource = new MatTableDataSource(data.data);
+    //     this.dataSource.sort = this.sort;
+    //     // this.customers = data.data;
+    //   });
   }
 
   /**

@@ -98,7 +98,6 @@ chartTitle: string = 'Dynamic Chart Title';
 
   ngOnInit() {
     this.#route.paramMap.pipe(takeUntil(this.destroy$)).subscribe(params => {
-      console.log('params', params);
     });
     this.setDataInTabs();
   }

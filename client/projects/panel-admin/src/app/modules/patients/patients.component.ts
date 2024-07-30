@@ -1,19 +1,15 @@
-import { CommonModule } from '@angular/common';
 import { Component, Input, ViewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
-import { MatSortModule, MatSort } from '@angular/material/sort';
-import { MatTableModule, MatTableDataSource } from '@angular/material/table';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { take } from 'rxjs';
 import { AddUserInfoDialogComponent } from '../users/components/add-user-info-dialog/add-user-info-dialog.component';
-import { FilterComponent } from '../users/filter/filter.component';
 import { Customers } from '../users/models/customers';
 import { CustomersService } from '../users/services/customers.service';
-import { MatIconModule } from '@angular/material/icon';
+import { PatientDTO } from './model/patients.model';
+import { SelectionModel } from '@angular/cdk/collections';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-patients',
@@ -23,21 +19,29 @@ import { MatIconModule } from '@angular/material/icon';
 export class PatientsComponent {
   customers: Customers[] = [];
   displayedColumns: string[] = [
-    'position',
-    'customer_id',
-    'first_name',
-    'last_name',
+    'select',
+    'id',
+    'profileImage',
+    'firstName',
+    'lastName',
+    'gender',
+    'mobile',
+    'dateOfBirth',
+    'age',
     'email',
-    'phone_number',
+    'maritalStatus',
     'address',
-    'city',
-    'state',
-    'zip_code',
+    'bloodGroup',
+    'bloodPressure',
+    'sugarLevel',
+    'injury',
   ];
-  dataSource = new MatTableDataSource();
+  dataSource = new MatTableDataSource<PatientDTO>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @Input() title!: string;
+  selection = new SelectionModel<any>(true, []);
+  imgPatient:any
   constructor(private service: CustomersService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
@@ -55,11 +59,17 @@ export class PatientsComponent {
    */
   getData() {
     this.service
-      .getCustomers()
+      .getPatients()
       .pipe(take(1))
-      .subscribe((data: any) => {
-        this.dataSource = new MatTableDataSource(data.data);
-        this.dataSource.sort = this.sort;
+      .subscribe((response: any) => {
+        const data = response.data.map((patient:any)=>{
+          patient.profileImage= `${environment.urlProfileImg}${patient.profileImage}`;
+          return patient;
+        })
+        this.dataSource = new MatTableDataSource(data);
+        console.log('👉👉👉👉👉',data);
+        
+      this.dataSource.sort = this.sort;
         // this.customers = data.data;
       });
   }
@@ -76,12 +86,34 @@ export class PatientsComponent {
       this.dataSource.paginator.firstPage();
     }
   }
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+  toggleAllRows() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
 
-  ngOnDestroy(): void {}
+    this.selection.select(...this.dataSource.data);
+  }
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: Customers): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
+      row.position + 1
+    }`;
+  }
 
   addUserInfo() {
     this.dialog.open(AddUserInfoDialogComponent, {
       height: '900px',
     });
   }
+  ngOnDestroy(): void {}
 }

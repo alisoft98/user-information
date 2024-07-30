@@ -76,7 +76,6 @@ export class HeaderComponent implements OnInit {
 
   selectedCountry(lng: any) {
     this.showLng = lng;
-    console.log(lng);
   }
   toggleSide(event: Event) {
     this.onToggleMenu.emit(event);

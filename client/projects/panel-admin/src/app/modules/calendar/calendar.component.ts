@@ -249,7 +249,6 @@ export class CalendarComponent {
   updateAppointment(appintmentData: any) {
 
     // this.calendarService.updateAppointment(appintmentData).subscribe(res => {
-    //   console.log(res);
     // });
   }
 }

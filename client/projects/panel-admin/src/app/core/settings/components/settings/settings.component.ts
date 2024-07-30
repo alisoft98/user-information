@@ -124,9 +124,7 @@ export class SettingsComponent
   onSubmit() {
     if (this.form.value) {
       this.userService.updateProfile(this.form.value).subscribe(res => {
-        console.log(res);
       });
-      console.log(this.form.value);
     }
   }
 
@@ -134,7 +132,6 @@ export class SettingsComponent
 
   getuserSkills() {
     this.skills$ = this.userService.getSkills();
-    console.log(this.skills$);
     
   }
 

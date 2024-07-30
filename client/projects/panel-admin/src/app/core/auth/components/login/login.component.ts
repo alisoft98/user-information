@@ -80,7 +80,6 @@ export class LoginComponent {
       filter((event)=>event instanceof TouchEvent)
 
     ).subscribe(event=>{
-      console.log('eventForm',event);
       
     })
     if (this.role === 'admin') {
@@ -106,10 +105,8 @@ export class LoginComponent {
 
   onAdminRol(data: string) {
     this.role = data
-    console.log(data);
 
     // this.#adminService.getAdmin().subscribe((res)=>{
-    //   console.log('doctorRol',res);
     // })
   }
   onDoctorRol(data: string) {

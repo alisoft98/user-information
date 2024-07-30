@@ -217,7 +217,6 @@ export class OtpInputComponent {
   // }
 
   onCount(e: any) {
-    console.log('asdf', e);
     if (e.action === 'done') this.isTimeDone = true;
   }
   resendCode(e:Event){

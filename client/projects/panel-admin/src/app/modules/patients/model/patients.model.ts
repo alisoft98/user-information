@@ -1,17 +1,17 @@
 export interface PatientDTO {
-  id: number;
+  id?: number;
   firstName: string | null | undefined;
   lastName: string | null | undefined;
-  gender: 'Male' | 'Female' | 'Other' | any;
+  gender: string| undefined | null;
   mobile: string | undefined | null;
-  dateOfBirth: number | undefined | null;
-  age: number;
+  dateOfBirth: any;
+  age: number | undefined | null; 
   email: string | null | undefined;
-  maritalStatus: 'Single' | 'Married' | 'Divorced' | 'Widowed';
+  maritalStatus: string | undefined | null;
   address: string | undefined | null;
-  bloodGroup: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
-  bloodPressure?: string;
-  sugarLevel?: string;
-  injury?: string;
-  profileImage?: string;
+  bloodGroup: string | undefined | null;
+  bloodPressure?: string | undefined | null;
+  sugarLevel?: string | undefined | null;
+  injury?: string | undefined | null;
+  profileImage?: string ;
 }

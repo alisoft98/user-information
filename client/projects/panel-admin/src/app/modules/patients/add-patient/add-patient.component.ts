@@ -17,6 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ImgUploaderComponent } from '../../../shared/components/img-uploader/img-uploader.component';
 import { PatientsService } from '../services/patients.service';
 import { PatientDTO } from '../model/patients.model';
+import { AgePipe } from '../../../shared/pipes/age.pipe';
 
 @Component({
   selector: 'app-add-patient',
@@ -35,9 +36,11 @@ import { PatientDTO } from '../model/patients.model';
     MatIconModule,
     MatButtonModule,
     ImgUploaderComponent,
+    AgePipe,
   ],
   templateUrl: './add-patient.component.html',
   styleUrl: './add-patient.component.scss',
+  providers: [AgePipe],
 })
 export class AddPatientComponent extends BaseComponent implements OnInit {
   uniqueNickname = inject(UniqueNicknameValidator);
@@ -46,79 +49,76 @@ export class AddPatientComponent extends BaseComponent implements OnInit {
   labelPassword: string = 'password';
   matcher = new ErrorStateMatcher();
   genders: string[] = ['Man', 'Woman'];
+  maritalStatus: string[] = ['Single', 'Married'];
+  bloodGroups: string[] = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
+  sugarLevels: string[] = ['Normal', 'Prediabetes', 'Diabetes'];
   title = 'Patient Information ';
-  profileImg: any;
+  profileImg: File | null = null;
+
+  constructor(private agePipe: AgePipe) {
+    super();
+  }
 
   form = this.fb.group({
     firstName: [
-      'Aliakbar',
+      '',
       [
         Validators.required,
         Validators.minLength(4),
         banWords(['test', 'dummy']),
       ],
     ],
-    lastName: ['Esmaeili', [Validators.required, Validators.minLength(2)]],
-    // nickname: [
-    //   '',
-    //   {
-    //     validators: [
-    //       Validators.required,
-    //       Validators.minLength(2),
-    //       Validators.pattern(/^[\w.]+$/),
-    //       banWords(['dummy', 'anonymous']),
-    //     ],
-    //     asyncValidators: [
-    //       this.uniqueNickname.validate.bind(this.uniqueNickname),
-    //     ],
-    //     updateOn: 'blur',
-    //   },
-    // ],
-    gender: 'Man',
-    yearOfBirth: this.fb.nonNullable.control(
-      this.years[this.years.length - 1],
-      Validators.required
-    ),
+    lastName: ['', [Validators.required, Validators.minLength(2)]],
+    gender: ['Man'],
+    mobile: [''],
+    dateOfBirth: ['', Validators.required],
+    age: [null],
     email: ['a@gmail.com', [Validators.required, Validators.email]],
-    phoneNumber: ['1121956540'],
+    maritalStatus: ['Single'],
     address: [''],
-    country: [''],
-    city: [''],
-    state: [''],
-    zipcode: [''],
-    skills: [''],
+    bloodGroup: [''],
+    bloodPressure: [''],
+    sugarLevel: [''],
+    injury: [''],
   });
 
   ngOnInit(): void {
     this.service.getStoreProfileImg$.subscribe(res => {
       this.profileImg = res;
-      console.log('profileImg', this.profileImg);
+    });
+    this.dateOfBirth?.valueChanges.subscribe(date => {
+      if (date) {
+        const age = this.agePipe.transform(date);
+        this.form.get('age')?.setValue(age, { emitEvent: false });
+      }
     });
   }
   onSubmit() {
-    console.log(this.form.value);
+    if(this.profileImg){
     const imgProfile = this.profileImg;
     const payload: PatientDTO = {
       firstName: this.form.value.firstName,
       lastName: this.form.value.lastName,
       gender: this.form.value.gender,
-      mobile: this.form.value.phoneNumber,
-      dateOfBirth: this.form.value.yearOfBirth,
+      mobile: this.form.value.mobile,
+      dateOfBirth: this.form.value.dateOfBirth as String,
       address: this.form.value.address,
       email: this.form.value.email,
+      age: this.form.value.age,
       maritalStatus: this.form.value.maritalStatus,
       bloodGroup: this.form.value.bloodGroup,
       bloodPressure: this.form.value.bloodPressure,
       sugarLevel: this.form.value.sugarLevel,
       injury: this.form.value.injury,
-      profileImage: imgProfile,
-      zipcode: this.form.value.zipcode,
+      profileImage: imgProfile.name,
     };
-    debugger;
     this.service.addPatient(payload).subscribe(res => {
-      console.log('result patient', res);
     });
   }
+
+  }
+
+ 
 
   trackByFn() {}
 
@@ -130,31 +130,32 @@ export class AddPatientComponent extends BaseComponent implements OnInit {
   get lastName() {
     return this.form.get('lastName');
   }
-  get nickname() {
-    return this.form.get('nickname');
+  get age() {
+    return this.form.get('age');
   }
+
   get gender() {
     return this.form.get('gender');
   }
   get email() {
     return this.form.get('email');
   }
-  get phoneNumber() {
-    return this.form.get('phoneNumber');
+  get mobile() {
+    return this.form.get('mobile');
   }
-  get confirmPassword() {
-    return this.form.get('confirmPassword');
-  }
+
   get address() {
     return this.form.get('address');
   }
-  get city() {
-    return this.form.get('city');
+
+  get injury() {
+    return this.form.get('injury');
   }
-  get state() {
-    return this.form.get('state');
+  get bloodPressure() {
+    return this.form.get('bloodPressure');
   }
-  get zipcode() {
-    return this.form.get('zipcode');
+
+  get dateOfBirth() {
+    return this.form.get('dateOfBirth');
   }
 }

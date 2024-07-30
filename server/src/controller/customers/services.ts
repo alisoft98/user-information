@@ -1,9 +1,9 @@
-import { getCustomers } from "../../bin/db";
+import { getPatients } from "../../bin/db";
 
 
 class CustomersService {
-    public static async getCustomers() {
-      const data = await getCustomers();
+    public static async getPatients() {
+      const data = await getPatients();
       if (data) {
         return { message: `ok`, data };
       }

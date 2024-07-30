@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  NgZone,
+} from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -30,12 +36,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatProgressBarModule,
     MatInputModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
   ],
   templateUrl: './img-uploader.component.html',
   styleUrl: './img-uploader.component.scss',
   providers: [NgxImageCompressService],
-  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ImgUploaderComponent {
   service = inject(PatientsService);
@@ -49,7 +54,9 @@ export class ImgUploaderComponent {
   previews: string[] = [];
   imageInfos?: Observable<any>;
 
-  constructor() {}
+  constructor(private zone:NgZone) {
+ 
+  }
 
   ngOnInit(): void {
     // this.imageInfos = this.uploadService.getFiles();
@@ -70,7 +77,6 @@ export class ImgUploaderComponent {
 
         reader.onload = (e: any) => {
           this.previews.push(e.target.result);
-
         };
         reader.readAsDataURL(this.selectedFiles[i]);
         this.selectedFileNames.push(this.selectedFiles[i].name);
@@ -81,7 +87,10 @@ export class ImgUploaderComponent {
   upload(idx: number, file: File): void {
     this.progressInfos[idx] = { value: 0, fileName: file };
     if (file) {
-      this.service.storeProfileImg.next(file); 
+      this.service.storeProfileImg.next(file);
+      this.service.uploadImgPateint(file).subscribe((res)=>{
+        
+      })
       // this.uploadService.upload(file).subscribe(
       //   (event: any) => {
       //     if (event.type === HttpEventType.UploadProgress) {
@@ -106,9 +115,9 @@ export class ImgUploaderComponent {
     }
   }
 
+
   uploadFiles(): void {
     this.message = [];
-
     if (this.selectedFiles) {
       for (let i = 0; i < this.selectedFiles.length; i++) {
         this.upload(i, this.selectedFiles[i]);

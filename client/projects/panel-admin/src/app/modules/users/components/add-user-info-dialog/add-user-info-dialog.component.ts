@@ -96,7 +96,6 @@ export class AddUserInfoDialogComponent implements OnInit {
     //   debounceTime(100),
     //   distinctUntilChanged()
     // ).subscribe((res)=>{
-    //   console.log(res);
     // })
   }
   addPhone() {

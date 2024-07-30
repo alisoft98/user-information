@@ -3,6 +3,18 @@ import routes from "../../routes/public";
 import { Request, Response } from "express";
 import PatientService from "./services";
 import BuildResponse from "../../modules/response/app_response";
+import multer from "multer";
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, '../../public/imgProfile');
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+
+const uploadImgProfile = multer({ storage });
 
 routes.post(
   `/admin/add-patient`,
@@ -16,3 +28,15 @@ routes.post(
     return formData
   })
 );
+
+routes.post("/admin/uploadImage", uploadImgProfile.single("file"), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: "No file uploaded" });
+  }
+  res.json({
+    message: "File uploaded seccessfully",
+    filename: req.file.filename,
+  });
+  const imagePath = req.file.path;
+  res.json({ imagePath });
+});

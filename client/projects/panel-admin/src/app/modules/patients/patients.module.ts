@@ -15,6 +15,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { LoaderComponent } from '../../shared/components/loader/loader.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 export const routes: Routes = [
   { path: 'all-patients', component: PatientsComponent },
@@ -38,6 +40,8 @@ export const routes: Routes = [
     MatPaginatorModule,
     MatToolbarModule,
     MatIconModule,
+    LoaderComponent,
+    MatCheckboxModule
   ],
   exports:[PatientsComponent]
 })

@@ -1,17 +1,17 @@
 <section class="p-4">
   <mat-card appearance="outlined">
-    <mat-toolbar class="bg-blue ">
+    <mat-toolbar class="bg-blue">
       <div>
-        <mat-form-field appearance="outline" >
+        <mat-form-field appearance="outline">
           <mat-label>Filter</mat-label>
           <input
-          matInput
-          (keyup)="applyFilter($event)"
-          placeholder="Ex. ium"
-          #input />
+            matInput
+            (keyup)="applyFilter($event)"
+            placeholder="Ex. ium"
+            #input />
         </mat-form-field>
       </div>
-        <!-- <button class="add-user-info" (click)="addUserInfo()" mat-mini-fab>
+      <!-- <button class="add-user-info" (click)="addUserInfo()" mat-mini-fab>
           <mat-icon>add</mat-icon>
         </button> -->
     </mat-toolbar>
@@ -26,30 +26,88 @@
           class="mat-elevation-z8"
           matSort
           fxFlexFill>
-          <!-- Position Column -->
-          <ng-container matColumnDef="position">
-            <th mat-header-cell *matHeaderCellDef>No.</th>
-            <td mat-cell *matCellDef="let element">{{ element.position }}</td>
+          <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+              <mat-checkbox
+                (change)="$event ? toggleAllRows() : null"
+                [checked]="selection.hasValue() && isAllSelected()"
+                [indeterminate]="selection.hasValue() && !isAllSelected()"
+                [aria-label]="checkboxLabel()">
+              </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <mat-checkbox
+                (click)="$event.stopPropagation()"
+                (change)="$event ? selection.toggle(row) : null"
+                [checked]="selection.isSelected(row)"
+                [aria-label]="checkboxLabel(row)">
+              </mat-checkbox>
+            </td>
           </ng-container>
-
-          <!-- customer_id Column -->
-          <ng-container matColumnDef="customer_id">
-            <th mat-header-cell *matHeaderCellDef>Customer ID</th>
+          <!-- posidtion Column -->
+          <ng-container matColumnDef="posidtion">
+            <th mat-header-cell *matHeaderCellDef>posidtion.</th>
+            <td mat-cell *matCellDef="let element">{{ element.posidtion }}</td>
+          </ng-container>
+          <!-- id Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>Id.</th>
+            <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+          </ng-container>
+          <!-- profileImage Column -->
+          <!-- <ng-container matColumnDef="profileImage">
+            <th mat-header-cell *matHeaderCellDef>profileImage.</th>
             <td mat-cell *matCellDef="let element">
-              {{ element.customer_id }}
+              <img
+                [src]="element.profileImage"
+                alt=""
+                height="100"
+                width="100" />
+            </td>
+          </ng-container> -->
+
+          <ng-container matColumnDef="profileImage">
+            <th mat-header-cell *matHeaderCellDef> profileImage </th>
+            <td mat-cell *matCellDef="let element"> <img [src]="element.profileImage" /> </td>
+          </ng-container>
+          <!-- firstName Column -->
+          <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef>First name</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.firstName }}
             </td>
           </ng-container>
 
-          <!-- first_name Column -->
-          <ng-container matColumnDef="first_name">
-            <th mat-header-cell *matHeaderCellDef>First Name</th>
-            <td mat-cell *matCellDef="let element">{{ element.first_name }}</td>
+          <!-- lastName Column -->
+          <ng-container matColumnDef="lastName">
+            <th mat-header-cell *matHeaderCellDef>Last name</th>
+            <td mat-cell *matCellDef="let element">{{ element.lastName }}</td>
           </ng-container>
 
-          <!-- last_name Column -->
-          <ng-container matColumnDef="last_name">
-            <th mat-header-cell *matHeaderCellDef>Last Name</th>
-            <td mat-cell *matCellDef="let element">{{ element.last_name }}</td>
+          <!-- gender Column -->
+          <ng-container matColumnDef="gender">
+            <th mat-header-cell *matHeaderCellDef>Gender</th>
+            <td mat-cell *matCellDef="let element">{{ element.gender }}</td>
+          </ng-container>
+
+          <!-- mobile Column -->
+          <ng-container matColumnDef="mobile">
+            <th mat-header-cell *matHeaderCellDef>Mobile</th>
+            <td mat-cell *matCellDef="let element">{{ element.mobile }}</td>
+          </ng-container>
+
+          <!-- dateOfBirth Column -->
+          <ng-container matColumnDef="dateOfBirth">
+            <th mat-header-cell *matHeaderCellDef>dateOfBirth</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.dateOfBirth }}
+            </td>
+          </ng-container>
+
+          <!-- age Column -->
+          <ng-container matColumnDef="age">
+            <th mat-header-cell *matHeaderCellDef>Age</th>
+            <td mat-cell *matCellDef="let element">{{ element.age }}</td>
           </ng-container>
 
           <!-- email Column -->
@@ -58,11 +116,11 @@
             <td mat-cell *matCellDef="let element">{{ element.email }}</td>
           </ng-container>
 
-          <!-- phone_number Column -->
-          <ng-container matColumnDef="phone_number">
-            <th mat-header-cell *matHeaderCellDef>Phone Number</th>
+          <!-- maritalStatus Column -->
+          <ng-container matColumnDef="maritalStatus">
+            <th mat-header-cell *matHeaderCellDef>MaritalStatus</th>
             <td mat-cell *matCellDef="let element">
-              {{ element.phone_number }}
+              {{ element.maritalStatus }}
             </td>
           </ng-container>
 
@@ -71,23 +129,27 @@
             <th mat-header-cell *matHeaderCellDef>Address</th>
             <td mat-cell *matCellDef="let element">{{ element.address }}</td>
           </ng-container>
-
-          <!-- city Column -->
-          <ng-container matColumnDef="city">
-            <th mat-header-cell *matHeaderCellDef>City</th>
-            <td mat-cell *matCellDef="let element">{{ element.city }}</td>
+          <!-- bloodGroup Column -->
+          <ng-container matColumnDef="bloodGroup">
+            <th mat-header-cell *matHeaderCellDef>BloodGroup</th>
+            <td mat-cell *matCellDef="let element">{{ element.bloodGroup }}</td>
           </ng-container>
-
-          <!-- state Column -->
-          <ng-container matColumnDef="state">
-            <th mat-header-cell *matHeaderCellDef>State</th>
-            <td mat-cell *matCellDef="let element">{{ element.state }}</td>
+          <!-- bloodPressure Column -->
+          <ng-container matColumnDef="bloodPressure">
+            <th mat-header-cell *matHeaderCellDef>BloodPressure</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.bloodPressure }}
+            </td>
           </ng-container>
-
-          <!-- zip_code Column -->
-          <ng-container matColumnDef="zip_code">
-            <th mat-header-cell *matHeaderCellDef>Zip Code</th>
-            <td mat-cell *matCellDef="let element">{{ element.zip_code }}</td>
+          <!-- sugarLevel Column -->
+          <ng-container matColumnDef="sugarLevel">
+            <th mat-header-cell *matHeaderCellDef>SugarLevel</th>
+            <td mat-cell *matCellDef="let element">{{ element.sugarLevel }}</td>
+          </ng-container>
+          <!-- injury Column -->
+          <ng-container matColumnDef="injury">
+            <th mat-header-cell *matHeaderCellDef>Injury</th>
+            <td mat-cell *matCellDef="let element">{{ element.injury }}</td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -96,7 +158,7 @@
           <!-- Row shown when there is no matching data. -->
           <tr class="mat-row" *matNoDataRow>
             <td class="mat-cell" colspan="4">
-              No data matching the filter "{{ input.value }}"
+              <div class="text-center"><app-loader />{{ input.value }}</div>
             </td>
           </tr>
         </table>

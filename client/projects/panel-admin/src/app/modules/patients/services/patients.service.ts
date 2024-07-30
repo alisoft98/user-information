@@ -10,7 +10,7 @@ import { PatientDTO } from '../model/patients.model';
 export class PatientsService {
   #http = inject(HttpClient);
   config = environment.apiEndPoint;
-  storeProfileImg = new BehaviorSubject<{}>({});
+  storeProfileImg = new BehaviorSubject<any>([]);
   getStoreProfileImg$ = this.storeProfileImg.asObservable();
 
   upload(file: File): Observable<HttpEvent<any>> {
@@ -31,6 +31,18 @@ export class PatientsService {
   }
 
   addPatient(formData: PatientDTO): Observable<PatientDTO[]> {
-    return this.#http.post<PatientDTO[]>(`${this.config}admin/add-patient`, formData);
+    return this.#http.post<PatientDTO[]>(
+      `${this.config}admin/add-patient`,
+      formData
+    );
+  }
+
+  uploadImgPateint(file: File) {
+    const fileToUpload = file as File;
+    const formData = new FormData();
+    debugger;
+    formData.append('file', fileToUpload, fileToUpload.name);
+    return this.#http.post(`${this.config}admin/uploadImage`, formData);
+
   }
 }

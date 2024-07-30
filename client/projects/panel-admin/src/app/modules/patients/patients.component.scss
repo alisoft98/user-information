@@ -3,7 +3,9 @@
   }
   
   .table-container {
-    overflow-x: auto;
+      max-height: 500px; /* Set the desired max height */
+      overflow-y: auto; /* Enable vertical scrolling */
+      display: block; /* Ensure the container is a block element */
   }
   
   table {
