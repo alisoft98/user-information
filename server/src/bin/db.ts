@@ -351,10 +351,10 @@ export async function deleteAppointment(event_id: string) {
 }
 
 export async function getPatients() {
-  const customers = await query<RowDataPacket[]>(`
+  const patients = await query<RowDataPacket[]>(`
   SELECT * FROM ${coreSchema}.patients
   `);
-  return customers;
+  return patients;
 }
 
 export async function getUserSkills() {

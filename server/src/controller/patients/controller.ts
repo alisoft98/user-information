@@ -16,11 +16,22 @@ const storage = multer.diskStorage({
 
 const uploadImgProfile = multer({ storage });
 
+routes.get(
+  "/patients",
+  asyncHandler(async function getNavItems(req: any, res: any) {
+    const data = await PatientService.getPatients();
+    const buildResponse = BuildResponse.get(data);
+    if (buildResponse) {
+      return res.status(200).json(buildResponse);
+    }
+  })
+);
+
 routes.post(
   `/admin/add-patient`,
   asyncHandler(async function addPatient(req: Request, res: Response) {
     const formData = req.body;
-    const data = await PatientService.addPatient(formData);
+    const data = await PatientService.registerPatient(formData);
     const buildResponse = BuildResponse.get(data);
     if (buildResponse) {
       return res.status(200).json(buildResponse);

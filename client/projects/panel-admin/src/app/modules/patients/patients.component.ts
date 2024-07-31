@@ -64,6 +64,7 @@ export class PatientsComponent {
       .subscribe((response: any) => {
         const data = response.data.map((patient:any)=>{
           patient.profileImage= `${environment.urlProfileImg}${patient.profileImage}`;
+          debugger;
           return patient;
         })
         this.dataSource = new MatTableDataSource(data);
