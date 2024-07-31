@@ -1,0 +1,15 @@
+<h3 mat-dialog-title class="font-extrabold text-center">Are you sure?</h3>
+@for (item of patientData; track $index) {
+<ul class="font-light text-sm m-auto">
+  <li>
+    <p><span>Patient Name:</span> {{ item.firstName }}{{ item.lastName }}</p>
+    <p class=""><span>Gender:</span> {{ item.gender }}</p>
+    <p><span>Blood Group:</span> {{ item.bloodGroup }}</p>
+    <p><span>Mobile:</span> {{ item.mobile }}</p>
+  </li>
+</ul>
+}
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button mat-dialog-close cdkFocusInitial>Delete</button>
+</mat-dialog-actions>

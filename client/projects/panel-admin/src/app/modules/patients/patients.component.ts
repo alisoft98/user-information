@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, inject, Input, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -10,6 +10,7 @@ import { CustomersService } from '../users/services/customers.service';
 import { PatientDTO } from './model/patients.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { environment } from '../../environments/environment';
+import { DeletePatientDialogComponent } from './delete-patient-dialog/delete-patient-dialog.component';
 
 @Component({
   selector: 'app-patients',
@@ -34,6 +35,7 @@ export class PatientsComponent {
     'bloodPressure',
     'sugarLevel',
     'injury',
+    'action',
   ];
   dataSource = new MatTableDataSource<PatientDTO>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -42,7 +44,9 @@ export class PatientsComponent {
   selection = new SelectionModel<any>(true, []);
   imgPatient: any;
   imgTest: any;
-  constructor(private service: CustomersService, private dialog: MatDialog) {}
+  readonly dialog = inject(MatDialog);
+
+  constructor(private service: CustomersService) {}
 
   ngOnInit(): void {
     this.getData();
@@ -112,5 +116,21 @@ export class PatientsComponent {
       height: '900px',
     });
   }
+
+  editPatiet(
+    id: number,
+    enterAnimationDuration: string,
+    exitAnimationDuration: string
+  ) {
+    
+    this.dialog.open(DeletePatientDialogComponent, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data:this.dataSource
+    });
+  }
+
+  deletePatient(id: number) {}
   ngOnDestroy(): void {}
 }

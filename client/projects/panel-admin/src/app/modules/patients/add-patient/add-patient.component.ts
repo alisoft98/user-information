@@ -48,7 +48,7 @@ export class AddPatientComponent extends BaseComponent implements OnInit {
   labelUserName: string = 'UserName';
   labelPassword: string = 'password';
   matcher = new ErrorStateMatcher();
-  genders: string[] = ['Man', 'Woman'];
+  genders: string[] = ['Male', 'Female'];
   maritalStatus: string[] = ['Single', 'Married'];
   bloodGroups: string[] = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
   sugarLevels: string[] = ['Normal', 'Prediabetes', 'Diabetes'];
