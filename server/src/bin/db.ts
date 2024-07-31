@@ -322,7 +322,6 @@ export async function getAppointment() {
   );
   return getEventData;
 }
-
 export async function updateAppointment(
   data: IAppointment
 ): Promise<IAppointment[] | undefined> {
@@ -338,7 +337,6 @@ export async function updateAppointment(
     return result as IAppointment[];
   }
 }
-
 export async function deleteAppointment(event_id: string) {
   const result = await query<RowDataPacket[]>(
     `DELETE FROM ${coreSchema}.calendar_events
@@ -349,21 +347,12 @@ export async function deleteAppointment(event_id: string) {
   );
   return result;
 }
-
 export async function getPatients() {
   const patients = await query<RowDataPacket[]>(`
   SELECT * FROM ${coreSchema}.patients
   `);
   return patients;
 }
-
-export async function getUserSkills() {
-  const skills = await query<RowDataPacket[]>(`
-    SELECT * FROM ${coreSchema}.user_skill
-    `);
-  return skills;
-}
-
 export async function addPatient(patientData: PatientDTO) {
   try {
     const result = await query<RowDataPacket[]>(

@@ -42,10 +42,9 @@
               "node_modules/apexcharts/dist/apexcharts.min.js"
             ],
             "server": "projects/panel-admin/src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
-            }
+            "prerender": false,
+            "ssr": false
+           
           },
           "configurations": {
             "production": {

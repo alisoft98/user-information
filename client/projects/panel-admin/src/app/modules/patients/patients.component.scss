@@ -15,5 +15,17 @@
   th.mat-header-cell, td.mat-cell {
     white-space: nowrap;
   }
-  
- 
+
+ .imgProfile{
+  border-radius: 5px;
+  width: 33px;
+  background: #EFE5FF;
+  position: inherit;
+  padding: 5px;
+  img{
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+ }

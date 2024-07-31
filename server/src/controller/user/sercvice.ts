@@ -4,7 +4,6 @@ import {
   confirmEmail,
   getOTP,
   getUserInfo,
-  getUserSkills,
   updateProfileUser,
   updateUserVerifyCode,
 } from "../../bin/db";
@@ -102,13 +101,7 @@ class UserService {
     }
   }
 
-  public static async getUserSkills() {
-    const data = await getUserSkills();
-    if (data) {
-      return { message: `ok`, data };
-    }
-    return null;
-  }
+
   /**
    * @param email
    */

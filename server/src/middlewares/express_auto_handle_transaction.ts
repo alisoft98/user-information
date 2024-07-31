@@ -6,22 +6,31 @@ async function ExpressAutoHandleTransaction(
   res: Response,
   next: NextFunction
 ) {
+  // Ensure _transaction is initialized
+  req._transaction = req._transaction || {};
+
   res.once('finish', () => {
-    const { _transaction } = req
-    for (let i = 1; i <= Object.keys(_transaction).length; i += 1) {
-      const txn = _transaction[i] as Transaction & {
-        finished?: string
-      }
+    const { _transaction } = req;
+
+    if (!_transaction) {
+      return;
+    }
+
+    const transactionKeys = Object.keys(_transaction);
+    for (let i = 0; i < transactionKeys.length; i += 1) {
+      const txn = _transaction[transactionKeys[i]] as Transaction & {
+        finished?: string;
+      };
       if (!txn?.finished) {
-        const endpoint = req.originalUrl
-        console.warn(`endpoint ${endpoint} potentianlly can lead to bug`)
-        console.log('AUTO COMMIT!!!')
-        txn.commit()
+        const endpoint = req.originalUrl;
+        console.warn(`endpoint ${endpoint} potentially can lead to bug`);
+        console.log('AUTO COMMIT!!!');
+        txn.commit();
       }
     }
-  })
+  });
 
-  next()
+  next();
 }
 
-export default ExpressAutoHandleTransaction
+export default ExpressAutoHandleTransaction;

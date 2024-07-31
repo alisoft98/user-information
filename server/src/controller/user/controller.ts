@@ -58,17 +58,7 @@ routes.put(
     res.json(buildResponse);
   })
 );
-// ***** getSkills
-routes.get(
-  `/user/getSkills`,
-  asyncHandler(async function getUserSkills(req: Request, res: Response) {
-    const result = await UserService.getUserSkills();
-    const buildResponse = BuildResponse.get(result);
-    if (buildResponse) {
-      res.status(200).json(buildResponse);
-    }
-  })
-);
+
 // ***** forgot-passsword
 
 

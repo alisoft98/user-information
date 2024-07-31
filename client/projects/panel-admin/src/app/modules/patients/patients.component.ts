@@ -22,8 +22,7 @@ export class PatientsComponent {
     'select',
     'id',
     'profileImage',
-    'firstName',
-    'lastName',
+    'name',
     'gender',
     'mobile',
     'dateOfBirth',
@@ -41,7 +40,8 @@ export class PatientsComponent {
   @ViewChild(MatSort) sort!: MatSort;
   @Input() title!: string;
   selection = new SelectionModel<any>(true, []);
-  imgPatient:any
+  imgPatient: any;
+  imgTest: any;
   constructor(private service: CustomersService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
@@ -58,21 +58,17 @@ export class PatientsComponent {
    * @returns returns array of UserData
    */
   getData() {
-    this.service
-      .getPatients()
-      .pipe(take(1))
-      .subscribe((response: any) => {
-        const data = response.data.map((patient:any)=>{
-          patient.profileImage= `${environment.urlProfileImg}${patient.profileImage}`;
-          debugger;
-          return patient;
-        })
-        this.dataSource = new MatTableDataSource(data);
-        console.log('👉👉👉👉👉',data);
-        
-      this.dataSource.sort = this.sort;
-        // this.customers = data.data;
+    this.service.getPatients().subscribe((response: any) => {
+      const data = response.data.map((patient: any) => {
+        patient.profileImage = patient.profileImage
+          ? `${environment.urlProfileImg}${patient.profileImage}`
+          : '../../../assets/images/bg-01.png';
+        return patient;
       });
+      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
   }
 
   /**

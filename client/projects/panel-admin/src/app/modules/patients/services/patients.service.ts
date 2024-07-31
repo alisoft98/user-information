@@ -40,7 +40,6 @@ export class PatientsService {
   uploadImgPateint(file: File) {
     const fileToUpload = file as File;
     const formData = new FormData();
-    debugger;
     formData.append('file', fileToUpload, fileToUpload.name);
     return this.#http.post(`${this.config}admin/uploadImage`, formData);
 
