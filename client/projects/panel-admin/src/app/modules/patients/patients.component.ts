@@ -11,6 +11,7 @@ import { PatientDTO } from './model/patients.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { environment } from '../../environments/environment';
 import { DeletePatientDialogComponent } from './delete-patient-dialog/delete-patient-dialog.component';
+import { EditPatientDialogComponent } from './edit-patient-dialog/edit-patient-dialog.component';
 
 @Component({
   selector: 'app-patients',
@@ -63,6 +64,7 @@ export class PatientsComponent {
    */
   getData() {
     this.service.getPatients().subscribe((response: any) => {
+      debugger;
       const data = response.data.map((patient: any) => {
         patient.profileImage = patient.profileImage
           ? `${environment.urlProfileImg}${patient.profileImage}`
@@ -117,7 +119,20 @@ export class PatientsComponent {
     });
   }
 
-  editPatiet() {}
+  editPatiet(
+    row: PatientDTO,
+    enterAnimationDuration: string,
+    exitAnimationDuration: string
+  ) {
+    const dialogRef = this.dialog.open(EditPatientDialogComponent, {
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data: row,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getData();
+    });
+  }
 
   deletePatient(
     row: PatientDTO,

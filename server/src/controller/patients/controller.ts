@@ -56,6 +56,19 @@ routes.post(
   }
 );
 
+routes.put(
+  "/admin/updatePatient",
+  asyncHandler(async function updatePatient(req: Request, res: Response) {
+    const formData = req.body;
+    const data = await PatientService.updatePatient(formData);
+    const buildResponse = BuildResponse.get(data);
+    if (buildResponse) {
+      return res.status(200).json(buildResponse);
+    }
+    return formData;
+  })
+);
+
 routes.delete(
   "/admin/deletePatient/:idPateint",
   asyncHandler(async function deletePatient(

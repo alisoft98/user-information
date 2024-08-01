@@ -21,23 +21,6 @@ import { AgePipe } from '../../../shared/pipes/age.pipe';
 
 @Component({
   selector: 'app-add-patient',
-  standalone: true,
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    CommonModule,
-    MatCardModule,
-    NgxMatIntlTelInputComponent,
-    AsyncPipe,
-    MatDatepickerModule,
-    MatIconModule,
-    MatButtonModule,
-    ImgUploaderComponent,
-    AgePipe,
-  ],
   templateUrl: './add-patient.component.html',
   styleUrl: './add-patient.component.scss',
   providers: [AgePipe],

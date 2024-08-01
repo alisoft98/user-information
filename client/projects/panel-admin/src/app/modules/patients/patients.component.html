@@ -70,7 +70,6 @@
               {{ element.firstName }} {{ element.lastName }}
             </td>
           </ng-container>
-
           <!-- gender Column -->
           <ng-container matColumnDef="gender">
             <th mat-header-cell *matHeaderCellDef>Gender</th>
@@ -90,7 +89,6 @@
               }
             </td>
           </ng-container>
-
           <!-- mobile Column -->
           <ng-container matColumnDef="mobile">
             <th mat-header-cell *matHeaderCellDef>Mobile</th>
@@ -104,19 +102,16 @@
               {{ element.dateOfBirth | date }}
             </td>
           </ng-container>
-
           <!-- age Column -->
           <ng-container matColumnDef="age">
             <th mat-header-cell *matHeaderCellDef>Age</th>
             <td mat-cell *matCellDef="let element">{{ element.age }}</td>
           </ng-container>
-
           <!-- email Column -->
           <ng-container matColumnDef="email">
             <th mat-header-cell *matHeaderCellDef>Email</th>
             <td mat-cell *matCellDef="let element">{{ element.email }}</td>
           </ng-container>
-
           <!-- maritalStatus Column -->
           <ng-container matColumnDef="maritalStatus">
             <th mat-header-cell *matHeaderCellDef>MaritalStatus</th>
@@ -124,7 +119,6 @@
               {{ element.maritalStatus }}
             </td>
           </ng-container>
-
           <!-- address Column -->
           <ng-container matColumnDef="address">
             <th mat-header-cell *matHeaderCellDef>Address</th>
@@ -157,7 +151,7 @@
             <th mat-header-cell *matHeaderCellDef>action</th>
             <td mat-cell *matCellDef="let element">
               <div class="flex gap-2">
-                <button mat-icon-button (click)="editPatiet()">
+                <button mat-icon-button (click)="editPatiet(element, '250ms', '150ms')">
                   <span class="material-symbols-outlined text-blue">
                     edit
                   </span>

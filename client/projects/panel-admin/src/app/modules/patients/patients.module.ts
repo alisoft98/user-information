@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PatientsComponent } from './patients.component';
@@ -6,7 +6,7 @@ import { AddPatientComponent } from './add-patient/add-patient.component';
 import { PatientProfileComponent } from './patient-profile/patient-profile.component';
 import { MatCardModule } from '@angular/material/card';
 import { FilterComponent } from '../users/filter/filter.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
@@ -17,6 +17,17 @@ import { MatIconModule } from '@angular/material/icon';
 import { LoaderComponent } from '../../shared/components/loader/loader.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { ImgUploaderComponent } from '../../shared/components/img-uploader/img-uploader.component';
+import { AgePipe } from '../../shared/pipes/age.pipe';
+import { DeletePatientDialogComponent } from './delete-patient-dialog/delete-patient-dialog.component';
+import { EditPatientDialogComponent } from './edit-patient-dialog/edit-patient-dialog.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, MatDialogTitle } from '@angular/material/dialog';
+import { MatListModule } from '@angular/material/list';
+
 
 export const routes: Routes = [
   { path: 'all-patients', component: PatientsComponent },
@@ -25,24 +36,44 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [PatientsComponent],
+  declarations: [
+    PatientsComponent,
+    AddPatientComponent,
+    EditPatientDialogComponent,
+    DeletePatientDialogComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    MatCardModule,
     FilterComponent,
     FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
     MatToolbarModule,
-    MatIconModule,
     LoaderComponent,
     MatCheckboxModule,
-    MatButtonModule
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatCardModule,
+    NgxMatIntlTelInputComponent,
+    AsyncPipe,
+    MatDatepickerModule,
+    MatIconModule,
+    MatButtonModule,
+    ImgUploaderComponent,
+    AgePipe,
+    MatRadioModule,
+    MatDialogActions,
+    MatDialogModule,
+    MatDialogContent,
+    MatDialogClose,
+    MatDialogTitle,
+    MatDialogContent,
+    MatListModule,
   ],
-  exports:[PatientsComponent]
+  exports: [PatientsComponent],
 })
 export class PatientsModule {}

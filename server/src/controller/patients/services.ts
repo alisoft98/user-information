@@ -1,4 +1,9 @@
-import { addPatient, deletePatient, getPatients } from "../../bin/db";
+import {
+  addPatient,
+  deletePatient,
+  getPatients,
+  updatePatient,
+} from "../../bin/db";
 import { PatientDTO } from "../../models/patients";
 
 class PatientService {
@@ -13,10 +18,17 @@ class PatientService {
   public static async registerPatient(formData: PatientDTO) {
     const data = await addPatient(formData);
     if (data) {
-      return { message: "ok", formData };
+      return { message: "ok", data };
     } else {
       return null;
     }
+  }
+
+  public static async updatePatient(formData: PatientDTO) {
+    const data = await updatePatient(formData);
+    if (data) {
+      return { message: "ok", data };
+    } 
   }
 
   public static async deletePatient(id: number) {

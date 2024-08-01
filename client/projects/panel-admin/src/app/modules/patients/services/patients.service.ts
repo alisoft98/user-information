@@ -44,6 +44,13 @@ export class PatientsService {
     return this.#http.post(`${this.config}admin/uploadImage`, formData);
   }
 
+  updatePatient(formData: PatientDTO): Observable<PatientDTO[]> {
+    return this.#http.put<PatientDTO[]>(
+      `${this.config}admin/updatePatient`,
+      formData
+    );
+  }
+
   deletePatient(id: number | undefined): Observable<number> {
     return this.#http.delete<number>(
       `${this.config}/admin/deletePatient/${id}`

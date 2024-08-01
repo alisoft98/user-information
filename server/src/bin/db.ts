@@ -8,6 +8,7 @@ import { ConfirmEmail, CreateUser, User } from "../types/user";
 import { RowDataPacket, coreSchema, query } from "./mysql";
 import { AdminDTO } from "../models/admin";
 import { PatientDTO } from "../models/patients";
+import { result } from "lodash";
 
 // Users
 export async function checkUserExist(email: string): Promise<RowDataPacket[]> {
@@ -396,3 +397,43 @@ export async function deletePatient(id: number) {
   );
   return result;
 }
+export async function updatePatient(patientData: PatientDTO): Promise<any> {
+  try {
+    const result = await query<RowDataPacket[]>(
+      `
+      UPDATE ${coreSchema}.patients
+      SET firstName = ?,
+          lastName = ?,
+          gender = ?,
+          mobile = ?,
+          dateOfBirth = ?,
+          age = ?,
+          email = ?,
+          bloodPressure = ?,
+          injury = ?,
+          bloodGroup = ?,
+          address = ?
+      WHERE id = ?
+      `,
+      [
+        patientData.firstName,
+        patientData.lastName,
+        patientData.gender,
+        patientData.mobile,
+        patientData.dateOfBirth,
+        patientData.age,
+        patientData.email,
+        patientData.bloodPressure,
+        patientData.injury,
+        patientData.bloodGroup,
+        patientData.address,
+        patientData.id,
+      ]
+    );
+    return result;
+  } catch (error) {
+    console.error('Error updating patient:', error);
+    throw error; // Or handle the error accordingly
+  }
+}
+
