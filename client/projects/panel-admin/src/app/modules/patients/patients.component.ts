@@ -117,20 +117,22 @@ export class PatientsComponent {
     });
   }
 
-  editPatiet(
-    id: number,
+  editPatiet() {}
+
+  deletePatient(
+    row: PatientDTO,
     enterAnimationDuration: string,
     exitAnimationDuration: string
   ) {
-    
-    this.dialog.open(DeletePatientDialogComponent, {
+    const dialogRef = this.dialog.open(DeletePatientDialogComponent, {
       width: '250px',
       enterAnimationDuration,
       exitAnimationDuration,
-      data:this.dataSource
+      data: row,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getData();
     });
   }
-
-  deletePatient(id: number) {}
   ngOnDestroy(): void {}
 }

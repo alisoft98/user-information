@@ -380,9 +380,19 @@ export async function addPatient(patientData: PatientDTO) {
       }
     );
     return result;
-  } catch (error) { 
+  } catch (error) {
     console.log();
     console.error("Error inserting patient data:", error);
     throw error;
   }
+}
+export async function deletePatient(id: number) {
+  const result = await query<RowDataPacket>(
+    `DELETE FROM ${coreSchema}.patients
+    WHERE id =?`,
+    {
+      values: [id],
+    }
+  );
+  return result;
 }

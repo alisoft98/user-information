@@ -7,7 +7,7 @@ import multer from "multer";
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'public/imgProfile');
+    cb(null, "public/imgProfile");
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);
@@ -36,18 +36,35 @@ routes.post(
     if (buildResponse) {
       return res.status(200).json(buildResponse);
     }
-    return formData
+    return formData;
   })
 );
 
-routes.post("/admin/uploadImage", uploadImgProfile.single("file"), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ error: "No file uploaded" });
+routes.post(
+  "/admin/uploadImage",
+  uploadImgProfile.single("file"),
+  (req, res) => {
+    if (!req.file) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
+    res.json({
+      message: "File uploaded seccessfully",
+      filename: req.file.filename,
+    });
+    const imagePath = req.file.path;
+    res.json({ imagePath });
   }
-  res.json({
-    message: "File uploaded seccessfully",
-    filename: req.file.filename,
-  });
-  const imagePath = req.file.path;
-  res.json({ imagePath });
-});
+);
+
+routes.delete(
+  "/admin/deletePatient/:idPateint",
+  asyncHandler(async function deletePatient(
+    req: Request,
+    res: Response
+  ): Promise<any> {
+    const idPateint = +req.params.idPateint;
+    await PatientService.deletePatient(idPateint);
+    const buildResponse = BuildResponse.deleted(idPateint);
+    return res.status(200).json(buildResponse);
+  })
+);

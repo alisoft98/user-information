@@ -94,31 +94,34 @@ export class AddPatientComponent extends BaseComponent implements OnInit {
     });
   }
   onSubmit() {
-    if(this.profileImg){
-    const imgProfile = this.profileImg;
-    const payload: PatientDTO = {
-      firstName: this.form.value.firstName,
-      lastName: this.form.value.lastName,
-      gender: this.form.value.gender,
-      mobile: this.form.value.mobile,
-      dateOfBirth: this.form.value.dateOfBirth as String,
-      address: this.form.value.address,
-      email: this.form.value.email,
-      age: this.form.value.age,
-      maritalStatus: this.form.value.maritalStatus,
-      bloodGroup: this.form.value.bloodGroup,
-      bloodPressure: this.form.value.bloodPressure,
-      sugarLevel: this.form.value.sugarLevel,
-      injury: this.form.value.injury,
-      profileImage: imgProfile.name,
-    };
-    this.service.addPatient(payload).subscribe(res => {
-    });
+    if (this.profileImg) {
+      const imgProfile = this.profileImg;
+      const payload: PatientDTO = {
+        firstName: this.form.value.firstName,
+        lastName: this.form.value.lastName,
+        gender: this.form.value.gender,
+        mobile: this.form.value.mobile,
+        dateOfBirth: this.form.value.dateOfBirth as String,
+        address: this.form.value.address,
+        email: this.form.value.email,
+        age: this.form.value.age,
+        maritalStatus: this.form.value.maritalStatus,
+        bloodGroup: this.form.value.bloodGroup,
+        bloodPressure: this.form.value.bloodPressure,
+        sugarLevel: this.form.value.sugarLevel,
+        injury: this.form.value.injury,
+        profileImage: imgProfile.name,
+      };
+      this.service.addPatient(payload).subscribe((res: any) => {
+        if (res.code === 200) {
+          this.form.reset()
+          this.toastrService.success('pateint add successfully');
+        }else{
+          this.toastrService.error('can not add patient...!')
+        }
+      });
+    }
   }
-
-  }
-
- 
 
   trackByFn() {}
 

@@ -42,6 +42,11 @@ export class PatientsService {
     const formData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
     return this.#http.post(`${this.config}admin/uploadImage`, formData);
+  }
 
+  deletePatient(id: number | undefined): Observable<number> {
+    return this.#http.delete<number>(
+      `${this.config}/admin/deletePatient/${id}`
+    );
   }
 }

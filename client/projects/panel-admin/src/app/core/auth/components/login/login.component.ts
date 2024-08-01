@@ -9,17 +9,17 @@ import {
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ThemeManagerService } from '../../../../shared/client-services/theme-manager.service';
-import { AuthService } from '../../../services/auth.service';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { AdminService } from '../../../services/admin.service';
 import { filter } from 'rxjs';
+import { ThemeManagerService } from '../../../../shared/client-services/theme-manager.service';
+import { AdminService } from '../../../services/admin.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -51,10 +51,8 @@ export class LoginComponent {
   role!:string;
 
   #router = inject(Router);
-  #route = inject(ActivatedRoute);
   #authService = inject(AuthService);
   #toastrService = inject(ToastrService);
-  #adminService = inject(AdminService);
 
   private themeManager = inject(ThemeManagerService);
   theme = this.themeManager.theme;
