@@ -28,7 +28,9 @@ class PatientService {
     const data = await updatePatient(formData);
     if (data) {
       return { message: "ok", data };
-    } 
+    } else {
+      return null;
+    }
   }
 
   public static async deletePatient(id: number) {

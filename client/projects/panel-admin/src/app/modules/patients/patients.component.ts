@@ -12,6 +12,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { environment } from '../../environments/environment';
 import { DeletePatientDialogComponent } from './delete-patient-dialog/delete-patient-dialog.component';
 import { EditPatientDialogComponent } from './edit-patient-dialog/edit-patient-dialog.component';
+import { AddPatientComponent } from './add-patient/add-patient.component';
 
 @Component({
   selector: 'app-patients',
@@ -30,12 +31,12 @@ export class PatientsComponent {
     'dateOfBirth',
     'age',
     'email',
-    'maritalStatus',
+    // 'maritalStatus',
     'address',
-    'bloodGroup',
-    'bloodPressure',
-    'sugarLevel',
-    'injury',
+    // 'bloodGroup',
+    // 'bloodPressure',
+    // 'sugarLevel',
+    // 'injury',
     'action',
   ];
   dataSource = new MatTableDataSource<PatientDTO>();
@@ -52,36 +53,25 @@ export class PatientsComponent {
   ngOnInit(): void {
     this.getData();
   }
-
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
-
-  /**
-   * This is the get function
-   * @returns returns array of UserData
-   */
   getData() {
     this.service.getPatients().subscribe((response: any) => {
-      debugger;
-      const data = response.data.map((patient: any) => {
+      const newData = response.data.map((patient: any) => {
         patient.profileImage = patient.profileImage
           ? `${environment.urlProfileImg}${patient.profileImage}`
           : '../../../assets/images/bg-01.png';
         return patient;
       });
-      this.dataSource = new MatTableDataSource(data);
+      this.dataSource = new MatTableDataSource(newData);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
   }
 
-  /**
-   * This is the get function
-   * @param event This is the applyFilter
-   * @returns returns datauser with filter
-   */
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -89,7 +79,6 @@ export class PatientsComponent {
       this.dataSource.paginator.firstPage();
     }
   }
-  /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
@@ -103,7 +92,6 @@ export class PatientsComponent {
 
     this.selection.select(...this.dataSource.data);
   }
-  /** The label for the checkbox on the passed row */
   checkboxLabel(row?: Customers): string {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
@@ -119,7 +107,21 @@ export class PatientsComponent {
     });
   }
 
-  editPatiet(
+  addPateint(enterAnimationDuration: string, exitAnimationDuration: string) {
+    const dialogRef = this.dialog.open(AddPatientComponent, {
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getData();
+    });
+  }
+
+  refreshGrid() {
+    this.getData();
+  }
+
+  editPatient(
     row: PatientDTO,
     enterAnimationDuration: string,
     exitAnimationDuration: string

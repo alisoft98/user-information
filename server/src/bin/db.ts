@@ -398,9 +398,8 @@ export async function deletePatient(id: number) {
   return result;
 }
 export async function updatePatient(patientData: PatientDTO): Promise<any> {
-  try {
-    const result = await query<RowDataPacket[]>(
-      `
+  const result = await query<RowDataPacket>(
+    `
       UPDATE ${coreSchema}.patients
       SET firstName = ?,
           lastName = ?,
@@ -415,7 +414,8 @@ export async function updatePatient(patientData: PatientDTO): Promise<any> {
           address = ?
       WHERE id = ?
       `,
-      [
+    {
+      values: [
         patientData.firstName,
         patientData.lastName,
         patientData.gender,
@@ -428,12 +428,8 @@ export async function updatePatient(patientData: PatientDTO): Promise<any> {
         patientData.bloodGroup,
         patientData.address,
         patientData.id,
-      ]
-    );
-    return result;
-  } catch (error) {
-    console.error('Error updating patient:', error);
-    throw error; // Or handle the error accordingly
-  }
+      ],
+    }
+  );
+  return result;
 }
-

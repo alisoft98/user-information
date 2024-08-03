@@ -1,4 +1,4 @@
-import { AsyncPipe, CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule, NgOptimizedImage } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PatientsComponent } from './patients.component';
@@ -27,6 +27,7 @@ import { EditPatientDialogComponent } from './edit-patient-dialog/edit-patient-d
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, MatDialogTitle } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 export const routes: Routes = [
@@ -73,6 +74,10 @@ export const routes: Routes = [
     MatDialogTitle,
     MatDialogContent,
     MatListModule,
+    MatTooltipModule,
+    NgOptimizedImage
+
+    
   ],
   exports: [PatientsComponent],
 })

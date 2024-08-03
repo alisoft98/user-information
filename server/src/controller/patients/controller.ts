@@ -61,7 +61,7 @@ routes.put(
   asyncHandler(async function updatePatient(req: Request, res: Response) {
     const formData = req.body;
     const data = await PatientService.updatePatient(formData);
-    const buildResponse = BuildResponse.get(data);
+    const buildResponse = BuildResponse.updated(data);
     if (buildResponse) {
       return res.status(200).json(buildResponse);
     }

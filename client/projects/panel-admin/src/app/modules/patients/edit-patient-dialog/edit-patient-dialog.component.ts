@@ -51,12 +51,16 @@ export class EditPatientDialogComponent extends BaseComponent {
   });
 
   onSubmit() {
-    this.service.updatePatient(this.form.value).subscribe(res => {});
+    this.service.updatePatient(this.form.value).subscribe((res: any) => {
+      if (res.code === 200) {
+        this.toastrService.success('the data has beed updated!')
+      }
+    });
   }
 
   updatePatient() {
     this.form.patchValue({
-      id:this.patientData.id,
+      id: this.patientData.id,
       firstName: this.patientData.firstName,
       lastName: this.patientData.lastName,
       gender: this.patientData.gender,

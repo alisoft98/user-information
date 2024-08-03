@@ -121,7 +121,7 @@
           matInput
           [matDatepicker]="picker"
           formControlName="dateOfBirth" />
-        <mat-hint>MM/DD/YYYY</mat-hint>
+        <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
         <mat-datepicker-toggle matIconSuffix [for]="picker">
           <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
         </mat-datepicker-toggle>
@@ -290,18 +290,12 @@
       </mat-form-field>
     </div>
 
-    <div class="desktop:flex desktop:justify-end w-full gap-3 mt-4">
-      <!-- *****CancelBTN***** -->
-      <button mat-stroked-button type="button" class="w-full">Cancel</button>
-      <!-- *****SaveBTN***** -->
-      <button
-        class="w-full desktop:m-0 tablet:mt-2 mobile:mt-2"
-        mat-flat-button
-        data-testid="login-button"
-        color="primary"
-        type="submit">
-        Update Profile
-      </button>
-    </div>
+
+    <mat-dialog-actions>
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button mat-dialog-close cdkFocusInitial type="submit">Update</button>
+    </mat-dialog-actions>
+ 
   </form>
 </mat-dialog-content>
+
