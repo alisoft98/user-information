@@ -5,7 +5,6 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { UsersComponent } from './users/components/users.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DoctorDashboardComponent } from './doctor-dashboard/doctor-dashboard.component';
-import { AddPatientComponent } from './patients/add-patient/add-patient.component';
 
 const routes: Routes = [
   {

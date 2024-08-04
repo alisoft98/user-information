@@ -48,33 +48,28 @@
             href="{{ sub.link }}">
             <div class="w-full flex items-center justify-between p-2">
               <div class="flex gap-2">
-                <span class="material-symbols-outlined">
-                  {{ sub.icon }}
+                @if (isActive(sub.url)) {
+                <span
+                  class="material-symbols-outlined"
+                  [ngClass]="{ 'text-blue': isActive(sub.url) }">
+                  chevron_right
                 </span>
-                <span class="text-base">
+                }
+                <span
+                  class="text-base"
+                  [ngClass]="{ 'text-blue': isActive(sub.url) }">
                   {{ sub.submenu_name }}
                 </span>
               </div>
-              <!-- @if(sub.submenu_name){
-                <div class="flex">
-                  <mat-icon class="menu-button" *ngIf="!expandedMenus[sub.menu_id]"
-                  >add</mat-icon
-                  >
-                  <mat-icon class="menu-button" *ngIf="expandedMenus[sub.menu_id]"
-                  >remove</mat-icon
-                  >
-                </div>
-              } -->
             </div>
-            
           </a>
         </div>
       </div>
     </div>
     } }@empty {
-      <div class="flex items-center justify-center">
-        <app-loader/>
-      </div>
+    <div class="flex items-center justify-center">
+      <app-loader />
+    </div>
     }
   </mat-sidenav>
 

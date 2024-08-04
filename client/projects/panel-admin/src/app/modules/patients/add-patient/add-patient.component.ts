@@ -1,23 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { UniqueNicknameValidator } from '../../../shared/validators/unique-nickname.validators';
+import { Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { BaseComponent } from '../../../shared/components/base/base.component';
-import { banWords } from '../../../shared/validators/ban-words.validators';
-import { passswordShouldMatch } from '../../../shared/validators/password-should-math.validator';
-import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { AsyncPipe, CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
-import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { ImgUploaderComponent } from '../../../shared/components/img-uploader/img-uploader.component';
-import { PatientsService } from '../services/patients.service';
-import { PatientDTO } from '../model/patients.model';
 import { AgePipe } from '../../../shared/pipes/age.pipe';
+import { banWords } from '../../../shared/validators/ban-words.validators';
+import { UniqueNicknameValidator } from '../../../shared/validators/unique-nickname.validators';
+import { PatientDTO } from '../model/patients.model';
+import { PatientsService } from '../services/patients.service';
 
 @Component({
   selector: 'app-add-patient',
@@ -35,7 +24,7 @@ export class AddPatientComponent extends BaseComponent implements OnInit {
   maritalStatus: string[] = ['Single', 'Married'];
   bloodGroups: string[] = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
   sugarLevels: string[] = ['Normal', 'Prediabetes', 'Diabetes'];
-  title = 'Patient Information ';
+  title = 'Add New Patient';
   profileImg: File | null = null;
 
   constructor(private agePipe: AgePipe) {

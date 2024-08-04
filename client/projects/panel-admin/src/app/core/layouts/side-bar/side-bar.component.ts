@@ -1,4 +1,10 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
@@ -27,7 +33,7 @@ import { NavItemsService } from '../../services/nav-items.service';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
 import { Menu } from '../types/navItem';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { LoaderComponent } from '../../../shared/components/loader/loader.component';
 @Component({
   selector: 'side-bar',
@@ -50,7 +56,7 @@ import { LoaderComponent } from '../../../shared/components/loader/loader.compon
     RouterLinkActive,
     MatTooltipModule,
     MatExpansionModule,
-    LoaderComponent
+    LoaderComponent,
   ],
   templateUrl: './side-bar.component.html',
   styleUrl: './side-bar.component.scss',
@@ -58,11 +64,9 @@ import { LoaderComponent } from '../../../shared/components/loader/loader.compon
     trigger('expandCollapse', [
       state('collapsed', style({ height: '0px', opacity: 0 })),
       state('expanded', style({ height: '*', opacity: 1 })),
-      transition('collapsed <=> expanded', [
-        animate('300ms ease-in-out')
-      ])
-    ])
-  ]
+      transition('collapsed <=> expanded', [animate('300ms ease-in-out')]),
+    ]),
+  ],
 })
 export class SideBarComponent implements OnInit, OnDestroy {
   menuItem: NavItem[] = [];
@@ -94,10 +98,6 @@ export class SideBarComponent implements OnInit, OnDestroy {
       map(result => result.matches),
       shareReplay()
     );
- 
-
-
-    
 
   constructor(
     private navService: NavItemsService,
@@ -131,7 +131,6 @@ export class SideBarComponent implements OnInit, OnDestroy {
     return username.charAt(0);
   }
   toggleSubmenu(index: number) {
-
     this.expandedMenus[index] = !this.expandedMenus[index];
   }
 
@@ -139,7 +138,6 @@ export class SideBarComponent implements OnInit, OnDestroy {
     this.navService.getNavItems().subscribe({
       next: (res: any) => {
         this.groupedData = this.groupByMenu(res.data, 'menu_name');
-        
       },
       error: e => console.error(e),
       complete: () => {},
@@ -163,6 +161,9 @@ export class SideBarComponent implements OnInit, OnDestroy {
 
   trackByItem(index: number, item: any) {
     return item.menu_id;
+  }
+  isActive(link: string): boolean {
+    return this.router.url === link;
   }
 
   trackByFn(index: number, item: any): any {

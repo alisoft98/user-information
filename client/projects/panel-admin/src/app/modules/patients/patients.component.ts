@@ -1,18 +1,17 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import { Component, inject, Input, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { take } from 'rxjs';
+import { environment } from '../../environments/environment';
 import { AddUserInfoDialogComponent } from '../users/components/add-user-info-dialog/add-user-info-dialog.component';
 import { Customers } from '../users/models/customers';
 import { CustomersService } from '../users/services/customers.service';
-import { PatientDTO } from './model/patients.model';
-import { SelectionModel } from '@angular/cdk/collections';
-import { environment } from '../../environments/environment';
+import { AddPatientComponent } from './add-patient/add-patient.component';
 import { DeletePatientDialogComponent } from './delete-patient-dialog/delete-patient-dialog.component';
 import { EditPatientDialogComponent } from './edit-patient-dialog/edit-patient-dialog.component';
-import { AddPatientComponent } from './add-patient/add-patient.component';
+import { PatientDTO } from './model/patients.model';
 
 @Component({
   selector: 'app-patients',

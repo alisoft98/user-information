@@ -15,7 +15,6 @@ import { PatientDTO } from '../model/patients.model';
 export class EditPatientDialogComponent extends BaseComponent {
   genders: string[] = ['Male', 'Female'];
   bloodGroups: string[] = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
-  patientName = 'aliakbar esmaeili';
   service = inject(PatientsService);
   patientData: PatientDTO;
   matcher = new ErrorStateMatcher();
@@ -27,6 +26,7 @@ export class EditPatientDialogComponent extends BaseComponent {
     super();
     this.patientData = data;
     this.updatePatient();
+
   }
   form = this.fb.group({
     id: [''],
