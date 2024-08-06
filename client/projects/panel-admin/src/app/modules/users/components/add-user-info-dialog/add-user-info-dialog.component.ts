@@ -88,15 +88,15 @@ export class AddUserInfoDialogComponent implements OnInit {
   constructor(private service: CustomersService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.skiil$ = this.service
-      .getSkills()
-      .pipe(tap(skills => this.buildSkillControls(skills)));
-    // for get value during time
-    // this.form.controls.firstName.valueChanges.pipe(
-    //   debounceTime(100),
-    //   distinctUntilChanged()
-    // ).subscribe((res)=>{
-    // })
+    // this.skiil$ = this.service
+    //   .getSkills()
+    //   .pipe(tap(skills => this.buildSkillControls(skills)));
+    // // for get value during time
+    // // this.form.controls.firstName.valueChanges.pipe(
+    // //   debounceTime(100),
+    // //   distinctUntilChanged()
+    // // ).subscribe((res)=>{
+    // // })
   }
   addPhone() {
     this.form.controls.phones.insert(

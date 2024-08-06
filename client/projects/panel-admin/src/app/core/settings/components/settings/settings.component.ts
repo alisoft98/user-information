@@ -131,7 +131,7 @@ export class SettingsComponent
   trackByFn() {}
 
   getuserSkills() {
-    this.skills$ = this.userService.getSkills();
+    // this.skills$ = this.userService.getSkills();
     
   }
 

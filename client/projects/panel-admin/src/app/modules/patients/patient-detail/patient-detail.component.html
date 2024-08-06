@@ -1,0 +1,177 @@
+<!-- <div *ngFor="let patient of patientDetailSignal()">
+    <h3>{{ patient?.firstName }}</h3>
+    <p>{{ patient?.lastName }}</p>
+  </div> -->
+
+<div class="grid grid-cols-6 gap-4">
+  <div class="col-span-2 p-4">
+    <div>
+      <img
+        src="../../../../assets/images/usrbig4.jpg
+          "
+        alt=""
+        width="100%"
+        height="100%" />
+    </div>
+    <mat-card appearance="outlined" class="mt-4">
+      <mat-card-content>
+        <h2 class="text-xs font-medium">About Patient</h2>
+        <p class="text-sm opacity-70">
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book. It has survived not only
+          five centuries, but also the leap into electronic typesetting,
+          remaining essentially unchanged.
+        </p>
+        <small class="text-sm opacity-45 mb-3">Email address:</small>
+        <p class="text-sm opacity-70">johngmail.com</p>
+        <hr class="opacity-40 mb-3" />
+
+        <small class="text-sm opacity-45">Phone:</small>
+        <p class="text-sm opacity-70">+91 1234567890</p>
+        <hr class="opacity-40 mb-3" />
+
+        <small class="text-sm opacity-45">Address:</small>
+        <p class="text-sm opacity-70">
+          345, Sarju Appt., Mota Varacha, Surat Gujarat, India.
+        </p>
+        <hr class="opacity-40" />
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <section class="col-span-4">
+    <mat-card appearance="outlined" class="mt-4 mr-4">
+      <mat-card-content>
+        <h2 class="text-xs font-medium">About</h2>
+        <p class="text-sm opacity-70">
+          It is also used to identify any abnormal tissue in the uterine cavity,
+          such as uterine fibroids, endometrial polyps, scar tissue, or retained
+          pregnancy tissue, the presence of which may be suggested by history or
+          previous tests such as a hysterosalpingogram (x-ray of the uterus and
+          tubes). This procedure is done in the office here at IVF New England,
+          and is done by one of the physicians. Approximately an hour before the
+          exam we suggest that you take Ibuprofen 600 mg (Motrin/Advil) or a
+          similar medication to minimize some mild to moderate cramping that you
+          may experience during the procedure.
+        </p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card appearance="outlined" class="mt-4 mr-4">
+      <mat-card-content>
+        <h2 class="text-xs font-medium">General Report</h2>
+        <div class="flex justify-between">
+          <p class="font-medium">Heart Beat</p>
+          <span>85</span>
+        </div>
+        <mat-progress-bar mode="determinate" value="85"></mat-progress-bar>
+        <div class="flex justify-between mt-5">
+          <p class="font-medium">Blood Pressure</p>
+          <span>52</span>
+        </div>
+        <mat-progress-bar mode="determinate" value="52"></mat-progress-bar>
+        <div class="flex justify-between mt-5">
+          <p class="font-medium">Sugar</p>
+          <span>63</span>
+        </div>
+        <mat-progress-bar mode="determinate" value="63"></mat-progress-bar>
+        <div class="flex justify-between mt-5">
+          <p class="font-medium">Haemoglobin</p>
+          <span>78%</span>
+        </div>
+        <mat-progress-bar mode="determinate" value="78"></mat-progress-bar>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card appearance="outlined" class="mt-4 mr-4">
+      <mat-card-content>
+        <h2 class="text-xs font-medium">Past Visit History</h2>
+
+        <div class="table-container" fxFlexFill>
+          <table
+            mat-table
+            [dataSource]="dataSource"
+            class="mat-elevation-z8"
+            matSort
+            fxFlexFill>
+            <!-- posidtion Column -->
+            <ng-container matColumnDef="posidtion">
+              <th mat-header-cell *matHeaderCellDef>Posidtion.</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.posidtion }}
+              </td>
+            </ng-container>
+            <!-- Date Column -->
+            <ng-container matColumnDef="Date">
+              <th mat-header-cell *matHeaderCellDef>Date.</th>
+              <td mat-cell *matCellDef="let element">{{ element.date }}</td>
+            </ng-container>
+
+            <!-- Doctor Column -->
+            <ng-container matColumnDef="Doctor">
+              <th mat-header-cell *matHeaderCellDef>Doctor</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.doctor }}
+              </td>
+            </ng-container>
+
+            <!-- Treatment Column -->
+            <ng-container matColumnDef="Treatment">
+              <th mat-header-cell *matHeaderCellDef>Treatment</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.treatment }}
+              </td>
+            </ng-container>
+
+            <!-- Charges Column -->
+            <ng-container matColumnDef="Charges">
+              <th mat-header-cell *matHeaderCellDef>Charges($)</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.charges }}
+              </td>
+            </ng-container>
+            <!-- action Column -->
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef>action</th>
+              <td mat-cell *matCellDef="let element">
+                <div class="flex gap-2">
+                  <button
+                    mat-icon-button
+                    matTooltip="Eidt Patient"
+                    (click)="editPatient(element, '250ms', '150ms')">
+                    <span class="material-symbols-outlined text-blue">
+                      edit
+                    </span>
+                  </button>
+                  <button
+                    matTooltip="Delete Patient"
+                    mat-icon-button
+                    (click)="deletePatient(element, '250ms', '150ms')">
+                    <span
+                      class="material-symbols-outlined text-red cursor-pointer">
+                      delete
+                    </span>
+                  </button>
+                </div>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="4">
+                <div class="text-center">No results</div>
+              </td>
+            </tr>
+          </table>
+          <mat-paginator
+            [pageSizeOptions]="[5, 10, 25, 100]"
+            aria-label="Select page of users"></mat-paginator>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </section>
+</div>

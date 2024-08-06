@@ -50,7 +50,13 @@ export class AddPatientComponent extends BaseComponent implements OnInit {
     address: [''],
     bloodGroup: [''],
     bloodPressure: [''],
+    heartBeat: [''],
+    haemoglobin: [''],
+    doctor: [''],
+    treatment: [''],
     sugarLevel: [''],
+    charges: [''],
+    description: [''],
     injury: [''],
   });
 
@@ -80,25 +86,27 @@ export class AddPatientComponent extends BaseComponent implements OnInit {
         maritalStatus: this.form.value.maritalStatus,
         bloodGroup: this.form.value.bloodGroup,
         bloodPressure: this.form.value.bloodPressure,
+        heartBeat: this.form.value.heartBeat,
+        haemoglobin: this.form.value.haemoglobin,
+        doctor: this.form.value.doctor,
+        charges: this.form.value.charges,
         sugarLevel: this.form.value.sugarLevel,
+        treatment: this.form.value.treatment,
+        description: this.form.value.description,
         injury: this.form.value.injury,
         profileImage: imgProfile.name,
       };
       this.service.addPatient(payload).subscribe((res: any) => {
         if (res.code === 200) {
-          this.form.reset()
+          this.form.reset();
           this.toastrService.success('pateint add successfully');
-        }else{
-          this.toastrService.error('can not add patient...!')
+        } else {
+          this.toastrService.error('can not add patient...!');
         }
       });
     }
   }
-
   trackByFn() {}
-
-  // Get Value Form For Validation
-
   get firstName() {
     return this.form.get('firstName');
   }
@@ -108,7 +116,6 @@ export class AddPatientComponent extends BaseComponent implements OnInit {
   get age() {
     return this.form.get('age');
   }
-
   get gender() {
     return this.form.get('gender');
   }
@@ -118,16 +125,32 @@ export class AddPatientComponent extends BaseComponent implements OnInit {
   get mobile() {
     return this.form.get('mobile');
   }
-
   get address() {
     return this.form.get('address');
   }
-
   get injury() {
     return this.form.get('injury');
   }
   get bloodPressure() {
     return this.form.get('bloodPressure');
+  }
+  get heartBeat() {
+    return this.form.get('heartBeat');
+  }
+  get haemoglobin() {
+    return this.form.get('haemoglobin');
+  }
+  get doctor() {
+    return this.form.get('doctor');
+  }
+  get treatment() {
+    return this.form.get('treatment');
+  }
+  get charges() {
+    return this.form.get('charges');
+  }
+  get description() {
+    return this.form.get('description');
   }
 
   get dateOfBirth() {

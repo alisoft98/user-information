@@ -16,8 +16,9 @@ const storage = multer.diskStorage({
 
 const uploadImgProfile = multer({ storage });
 
+// **** GetAll
 routes.get(
-  "/patients",
+  "/admin/patients",
   asyncHandler(async function getNavItems(req: any, res: any) {
     const data = await PatientService.getPatients();
     const buildResponse = BuildResponse.get(data);
@@ -27,6 +28,21 @@ routes.get(
   })
 );
 
+// **** GetPatientDetial
+routes.get(
+  `/admin/patient-detial/:patientId`,
+  asyncHandler(async (req: Request, res: Response): Promise<any> => {
+    const patientId = +req.params.patientId ;
+    const data = await PatientService.patientDetial(patientId);
+    const buildResponse = BuildResponse.get(data);
+    if (buildResponse) {
+      return res.status(200).json(buildResponse);
+    }
+    return;
+  })
+);
+
+// **** add-patient
 routes.post(
   `/admin/add-patient`,
   asyncHandler(async function addPatient(req: Request, res: Response) {
@@ -39,7 +55,7 @@ routes.post(
     return formData;
   })
 );
-
+// **** uploadImage
 routes.post(
   "/admin/uploadImage",
   uploadImgProfile.single("file"),
@@ -55,7 +71,7 @@ routes.post(
     res.json({ imagePath });
   }
 );
-
+// **** updatePatient
 routes.put(
   "/admin/updatePatient",
   asyncHandler(async function updatePatient(req: Request, res: Response) {
@@ -68,7 +84,7 @@ routes.put(
     return formData;
   })
 );
-
+// **** deletePatient
 routes.delete(
   "/admin/deletePatient/:idPateint",
   asyncHandler(async function deletePatient(

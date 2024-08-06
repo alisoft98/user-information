@@ -28,12 +28,15 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, MatDialogTitle } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { PatientDetailComponent } from './patient-detail/patient-detail.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 export const routes: Routes = [
   { path: 'all-patients', component: PatientsComponent },
   { path: 'add-patient', component: AddPatientComponent },
   { path: 'patient-profile', component: PatientProfileComponent },
+  { path: 'patient-detail/:id', component: PatientDetailComponent },
 ];
 
 @NgModule({
@@ -42,6 +45,7 @@ export const routes: Routes = [
     AddPatientComponent,
     EditPatientDialogComponent,
     DeletePatientDialogComponent,
+    PatientDetailComponent
   ],
   imports: [
     CommonModule,
@@ -75,7 +79,9 @@ export const routes: Routes = [
     MatDialogContent,
     MatListModule,
     MatTooltipModule,
-    NgOptimizedImage
+    NgOptimizedImage,
+    AsyncPipe,
+    MatProgressBarModule
 
     
   ],

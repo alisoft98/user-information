@@ -2,6 +2,7 @@ import {
   addPatient,
   deletePatient,
   getPatients,
+  patientDetail,
   updatePatient,
 } from "../../bin/db";
 import { PatientDTO } from "../../models/patients";
@@ -13,6 +14,15 @@ class PatientService {
       return { message: `ok`, data };
     }
     return null;
+  }
+
+  public static async patientDetial(patientId: number) {
+    const data = await patientDetail(patientId);
+    if (data) {
+      return { message: "ok", data };
+    } else {
+      return null;
+    }
   }
 
   public static async registerPatient(formData: PatientDTO) {

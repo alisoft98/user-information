@@ -61,12 +61,12 @@ import { LoaderComponent } from '../../../shared/components/loader/loader.compon
   templateUrl: './side-bar.component.html',
   styleUrl: './side-bar.component.scss',
   animations: [
-    trigger('expandCollapse', [
-      state('collapsed', style({ height: '0px', opacity: 0 })),
-      state('expanded', style({ height: '*', opacity: 1 })),
-      transition('collapsed <=> expanded', [animate('300ms ease-in-out')]),
-    ]),
-  ],
+    trigger('iconRotate', [
+      state('collapsed', style({ transform: 'rotate(0deg)' })),
+      state('expanded', style({ transform: 'rotate(180deg)' })),
+      transition('collapsed <=> expanded', animate('200ms ease-in-out'))
+    ])
+  ]
 })
 export class SideBarComponent implements OnInit, OnDestroy {
   menuItem: NavItem[] = [];
@@ -132,6 +132,10 @@ export class SideBarComponent implements OnInit, OnDestroy {
   }
   toggleSubmenu(index: number) {
     this.expandedMenus[index] = !this.expandedMenus[index];
+  }
+
+  toggleMenu(itemId: number): void {
+    this.expandedMenus[itemId] = !this.expandedMenus[itemId];
   }
 
   getNavItems() {

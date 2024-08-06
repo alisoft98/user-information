@@ -14,4 +14,10 @@ export interface PatientDTO {
   sugarLevel?: string;
   injury?: string;
   profileImage?: string;
+  heartBeat: string;
+  haemoglobin: string;
+  doctor: string;
+  treatment: string;
+  charges: string;
+  description: string;
 }

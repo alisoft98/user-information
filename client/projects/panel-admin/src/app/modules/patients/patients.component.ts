@@ -1,24 +1,32 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, inject, Input, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import {
+  ChangeDetectorRef,
+  Component,
+  inject,
+  Input,
+  ViewChild,
+} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { environment } from '../../environments/environment';
+import { BaseComponent } from '../../shared/components/base/base.component';
 import { AddUserInfoDialogComponent } from '../users/components/add-user-info-dialog/add-user-info-dialog.component';
 import { Customers } from '../users/models/customers';
-import { CustomersService } from '../users/services/customers.service';
 import { AddPatientComponent } from './add-patient/add-patient.component';
 import { DeletePatientDialogComponent } from './delete-patient-dialog/delete-patient-dialog.component';
 import { EditPatientDialogComponent } from './edit-patient-dialog/edit-patient-dialog.component';
 import { PatientDTO } from './model/patients.model';
+import { PatientsService } from './services/patients.service';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-patients',
   templateUrl: './patients.component.html',
   styleUrl: './patients.component.scss',
 })
-export class PatientsComponent {
+export class PatientsComponent extends BaseComponent {
+  service = inject(PatientsService);
   customers: Customers[] = [];
   displayedColumns: string[] = [
     'select',
@@ -45,10 +53,8 @@ export class PatientsComponent {
   selection = new SelectionModel<any>(true, []);
   imgPatient: any;
   imgTest: any;
-  readonly dialog = inject(MatDialog);
-
-  constructor(private service: CustomersService) {}
-
+  wopts: XLSX.WritingOptions = { bookType: 'xlsx', type: 'array' };
+  fileName: string = 'SheetJS.xlsx';
   ngOnInit(): void {
     this.getData();
   }
@@ -70,7 +76,6 @@ export class PatientsComponent {
     });
   }
 
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -91,7 +96,7 @@ export class PatientsComponent {
 
     this.selection.select(...this.dataSource.data);
   }
-  checkboxLabel(row?: Customers): string {
+  checkboxLabel(row?: PatientDTO): string {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
@@ -116,8 +121,45 @@ export class PatientsComponent {
     });
   }
 
+  patientDetial(id: number) {
+    this.router.navigate(['aliakbar/patients/patient-detail', id]);
+  }
+
   refreshGrid() {
     this.getData();
+  }
+
+  export() {
+    const data = this.dataSource.data;
+    const aoaData: any[][] = [
+      [
+        'id',
+        'Name',
+        'Gender',
+        'Mobile',
+        'dateOfBirth',
+        'Age',
+        'Email',
+        'Address',
+      ],
+      ...data.map(item => [
+        item.id,
+        item.firstName + ' ' + item.lastName,
+        item.gender,
+        item.mobile,
+        item.dateOfBirth,
+        item.age,
+        item.email,
+        item.address,
+      ]), // Adjust fields as per your PatientDTO
+    ];
+    const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(aoaData);
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    XLSX.writeFile(wb, this.fileName);
   }
 
   editPatient(

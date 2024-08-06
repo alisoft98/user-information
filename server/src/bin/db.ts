@@ -354,13 +354,22 @@ export async function getPatients() {
   `);
   return patients;
 }
+export async function patientDetail(patientId: number): Promise<any> {
+  const result = await query<RowDataPacket>(
+    `SELECT * FROM ${coreSchema}.patients
+    WHERE id=?`,
+    { values: [patientId] }
+  );
+  return result;
+}
 export async function addPatient(patientData: PatientDTO) {
   try {
     const result = await query<RowDataPacket[]>(
       `INSERT INTO ${coreSchema}.patients
       (firstName, lastName, gender, mobile, dateOfBirth, age, email, maritalStatus, address,
-        bloodGroup, bloodPressure, sugarLevel, injury, profileImage)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        bloodGroup, bloodPressure, sugarLevel, injury, profileImage,heartBeat,
+        haemoglobin,doctor,treatment,charges,description)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       {
         values: [
           patientData.firstName,
@@ -377,6 +386,12 @@ export async function addPatient(patientData: PatientDTO) {
           patientData.sugarLevel,
           patientData.injury,
           patientData.profileImage,
+          patientData.heartBeat,
+          patientData.haemoglobin,
+          patientData.doctor,
+          patientData.treatment,
+          patientData.charges,
+          patientData.description,
         ],
       }
     );

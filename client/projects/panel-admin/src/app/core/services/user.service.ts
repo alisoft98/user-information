@@ -25,15 +25,15 @@ export class UserService {
     return this.#http.put<User>(`${this.config}user/updateProfile`, data);
   }
 
-  getSkills(): Observable<string[]> {
-    return this.#http
-      .get<{
-        code: number;
-        data: { skill_id: number; skill_name: string }[];
-        message: string;
-      }>(`${this.config}user/getSkills`)
-      .pipe(map(res => res.data.map(skill => skill.skill_name)));
-  }
+  // getSkills(): Observable<string[]> {
+  //   return this.#http
+  //     .get<{
+  //       code: number;
+  //       data: { skill_id: number; skill_name: string }[];
+  //       message: string;
+  //     }>(`${this.config}user/getSkills`)
+  //     .pipe(map(res => res.data.map(skill => skill.skill_name)));
+  // }
 
   forgetPassword(email: any): Observable<{}> {
     return this.#http.get(`${this.config}user/forgot-passsword/${email}`);

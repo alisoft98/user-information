@@ -27,7 +27,7 @@
         (click)="refreshGrid()">
         <mat-icon>refresh</mat-icon>
       </button>
-      <div matTooltip="XLSX">
+      <div matTooltip="XLSX" class="cursor-pointer" (click)="export()">
         <img
           src="../../../assets/images/xlsx.png"
           width="32"
@@ -82,7 +82,11 @@
             <th mat-header-cell *matHeaderCellDef>ProfileImage</th>
             <td mat-cell *matCellDef="let element">
               <div class="imgProfile">
-                <img crossorigin="anonymous" [src]="element.profileImage" width="50" height="50" />
+                <img
+                  crossorigin="anonymous"
+                  [src]="element.profileImage"
+                  width="50"
+                  height="50" />
               </div>
             </td>
           </ng-container>
@@ -174,14 +178,22 @@
             <th mat-header-cell *matHeaderCellDef>action</th>
             <td mat-cell *matCellDef="let element">
               <div class="flex gap-2">
+                <button mat-icon-button matTooltip="View Detail"
+                (click)="patientDetial(element.id)">
+                  <span class="material-symbols-outlined text-blue">
+                    Visibility
+                  </span>
+                </button>
                 <button
                   mat-icon-button
+                  matTooltip="Eidt Patient"
                   (click)="editPatient(element, '250ms', '150ms')">
                   <span class="material-symbols-outlined text-blue">
                     edit
                   </span>
                 </button>
                 <button
+                  matTooltip="Delete Patient"
                   mat-icon-button
                   (click)="deletePatient(element, '250ms', '150ms')">
                   <span
