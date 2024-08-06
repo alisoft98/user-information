@@ -21,6 +21,7 @@
             "index": "projects/panel-admin/src/index.html",
             "browser": "projects/panel-admin/src/main.ts",
             "polyfills": [
+              "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
@@ -43,7 +44,6 @@
             "server": "projects/panel-admin/src/main.server.ts",
             "prerender": false,
             "ssr": false
-           
           },
           "configurations": {
             "production": {
@@ -94,7 +94,8 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "polyfills": [
-            
+              "zone.js",
+              "zone.js/testing"
             ],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
@@ -103,7 +104,6 @@
                 "glob": "**/*",
                 "input": "projects/panel-admin/src/assets",
                 "output": "/assets/"
-
               }
             ],
             "styles": [
@@ -143,7 +143,8 @@
           "options": {
             "tsConfig": "projects/ali-lib/tsconfig.spec.json",
             "polyfills": [
-    
+              "zone.js",
+              "zone.js/testing"
             ]
           }
         }

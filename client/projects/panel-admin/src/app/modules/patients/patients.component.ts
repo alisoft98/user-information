@@ -1,14 +1,14 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import {
-  ChangeDetectorRef,
   Component,
   inject,
   Input,
-  ViewChild,
+  ViewChild
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import * as XLSX from 'xlsx';
 import { environment } from '../../environments/environment';
 import { BaseComponent } from '../../shared/components/base/base.component';
 import { AddUserInfoDialogComponent } from '../users/components/add-user-info-dialog/add-user-info-dialog.component';
@@ -18,7 +18,6 @@ import { DeletePatientDialogComponent } from './delete-patient-dialog/delete-pat
 import { EditPatientDialogComponent } from './edit-patient-dialog/edit-patient-dialog.component';
 import { PatientDTO } from './model/patients.model';
 import { PatientsService } from './services/patients.service';
-import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-patients',

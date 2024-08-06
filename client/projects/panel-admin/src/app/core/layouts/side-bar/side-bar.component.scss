@@ -10,7 +10,7 @@
 }
 
 .menu-button.rotated {
-  transform: rotate(180deg);
+  transform: rotate(85deg);
 }
 
 .submenu {
@@ -23,5 +23,6 @@
 
 .submenu.expanded {
   margin: 20px;
+  animation-duration: 2s;
   transform: scaleY(1);
 }

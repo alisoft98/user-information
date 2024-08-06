@@ -1,18 +1,16 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   inject,
   OnInit,
-  signal,
   Signal,
 } from '@angular/core';
-import { BaseComponent } from '../../../shared/components/base/base.component';
-import { PatientsService } from '../services/patients.service';
-import { PatientDTO } from '../model/patients.model';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatTableDataSource } from '@angular/material/table';
-import { SelectionModel } from '@angular/cdk/collections';
+import { environment } from '../../../environments/environment';
+import { BaseComponent } from '../../../shared/components/base/base.component';
+import { PatientDTO } from '../model/patients.model';
+import { PatientsService } from '../services/patients.service';
 
 @Component({
   selector: 'app-patient-detail',
@@ -23,13 +21,10 @@ import { SelectionModel } from '@angular/cdk/collections';
 export class PatientDetailComponent extends BaseComponent implements OnInit {
   service = inject(PatientsService);
   patientId!: number;
-  patientDetailSignal!: Signal<PatientDTO[]>;
+  patientData!: PatientDTO[];
   dataSource = new MatTableDataSource<PatientDTO>();
-  selection = new SelectionModel<any>(true, []);
-
+  config = environment.urlProfileImg;
   displayedColumns: string[] = [
-    'select',
-    'id',
     'Date',
     'Doctor',
     'Treatment',
@@ -39,7 +34,9 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
 
   constructor() {
     super();
+    debugger;
     this.route.params.subscribe((param: any) => {
+      debugger;
       this.patientId = +param.id;
       this.getData(this.patientId);
     });
@@ -48,31 +45,25 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {}
 
   getData(patientId: number) {
-    this.patientDetailSignal = toSignal(this.service.patientDetial(patientId), {
-      initialValue: [],
+    // this.patientDetailSignal = toSignal(this.service.patientDetial(patientId), {
+    //   initialValue: [],
+    // });
+    this.service.patientDetial(patientId).subscribe((response: any) => {
+      const newData = response.map((patient: any) => {
+        patient.profileImage = patient.profileImage
+          ? `${environment.urlProfileImg}${patient.profileImage}`
+          : '../../../assets/images/bg-01.png';
+        return patient;
+      });
+      this.dataSource = new MatTableDataSource(newData);
+      this.patientData = newData
     });
   }
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
 
-  toggleAllRows() {
-    if (this.isAllSelected()) {
-      this.selection.clear();
-      return;
-    }
-
-    this.selection.select(...this.dataSource.data);
-  }
-  checkboxLabel(row?: PatientDTO): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'deselect' : 'select'}all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'}row${
-      row.position + 1
-    }`;
+  getProfileImageUrl(profileImage: string): string {
+    return profileImage
+      ? `${environment.urlProfileImg}${profileImage}`
+      : '../../../assets/images/bg-01.png'; // Fallback image
   }
 
   editPatient(

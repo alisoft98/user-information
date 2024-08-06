@@ -20,7 +20,7 @@ export interface PatientDTO {
   description?: string | undefined | null;
   sugarLevel?: string | undefined | null;
   injury?: string | undefined | null;
-  profileImage?: string ;
+  profileImage?: string | undefined | any;
   profileImageShow?: string ;
 
 }

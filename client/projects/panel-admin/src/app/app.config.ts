@@ -24,8 +24,8 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    // provideZoneChangeDetection({ eventCoalescing: true }),
-    provideExperimentalZonelessChangeDetection(),
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    // provideExperimentalZonelessChangeDetection(),
     provideRouter(routes),
     provideClientHydration(),
     provideAnimationsAsync(),

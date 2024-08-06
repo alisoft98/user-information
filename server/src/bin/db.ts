@@ -368,8 +368,8 @@ export async function addPatient(patientData: PatientDTO) {
       `INSERT INTO ${coreSchema}.patients
       (firstName, lastName, gender, mobile, dateOfBirth, age, email, maritalStatus, address,
         bloodGroup, bloodPressure, sugarLevel, injury, profileImage,heartBeat,
-        haemoglobin,doctor,treatment,charges,description)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        haemoglobin,doctor,treatment,charges,description,date)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       {
         values: [
           patientData.firstName,
@@ -392,6 +392,7 @@ export async function addPatient(patientData: PatientDTO) {
           patientData.treatment,
           patientData.charges,
           patientData.description,
+          new Date()
         ],
       }
     );
