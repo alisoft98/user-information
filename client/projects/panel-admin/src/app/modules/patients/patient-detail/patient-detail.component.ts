@@ -11,6 +11,7 @@ import { environment } from '../../../environments/environment';
 import { BaseComponent } from '../../../shared/components/base/base.component';
 import { PatientDTO } from '../model/patients.model';
 import { PatientsService } from '../services/patients.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-patient-detail',
@@ -20,10 +21,12 @@ import { PatientsService } from '../services/patients.service';
 })
 export class PatientDetailComponent extends BaseComponent implements OnInit {
   service = inject(PatientsService);
+  breakPointObserver = inject(BreakpointObserver);
   patientId!: number;
   patientData!: PatientDTO[];
   dataSource = new MatTableDataSource<PatientDTO>();
   config = environment.urlProfileImg;
+  isMobile: boolean = false;
   displayedColumns: string[] = [
     'Date',
     'Doctor',
@@ -34,15 +37,18 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
 
   constructor() {
     super();
-    debugger;
-    this.route.params.subscribe((param: any) => {
-      debugger;
+    this.activatedRoute.params.subscribe((param: any) => {
       this.patientId = +param.id;
       this.getData(this.patientId);
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.breakPointObserver.observe([Breakpoints.Handset])
+    .subscribe(result=>{
+      this.isMobile = result.matches
+    })
+  }
 
   getData(patientId: number) {
     // this.patientDetailSignal = toSignal(this.service.patientDetial(patientId), {
@@ -56,7 +62,7 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
         return patient;
       });
       this.dataSource = new MatTableDataSource(newData);
-      this.patientData = newData
+      this.patientData = newData;
     });
   }
 

@@ -10,30 +10,31 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
+    data: { breadcrumb: null },
     children: [
       {
         path: 'dashboard',
         component: DashboardComponent,
         title: 'Dashboard',
-        data: { icon: 'dashboard' },
+        data: { breadcrumb: 'dashboard', icon: 'dashboard' },
       },
       {
         path: 'dashboard/doctor-dashboard',
         component: DoctorDashboardComponent,
         title: 'Dashboard',
-        data: { icon: 'dashboard' },
+        data: { breadcrumb: 'dashboard', icon: 'dashboard' },
       },
       {
         path: 'users',
         component: UsersComponent,
         title: 'Users',
-        data: { icon: 'people' },
+        data: { breadcrumb: 'dashboard', icon: 'people' },
       },
       {
         path: 'schedule',
         component: CalendarComponent,
         title: 'Schedule',
-        data: { icon: 'calendar_today' },
+        data: { breadcrumb: 'dashboard', icon: 'calendar_today' },
       },
 
       {
@@ -42,11 +43,13 @@ const routes: Routes = [
           import('../core/settings/settings.module').then(
             s => s.SettingsModule
           ),
+        data: { breadcrumb: 'settings' },
       },
       {
         path: 'patients',
         loadChildren: () =>
           import('./patients/patients.module').then(p => p.PatientsModule),
+        data: { breadcrumb: 'patients' },
       },
       {
         path: '**',

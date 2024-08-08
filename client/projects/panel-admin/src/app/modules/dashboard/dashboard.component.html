@@ -237,9 +237,9 @@
   </mat-grid-list>
 </div> -->
 
-<section class="grid desktop:grid-cols-4 tablet:grid-cols-2 gap-4 p-4">
+<section class="grid desktop:grid-cols-4 tablet:grid-cols-2 gap-4">
   <mat-card appearance="outlined">
-    <mat-card-content>
+    <mat-card-content >
       <app-line-chart>
         <a mat-fab extended routerLink=".">
           <span class="material-symbols-outlined"> face </span>
@@ -292,8 +292,7 @@
   </mat-card>
 </section>
 
-<section
-  class="grid desktop:grid-cols-2 tablet:grid tablet:grid-cols-1 gap-4 pl-4 pr-4">
+<section class="grid desktop:grid-cols-2 tablet:grid tablet:grid-cols-1 gap-4 pt-4">
   <mat-card appearance="outlined">
     <mat-card-content>
       <app-line-chart>
@@ -314,20 +313,21 @@
   </mat-card>
 </section>
 
-<section class="grid-cols-2 gap-4 desktop:grid  desktop:grid-cols-3 tablet:grid-cols-1  p-4">
+<section
+  class="grid-cols-2 desktop:grid desktop:grid-cols-3 tablet:grid-cols-1 gap-4 pt-4">
   <mat-card appearance="outlined" class="desktop:col-span-2">
     <mat-card-content>
       <app-patients [title]="'Booked Appointment'"></app-patients>
     </mat-card-content>
   </mat-card>
-  <mat-card appearance="outlined" >
+  <mat-card appearance="outlined">
     <mat-card-content>
       <app-doctor-list [title]="'Doctor List'"></app-doctor-list>
     </mat-card-content>
   </mat-card>
 </section>
 
-<section class="pr-4 pl-4 pb-4">
+<section class="pt-4">
   <mat-card appearance="outlined">
     <mat-card-content>
       <app-operations></app-operations>

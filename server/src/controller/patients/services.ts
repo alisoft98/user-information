@@ -1,5 +1,6 @@
 import {
   addPatient,
+  checkPhoneNumberExists,
   deletePatient,
   getPatients,
   patientDetail,
@@ -22,6 +23,15 @@ class PatientService {
       return { message: "ok", data };
     } else {
       return null;
+    }
+  }
+
+  public static async checkExistMobile(mobile: string): Promise<boolean> {
+    const data = await checkPhoneNumberExists(mobile);
+    if (data) {
+      return true;
+    } else {
+      return false;
     }
   }
 

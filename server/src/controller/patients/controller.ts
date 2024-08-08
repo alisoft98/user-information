@@ -28,17 +28,18 @@ routes.get(
   })
 );
 
-// **** GetPatientDetial
+// **** checkPhoneNumberExists
 routes.get(
-  `/admin/patient-detial/:patientId`,
+  "/admin/check-phone/:phone",
   asyncHandler(async (req: Request, res: Response): Promise<any> => {
-    const patientId = +req.params.patientId ;
-    const data = await PatientService.patientDetial(patientId);
+    const mobile = req.params.mobile;
+    const data = await PatientService.checkExistMobile(mobile);
     const buildResponse = BuildResponse.get(data);
     if (buildResponse) {
-      return res.status(200).json(buildResponse);
+      return buildResponse;
+    }else{
+      return false
     }
-    return;
   })
 );
 
@@ -53,6 +54,20 @@ routes.post(
       return res.status(200).json(buildResponse);
     }
     return formData;
+  })
+);
+
+// **** GetPatientDetial
+routes.get(
+  `/admin/patient-detial/:patientId`,
+  asyncHandler(async (req: Request, res: Response): Promise<any> => {
+    const patientId = +req.params.patientId;
+    const data = await PatientService.patientDetial(patientId);
+    const buildResponse = BuildResponse.get(data);
+    if (buildResponse) {
+      return res.status(200).json(buildResponse);
+    }
+    return;
   })
 );
 // **** uploadImage

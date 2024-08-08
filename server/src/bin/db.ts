@@ -362,6 +362,20 @@ export async function patientDetail(patientId: number): Promise<any> {
   );
   return result;
 }
+
+export async function checkPhoneNumberExists(mobile: string) {
+  const result = await query<RowDataPacket>(
+    `
+    SELECT mobile FROM ${coreSchema}.patients
+    where mobile=?
+    `,
+    {
+      values: [mobile],
+    }
+  );
+  return result;
+}
+
 export async function addPatient(patientData: PatientDTO) {
   try {
     const result = await query<RowDataPacket[]>(
@@ -392,7 +406,7 @@ export async function addPatient(patientData: PatientDTO) {
           patientData.treatment,
           patientData.charges,
           patientData.description,
-          new Date()
+          new Date(),
         ],
       }
     );
