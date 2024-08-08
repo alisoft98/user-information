@@ -15,18 +15,6 @@ import { filter } from 'rxjs';
   styleUrl: './bread-crumb.component.scss',
 })
 export class BreadCrumbComponent extends BaseComponent {
-  // breadcrumbService = inject(BreadCrumbService);
-
-  // breadcrumbs!: Array<BreadcrumbDTO>;
-  // constructor(){
-  // }
-
-  // ngOnInit(): void {
-  //   this.breadcrumbs = this.breadcrumbService.breadcrumbs;
-  //   debugger;
-  // }
-
-
   breadcrumbs: Array<BreadcrumbDTO> = [];
   cdr= inject(ChangeDetectorRef)
 

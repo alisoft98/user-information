@@ -1,7 +1,8 @@
 .sidenav {
-  width: 240px;
+  width: 260px;
   padding: 0 8px;
   box-sizing: border-box;
+  top: 60px;
 }
 
 .menu-button {
@@ -21,6 +22,5 @@
 
 .submenu.expanded {
   margin: 20px;
-  animation-duration: 2s;
   transform: scaleY(1);
 }

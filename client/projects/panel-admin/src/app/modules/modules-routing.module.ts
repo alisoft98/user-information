@@ -16,7 +16,7 @@ const routes: Routes = [
         path: 'dashboard',
         component: DashboardComponent,
         title: 'Dashboard',
-        data: { breadcrumb: 'dashboard', icon: 'dashboard' },
+        data: { breadcrumb: 'dashboard', icon: 'space_dashboard' },
       },
       {
         path: 'dashboard/doctor-dashboard',

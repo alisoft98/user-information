@@ -40,19 +40,12 @@
           <span class="material-symbols-outlined">
             {{ item.icon }}
           </span>
-          <span class="text-base">
+          <span class="text-base" >
             {{ item.menu_name }}
           </span>
         </div>
-        <!-- <div class="flex" >
-          <mat-icon class="menu-button" *ngIf="!expandedMenus[item.menu_id]"
-            >add</mat-icon
-          >
-          <mat-icon class="menu-button" *ngIf="expandedMenus[item.menu_id]"
-            >remove</mat-icon
-          >
-        </div> -->
-        <div class="flex" (click)="toggleMenu(item.menu_id)">
+
+        <div  (click)="toggleMenu(item.menu_id)">
           <mat-icon
             class="menu-button"
             [@iconRotate]="
@@ -60,12 +53,6 @@
             ">
             chevron_right
           </mat-icon>
-          <!-- <mat-icon
-            class="menu-button"
-            [@iconRotate]="!expandedMenus[item.menu_id] ? 'expanded' : 'collapsed'"
-          >
-            remove
-          </mat-icon> -->
         </div>
       </div>
     </a>
@@ -80,10 +67,9 @@
             mat-list-item
             [routerLink]="sub.url"
             href="{{ sub.link }}">
-            <div class="w-full flex items-center justify-between">
               <div class="flex gap-2">
                 @if (isActive(sub.url)) {
-                <span
+                  <span
                   class="material-symbols-outlined"
                   [ngClass]="{ 'text-blue': isActive(sub.url) }">
                   chevron_right
@@ -95,7 +81,6 @@
                   {{ sub.submenu_name }}
                 </span>
               </div>
-            </div>
           </a>
         </div>
       </div>
