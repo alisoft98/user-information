@@ -1,7 +1,4 @@
-import { ChangeDetectorRef, inject, Injectable } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs';
-import { BreadcrumbDTO } from '../models/breadcrumb';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
