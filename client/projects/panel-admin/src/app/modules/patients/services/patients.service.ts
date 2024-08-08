@@ -25,22 +25,22 @@ export class PatientsService {
 
     return this.#http.request(req);
   }
-
   getFiles(): Observable<any> {
     return this.#http.get(`${this.config}/files`);
   }
-
   getPatients(): Observable<PatientDTO[]> {
     return this.#http.get<PatientDTO[]>(
       `${environment.apiEndPoint}admin/patients`
     );
   }
-
   patientDetial(id: number) {
     return this.#http
       .get<{ data: PatientDTO[] }>(`${this.config}admin/patient-detial/${id}`)
       .pipe(map(response => response.data));
     // Extract the array from the response
+  }
+  checkPhoneNumberExists(phone: string | unknown): Observable<boolean> {
+    return this.#http.get<boolean>(`${this.config}check-phone/${phone}`);
   }
   addPatient(formData: PatientDTO): Observable<PatientDTO[]> {
     return this.#http.post<PatientDTO[]>(
@@ -48,21 +48,18 @@ export class PatientsService {
       formData
     );
   }
-
   uploadImgPateint(file: File) {
     const fileToUpload = file as File;
     const formData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
     return this.#http.post(`${this.config}admin/uploadImage`, formData);
   }
-
   updatePatient(formData: PatientDTO): Observable<PatientDTO[]> {
     return this.#http.put<PatientDTO[]>(
       `${this.config}admin/updatePatient`,
       formData
     );
   }
-
   deletePatient(id: number | undefined): Observable<number> {
     return this.#http.delete<number>(
       `${this.config}/admin/deletePatient/${id}`

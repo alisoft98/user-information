@@ -18,6 +18,7 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./modules/profile.module').then(m => m.ModulesModule),
     canActivate: [authGuard],
+    data: { breadcrumb: 'aliakbar' },
   },
   {
     path: 'not found',

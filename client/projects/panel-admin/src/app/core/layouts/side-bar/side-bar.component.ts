@@ -7,10 +7,11 @@ import {
 } from '@angular/animations';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AsyncPipe, CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -19,22 +20,24 @@ import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {
-  Router,
   RouterLink,
   RouterLinkActive,
-  RouterOutlet,
+  RouterOutlet
 } from '@angular/router';
 import { groupBy } from 'lodash';
-import { Observable, Subject, map, shareReplay, takeUntil } from 'rxjs';
+import { Observable, Subject, map, shareReplay } from 'rxjs';
 import { routes } from '../../../app.routes';
+import { BaseComponent } from '../../../shared/components/base/base.component';
+import { BreadCrumbComponent } from '../../../shared/components/bread-crumb/bread-crumb.component';
+import { LoaderComponent } from '../../../shared/components/loader/loader.component';
+import { BreadcrumbDTO } from '../../../shared/models/breadcrumb';
 import { NavItem } from '../../../shared/models/nav-items';
+import { BreadCrumbService } from '../../../shared/services/bread-crumb.service';
 import { User } from '../../auth/models/user';
 import { NavItemsService } from '../../services/nav-items.service';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
 import { Menu } from '../types/navItem';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { LoaderComponent } from '../../../shared/components/loader/loader.component';
 @Component({
   selector: 'side-bar',
   standalone: true,
@@ -57,18 +60,22 @@ import { LoaderComponent } from '../../../shared/components/loader/loader.compon
     MatTooltipModule,
     MatExpansionModule,
     LoaderComponent,
+    BreadCrumbComponent,
   ],
   templateUrl: './side-bar.component.html',
   styleUrl: './side-bar.component.scss',
   animations: [
     trigger('iconRotate', [
       state('collapsed', style({ transform: 'rotate(0deg)' })),
-      state('expanded', style({ transform: 'rotate(180deg)' })),
-      transition('collapsed <=> expanded', animate('200ms ease-in-out'))
-    ])
-  ]
+      state('expanded', style({ transform: 'rotate(90deg)' })),
+      transition('collapsed <=> expanded', animate('50ms ease-in-out')),
+    ]),
+  ],
 })
-export class SideBarComponent implements OnInit, OnDestroy {
+export class SideBarComponent
+  extends BaseComponent
+  implements OnInit, OnDestroy
+{
   menuItem: NavItem[] = [];
   title = 'material-responsive-sidenav';
   @ViewChild(MatSidenav)
@@ -88,9 +95,10 @@ export class SideBarComponent implements OnInit, OnDestroy {
   isShowing = false;
   showSubSubMenu: boolean = false;
   expandedSubMenus: { [key: number]: { [key: string]: boolean } } = {};
-
   private breakpointObserver = inject(BreakpointObserver);
   rootRoutes = routes.filter(r => r.path);
+  navService = inject(NavItemsService);
+  observer = inject(BreakpointObserver);
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
@@ -99,29 +107,8 @@ export class SideBarComponent implements OnInit, OnDestroy {
       shareReplay()
     );
 
-  constructor(
-    private navService: NavItemsService,
-    private router: Router,
-    private observer: BreakpointObserver
-  ) {
-    // this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    // this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-    // this.mobileQuery.addListener(this._mobileQueryListener);
-  }
-
   ngOnInit(): void {
     this.getNavItems();
-    // this.observer
-    //   .observe(['max-with:800px'])
-    //   .pipe(takeUntil(this.ngUnsubscribe))
-    //   .subscribe(screenSize => {
-    //     if (screenSize.matches) {
-    //       this.isMobile = true;
-    //     } else {
-    //       this.isMobile = false;
-    //     }
-    //   });
-
     this.getUserDataFromLocalStorage();
   }
 

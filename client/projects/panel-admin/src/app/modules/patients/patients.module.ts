@@ -25,18 +25,40 @@ import { AgePipe } from '../../shared/pipes/age.pipe';
 import { DeletePatientDialogComponent } from './delete-patient-dialog/delete-patient-dialog.component';
 import { EditPatientDialogComponent } from './edit-patient-dialog/edit-patient-dialog.component';
 import { MatRadioModule } from '@angular/material/radio';
-import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, MatDialogTitle } from '@angular/material/dialog';
+import {
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogModule,
+  MatDialogTitle,
+} from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PatientDetailComponent } from './patient-detail/patient-detail.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-
+import { MatMenuModule } from '@angular/material/menu';
 
 export const routes: Routes = [
-  { path: 'all-patients', component: PatientsComponent },
-  { path: 'add-patient', component: AddPatientComponent },
-  { path: 'patient-profile', component: PatientProfileComponent },
-  { path: 'patient-detail/:id', component: PatientDetailComponent },
+  {
+    path: 'all-patients',
+    component: PatientsComponent,
+    data: { breadcrumb: 'all-patients' },
+  },
+  {
+    path: 'add-patient',
+    component: AddPatientComponent,
+    data: { breadcrumb: 'add-patients' },
+  },
+  {
+    path: 'patient-profile',
+    component: PatientProfileComponent,
+    data: { breadcrumb: 'patient-profile' },
+  },
+  {
+    path: 'patient-detail/:id',
+    component: PatientDetailComponent,
+    data: { breadcrumb: 'patient-detail' },
+  },
 ];
 
 @NgModule({
@@ -45,7 +67,7 @@ export const routes: Routes = [
     AddPatientComponent,
     EditPatientDialogComponent,
     DeletePatientDialogComponent,
-    PatientDetailComponent
+    PatientDetailComponent,
   ],
   imports: [
     CommonModule,
@@ -81,9 +103,8 @@ export const routes: Routes = [
     MatTooltipModule,
     NgOptimizedImage,
     AsyncPipe,
-    MatProgressBarModule
-
-    
+    MatProgressBarModule,
+    MatMenuModule,
   ],
   exports: [PatientsComponent],
 })

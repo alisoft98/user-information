@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { BaseComponent } from '../../../shared/components/base/base.component';
@@ -7,6 +7,8 @@ import { banWords } from '../../../shared/validators/ban-words.validators';
 import { UniqueNicknameValidator } from '../../../shared/validators/unique-nickname.validators';
 import { PatientDTO } from '../model/patients.model';
 import { PatientsService } from '../services/patients.service';
+import { debounceTime, switchMap } from 'rxjs';
+import { BreadCrumbService } from '../../../shared/services/bread-crumb.service';
 
 @Component({
   selector: 'app-add-patient',
@@ -17,6 +19,7 @@ import { PatientsService } from '../services/patients.service';
 export class AddPatientComponent extends BaseComponent implements OnInit {
   uniqueNickname = inject(UniqueNicknameValidator);
   service = inject(PatientsService);
+  agePipe = inject(AgePipe);
   labelUserName: string = 'UserName';
   labelPassword: string = 'password';
   matcher = new ErrorStateMatcher();
@@ -26,10 +29,8 @@ export class AddPatientComponent extends BaseComponent implements OnInit {
   sugarLevels: string[] = ['Normal', 'Prediabetes', 'Diabetes'];
   title = 'Add New Patient';
   profileImg: File | null = null;
-
-  constructor(private agePipe: AgePipe) {
-    super();
-  }
+  textDirection: 'ltr' | 'rtl' = 'ltr';
+  phoneExists: boolean | null = null;
 
   form = this.fb.group({
     firstName: [
@@ -42,7 +43,7 @@ export class AddPatientComponent extends BaseComponent implements OnInit {
     ],
     lastName: ['', [Validators.required, Validators.minLength(2)]],
     gender: ['Man'],
-    mobile: [''],
+    mobile: ['', Validators.required],
     dateOfBirth: ['', Validators.required],
     age: [null],
     email: ['a@gmail.com', [Validators.required, Validators.email]],
@@ -60,7 +61,14 @@ export class AddPatientComponent extends BaseComponent implements OnInit {
     injury: [''],
   });
 
+  onTouch!: () => void;
+
+  @HostListener('blur')
+  phoneChecked() {
+    this.onTouch();
+  }
   ngOnInit(): void {
+    
     this.service.getStoreProfileImg$.subscribe(res => {
       this.profileImg = res;
     });
@@ -71,6 +79,25 @@ export class AddPatientComponent extends BaseComponent implements OnInit {
       }
     });
   }
+
+  onAutofill(event: any) {
+    console.log('Autofilled:', event.isAutofilled);
+    this.mobile?.valueChanges
+      .pipe(
+        debounceTime(300),
+        switchMap(value => this.service.checkPhoneNumberExists(value))
+      )
+      .subscribe(exist => {
+        this.phoneExists = exist;
+      });
+    // Perform additional actions if needed
+  }
+
+  toggleDirection() {
+    // Example method to toggle text direction
+    this.textDirection = this.textDirection === 'ltr' ? 'rtl' : 'ltr';
+  }
+
   onSubmit() {
     if (this.profileImg) {
       const imgProfile = this.profileImg;

@@ -20,7 +20,7 @@ export abstract class BaseComponent  {
   authService = inject(AuthService);
   cookieService = inject(CookieService);
   userService = inject(UserService);
-  route = inject(ActivatedRoute)
+  activatedRoute = inject(ActivatedRoute)
 
   roles!: TokenPermission[];
   years = this.getYears();
@@ -41,7 +41,7 @@ export abstract class BaseComponent  {
     });
   }
 
-  onCansel() {
+  onCancel() {
     this.router.navigate(['aliakbar'], { skipLocationChange: true });
   }
   private getYears() {

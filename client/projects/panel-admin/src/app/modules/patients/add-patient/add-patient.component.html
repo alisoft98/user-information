@@ -98,9 +98,16 @@
           <ngx-mat-intl-tel-input
             [preferredCountries]="['my']"
             [enablePlaceholder]="true"
+            placeholder="Write your phone number..."
             [enableSearch]="true"
             name="mobile"
-            formControlName="mobile"></ngx-mat-intl-tel-input>
+            [required]="true"
+            formControlName="mobile"
+            (cdkAutofill)="onAutofill($event)"
+            [dir]="textDirection"
+
+            ></ngx-mat-intl-tel-input>
+
           <!-- Error handling -->
           <mat-error
             *ngIf="mobile?.hasError('mobile') && !mobile?.hasError('required')"
@@ -109,9 +116,15 @@
           <mat-error *ngIf="mobile?.hasError('required')"
             >mobile is <strong>required</strong></mat-error
           >
+
+          <mat-error *ngIf="phoneExists === true" class="error">
+            This phone number already exists.
+          </mat-error>
+          <mat-error *ngIf="phoneExists === false" class="success">
+            This phone number is available.
+          </mat-error>
         </mat-form-field>
       </div>
-
       <div class="desktop:grid grid-cols-2 gap-3">
         <!-- *****Year of birth***** -->
         <mat-form-field appearance="outline" class="w-full mb-1">
@@ -193,7 +206,6 @@
           </mat-select>
         </mat-form-field>
       </div>
-
       <div class="desktop:grid grid-cols-1 gap-3">
         <!-- *****Address***** -->
         <mat-form-field
@@ -503,7 +515,6 @@
           >
         </mat-form-field>
       </div>
-
       <div class="desktop:grid grid-cols-2 gap-3 mb-2 border-dashed">
         <app-img-uploader></app-img-uploader>
         <!-- *****description***** -->
